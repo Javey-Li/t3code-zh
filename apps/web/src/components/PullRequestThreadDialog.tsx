@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import {
   AuthOrchestrationOperateScope,
   type EnvironmentId,
@@ -279,7 +280,7 @@ export function PullRequestThreadDialog({
             onClick={() => onOpenChange(false)}
             disabled={preparePullRequestThreadAction.isPending}
           >
-            Cancel
+            <T>Cancel</T>
           </Button>
           <Button
             type="button"

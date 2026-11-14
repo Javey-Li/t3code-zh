@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import {
   AuthOrchestrationOperateScope,
   type EditorId,
@@ -46,7 +47,7 @@ export function KeybindingsConfigWarning({
             );
           }}
         >
-          Open keybindings.json
+          <T>Open keybindings.json</T>
         </Button>
       </span>
     </>

@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { useAuth } from "@clerk/react";
 import type { EnvironmentId } from "@t3tools/contracts";
 import { Link } from "@tanstack/react-router";
@@ -50,7 +51,7 @@ export function HostedEmptyState() {
           <EmptyContent>
             {localEnvironmentOff ? (
               <Button render={<Link to="/settings/connections" />} size="sm">
-                Open Environments
+                <T>Open Environments</T>
               </Button>
             ) : (
               <ol className="w-full space-y-4 text-left">
@@ -80,7 +81,7 @@ function T3ConnectSteps() {
       <SetupStep number={1}>
         {loadFailed ? (
           <Button size="sm" onClick={retryClerkLoad}>
-            Retry sign-in
+            <T>Retry sign-in</T>
           </Button>
         ) : isSignedIn ? (
           <p className="flex items-center gap-1.5 text-muted-foreground">
@@ -89,7 +90,7 @@ function T3ConnectSteps() {
           </p>
         ) : (
           <Button size="sm" disabled={!isLoaded} onClick={openAuthPrompt}>
-            Sign in
+            <T>Sign in</T>
           </Button>
         )}
       </SetupStep>
@@ -112,7 +113,11 @@ function T3ConnectSteps() {
                     return next;
                   }),
               }}
-              empty={<p className="text-xs text-muted-foreground">Waiting for your computer…</p>}
+              empty={
+                <p className="text-xs text-muted-foreground">
+                  <T>Waiting for your computer…</T>
+                </p>
+              }
             />
           </div>
         ) : null}
@@ -129,7 +134,7 @@ function PairingSteps() {
       </SetupStep>
       <SetupStep number={2}>
         <Button render={<Link to="/settings/connections" />} size="sm">
-          Add pairing link
+          <T>Add pairing link</T>
         </Button>
       </SetupStep>
     </>
@@ -154,7 +159,9 @@ function SetupStep({
 function RunOnComputer({ command }: { readonly command: string }) {
   return (
     <>
-      <p>Run on your computer:</p>
+      <p>
+        <T>Run on your computer:</T>
+      </p>
       <InstallT3Commands command={command} className="mt-2" />
       <a
         className="mt-2 inline-block text-xs text-muted-foreground underline underline-offset-2 hover:text-foreground"
@@ -162,7 +169,7 @@ function RunOnComputer({ command }: { readonly command: string }) {
         target="_blank"
         rel="noreferrer noopener"
       >
-        Or download the desktop app
+        <T>Or download the desktop app</T>
       </a>
     </>
   );

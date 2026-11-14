@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
 import { XIcon } from "lucide-react";
 import { useRef, useState, type CSSProperties, type ReactNode } from "react";
@@ -99,7 +100,9 @@ export function AppRouteModalClose() {
       >
         <XIcon />
       </TooltipTrigger>
-      <TooltipPopup side="bottom">Close (Esc)</TooltipPopup>
+      <TooltipPopup side="bottom">
+        <T>Close (Esc)</T>
+      </TooltipPopup>
     </Tooltip>
   );
 }

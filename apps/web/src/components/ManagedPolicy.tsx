@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import type { ManagedPolicySummary } from "@t3tools/contracts";
 import { BuildingIcon } from "lucide-react";
 import type { ReactNode } from "react";
@@ -62,7 +63,7 @@ export function ManagedByOrganization({ policy }: { policy: ManagedPolicySummary
             rel="noreferrer"
             className="text-foreground underline underline-offset-2"
           >
-            Get help
+            <T>Get help</T>
           </a>
         </>
       ) : null}

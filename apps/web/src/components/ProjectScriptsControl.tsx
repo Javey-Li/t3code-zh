@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { ThreadDetailsControl } from "./chat/ThreadDetailsControl";
 import {
   AuthSettingsWriteScope,
@@ -157,7 +158,9 @@ export default function ProjectScriptsControl({
     <>
       {scripts.length > 0 && <MenuSeparator />}
       <MenuGroup>
-        <MenuGroupLabel>From t3.json</MenuGroupLabel>
+        <MenuGroupLabel>
+          <T>From t3.json</T>
+        </MenuGroupLabel>
         {importableScripts.map((fileScript) => (
           <MenuItem
             density={presentation === "menu" ? "touch" : "default"}
@@ -261,7 +264,9 @@ export default function ProjectScriptsControl({
             >
               <MenuSubTrigger density="touch">
                 <ScriptIcon icon="play" className="size-4" />
-                <MenuItemLabel>Project actions</MenuItemLabel>
+                <MenuItemLabel>
+                  <T>Project actions</T>
+                </MenuItemLabel>
               </MenuSubTrigger>
               <MenuSubPopup>{scriptItems}</MenuSubPopup>
             </MenuSub>
@@ -271,7 +276,9 @@ export default function ProjectScriptsControl({
               onClick={openAddDialog}
             >
               <PlusIcon className="size-4" />
-              <MenuItemLabel>Add project action…</MenuItemLabel>
+              <MenuItemLabel>
+                <T>Add project action…</T>
+              </MenuItemLabel>
             </MenuItem>
           )}
         </>
@@ -351,7 +358,9 @@ export default function ProjectScriptsControl({
                   className={isPanel ? THREAD_DETAILS_PANEL_CHEVRON_CLASS : "size-4"}
                 />
               </TooltipTrigger>
-              <TooltipPopup side="top">Script actions</TooltipPopup>
+              <TooltipPopup side="top">
+                <T>Script actions</T>
+              </TooltipPopup>
             </Tooltip>
             <MenuPopup
               align="end"
@@ -379,7 +388,7 @@ export default function ProjectScriptsControl({
             >
               <WrenchIcon className={THREAD_DETAILS_PANEL_ICON_CLASS} />
               <span className={cn("min-w-0 truncate", THREAD_DETAILS_PANEL_LABEL_CLASS)}>
-                Actions
+                <T>Actions</T>
               </span>
             </ThreadDetailsControl>
             <span aria-hidden="true" className={THREAD_DETAILS_PANEL_SPLIT_SEPARATOR_CLASS} />
@@ -420,7 +429,7 @@ export default function ProjectScriptsControl({
             >
               <WrenchIcon className="size-3.5" />
               <span className="sr-only @3xl/header-actions:not-sr-only @3xl/header-actions:ml-0.5">
-                Actions
+                <T>Actions</T>
               </span>
               <ChevronDownIcon className="size-3.5" />
             </MenuTrigger>

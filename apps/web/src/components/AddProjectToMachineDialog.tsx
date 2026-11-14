@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { useParams } from "@tanstack/react-router";
 import { scopeProjectRef } from "@t3tools/client-runtime/environment";
 import {
@@ -252,7 +253,9 @@ function AddProjectToMachineDialog({ request }: { request: AddProjectToMachineRe
           }}
         >
           <DialogHeader>
-            <DialogTitle>Add to another machine</DialogTitle>
+            <DialogTitle>
+              <T>Add to another machine</T>
+            </DialogTitle>
             <DialogDescription>
               Clone {project?.repositoryIdentity?.displayName ?? project?.title} and bring the local
               files git does not track.
@@ -325,7 +328,9 @@ function AddProjectToMachineDialog({ request }: { request: AddProjectToMachineRe
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <Label>Clone over</Label>
+              <Label>
+                <T>Clone over</T>
+              </Label>
               {sshUrl && httpsUrl ? (
                 <ToggleGroup
                   aria-label="Clone protocol"
@@ -358,7 +363,9 @@ function AddProjectToMachineDialog({ request }: { request: AddProjectToMachineRe
             {canListFiles ? (
               <div className="flex flex-col gap-1.5">
                 <div className="flex items-center gap-2">
-                  <Label className="flex-1">Copy ignored files</Label>
+                  <Label className="flex-1">
+                    <T>Copy ignored files</T>
+                  </Label>
                   {copyable.length > 0 ? (
                     <>
                       <span className="text-muted-foreground text-xs">
@@ -418,8 +425,10 @@ function AddProjectToMachineDialog({ request }: { request: AddProjectToMachineRe
                   </p>
                 ) : null}
                 <p className="text-muted-foreground text-xs">
-                  Files are copied after the clone finishes. Folders git ignores whole, like
-                  node_modules, are left out.
+                  <T>
+                    Files are copied after the clone finishes. Folders git ignores whole, like
+                    node_modules, are left out.
+                  </T>
                 </p>
               </div>
             ) : null}
@@ -428,7 +437,7 @@ function AddProjectToMachineDialog({ request }: { request: AddProjectToMachineRe
           </DialogPanel>
           <DialogFooter>
             <Button type="button" variant="outline" onClick={close}>
-              Cancel
+              <T>Cancel</T>
             </Button>
             <Button type="submit" disabled={unavailable || submitting}>
               {submitting ? "Starting…" : `Clone to ${target?.label ?? "machine"}`}
