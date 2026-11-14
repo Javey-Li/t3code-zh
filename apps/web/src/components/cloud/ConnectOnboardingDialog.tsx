@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { useAuth } from "@clerk/react";
 import { useAtomValue } from "@effect/atom-react";
 import {
@@ -311,7 +312,7 @@ function ConfiguredConnectOnboardingDialog() {
           {step === "publish" ? (
             <>
               <Button variant="ghost" disabled={isApplying} onClick={() => setStep("devices")}>
-                Not now
+                <T>Not now</T>
               </Button>
               <Button
                 disabled={isApplying || !canManageRelay || linkStateData === null}
@@ -322,7 +323,7 @@ function ConfiguredConnectOnboardingDialog() {
             </>
           ) : (
             <Button disabled={isApplying} onClick={complete}>
-              Done
+              <T>Done</T>
             </Button>
           )}
         </WizardFooter>
@@ -458,8 +459,10 @@ function DevicesStep() {
         showSavedEnvironments
         empty={
           <p className="px-4 py-6 text-center text-sm text-muted-foreground">
-            No other environments are published to your account yet. Publish one from another device
-            and it will show up here.
+            <T>
+              No other environments are published to your account yet. Publish one from another
+              device and it will show up here.
+            </T>
           </p>
         }
       />

@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { useRef } from "react";
 
 import { APP_VERSION } from "../../branding";
@@ -25,7 +26,9 @@ export function AboutVersionTitle() {
 
   return (
     <span className="inline-flex items-baseline gap-2">
-      <span>Version</span>
+      <span>
+        <T>Version</T>
+      </span>
       <code className="text-2xs font-medium">
         <Tooltip>
           <TooltipTrigger
@@ -40,7 +43,9 @@ export function AboutVersionTitle() {
               </InlineButton>
             }
           />
-          <TooltipPopup>Copy version</TooltipPopup>
+          <TooltipPopup>
+            <T>Copy version</T>
+          </TooltipPopup>
         </Tooltip>
       </code>
     </span>

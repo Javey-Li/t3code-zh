@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import {
   cancelEnvironmentSpeechModelDownload,
   downloadEnvironmentSpeechModel,
@@ -309,7 +310,7 @@ function ModelCard(props: ModelCardProps) {
             </Button>
           ) : (
             <Button size="sm" variant="outline" disabled={props.busy} onClick={props.onSelect}>
-              Use model
+              <T>Use model</T>
             </Button>
           )}
           {model.state === "installed" ? (
@@ -445,7 +446,7 @@ function DictionaryEditor(props: {
                   aria-label={`Add an alias for ${term}`}
                   onClick={() => setAliasDraft({ term, value: "" })}
                 >
-                  Alias
+                  <T>Alias</T>
                 </Button>
               )}
               <Button
@@ -556,12 +557,14 @@ function CleanupModelRow() {
       description="Model for transcript cleanup, such as a cheaper or faster one. When disabled, use the text generation model configured for this environment."
       control={
         connectedEnvironments.length === 0 ? (
-          <span className="text-sm text-muted-foreground">Connect an environment first.</span>
+          <span className="text-sm text-muted-foreground">
+            <T>Connect an environment first.</T>
+          </span>
         ) : (
           <div className="flex min-w-0 flex-wrap items-center gap-2 @min-[32rem]/settings-row:justify-end">
             {dedicated && (!hasProvider || !instanceEntry) ? (
               <span className="text-sm text-muted-foreground">
-                No text generation providers available.
+                <T>No text generation providers available.</T>
               </span>
             ) : null}
             {dedicated && hasProvider && instanceEntry ? (
@@ -762,8 +765,12 @@ function AdvancedSpeechSettings({
               </SelectValue>
             </SelectTrigger>
             <SelectPopup align="end" alignItemWithTrigger={false}>
-              <SelectItem value="auto">Auto</SelectItem>
-              <SelectItem value="cpu">CPU</SelectItem>
+              <SelectItem value="auto">
+                <T>Auto</T>
+              </SelectItem>
+              <SelectItem value="cpu">
+                <T>CPU</T>
+              </SelectItem>
               {supported.gpuDevices.map((device) => (
                 <SelectItem key={device.id} value={`gpu:${device.id}`}>
                   {device.name}
@@ -919,7 +926,7 @@ function SpeechModelBrowser(props: {
                   checked={selectedLanguages.length === 0}
                   onCheckedChange={() => setSelection([])}
                 >
-                  All languages
+                  <T>All languages</T>
                 </MenuCheckboxItem>
               )}
               {visibleLanguages.map((code) => (
@@ -938,7 +945,9 @@ function SpeechModelBrowser(props: {
                 </MenuCheckboxItem>
               ))}
               {visibleLanguages.length === 0 && (
-                <p className="px-2 py-1.5 text-sm text-muted-foreground">No languages match.</p>
+                <p className="px-2 py-1.5 text-sm text-muted-foreground">
+                  <T>No languages match.</T>
+                </p>
               )}
             </div>
           </MenuPopup>
@@ -953,7 +962,9 @@ function SpeechModelBrowser(props: {
           </MenuTrigger>
           <MenuPopup align="end">
             <MenuGroup>
-              <MenuGroupLabel>Sort by</MenuGroupLabel>
+              <MenuGroupLabel>
+                <T>Sort by</T>
+              </MenuGroupLabel>
               <MenuRadioGroup
                 value={sort}
                 onValueChange={(value) => setSort(value as SpeechModelSort)}
@@ -972,7 +983,7 @@ function SpeechModelBrowser(props: {
             </MenuGroup>
             <MenuSeparator />
             <MenuCheckboxItem checked={downloadedOnly} onCheckedChange={setDownloadedOnly}>
-              Downloaded only
+              <T>Downloaded only</T>
             </MenuCheckboxItem>
           </MenuPopup>
         </Menu>
@@ -984,7 +995,9 @@ function SpeechModelBrowser(props: {
         tabIndex={0}
       >
         {sortedModels.length === 0 && (
-          <p className="px-3 py-3 text-sm text-muted-foreground">No models match.</p>
+          <p className="px-3 py-3 text-sm text-muted-foreground">
+            <T>No models match.</T>
+          </p>
         )}
         {renderedModels.map((model) => {
           const card: ModelCardProps = {
@@ -1306,7 +1319,9 @@ export function VoiceSettingsPanel() {
                   </Button>
                 }
               />
-              <TooltipPopup>Refresh microphones</TooltipPopup>
+              <TooltipPopup>
+                <T>Refresh microphones</T>
+              </TooltipPopup>
             </Tooltip>
           }
         >
@@ -1423,7 +1438,9 @@ export function VoiceSettingsPanel() {
                   </SelectItem>
                   {environmentChoices.length > 0 && (
                     <SelectGroup>
-                      <SelectGroupLabel>On an environment</SelectGroupLabel>
+                      <SelectGroupLabel>
+                        <T>On an environment</T>
+                      </SelectGroupLabel>
                       {environmentChoices.map(({ environment, value }) => (
                         <SelectItem key={value} value={value}>
                           <span className="flex items-center gap-2">
@@ -1456,7 +1473,7 @@ export function VoiceSettingsPanel() {
                     (destination.cloudProvider &&
                       !cloudChoices.some((option) => option.value === destinationValue))) ? (
                     <SelectItem value={destinationValue}>
-                      Chosen environment (unavailable)
+                      <T>Chosen environment (unavailable)</T>
                     </SelectItem>
                   ) : null}
                 </SelectPopup>
@@ -1643,8 +1660,12 @@ export function VoiceSettingsPanel() {
                   </SelectValue>
                 </SelectTrigger>
                 <SelectPopup align="end" alignItemWithTrigger={false}>
-                  <SelectItem value="default">Built-in</SelectItem>
-                  <SelectItem value="custom">Custom</SelectItem>
+                  <SelectItem value="default">
+                    <T>Built-in</T>
+                  </SelectItem>
+                  <SelectItem value="custom">
+                    <T>Custom</T>
+                  </SelectItem>
                 </SelectPopup>
               </Select>
             }

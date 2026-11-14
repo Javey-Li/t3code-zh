@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import type { EnvironmentId, ThreadId, TurnItemId } from "@t3tools/contracts";
 import {
   makeMcpAppHost,
@@ -426,7 +427,7 @@ export function McpAppFrame(props: {
             setClosed(false);
           }}
         >
-          Show app
+          <T>Show app</T>
         </Button>
       </div>
     );

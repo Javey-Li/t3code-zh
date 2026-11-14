@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { RefreshIcon } from "~/components/ui/refresh-icon";
 import { PlusIcon, SearchIcon } from "lucide-react";
 
@@ -73,9 +74,11 @@ export function PullRequestListEmptyState({
       <Empty>
         <BranchMark joined={false} />
         <EmptyHeader>
-          <EmptyTitle>No projects in this workspace</EmptyTitle>
+          <EmptyTitle>
+            <T>No projects in this workspace</T>
+          </EmptyTitle>
           <EmptyDescription>
-            Add a project, and the pull requests from its repository appear here.
+            <T>Add a project, and the pull requests from its repository appear here.</T>
           </EmptyDescription>
         </EmptyHeader>
         <EmptyContent>
@@ -106,7 +109,10 @@ export function PullRequestListEmptyState({
             Nothing matches “{query.length > 48 ? `${query.slice(0, 48)}…` : query}”
           </EmptyTitle>
           <EmptyDescription>
-            The hosts were searched for it. Try fewer words, or search by number, author or branch.
+            <T>
+              The hosts were searched for it. Try fewer words, or search by number, author or
+              branch.
+            </T>
           </EmptyDescription>
         </EmptyHeader>
         <div className="flex flex-wrap justify-center gap-2">

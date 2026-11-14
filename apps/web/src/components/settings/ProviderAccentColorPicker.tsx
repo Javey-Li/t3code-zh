@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { PlusIcon, XIcon } from "lucide-react";
 import { useRef, useState, type PointerEvent } from "react";
 
@@ -93,7 +94,7 @@ function ProviderCustomColorPanel(props: {
           <PopoverClose
             render={
               <Button type="button" size="compact" onClick={() => onCommit(currentColor)}>
-                Add color
+                <T>Add color</T>
               </Button>
             }
           />
@@ -129,7 +130,9 @@ function ProviderCustomColorPicker(props: {
             aria-label={`${normalized ? "Change" : "Add"} accent color for ${props.displayName}`}
           >
             {normalized ? (
-              <span className="sr-only">Change accent color</span>
+              <span className="sr-only">
+                <T>Change accent color</T>
+              </span>
             ) : (
               <PlusIcon aria-hidden />
             )}
@@ -219,7 +222,9 @@ export function ProviderAccentColorPicker(props: {
 
   return (
     <div className="grid gap-2">
-      <span className="text-xs font-medium text-foreground">Accent color</span>
+      <span className="text-xs font-medium text-foreground">
+        <T>Accent color</T>
+      </span>
       {picker}
       {description ? <span className="text-xs text-muted-foreground">{description}</span> : null}
     </div>

@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { useAuth, useClerk } from "@clerk/react";
 import { useAtomValue } from "@effect/atom-react";
 import { managedRelaySessionAtom } from "@t3tools/client-runtime/relay";
@@ -128,7 +129,7 @@ export function ApproveAgentSurface() {
       >
         <div className="mt-6">
           <Button type="button" onClick={retryClerkLoad}>
-            Retry sign-in
+            <T>Retry sign-in</T>
           </Button>
         </div>
       </Message>
@@ -156,7 +157,7 @@ export function ApproveAgentSurface() {
       >
         <div className="mt-6">
           <Button type="button" onClick={openSignIn}>
-            Sign in
+            <T>Sign in</T>
           </Button>
         </div>
       </Message>

@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { useAtomValue } from "@effect/atom-react";
 import {
   isAtomCommandInterrupted,
@@ -110,7 +111,9 @@ function GuestShareDialog({
     >
       <DialogPopup className="max-w-lg">
         <DialogHeader>
-          <DialogTitle>Share with guest</DialogTitle>
+          <DialogTitle>
+            <T>Share with guest</T>
+          </DialogTitle>
           <DialogDescription>
             The guest sees the thread as you do, including command output and the agent&apos;s
             reasoning. Each message they send waits for you.
@@ -146,7 +149,7 @@ function GuestShareDialog({
         <DialogFooter>
           {state.status === "created" ? (
             <Button size="sm" onClick={onClose}>
-              Done
+              <T>Done</T>
             </Button>
           ) : (
             <>
@@ -156,7 +159,7 @@ function GuestShareDialog({
                 onClick={onClose}
                 disabled={state.status === "creating"}
               >
-                Cancel
+                <T>Cancel</T>
               </Button>
               <Button
                 size="sm"
@@ -306,7 +309,7 @@ export function GuestPendingMessages({
                   aria-label={`Dismiss message from ${guestName}`}
                   onClick={() => void resolve(message.id, "dismiss")}
                 >
-                  Dismiss
+                  <T>Dismiss</T>
                 </Button>
                 <Button
                   size="xs"
@@ -314,7 +317,7 @@ export function GuestPendingMessages({
                   aria-label={`Send message from ${guestName}`}
                   onClick={() => void resolve(message.id, "send")}
                 >
-                  Send
+                  <T>Send</T>
                 </Button>
               </div>
             ) : null}

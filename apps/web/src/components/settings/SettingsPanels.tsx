@@ -356,7 +356,7 @@ function AboutVersionSection() {
                   disabled={updateRun !== null}
                   onClick={() => setSwitchChannel(selectedUpdateChannel)}
                 >
-                  Review
+                  <T>Review</T>
                 </Button>
               </>
             ) : (
@@ -2073,11 +2073,11 @@ export function ThreadsSettingsPanel() {
           control={
             !hasServerTargets ? (
               <span className="text-sm text-muted-foreground">
-                Connect an environment to choose its text generation model.
+                <T>Connect an environment to choose its text generation model.</T>
               </span>
             ) : !hasTextGenerationProvider ? (
               <span className="text-sm text-muted-foreground">
-                No text generation providers available.
+                <T>No text generation providers available.</T>
               </span>
             ) : (
               <div className="flex flex-wrap items-center justify-end gap-1.5">
@@ -2343,7 +2343,7 @@ export function MaintenanceSettingsPanel() {
               size="sm"
               variant="outline"
             >
-              View diagnostics
+              <T>View diagnostics</T>
             </Button>
           }
         />
@@ -2373,7 +2373,7 @@ export function AboutSettingsPanel() {
                   size="sm"
                   variant="outline"
                 >
-                  Get help
+                  <T>Get help</T>
                 </Button>
               ) : null
             }
@@ -2397,7 +2397,7 @@ export function AboutSettingsPanel() {
             description="See your agents, import projects, and set up your phone."
             control={
               <Button size="sm" variant="outline" render={<Link to="/welcome" />}>
-                Open
+                <T>Open</T>
               </Button>
             }
           />
@@ -2418,7 +2418,7 @@ export function AboutSettingsPanel() {
               size="sm"
               variant="outline"
             >
-              View policy
+              <T>View policy</T>
             </Button>
           }
         />
@@ -2431,7 +2431,7 @@ export function AboutSettingsPanel() {
               size="sm"
               variant="outline"
             >
-              View licenses
+              <T>View licenses</T>
             </Button>
           }
         />

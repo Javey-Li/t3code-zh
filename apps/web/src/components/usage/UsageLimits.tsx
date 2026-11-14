@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import {
   AuthProvidersManageScope,
   type EnvironmentId,
@@ -172,7 +173,9 @@ function WindowBar({
             {remaining}% left{timeLeft !== null ? ` · ${timeLeft}% of the window left` : ""}
           </span>
           {timeLeft !== null ? (
-            <span className="text-muted-foreground">The line is where even spending would be.</span>
+            <span className="text-muted-foreground">
+              <T>The line is where even spending would be.</T>
+            </span>
           ) : null}
           {resetsAt ? (
             <span className="text-muted-foreground">
@@ -293,11 +296,15 @@ export function ResetCreditDialog({
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogPopup>
         <AlertDialogHeader>
-          <AlertDialogTitle>Use a reset credit?</AlertDialogTitle>
+          <AlertDialogTitle>
+            <T>Use a reset credit?</T>
+          </AlertDialogTitle>
           <AlertDialogDescription>{choice?.confirmDescription}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogClose render={<Button variant="outline" />}>Cancel</AlertDialogClose>
+          <AlertDialogClose render={<Button variant="outline" />}>
+            <T>Cancel</T>
+          </AlertDialogClose>
           <Button disabled={disabled} onClick={onConfirm}>
             Use credit
           </Button>

@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { useStableCallback } from "../../hooks/useStableCallback";
 import {
   isAtomCommandInterrupted,
@@ -90,7 +91,7 @@ export function useProjectCloneBanner(activeProjectRef: ScopedProjectRef | null)
               )
             }
           >
-            Cancel
+            <T>Cancel</T>
           </Button>
         ),
       };
@@ -109,7 +110,7 @@ export function useProjectCloneBanner(activeProjectRef: ScopedProjectRef | null)
             variant="ghost"
             onClick={() => void removeClonedProject({ environmentId, projectId })}
           >
-            Remove project
+            <T>Remove project</T>
           </Button>
           <Button
             size="xs"
@@ -120,7 +121,7 @@ export function useProjectCloneBanner(activeProjectRef: ScopedProjectRef | null)
               )
             }
           >
-            Retry
+            <T>Retry</T>
           </Button>
         </>
       ),

@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import type { DeviceHubAccess } from "@t3tools/client-runtime/state/deviceHubAccess";
 import type { DevicePermission, DeviceSummary, DeviceTextSize } from "@t3tools/contracts";
 import { ChevronDown, X } from "lucide-react";
@@ -96,7 +97,9 @@ export function DeviceToolsPanel(props: {
       className={cn("flex min-h-0 flex-col border-border bg-background text-sm", props.className)}
     >
       <div className="flex h-9 shrink-0 items-center gap-2 border-b px-3">
-        <span className="font-medium">Tools</span>
+        <span className="font-medium">
+          <T>Tools</T>
+        </span>
         {pending ? <Spinner size="sm" /> : null}
         <Button
           size="icon-xs"
@@ -138,7 +141,7 @@ export function DeviceToolsPanel(props: {
                 disabled={disabled}
                 onClick={() => void act({ type: "terminateApp", appId: foregroundApp.id })}
               >
-                Terminate
+                <T>Terminate</T>
               </Button>
               <Button
                 size="xs"
@@ -146,7 +149,7 @@ export function DeviceToolsPanel(props: {
                 disabled={disabled}
                 onClick={() => void act({ type: "launchApp", appId: foregroundApp.id })}
               >
-                Relaunch
+                <T>Relaunch</T>
               </Button>
             </div>
           ) : null}
@@ -176,8 +179,12 @@ export function DeviceToolsPanel(props: {
                   void act({ type: "setAppearance", value: next });
               }}
             >
-              <Toggle value="light">Light</Toggle>
-              <Toggle value="dark">Dark</Toggle>
+              <Toggle value="light">
+                <T>Light</T>
+              </Toggle>
+              <Toggle value="dark">
+                <T>Dark</T>
+              </Toggle>
             </ToggleGroup>
           </Row>
           <Row label="Text size">
@@ -203,8 +210,12 @@ export function DeviceToolsPanel(props: {
                     }
                   }}
                 >
-                  <Toggle value="clear">Clear</Toggle>
-                  <Toggle value="tinted">Tinted</Toggle>
+                  <Toggle value="clear">
+                    <T>Clear</T>
+                  </Toggle>
+                  <Toggle value="tinted">
+                    <T>Tinted</T>
+                  </Toggle>
                 </ToggleGroup>
               </Row>
               <Row label="Color filter">
@@ -316,7 +327,9 @@ export function DeviceToolsPanel(props: {
               }
             />
             {!foregroundApp ? (
-              <p className="text-xs text-muted-foreground">Open an app first.</p>
+              <p className="text-xs text-muted-foreground">
+                <T>Open an app first.</T>
+              </p>
             ) : null}
           </Section>
         ) : null}
@@ -496,7 +509,9 @@ function LocationSection(props: {
         >
           <SelectTrigger size="xs" className="w-32" aria-label="Location preset">
             <SelectValue>
-              <span className="text-muted-foreground">Preset…</span>
+              <span className="text-muted-foreground">
+                <T>Preset…</T>
+              </span>
             </SelectValue>
           </SelectTrigger>
           <SelectPopup align="start" alignItemWithTrigger={false}>
@@ -513,7 +528,7 @@ function LocationSection(props: {
           disabled={props.disabled || !valid}
           onClick={() => void props.onSet(parsed.latitude, parsed.longitude)}
         >
-          Set
+          <T>Set</T>
         </Button>
         {props.canClear ? (
           <Button
@@ -526,7 +541,7 @@ function LocationSection(props: {
               void props.onClear();
             }}
           >
-            Clear
+            <T>Clear</T>
           </Button>
         ) : null}
       </div>
@@ -577,7 +592,7 @@ function PermissionsSection(props: {
           disabled={props.disabled || !resolvedAppId}
           onClick={() => decide("grant")}
         >
-          Grant
+          <T>Grant</T>
         </Button>
         <Button
           size="xs"
@@ -585,7 +600,7 @@ function PermissionsSection(props: {
           disabled={props.disabled || !resolvedAppId}
           onClick={() => decide("revoke")}
         >
-          Revoke
+          <T>Revoke</T>
         </Button>
         {props.canReset ? (
           <Button
@@ -594,7 +609,7 @@ function PermissionsSection(props: {
             disabled={props.disabled || !resolvedAppId}
             onClick={() => decide("reset")}
           >
-            Reset
+            <T>Reset</T>
           </Button>
         ) : null}
       </div>
@@ -638,7 +653,9 @@ function EventLogEntries(props: {
   return (
     <ol className="max-h-64 overflow-y-auto px-3 py-2 font-mono text-2xs leading-relaxed">
       {entries.length === 0 ? (
-        <li className="text-muted-foreground">No events yet.</li>
+        <li className="text-muted-foreground">
+          <T>No events yet.</T>
+        </li>
       ) : (
         entries.map((entry) => (
           <li key={entry.id} className="flex gap-2">

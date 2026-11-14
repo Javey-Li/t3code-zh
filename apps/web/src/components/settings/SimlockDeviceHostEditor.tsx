@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { useAtomValue } from "@effect/atom-react";
 import { useId, useState, type ReactNode } from "react";
 import {
@@ -148,7 +149,9 @@ export function SimlockDeviceHostEditor(props: {
           </DialogHeader>
           <DialogPanel>
             <label className="block space-y-1.5 text-sm">
-              <span>Name</span>
+              <span>
+                <T>Name</T>
+              </span>
               <Input
                 autoFocus
                 required
@@ -161,7 +164,9 @@ export function SimlockDeviceHostEditor(props: {
               />
             </label>
             <label className="block space-y-1.5 text-sm">
-              <span>Gateway URL</span>
+              <span>
+                <T>Gateway URL</T>
+              </span>
               <Input
                 required
                 type="url"
@@ -223,7 +228,7 @@ export function SimlockDeviceHostEditor(props: {
           </DialogPanel>
           <DialogFooter>
             <Button type="button" variant="ghost" disabled={props.busy} onClick={props.onClose}>
-              Cancel
+              <T>Cancel</T>
             </Button>
             <Button type="submit" disabled={props.busy || problem !== null}>
               {props.busy ? <Spinner size="xs" /> : null} Save host
@@ -277,7 +282,9 @@ function SimlockTokenField(props: {
   const identity = AsyncResult.isSuccess(check) ? check.value : null;
   const status =
     props.gatewayUrl === null ? null : check._tag === "Initial" || check.waiting ? (
-      <span className="text-muted-foreground">Checking…</span>
+      <span className="text-muted-foreground">
+        <T>Checking…</T>
+      </span>
     ) : identity ? (
       <span className="text-muted-foreground">
         {identity.tokenSource === "env"

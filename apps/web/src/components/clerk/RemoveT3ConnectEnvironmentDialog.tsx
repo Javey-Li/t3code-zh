@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { Discovery } from "@t3tools/client-runtime/relay";
 import type { EnvironmentId } from "@t3tools/contracts";
 import { useState } from "react";
@@ -46,7 +47,7 @@ export function RemoveT3ConnectEnvironmentDialog({
         openAccountPage();
       }}
     >
-      T3 Connect settings
+      <T>T3 Connect settings</T>
     </InlineButton>
   ) : (
     "T3 Connect settings"
@@ -64,7 +65,7 @@ export function RemoveT3ConnectEnvironmentDialog({
           <AlertDialogHeader>
             <AlertDialogTitle>Remove {shown.label} from this device?</AlertDialogTitle>
             <AlertDialogDescription>
-              This forgets its pairing, credentials, and cached threads here.
+              <T>This forgets its pairing, credentials, and cached threads here.</T>
             </AlertDialogDescription>
             <AlertDialogDescription>
               {shown.registration === "registered" ? (
@@ -83,9 +84,11 @@ export function RemoveT3ConnectEnvironmentDialog({
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogClose render={<Button variant="outline" />}>Cancel</AlertDialogClose>
+            <AlertDialogClose render={<Button variant="outline" />}>
+              <T>Cancel</T>
+            </AlertDialogClose>
             <Button variant="destructive" onClick={onConfirm}>
-              Remove from this device
+              <T>Remove from this device</T>
             </Button>
           </AlertDialogFooter>
         </AlertDialogPopup>

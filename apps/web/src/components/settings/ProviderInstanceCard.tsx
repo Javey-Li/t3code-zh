@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { Spinner } from "~/components/ui/spinner";
 
 import {
@@ -618,7 +619,9 @@ function ProjectOverrideInheritance({
         >
           <LayersIcon className="size-3 text-primary" />
         </TooltipTrigger>
-        <TooltipPopup side="top">Overridden for this project</TooltipPopup>
+        <TooltipPopup side="top">
+          <T>Overridden for this project</T>
+        </TooltipPopup>
       </Tooltip>
       <PopoverPopup align="end" width="md" padding="none">
         <ol role="list" className="px-3 py-2.5 text-sm">
@@ -963,7 +966,9 @@ export function ProviderInstanceCard({
     isAuthenticated && authEmail ? (
       <>
         {needsAttention ? statusDotNode : null}
-        <span>Authenticated as</span>
+        <span>
+          <T>Authenticated as</T>
+        </span>
         <ProviderAuthEmail email={authEmail} />
         {authLabel ? <span>· {authLabel}</span> : null}
         {inlineStatusDetail ? (
@@ -1082,7 +1087,9 @@ export function ProviderInstanceCard({
                     </Button>
                   }
                 />
-                <TooltipPopup side="top">Copy command</TooltipPopup>
+                <TooltipPopup side="top">
+                  <T>Copy command</T>
+                </TooltipPopup>
               </Tooltip>
             </div>
           ) : null}
@@ -1404,8 +1411,10 @@ export function ProviderInstanceCard({
         <SettingsSection title="Models">
           <div className="px-3 py-3 sm:px-4">
             <p className="mb-3 text-xs text-muted-foreground">
-              Model preferences and custom models are saved on the selected environment and shared
-              across connected devices.
+              <T>
+                Model preferences and custom models are saved on the selected environment and shared
+                across connected devices.
+              </T>
             </p>
             <ProviderModelsSection
               canManageCustomModels={!readOnly}

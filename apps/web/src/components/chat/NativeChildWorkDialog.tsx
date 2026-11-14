@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import type {
   EnvironmentId,
   OrchestrationV2GetNativeChildWorkResult,
@@ -36,12 +37,18 @@ export function NativeChildWorkDialog(props: {
     <Dialog open={open} onOpenChange={setOpen}>
       <Button size="sm" variant="ghost" onClick={() => setOpen(true)}>
         <ListTreeIcon />
-        <span className="@max-[420px]/composer-surface:sr-only">Subagent work</span>
+        <span className="@max-[420px]/composer-surface:sr-only">
+          <T>Subagent work</T>
+        </span>
       </Button>
       <DialogPopup className="max-w-2xl">
         <DialogHeader>
-          <DialogTitle>Subagent work</DialogTitle>
-          <DialogDescription>Read only. These subagents cannot take messages.</DialogDescription>
+          <DialogTitle>
+            <T>Subagent work</T>
+          </DialogTitle>
+          <DialogDescription>
+            <T>Read only. These subagents cannot take messages.</T>
+          </DialogDescription>
         </DialogHeader>
         {open ? <NativeChildWorkContent {...props} /> : null}
       </DialogPopup>
@@ -66,7 +73,9 @@ function NativeChildWorkContent(props: {
         {query.error !== null ? (
           <p className="text-sm text-destructive-foreground">{query.error}</p>
         ) : children === undefined ? (
-          <p className="text-sm text-muted-foreground">Loading…</p>
+          <p className="text-sm text-muted-foreground">
+            <T>Loading…</T>
+          </p>
         ) : children.length === 0 ? (
           <p className="text-sm text-muted-foreground">
             The provider has no record of which subagents this call started.
@@ -77,7 +86,7 @@ function NativeChildWorkContent(props: {
       </DialogPanel>
       <DialogFooter variant="bare">
         <Button size="sm" variant="outline" disabled={query.isPending} onClick={query.refresh}>
-          Refresh
+          <T>Refresh</T>
         </Button>
       </DialogFooter>
     </>
@@ -93,10 +102,14 @@ function NativeChild(props: { readonly child: OrchestrationV2NativeChildWork }) 
         {child.prompt}
       </p>
       {child.truncated ? (
-        <p className="text-xs text-muted-foreground">Earlier steps are not shown.</p>
+        <p className="text-xs text-muted-foreground">
+          <T>Earlier steps are not shown.</T>
+        </p>
       ) : null}
       {child.steps === null ? (
-        <p className="text-xs text-muted-foreground">No transcript yet.</p>
+        <p className="text-xs text-muted-foreground">
+          <T>No transcript yet.</T>
+        </p>
       ) : (
         <ol className="m-0 flex list-none flex-col gap-2 border-s ps-3">
           {child.steps.map((step) => (

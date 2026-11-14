@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import type {
   EnvironmentId,
   OrchestrationV2PendingBackgroundTask,
@@ -29,7 +30,9 @@ export function BackgroundWorkDetails(props: {
   const streamsOutput = useCommandOutputStreaming(props.environmentId);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger render={<InlineButton />}>Details</DialogTrigger>
+      <DialogTrigger render={<InlineButton />}>
+        <T>Details</T>
+      </DialogTrigger>
       <DialogPopup>
         <DialogHeader>
           <DialogTitle>Background work</DialogTitle>
@@ -83,7 +86,7 @@ export function BackgroundWorkDetails(props: {
                         props.onOpenThread(childThreadId);
                       }}
                     >
-                      Open thread
+                      <T>Open thread</T>
                     </InlineButton>
                   ) : null}
                 </section>

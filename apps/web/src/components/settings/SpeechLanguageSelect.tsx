@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import type { EnvironmentSpeechStatus } from "@t3tools/contracts";
 import { effectiveSpeechLanguage } from "@t3tools/shared/speech";
 import { updateClientSettings, useClientSettings } from "../../hooks/useSettings";
@@ -42,7 +43,9 @@ export function SpeechLanguageSelect({ model }: { readonly model: ModelLanguages
         <SelectValue>{label}</SelectValue>
       </SelectTrigger>
       <SelectPopup align="end" alignItemWithTrigger={false}>
-        <SelectItem value="auto">Auto</SelectItem>
+        <SelectItem value="auto">
+          <T>Auto</T>
+        </SelectItem>
         {unavailable ? (
           <SelectItem value={preference} disabled>
             {unavailable}

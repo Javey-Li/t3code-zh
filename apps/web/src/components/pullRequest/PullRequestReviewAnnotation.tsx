@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import type {
   EnvironmentId,
   PullRequestActor,
@@ -100,7 +101,9 @@ export function PendingReviewCommentCard({
     >
       <div className="flex items-center gap-2 text-xs text-muted-foreground">
         <MessageSquareIcon className="size-3.5" />
-        <span>Pending. Sent when you submit the review</span>
+        <span>
+          <T>Pending. Sent when you submit the review</T>
+        </span>
         <Button
           size="icon-xs"
           variant="ghost"
@@ -456,7 +459,7 @@ export function ReviewThreadCard({
                     <div className="mt-2 flex flex-wrap items-center justify-end gap-2">
                       <TextFieldSpeechControls speech={speech} disabled={pending} />
                       <Button size="xs" variant="ghost" onClick={() => setReplying(false)}>
-                        Cancel
+                        <T>Cancel</T>
                       </Button>
                       <Button
                         size="xs"
@@ -467,7 +470,7 @@ export function ReviewThreadCard({
                         }
                         onClick={() => speech.submitAfterDictation((text) => void send(text))}
                       >
-                        Reply
+                        <T>Reply</T>
                       </Button>
                     </div>
                   </div>
@@ -475,7 +478,7 @@ export function ReviewThreadCard({
               </SpeechTextField>
             ) : (
               <Button size="xs" variant="ghost" className="mt-2" onClick={() => setReplying(true)}>
-                Reply
+                <T>Reply</T>
               </Button>
             )
           ) : null}

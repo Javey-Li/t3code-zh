@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { ProcessSignalActions } from "./ProcessSignalActions";
 import { AuthEnvironmentMaintainScope } from "@t3tools/contracts";
 import { RefreshIcon } from "~/components/ui/refresh-icon";
@@ -203,7 +204,11 @@ function SourceStatusBadge({
 function LastSampleLabel({ sampledAt }: { sampledAt: DateTime.Utc | null }) {
   const relative = useRelativeTimeState(sampledAt ? DateTime.formatIso(sampledAt) : null);
   if (relative.status !== "relative") {
-    return <span className="text-2xs text-muted-foreground/55">Waiting for sample</span>;
+    return (
+      <span className="text-2xs text-muted-foreground/55">
+        <T>Waiting for sample</T>
+      </span>
+    );
   }
   return (
     <span className="text-2xs text-muted-foreground/60">
@@ -576,17 +581,33 @@ function ProcessTable({
           </colgroup>
           <thead className="sticky top-0 z-10 border-b border-border/60 bg-card text-3xs uppercase tracking-widest text-muted-foreground/65">
             <tr>
-              <th className="px-4 py-2 font-semibold sm:pl-5">Process</th>
+              <th className="px-4 py-2 font-semibold sm:pl-5">
+                <T>Process</T>
+              </th>
               <th className="px-3 py-2 font-semibold">Category</th>
-              <th className="px-3 py-2 text-right font-semibold">CPU</th>
-              <th className="px-3 py-2 text-right font-semibold">CPU Time</th>
-              <th className="px-3 py-2 text-right font-semibold">Memory</th>
+              <th className="px-3 py-2 text-right font-semibold">
+                <T>CPU</T>
+              </th>
+              <th className="px-3 py-2 text-right font-semibold">
+                <T>CPU Time</T>
+              </th>
+              <th className="px-3 py-2 text-right font-semibold">
+                <T>Memory</T>
+              </th>
               <th className="px-3 py-2 text-right font-semibold">Read/s</th>
               <th className="px-3 py-2 text-right font-semibold">Write/s</th>
-              <th className="px-3 py-2 text-right font-semibold">Read Total</th>
-              <th className="px-3 py-2 text-right font-semibold">Write Total</th>
-              <th className="px-3 py-2 text-right font-semibold">PID</th>
-              <th className="px-2 py-2 text-right font-semibold sm:pr-4">Kill</th>
+              <th className="px-3 py-2 text-right font-semibold">
+                <T>Read Total</T>
+              </th>
+              <th className="px-3 py-2 text-right font-semibold">
+                <T>Write Total</T>
+              </th>
+              <th className="px-3 py-2 text-right font-semibold">
+                <T>PID</T>
+              </th>
+              <th className="px-2 py-2 text-right font-semibold sm:pr-4">
+                <T>Kill</T>
+              </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-border/50">
@@ -680,15 +701,31 @@ function HistoryProcessTable({
           </colgroup>
           <thead className="sticky top-0 z-10 border-b border-border/60 bg-card text-3xs uppercase tracking-widest text-muted-foreground/65">
             <tr>
-              <th className="px-4 py-2 font-semibold sm:pl-5">Process</th>
+              <th className="px-4 py-2 font-semibold sm:pl-5">
+                <T>Process</T>
+              </th>
               <th className="px-3 py-2 font-semibold">Category</th>
-              <th className="px-3 py-2 text-right font-semibold">CPU Time</th>
-              <th className="px-3 py-2 text-right font-semibold">Peak CPU</th>
-              <th className="px-3 py-2 text-right font-semibold">Peak Mem</th>
-              <th className="px-3 py-2 text-right font-semibold">Read</th>
-              <th className="px-3 py-2 text-right font-semibold">Write</th>
-              <th className="px-3 py-2 text-right font-semibold">Samples</th>
-              <th className="px-3 py-2 text-right font-semibold sm:pr-5">PID</th>
+              <th className="px-3 py-2 text-right font-semibold">
+                <T>CPU Time</T>
+              </th>
+              <th className="px-3 py-2 text-right font-semibold">
+                <T>Peak CPU</T>
+              </th>
+              <th className="px-3 py-2 text-right font-semibold">
+                <T>Peak Mem</T>
+              </th>
+              <th className="px-3 py-2 text-right font-semibold">
+                <T>Read</T>
+              </th>
+              <th className="px-3 py-2 text-right font-semibold">
+                <T>Write</T>
+              </th>
+              <th className="px-3 py-2 text-right font-semibold">
+                <T>Samples</T>
+              </th>
+              <th className="px-3 py-2 text-right font-semibold sm:pr-5">
+                <T>PID</T>
+              </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-border/50">
@@ -762,12 +799,24 @@ function AttributionTable({ entries }: { entries: ReadonlyArray<ResourceAttribut
         </colgroup>
         <thead className="border-b border-border/60 text-3xs uppercase tracking-widest text-muted-foreground/65">
           <tr>
-            <th className="px-4 py-2 font-semibold sm:pl-5">Component</th>
-            <th className="px-3 py-2 font-semibold">Operation</th>
-            <th className="px-3 py-2 text-right font-semibold">Logical Read</th>
-            <th className="px-3 py-2 text-right font-semibold">Logical Write</th>
-            <th className="px-3 py-2 text-right font-semibold">Count</th>
-            <th className="px-3 py-2 text-right font-semibold sm:pr-5">Time</th>
+            <th className="px-4 py-2 font-semibold sm:pl-5">
+              <T>Component</T>
+            </th>
+            <th className="px-3 py-2 font-semibold">
+              <T>Operation</T>
+            </th>
+            <th className="px-3 py-2 text-right font-semibold">
+              <T>Logical Read</T>
+            </th>
+            <th className="px-3 py-2 text-right font-semibold">
+              <T>Logical Write</T>
+            </th>
+            <th className="px-3 py-2 text-right font-semibold">
+              <T>Count</T>
+            </th>
+            <th className="px-3 py-2 text-right font-semibold sm:pr-5">
+              <T>Time</T>
+            </th>
           </tr>
         </thead>
         <tbody className="divide-y divide-border/50">
@@ -991,7 +1040,9 @@ function ResourceTelemetryDiagnosticsBody({
                   </Button>
                 }
               />
-              <TooltipPopup side="top">Refresh telemetry snapshot</TooltipPopup>
+              <TooltipPopup side="top">
+                <T>Refresh telemetry snapshot</T>
+              </TooltipPopup>
             </Tooltip>
           </div>
         }
@@ -1259,7 +1310,10 @@ function ResourceTelemetryDiagnosticsBody({
         headerAction={
           snapshot ? (
             <span className="text-3xs text-muted-foreground/55">
-              Identity: <span className="font-mono">PID + start time</span>
+              Identity:{" "}
+              <span className="font-mono">
+                <T>PID + start time</T>
+              </span>
             </span>
           ) : null
         }
@@ -1278,7 +1332,9 @@ function ResourceTelemetryDiagnosticsBody({
         title="Instrumented application I/O"
         icon={<DatabaseIcon className="size-4 text-muted-foreground" />}
         headerAction={
-          <span className="text-3xs text-muted-foreground/55">Logical bytes by operation</span>
+          <span className="text-3xs text-muted-foreground/55">
+            <T>Logical bytes by operation</T>
+          </span>
         }
       >
         <div className="overflow-hidden rounded-[inherit]">

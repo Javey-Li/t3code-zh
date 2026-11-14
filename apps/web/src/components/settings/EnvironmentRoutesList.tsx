@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import {
   DndContext,
   type DragEndEvent,
@@ -165,7 +166,7 @@ function SortableRouteRow({
           {label}
           {inUse ? (
             <span className="rounded-sm bg-success/12 px-1 text-2xs font-normal text-success-foreground">
-              In use
+              <T>In use</T>
             </span>
           ) : null}
         </p>
@@ -201,7 +202,9 @@ function SortableRouteRow({
           >
             <XIcon className="size-3" />
           </TooltipTrigger>
-          <TooltipPopup side="top">Remove route</TooltipPopup>
+          <TooltipPopup side="top">
+            <T>Remove route</T>
+          </TooltipPopup>
         </Tooltip>
       ) : null}
     </li>

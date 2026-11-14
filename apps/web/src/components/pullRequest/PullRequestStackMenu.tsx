@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { Tooltip, TooltipTrigger, TooltipPopup } from "../ui/tooltip";
 import type {
   EnvironmentId,
@@ -166,7 +167,11 @@ export function PullRequestStackMenu({
         <MenuPopup align="start">
           <MenuGroup>
             <PullRequestStackHeader number={stack.number} notice={notice} stale={!!onRetry} />
-            {onRetry ? <MenuItem onClick={onRetry}>Retry stack refresh</MenuItem> : null}
+            {onRetry ? (
+              <MenuItem onClick={onRetry}>
+                <T>Retry stack refresh</T>
+              </MenuItem>
+            ) : null}
             <PullRequestStackLayers
               stack={stack}
               reference={reference}
@@ -201,7 +206,7 @@ export function PullRequestStackMenu({
               ) : null}
               {mergeHasClosed || mergeLayers.some((layer) => layer.isDraft) ? (
                 <p className="px-2 py-1 text-xs text-muted-foreground">
-                  Every layer being merged must be open and ready for review.
+                  <T>Every layer being merged must be open and ready for review.</T>
                 </p>
               ) : null}
             </>
@@ -267,7 +272,7 @@ export function PullRequestStackMenu({
           </DialogPanel>
           <DialogFooter>
             <Button variant="outline" onClick={() => setConfirmation(null)}>
-              Cancel
+              <T>Cancel</T>
             </Button>
             <Button onClick={() => void run()}>
               {confirmation === "merge" ? "Merge stack" : "Rebase stack"}

@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { findErrorTraceId } from "@t3tools/client-runtime/errors";
 import {
   type ConnectionTarget,
@@ -298,7 +299,7 @@ export function CloudEnvironmentConnectRows({
       return (
         <div className={ITEM_ROW_CLASSNAME}>
           <p className="text-sm font-medium text-destructive">
-            Could not load T3 Connect environments
+            <T>Could not load T3 Connect environments</T>
           </p>
           <p className="mt-1 text-xs text-muted-foreground">{discoveryProblem}</p>
           <Button
@@ -307,7 +308,7 @@ export function CloudEnvironmentConnectRows({
             className="mt-3"
             onClick={() => void refreshRelayEnvironments()}
           >
-            Try again
+            <T>Try again</T>
           </Button>
         </div>
       );
@@ -484,7 +485,7 @@ export function CloudEnvironmentConnectRows({
             <Tooltip>
               <TooltipTrigger render={<span className="inline-flex" tabIndex={0} />}>
                 <Button size="sm" disabled>
-                  Add
+                  <T>Add</T>
                 </Button>
               </TooltipTrigger>
               <TooltipPopup>{unsupportedDetail ?? "Client not supported"}</TooltipPopup>

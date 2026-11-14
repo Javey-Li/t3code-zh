@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import {
   EnvironmentId,
   GUEST_MESSAGE_MAX_LENGTH,
@@ -370,7 +371,9 @@ function NameForm({
   };
   return (
     <form className="m-auto flex w-full max-w-xs flex-col gap-3 p-6" onSubmit={submit}>
-      <h1 className="text-base font-medium">Join a shared thread</h1>
+      <h1 className="text-base font-medium">
+        <T>Join a shared thread</T>
+      </h1>
       <label className="flex flex-col gap-1.5 text-sm" htmlFor="guest-name">
         Your name
         <Input

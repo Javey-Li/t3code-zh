@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import type {
   StorageCleanupReport,
   StorageCleanupSettings,
@@ -241,7 +242,9 @@ function RetentionControl({
           </NumberFieldGroup>
         </NumberField>
       ) : (
-        <span className="text-xs text-muted-foreground">Off</span>
+        <span className="text-xs text-muted-foreground">
+          <T>Off</T>
+        </span>
       )}
       <Switch
         aria-label={label}
@@ -306,23 +309,31 @@ function CleanupResults({
                   {entry.reason}
                 </span>
                 <span className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-3 gap-y-1 border-l border-border/60 pl-3">
-                  <span>Machine</span>
+                  <span>
+                    <T>Machine</T>
+                  </span>
                   <span className="text-foreground/80">{environmentLabel}</span>
                   {entry.projectPath && (
                     <>
-                      <span>Project</span>
+                      <span>
+                        <T>Project</T>
+                      </span>
                       <code className="text-foreground/80">{entry.projectPath}</code>
                     </>
                   )}
                   {entry.path && (
                     <>
-                      <span>Folder</span>
+                      <span>
+                        <T>Folder</T>
+                      </span>
                       <code className="text-foreground/80">{entry.path}</code>
                     </>
                   )}
                   {entry.threadTitle && (
                     <>
-                      <span>Thread</span>
+                      <span>
+                        <T>Thread</T>
+                      </span>
                       <span>{entry.threadTitle}</span>
                     </>
                   )}
@@ -641,9 +652,15 @@ export function WorktreeCleanupSection() {
                   </SelectValue>
                 </SelectTrigger>
                 <SelectPopup align="end" alignItemWithTrigger={false}>
-                  <SelectItem value="inherit">Inherit</SelectItem>
-                  <SelectItem value="off">Off</SelectItem>
-                  <SelectItem value="custom">Custom</SelectItem>
+                  <SelectItem value="inherit">
+                    <T>Inherit</T>
+                  </SelectItem>
+                  <SelectItem value="off">
+                    <T>Off</T>
+                  </SelectItem>
+                  <SelectItem value="custom">
+                    <T>Custom</T>
+                  </SelectItem>
                 </SelectPopup>
               </Select>
             }
@@ -780,9 +797,15 @@ export function WorktreeCleanupSection() {
                         </SelectValue>
                       </SelectTrigger>
                       <SelectPopup align="end" alignItemWithTrigger={false}>
-                        <SelectItem value="any-local-files">Any local files</SelectItem>
-                        <SelectItem value="uncommitted-changes">Uncommitted changes</SelectItem>
-                        <SelectItem value="tracked-changes">Edited tracked files</SelectItem>
+                        <SelectItem value="any-local-files">
+                          <T>Any local files</T>
+                        </SelectItem>
+                        <SelectItem value="uncommitted-changes">
+                          <T>Uncommitted changes</T>
+                        </SelectItem>
+                        <SelectItem value="tracked-changes">
+                          <T>Edited tracked files</T>
+                        </SelectItem>
                       </SelectPopup>
                     </Select>
                   }

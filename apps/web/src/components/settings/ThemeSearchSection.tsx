@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { sourceControlClients } from "@t3tools/client-runtime/source-control-clients";
 import { RefreshIcon } from "~/components/ui/refresh-icon";
 import { ExternalLinkIcon, PackagePlusIcon, PaletteIcon, SearchIcon } from "lucide-react";
@@ -294,10 +295,10 @@ export function ThemeSearchSection({
     <section className="space-y-3" aria-labelledby="theme-search-heading">
       <div>
         <h3 className="text-sm font-medium" id="theme-search-heading">
-          Search community themes
+          <T>Search community themes</T>
         </h3>
         <p className="mt-0.5 text-muted-foreground text-xs">
-          Find open-source themes from Open VSX.
+          <T>Find open-source themes from Open VSX.</T>
         </p>
       </div>
       <InputGroup>
@@ -323,7 +324,9 @@ export function ThemeSearchSection({
       {!isSearching || results !== null ? (
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex min-w-0 flex-wrap items-center gap-1.5">
-            <p className="text-muted-foreground text-xs">Popular</p>
+            <p className="text-muted-foreground text-xs">
+              <T>Popular</T>
+            </p>
             {SUGGESTED_SEARCHES.map((suggestion) => (
               <Button
                 key={suggestion}
@@ -344,7 +347,9 @@ export function ThemeSearchSection({
           </div>
           {results && results.length > 0 ? (
             <div className="flex shrink-0 items-center justify-end gap-2">
-              <p className="text-muted-foreground text-xs">Sort</p>
+              <p className="text-muted-foreground text-xs">
+                <T>Sort</T>
+              </p>
               <Select
                 disabled={installingId !== null}
                 value={sortBy}
@@ -391,8 +396,12 @@ export function ThemeSearchSection({
       {results ? (
         results.length === 0 ? (
           <div className="flex min-h-40 flex-col items-center justify-center rounded-2xl border border-dashed text-center">
-            <p className="text-sm font-medium">No supported open-source themes found</p>
-            <p className="mt-1 text-muted-foreground text-xs">Try a broader search.</p>
+            <p className="text-sm font-medium">
+              <T>No supported open-source themes found</T>
+            </p>
+            <p className="mt-1 text-muted-foreground text-xs">
+              <T>Try a broader search.</T>
+            </p>
           </div>
         ) : (
           <div className="grid gap-2 sm:grid-cols-2">
@@ -468,12 +477,16 @@ export function ThemeSearchSection({
           <AlertDialogHeader>
             <AlertDialogTitle>Update “{pendingUpdate?.name}”?</AlertDialogTitle>
             <AlertDialogDescription>
-              This replaces its installed variants, including any local edits. Variants no longer in
-              the extension will be removed.
+              <T>
+                This replaces its installed variants, including any local edits. Variants no longer
+                in the extension will be removed.
+              </T>
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogClose render={<Button variant="outline" />}>Cancel</AlertDialogClose>
+            <AlertDialogClose render={<Button variant="outline" />}>
+              <T>Cancel</T>
+            </AlertDialogClose>
             <Button
               onClick={() => {
                 const extension = pendingUpdate;
@@ -481,7 +494,7 @@ export function ThemeSearchSection({
                 if (extension) void handleInstall(extension, true);
               }}
             >
-              Update theme
+              <T>Update theme</T>
             </Button>
           </AlertDialogFooter>
         </AlertDialogPopup>

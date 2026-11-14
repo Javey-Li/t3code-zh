@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { ProcessSignalActions } from "./ProcessSignalActions";
 import { resolveUsageAccess } from "@t3tools/client-runtime/state/usage-access";
 import { environmentSession } from "../../state/session";
@@ -365,13 +366,25 @@ function ProcessDiagnosticsTable({
           </colgroup>
           <thead className="sticky top-0 z-10 border-b border-border/60 bg-card text-2xs uppercase tracking-widest text-muted-foreground/70">
             <tr>
-              <th className="px-4 py-2 font-semibold sm:pl-5">Name</th>
-              <th className="px-3 py-2 text-right font-semibold">CPU</th>
-              <th className="px-3 py-2 text-right font-semibold">Memory</th>
+              <th className="px-4 py-2 font-semibold sm:pl-5">
+                <T>Name</T>
+              </th>
+              <th className="px-3 py-2 text-right font-semibold">
+                <T>CPU</T>
+              </th>
+              <th className="px-3 py-2 text-right font-semibold">
+                <T>Memory</T>
+              </th>
               <th className="px-3 py-2 font-semibold">Command</th>
-              <th className="px-3 py-2 text-right font-semibold">PID</th>
-              <th className="px-3 py-2 font-semibold">Type</th>
-              <th className="p-2 text-right font-semibold sm:pr-4">Kill</th>
+              <th className="px-3 py-2 text-right font-semibold">
+                <T>PID</T>
+              </th>
+              <th className="px-3 py-2 font-semibold">
+                <T>Type</T>
+              </th>
+              <th className="p-2 text-right font-semibold sm:pr-4">
+                <T>Kill</T>
+              </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-border/50">
@@ -591,14 +604,28 @@ function ProcessResourceHistoryTable({
           </colgroup>
           <thead className="sticky top-0 z-10 border-b border-border/60 bg-card text-2xs uppercase tracking-widest text-muted-foreground/70">
             <tr>
-              <th className="px-4 py-2 font-semibold sm:pl-5">Process</th>
-              <th className="px-3 py-2 text-right font-semibold">CPU Time</th>
-              <th className="px-3 py-2 text-right font-semibold">Current</th>
-              <th className="px-3 py-2 text-right font-semibold">Average</th>
-              <th className="px-3 py-2 text-right font-semibold">Peak</th>
-              <th className="px-3 py-2 text-right font-semibold">Max Mem</th>
+              <th className="px-4 py-2 font-semibold sm:pl-5">
+                <T>Process</T>
+              </th>
+              <th className="px-3 py-2 text-right font-semibold">
+                <T>CPU Time</T>
+              </th>
+              <th className="px-3 py-2 text-right font-semibold">
+                <T>Current</T>
+              </th>
+              <th className="px-3 py-2 text-right font-semibold">
+                <T>Average</T>
+              </th>
+              <th className="px-3 py-2 text-right font-semibold">
+                <T>Peak</T>
+              </th>
+              <th className="px-3 py-2 text-right font-semibold">
+                <T>Max Mem</T>
+              </th>
               <th className="px-3 py-2 font-semibold">Command</th>
-              <th className="px-3 py-2 text-right font-semibold sm:pr-5">PID</th>
+              <th className="px-3 py-2 text-right font-semibold sm:pr-5">
+                <T>PID</T>
+              </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-border/50">
@@ -662,11 +689,19 @@ function DiagnosticsLastChecked({ checkedAt }: { checkedAt: DateTime.Utc | null 
   const relative = useRelativeTimeState(checkedAt ? DateTime.formatIso(checkedAt) : null);
 
   if (relative.status === "missing") {
-    return <span className="text-2xs text-muted-foreground/50">Checking</span>;
+    return (
+      <span className="text-2xs text-muted-foreground/50">
+        <T>Checking</T>
+      </span>
+    );
   }
 
   if (relative.status === "invalid") {
-    return <span className="text-2xs text-muted-foreground/50">Checked unavailable</span>;
+    return (
+      <span className="text-2xs text-muted-foreground/50">
+        <T>Checked unavailable</T>
+      </span>
+    );
   }
 
   return (
@@ -1079,7 +1114,9 @@ function DiagnosticsSettingsBody() {
                   </Button>
                 }
               />
-              <TooltipPopup side="top">Open logs folder</TooltipPopup>
+              <TooltipPopup side="top">
+                <T>Open logs folder</T>
+              </TooltipPopup>
             </Tooltip>
             <DiagnosticsRefreshButton
               isPending={isPending}
@@ -1248,11 +1285,21 @@ function DiagnosticsSettingsBody() {
               </colgroup>
               <thead className="border-b border-border/60 text-2xs uppercase tracking-widest text-muted-foreground/70">
                 <tr>
-                  <th className="whitespace-nowrap px-4 py-2.5 font-semibold sm:pl-5">Time</th>
-                  <th className="whitespace-nowrap px-4 py-2.5 font-semibold">Level</th>
-                  <th className="whitespace-nowrap px-4 py-2.5 font-semibold">Span</th>
-                  <th className="whitespace-nowrap px-4 py-2.5 font-semibold">Message</th>
-                  <th className="whitespace-nowrap px-4 py-2.5 font-semibold sm:pr-5">Trace</th>
+                  <th className="whitespace-nowrap px-4 py-2.5 font-semibold sm:pl-5">
+                    <T>Time</T>
+                  </th>
+                  <th className="whitespace-nowrap px-4 py-2.5 font-semibold">
+                    <T>Level</T>
+                  </th>
+                  <th className="whitespace-nowrap px-4 py-2.5 font-semibold">
+                    <T>Span</T>
+                  </th>
+                  <th className="whitespace-nowrap px-4 py-2.5 font-semibold">
+                    <T>Message</T>
+                  </th>
+                  <th className="whitespace-nowrap px-4 py-2.5 font-semibold sm:pr-5">
+                    <T>Trace</T>
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border/60">

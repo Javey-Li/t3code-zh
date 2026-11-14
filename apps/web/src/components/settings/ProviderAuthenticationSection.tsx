@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import {
   isAtomCommandInterrupted,
   squashAtomCommandFailure,
@@ -210,7 +211,9 @@ export function ProviderAuthenticationSection({
                 </SelectValue>
               </SelectTrigger>
               <SelectPopup>
-                <SelectItem value="">Provider default</SelectItem>
+                <SelectItem value="">
+                  <T>Provider default</T>
+                </SelectItem>
                 {auth?.methods?.map((method) => (
                   <SelectItem key={method.id} value={method.id}>
                     {method.name}
@@ -227,7 +230,7 @@ export function ProviderAuthenticationSection({
                 disabled={disabled}
                 onClick={() => void openBrowser()}
               >
-                Open browser
+                <T>Open browser</T>
               </Button>
               <Tooltip>
                 <TooltipTrigger
@@ -252,7 +255,9 @@ export function ProviderAuthenticationSection({
                     </Button>
                   }
                 />
-                <TooltipPopup>Copy sign-in link</TooltipPopup>
+                <TooltipPopup>
+                  <T>Copy sign-in link</T>
+                </TooltipPopup>
               </Tooltip>
             </>
           ) : null}
@@ -265,7 +270,7 @@ export function ProviderAuthenticationSection({
                   <a href={provider.setup.documentationUrl} target="_blank" rel="noreferrer" />
                 }
               >
-                Open docs
+                <T>Open docs</T>
               </Button>
             ) : active && auth?.flowId ? (
               <Button
@@ -279,7 +284,7 @@ export function ProviderAuthenticationSection({
                   )
                 }
               >
-                Cancel
+                <T>Cancel</T>
               </Button>
             ) : !active && !needsExternalSetup && provider.setup?.canAuthenticate !== false ? (
               <Button
@@ -326,7 +331,7 @@ export function ProviderAuthenticationSection({
                     });
                 }}
               >
-                Sign out
+                <T>Sign out</T>
               </Button>
             ) : null}
           </>
@@ -351,7 +356,9 @@ export function ProviderAuthenticationSection({
             <div className="py-2">
               <Suspense
                 fallback={
-                  <p className="text-xs text-muted-foreground">Loading sign-in terminal…</p>
+                  <p className="text-xs text-muted-foreground">
+                    <T>Loading sign-in terminal…</T>
+                  </p>
                 }
               >
                 <ProviderAuthTerminal
@@ -432,7 +439,7 @@ export function ProviderAuthenticationSection({
                 className="w-fit"
                 disabled={disabled}
               >
-                Connect
+                <T>Connect</T>
               </Button>
             </form>
           ) : null}
@@ -472,7 +479,7 @@ export function ProviderAuthenticationSection({
                 className="w-fit"
                 disabled={disabled || !values.callback?.trim()}
               >
-                Continue
+                <T>Continue</T>
               </Button>
             </form>
           ) : null}

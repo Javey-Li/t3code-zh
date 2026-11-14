@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { PlusIcon, XIcon } from "lucide-react";
 import { useState } from "react";
 import type { ProviderDriverKind, ServerProviderModel } from "@t3tools/contracts";
@@ -206,7 +207,9 @@ export function CustomModelEditor({
                   </span>
                 </SelectItem>
               ))}
-              <SelectItem value={CUSTOM_ID_VALUE}>Custom…</SelectItem>
+              <SelectItem value={CUSTOM_ID_VALUE}>
+                <T>Custom…</T>
+              </SelectItem>
             </SelectPopup>
           </Select>
         ) : null}
@@ -240,8 +243,12 @@ export function CustomModelEditor({
             <SelectValue>{descriptor.type === "boolean" ? "Toggle" : "Choices"}</SelectValue>
           </SelectTrigger>
           <SelectPopup align="end" alignItemWithTrigger={false}>
-            <SelectItem value="select">Choices</SelectItem>
-            <SelectItem value="boolean">Toggle</SelectItem>
+            <SelectItem value="select">
+              <T>Choices</T>
+            </SelectItem>
+            <SelectItem value="boolean">
+              <T>Toggle</T>
+            </SelectItem>
           </SelectPopup>
         </Select>
         <Button
@@ -287,7 +294,7 @@ export function CustomModelEditor({
     >
       <div className="flex flex-col gap-1">
         <label htmlFor={domId("name")} className="text-xs text-muted-foreground">
-          Display name
+          <T>Display name</T>
         </label>
         <Input
           id={domId("name")}
@@ -303,7 +310,9 @@ export function CustomModelEditor({
 
       <div className="flex flex-col gap-2">
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <span className="text-xs text-muted-foreground">Options shown in the composer</span>
+          <span className="text-xs text-muted-foreground">
+            <T>Options shown in the composer</T>
+          </span>
           {startFromCandidates.length > 0 ? (
             <Select value={START_FROM_NONE} onValueChange={handleStartFrom}>
               <SelectTrigger
@@ -311,7 +320,9 @@ export function CustomModelEditor({
                 className="w-44"
                 aria-label="Copy options from a built-in model"
               >
-                <SelectValue>Copy from…</SelectValue>
+                <SelectValue>
+                  <T>Copy from…</T>
+                </SelectValue>
               </SelectTrigger>
               <SelectPopup align="end" alignItemWithTrigger={false}>
                 {startFromCandidates.map((model) => (
@@ -325,7 +336,7 @@ export function CustomModelEditor({
         </div>
         {draft.descriptors.length === 0 ? (
           <p className="text-xs text-muted-foreground/70">
-            No custom options. The composer uses the provider's default options.
+            <T>No custom options. The composer uses the provider's default options.</T>
           </p>
         ) : null}
         {draft.descriptors.map(renderDescriptor)}
@@ -363,10 +374,10 @@ export function CustomModelEditor({
 
       <div className="flex gap-2">
         <Button size="sm" variant="outline" onClick={handleSave}>
-          Save
+          <T>Save</T>
         </Button>
         <Button size="sm" variant="ghost" onClick={onCancel}>
-          Cancel
+          <T>Cancel</T>
         </Button>
       </div>
     </div>

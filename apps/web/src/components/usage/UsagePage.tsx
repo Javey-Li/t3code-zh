@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { ChatGptUsageButton } from "../settings/ChatGptUsageButton";
 import { usesChatGptSharing } from "@t3tools/shared/usageLimits";
 import { RefreshIcon } from "~/components/ui/refresh-icon";
@@ -360,7 +361,9 @@ export function UsagePage() {
     <div className="grid w-full min-w-0 grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 py-2 @4xl/usage-header:flex">
       <WorkspaceBreadcrumb ariaLabel="Usage breadcrumb" className="min-w-0">
         <WorkspaceBreadcrumbItem>
-          <h1>Usage</h1>
+          <h1>
+            <T>Usage</T>
+          </h1>
         </WorkspaceBreadcrumbItem>
         <WorkspaceBreadcrumbSeparator />
         <WorkspaceBreadcrumbItem className="min-w-10 shrink">
@@ -693,7 +696,9 @@ function UsageOverview({
 
           {showChatGptSharing ? (
             <div className="flex items-center justify-between gap-2 text-xs text-muted-foreground">
-              <span>ChatGPT shared usage</span>
+              <span>
+                <T>ChatGPT shared usage</T>
+              </span>
               <ChatGptUsageButton size="xs" />
             </div>
           ) : null}
@@ -782,7 +787,9 @@ function UsageOverview({
       </section>
 
       <section className="flex flex-col gap-2">
-        <h2 className="text-sm font-medium text-foreground">Totals</h2>
+        <h2 className="text-sm font-medium text-foreground">
+          <T>Totals</T>
+        </h2>
         <div className="grid grid-cols-2 gap-x-6 gap-y-4 py-1 md:grid-cols-5">
           <Metric
             loading={loadingPartial}
@@ -844,7 +851,9 @@ function UsageOverview({
 
       <section className="flex flex-col gap-3">
         <div className="flex items-center justify-between gap-3">
-          <h2 className="text-sm font-medium text-foreground">Breakdown</h2>
+          <h2 className="text-sm font-medium text-foreground">
+            <T>Breakdown</T>
+          </h2>
           <ToggleGroup
             aria-label="Usage breakdown"
             variant="segmented"
@@ -872,17 +881,25 @@ function UsageOverview({
             <thead>
               <tr className="border-b border-border text-right text-xs text-muted-foreground">
                 <th className="py-2 pr-3 pl-2 text-left font-normal">#</th>
-                <th className="w-full py-2 text-left font-normal">Model</th>
-                <th className="py-2 pl-6 font-normal">Cost</th>
-                <th className="hidden py-2 pl-6 font-normal sm:table-cell">Share</th>
-                <th className="py-2 pr-2 pl-6 font-normal">Tokens</th>
+                <th className="w-full py-2 text-left font-normal">
+                  <T>Model</T>
+                </th>
+                <th className="py-2 pl-6 font-normal">
+                  <T>Cost</T>
+                </th>
+                <th className="hidden py-2 pl-6 font-normal sm:table-cell">
+                  <T>Share</T>
+                </th>
+                <th className="py-2 pr-2 pl-6 font-normal">
+                  <T>Tokens</T>
+                </th>
               </tr>
             </thead>
             <tbody>
               {breakdownModels.length === 0 ? (
                 <tr>
                   <td colSpan={5} className="py-6 text-center text-muted-foreground">
-                    No activity in this window.
+                    <T>No activity in this window.</T>
                   </td>
                 </tr>
               ) : (
@@ -924,7 +941,9 @@ function UsageOverview({
                       </td>
                       <td className={cn("py-2.5 pl-6 text-foreground", rowFigures)}>
                         {isModelCostUnknown(model) ? (
-                          <span className="text-muted-foreground">Unpriced</span>
+                          <span className="text-muted-foreground">
+                            <T>Unpriced</T>
+                          </span>
                         ) : (
                           formatUsd(model.costUsd)
                         )}
@@ -960,8 +979,12 @@ function UsageOverview({
                       {PROVIDER_PRESENTATION[provider].label}
                     </th>
                   ))}
-                  <th className="py-2 pl-4 text-right font-normal">Total</th>
-                  <th className="py-2 pr-2 pl-4 text-right font-normal">Tokens</th>
+                  <th className="py-2 pl-4 text-right font-normal">
+                    <T>Total</T>
+                  </th>
+                  <th className="py-2 pr-2 pl-4 text-right font-normal">
+                    <T>Tokens</T>
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -971,7 +994,7 @@ function UsageOverview({
                       colSpan={activeProviders.length + 3}
                       className="py-6 text-center text-muted-foreground"
                     >
-                      No activity in this window.
+                      <T>No activity in this window.</T>
                     </td>
                   </tr>
                 ) : (
@@ -1166,7 +1189,7 @@ function UsageEnvironmentFilter({
           closeOnClick={false}
           onCheckedChange={(checked) => onSelectionChange(checked ? null : new Set())}
         >
-          All environments
+          <T>All environments</T>
         </MenuCheckboxItem>
         <MenuSeparator />
         {environments.map((environment) => {
@@ -1221,11 +1244,13 @@ function UsageEnvironmentFilter({
           );
         })}
         {environments.length === 0 ? (
-          <p className="px-2 py-2 text-xs text-muted-foreground">No environments connected.</p>
+          <p className="px-2 py-2 text-xs text-muted-foreground">
+            <T>No environments connected.</T>
+          </p>
         ) : null}
         {showUsageStatus && isPartial ? (
           <p className="px-2 py-2 text-xs text-muted-foreground">
-            Totals are partial while selected environments scan.
+            <T>Totals are partial while selected environments scan.</T>
           </p>
         ) : null}
         {showUsageStatus ? (
@@ -1338,7 +1363,9 @@ function UsageSkeleton() {
       </section>
 
       <section className="flex flex-col gap-2">
-        <h2 className="text-sm font-medium text-foreground">Totals</h2>
+        <h2 className="text-sm font-medium text-foreground">
+          <T>Totals</T>
+        </h2>
         <MetricSkeletons
           labels={["Processed tokens", "Cached input", "Uncached input", "Output", "Cache savings"]}
         />
@@ -1354,7 +1381,9 @@ function UsageSkeleton() {
 
       <section className="flex flex-col gap-3">
         <div className="flex items-center justify-between gap-3">
-          <h2 className="text-sm font-medium text-foreground">Breakdown</h2>
+          <h2 className="text-sm font-medium text-foreground">
+            <T>Breakdown</T>
+          </h2>
           <Skeleton shape="card" className="h-7 w-28" />
         </div>
         <Skeleton className="h-44" />

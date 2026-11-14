@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { T3CHAT_PLAN_TUNNEL_LIMITS } from "@t3tools/contracts/relay";
 import { TriangleAlertIcon } from "lucide-react";
 import type { ReactNode } from "react";
@@ -87,24 +88,26 @@ export function TunnelLimitAlert({
   const action =
     upgrade === "link" && onLinkT3Chat ? (
       <Button size="sm" onClick={onLinkT3Chat}>
-        Link T3 Chat
+        <T>Link T3 Chat</T>
       </Button>
     ) : upgrade === "pro" || upgrade === "premier" ? (
       <Button
         size="sm"
         render={<a href={T3CHAT_SUBSCRIPTION_URL} target="_blank" rel="noopener noreferrer" />}
       >
-        Upgrade on T3 Chat
+        <T>Upgrade on T3 Chat</T>
       </Button>
     ) : onManageTunnels ? (
       <Button size="sm" variant="outline" onClick={onManageTunnels}>
-        Manage tunnels
+        <T>Manage tunnels</T>
       </Button>
     ) : null;
   return (
     <Alert variant="warning">
       <TriangleAlertIcon />
-      <AlertTitle>You&apos;re out of tunnels (they cost us money).</AlertTitle>
+      <AlertTitle>
+        <T>You're out of tunnels (they cost us money).</T>
+      </AlertTitle>
       <AlertDescription>
         {upgrade === "link"
           ? "Switch to Tailscale or get more tunnels by linking your T3 Chat sub (sorry!)"

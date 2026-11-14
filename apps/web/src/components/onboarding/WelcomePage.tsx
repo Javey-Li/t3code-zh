@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { useAuth } from "@clerk/react";
 import { useAtomValue } from "@effect/atom-react";
 import type {
@@ -783,7 +784,7 @@ function ProjectsSection({
   }
   const retry = (
     <Button variant="ghost" size="sm" onClick={scan.refresh}>
-      Retry
+      <T>Retry</T>
     </Button>
   );
   if (scan.error !== null && candidates.length === 0) {
@@ -870,7 +871,7 @@ function ProjectsSection({
                 disabled={selected.length === candidates.length}
                 onClick={() => setSelectedKeys(new Set(allKeys))}
               >
-                Select all
+                <T>Select all</T>
               </Button>
               <Button
                 variant="ghost"
@@ -1040,11 +1041,11 @@ function PhoneConnectLink({ environmentId }: { readonly environmentId: Environme
       </p>
       {loadFailed ? (
         <Button variant="outline" size="xs" onClick={retryClerkLoad}>
-          Retry sign-in
+          <T>Retry sign-in</T>
         </Button>
       ) : (
         <Button variant="outline" size="xs" disabled={!isLoaded} onClick={openAuthPrompt}>
-          Sign in to T3 Connect
+          <T>Sign in to T3 Connect</T>
         </Button>
       )}
     </>
@@ -1197,7 +1198,9 @@ function AgentRow({
             Ready
           </span>
         ) : state === "checking" ? (
-          <span className="text-xs text-muted-foreground">Checking…</span>
+          <span className="text-xs text-muted-foreground">
+            <T>Checking…</T>
+          </span>
         ) : (
           action
         )}
@@ -1356,11 +1359,11 @@ function AgentInstallTerminal({
                 }
               }}
             >
-              Retry
+              <T>Retry</T>
             </Button>
           ) : null}
           <Button size="xs" variant="ghost-muted" onClick={onClose}>
-            Close
+            <T>Close</T>
           </Button>
         </div>
       </div>
@@ -1910,7 +1913,7 @@ function CliPathSetup() {
       </p>
       {setup.added ? null : (
         <Button size="xs" variant="outline" disabled={busy} onClick={() => run("addToPath")}>
-          Add to PATH
+          <T>Add to PATH</T>
         </Button>
       )}
     </div>

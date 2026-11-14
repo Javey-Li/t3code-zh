@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { scopeProjectRef, scopeThreadRef } from "@t3tools/client-runtime/environment";
 import {
   getAddProjectInitialQuery,
@@ -359,7 +360,7 @@ export function NewThreadLinkView({ link }: { readonly link: NewThreadLink }) {
               setState({ status: "opening" });
             }}
           >
-            Open it again
+            <T>Open it again</T>
           </Button>
         </LinkPage>
       );
@@ -378,7 +379,7 @@ export function NewThreadLinkView({ link }: { readonly link: NewThreadLink }) {
             Clone {name}
           </Button>
           <Button size="sm" variant="outline" onClick={openWithoutProject}>
-            Use without project
+            <T>Use without project</T>
           </Button>
         </LinkPage>
       );

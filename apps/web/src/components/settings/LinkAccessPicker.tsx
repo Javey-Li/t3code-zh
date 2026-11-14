@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { AuthMcpClientAccess } from "@t3tools/contracts";
 import { useId } from "react";
 
@@ -19,7 +20,7 @@ export function LinkAccessPicker({
   return (
     <div className="space-y-1.5">
       <span id={labelId} className="block text-xs font-medium">
-        What agents here may do there
+        <T>What agents here may do there</T>
       </span>
       <Select
         value={value}

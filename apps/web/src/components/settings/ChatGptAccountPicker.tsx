@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { useState } from "react";
 import type { ProviderAuthMethod } from "@t3tools/contracts";
 import { RadioGroup, Radio } from "../ui/radio-group";
@@ -48,9 +49,11 @@ export function ChatGptAccountPicker({
     >
       <DialogPopup>
         <DialogHeader>
-          <DialogTitle>Reconnect ChatGPT</DialogTitle>
+          <DialogTitle>
+            <T>Reconnect ChatGPT</T>
+          </DialogTitle>
           <DialogDescription>
-            On OpenAI, sign in with the account you choose here.
+            <T>On OpenAI, sign in with the account you choose here.</T>
           </DialogDescription>
         </DialogHeader>
         <div className="px-6 pb-6">
@@ -71,7 +74,9 @@ export function ChatGptAccountPicker({
             ))}
             <label className="flex cursor-pointer items-center gap-3 rounded-lg border px-3 py-3 text-sm">
               <Radio value="chatgpt-change-account" />
-              <span className="font-medium">Use a different account</span>
+              <span className="font-medium">
+                <T>Use a different account</T>
+              </span>
             </label>
           </RadioGroup>
         </div>

@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import {
   formatProviderSubagentStatus,
   type ProviderSubagentStatus,
@@ -70,7 +71,9 @@ export function ProviderSubagentBar(props: {
       {props.onOpenParent ? (
         <Button size="sm" variant="ghost" onClick={props.onOpenParent}>
           <ArrowUpLeftIcon />
-          <span className="@max-[320px]/composer-surface:sr-only">Open parent</span>
+          <span className="@max-[320px]/composer-surface:sr-only">
+            <T>Open parent</T>
+          </span>
         </Button>
       ) : null}
     </div>

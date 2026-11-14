@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { Tooltip, TooltipTrigger, TooltipPopup } from "../ui/tooltip";
 import { useAtomValue } from "@effect/atom-react";
 import { scopeThreadRef } from "@t3tools/client-runtime/environment";
@@ -234,7 +235,7 @@ function ThreadPicker({
       <CommandList className="max-h-80 overflow-y-auto">
         {candidates.length === 0 ? (
           <div className="px-3 py-6 text-center text-sm text-muted-foreground">
-            No active threads found.
+            <T>No active threads found.</T>
           </div>
         ) : (
           candidates.map((thread) => {
@@ -256,7 +257,9 @@ function ThreadPicker({
                 {linked ? (
                   <>
                     <CheckIcon aria-hidden className="size-3.5" />
-                    <span className="text-xs text-muted-foreground">Linked</span>
+                    <span className="text-xs text-muted-foreground">
+                      <T>Linked</T>
+                    </span>
                   </>
                 ) : null}
               </CommandItem>

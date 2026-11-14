@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { pipe } from "effect/Function";
 import { ACP_REGISTRY_MAX_AGENTS, AuthProvidersManageScope } from "@t3tools/contracts";
 import { readEnvironmentScope, useEnvironmentScope } from "../../state/session";
@@ -158,7 +159,7 @@ export function AcpRegistrySearchStep({
   return (
     <section className="grid gap-3" aria-labelledby="acp-registry-search-heading">
       <h3 className="sr-only" id="acp-registry-search-heading">
-        Choose an agent
+        <T>Choose an agent</T>
       </h3>
 
       <form className="flex flex-wrap items-center gap-2" onSubmit={handleSearch}>
@@ -183,7 +184,7 @@ export function AcpRegistrySearchStep({
           type="button"
           variant="ghost-muted"
         >
-          Enter manually
+          <T>Enter manually</T>
         </Button>
         {onLocalConfiguration ? (
           <Button
@@ -193,7 +194,7 @@ export function AcpRegistrySearchStep({
             type="button"
             variant="outline"
           >
-            Local ACP command
+            <T>Local ACP command</T>
           </Button>
         ) : null}
       </form>
@@ -216,15 +217,19 @@ export function AcpRegistrySearchStep({
 
       {isInitialSearch ? (
         <div className="flex min-h-20 items-center justify-center text-sm text-muted-foreground">
-          Searching the registry...
+          <T>Searching the registry...</T>
         </div>
       ) : null}
 
       {results ? (
         results.length === 0 ? (
           <div className="flex min-h-28 flex-col items-center justify-center rounded-2xl border border-dashed px-4 text-center">
-            <p className="text-sm font-medium">No compatible agents found</p>
-            <p className="mt-1 text-xs text-muted-foreground">Try a broader search.</p>
+            <p className="text-sm font-medium">
+              <T>No compatible agents found</T>
+            </p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              <T>Try a broader search.</T>
+            </p>
           </div>
         ) : (
           <ScrollArea scrollFade className="max-h-64">

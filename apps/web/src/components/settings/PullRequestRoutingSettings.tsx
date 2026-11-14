@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { useAtomValue } from "@effect/atom-react";
 import { resolveEnvironmentMachineKind } from "@t3tools/contracts";
 import {
@@ -66,9 +67,11 @@ export function PullRequestRoutingSettings({
       }
     >
       <p className="px-3 py-2.5 text-xs text-muted-foreground sm:px-4">
-        Machines you trust here can read PR data through each other's source control access. Enable
-        both machines. Read and act may use broader permissions than the machine that owns them.
-        This applies only to this device.
+        <T>
+          Machines you trust here can read PR data through each other's source control access.
+          Enable both machines. Read and act may use broader permissions than the machine that owns
+          them. This applies only to this device.
+        </T>
       </p>
       {environments.map((environment) => (
         <EnvironmentRow

@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import {
   DEFAULT_SERVER_SETTINGS,
   type ModelSelection,
@@ -312,7 +313,9 @@ export function ProjectDefaultsSettings({ category }: { category: ProjectSetting
             ) : null}
           </div>
         ) : (
-          <span className="text-sm text-muted-foreground">No providers available</span>
+          <span className="text-sm text-muted-foreground">
+            <T>No providers available</T>
+          </span>
         )
       }
     />
@@ -504,7 +507,9 @@ export function ProjectDefaultsSettings({ category }: { category: ProjectSetting
                   </SelectValue>
                 </SelectTrigger>
                 <SelectPopup align="end" alignItemWithTrigger={false}>
-                  <SelectItem value="last">Last selected</SelectItem>
+                  <SelectItem value="last">
+                    <T>Last selected</T>
+                  </SelectItem>
                   <SelectItem value="merge">{PULL_REQUEST_MERGE_METHOD_LABELS.merge}</SelectItem>
                   <SelectItem value="squash">{PULL_REQUEST_MERGE_METHOD_LABELS.squash}</SelectItem>
                   <SelectItem value="rebase">{PULL_REQUEST_MERGE_METHOD_LABELS.rebase}</SelectItem>

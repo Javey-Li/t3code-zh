@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { FILL_PREVIEW_VIEWPORT, type ScopedThreadRef } from "@t3tools/contracts";
 import { previewPdfAssetUrl } from "@t3tools/shared/preview";
 import { useEnvironmentHttpBaseUrl } from "~/state/environments";
@@ -360,7 +361,7 @@ function BrowserMiniPlayer({ threadRef, tabId, miniPlayer }: Props & { readonly 
               </div>
             ) : !desktopOverlay?.hasWebContents ? (
               <div className="pointer-events-none absolute inset-0 z-[49] flex items-center justify-center rounded-[inherit] bg-muted text-xs text-muted-foreground">
-                Reconnecting preview…
+                <T>Reconnecting preview…</T>
               </div>
             ) : null}
           </>
@@ -650,7 +651,9 @@ function MiniPlayerShell({
                 >
                   <PanelRightIcon />
                 </TooltipTrigger>
-                <TooltipPopup side="top">Open in right panel</TooltipPopup>
+                <TooltipPopup side="top">
+                  <T>Open in right panel</T>
+                </TooltipPopup>
               </Tooltip>
               {pillActions}
               <Tooltip>
@@ -667,7 +670,9 @@ function MiniPlayerShell({
                 >
                   <XIcon />
                 </TooltipTrigger>
-                <TooltipPopup side="top">Close floating preview</TooltipPopup>
+                <TooltipPopup side="top">
+                  <T>Close floating preview</T>
+                </TooltipPopup>
               </Tooltip>
             </div>
           </div>

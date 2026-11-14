@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { useState } from "react";
 
 import {
@@ -102,7 +103,7 @@ function RevokeConnectDeviceDialogPopup({
       </AlertDialogHeader>
       <AlertDialogFooter>
         <AlertDialogClose disabled={busy} render={<Button variant="outline" disabled={busy} />}>
-          Cancel
+          <T>Cancel</T>
         </AlertDialogClose>
         <Button variant="destructive" disabled={busy} onClick={() => void confirm()}>
           {busy && <Spinner size="sm" />}

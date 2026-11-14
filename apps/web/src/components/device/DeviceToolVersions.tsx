@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import type { ReactNode } from "react";
 import type { DeviceToolVersions as ToolVersions } from "@t3tools/contracts";
 import { InlineButton } from "~/components/ui/button";
@@ -60,7 +61,9 @@ export function DeviceToolVersions({
                 <div key={name} className="space-y-2 py-3 first:pt-0 last:pb-0">
                   {!kind ? <p className="text-xs font-medium">{name}</p> : null}
                   <dl className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-1 text-xs">
-                    <dt className="text-muted-foreground">Running</dt>
+                    <dt className="text-muted-foreground">
+                      <T>Running</T>
+                    </dt>
                     <dd className="text-right font-mono">{tool.runningVersion ?? "Not running"}</dd>
                     <dt className="text-muted-foreground">Required</dt>
                     <dd className="text-right font-mono">{tool.requiredVersion}</dd>
@@ -73,7 +76,9 @@ export function DeviceToolVersions({
               ))}
           </div>
         ) : (
-          <p className="mt-3 text-xs text-muted-foreground">Versions have not been checked.</p>
+          <p className="mt-3 text-xs text-muted-foreground">
+            <T>Versions have not been checked.</T>
+          </p>
         )}
         <p className="mt-4 border-t border-border/50 pt-3 text-xs text-muted-foreground">
           {owner ? `Managed by ${owner}. ` : ""}Tools update automatically on this host when needed.

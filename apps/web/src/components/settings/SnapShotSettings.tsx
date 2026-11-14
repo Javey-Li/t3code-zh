@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { RegistryContext, useAtomValue } from "@effect/atom-react";
 import {
   isModifierPairShortcut,
@@ -426,7 +427,7 @@ export function SnapShotSettings() {
                       disabled={setupBusy}
                       onClick={() => void openSetup("shortcut")}
                     >
-                      Change shortcut
+                      <T>Change shortcut</T>
                     </Button>
                   ) : (
                     <>
@@ -451,7 +452,7 @@ export function SnapShotSettings() {
                               setShortcutCheck({ status: "idle", availability: null });
                             }}
                           >
-                            Cancel
+                            <T>Cancel</T>
                           </Button>
                         </>
                       ) : state?.mode === "portal" &&
@@ -463,7 +464,7 @@ export function SnapShotSettings() {
                           disabled={setupBusy || state.shortcutPending}
                           onClick={() => void setup("retry-shortcut")}
                         >
-                          Shortcut permissions
+                          <T>Shortcut permissions</T>
                         </Button>
                       ) : null}
                     </>
@@ -499,7 +500,7 @@ export function SnapShotSettings() {
                         value={soundSelection}
                       >
                         <MenuRadioItem closeOnClick value="off">
-                          Off
+                          <T>Off</T>
                         </MenuRadioItem>
                         <div className={soundOptionRowClassName}>
                           <MenuRadioItem closeOnClick value="soft-pop">
@@ -515,7 +516,7 @@ export function SnapShotSettings() {
                         </div>
                         <div className={soundOptionRowClassName}>
                           <MenuRadioItem closeOnClick value="camera-shutter">
-                            Click
+                            <T>Click</T>
                           </MenuRadioItem>
                           <MenuItem
                             aria-label="Play Click"

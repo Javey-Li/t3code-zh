@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import {
   type LinkedPrompt,
   parseNewThreadLink,
@@ -147,7 +148,9 @@ function HostedPromptLinkLanding({
       <StandalonePageHeader title={title} description={description} />
       {prompt !== null && prompt.hiddenCharacters > 0 ? (
         <Alert className="mt-5" variant="error">
-          <AlertTitle>This prompt had hidden characters, it may be malicious</AlertTitle>
+          <AlertTitle>
+            <T>This prompt had hidden characters, it may be malicious</T>
+          </AlertTitle>
           <AlertDescription>
             T3 Code removed {prompt.hiddenCharacters} hidden character
             {prompt.hiddenCharacters === 1 ? "" : "s"}. Read the prompt before you send it.
@@ -168,11 +171,11 @@ function HostedPromptLinkLanding({
         </Button>
         {canContinue ? (
           <Button variant="outline" onClick={() => onChoose("browser", remember)}>
-            Continue here
+            <T>Continue here</T>
           </Button>
         ) : null}
         <Button variant="ghost" render={<a href={DESKTOP_DOWNLOAD_URL} />}>
-          Get T3 Code
+          <T>Get T3 Code</T>
         </Button>
       </div>
       <label className="mt-4 flex items-center gap-2 text-sm text-muted-foreground">

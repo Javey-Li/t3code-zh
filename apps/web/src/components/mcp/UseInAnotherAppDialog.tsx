@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { useAuth } from "@clerk/react";
 import { useAtomValue } from "@effect/atom-react";
 import { offersLinkedEnvironments } from "@t3tools/client-runtime/link-request";
@@ -180,14 +181,16 @@ function Wizard({
         >
           {step === 1 ? (
             <Button variant="outline" onClick={() => setStep(0)}>
-              Back
+              <T>Back</T>
             </Button>
           ) : null}
           {step === 2 ? (
-            <Button onClick={close}>Done</Button>
+            <Button onClick={close}>
+              <T>Done</T>
+            </Button>
           ) : (
             <Button disabled={step === 0 ? choice === null : access === null} onClick={next}>
-              Next
+              <T>Next</T>
             </Button>
           )}
         </WizardFooter>
@@ -364,7 +367,7 @@ function GateScreen({
   const { openAuthPrompt } = useT3ConnectAuthPrompt();
   const retry = (onClick: () => void) => (
     <Button variant="outline" onClick={onClick}>
-      Check again
+      <T>Check again</T>
     </Button>
   );
   const checkAgain = retry(() => void check());
@@ -392,7 +395,7 @@ function GateScreen({
               openAuthPrompt();
             }}
           >
-            Sign in to T3 Connect
+            <T>Sign in to T3 Connect</T>
           </Button>
         </GateMessage>
       );

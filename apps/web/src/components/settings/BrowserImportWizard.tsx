@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { PermissionChecklist, PermissionContinueButton } from "../permissions/PermissionChecklist";
 import { usePermissionStatus } from "../permissions/usePermissionStatus";
 import type { BrowserImportSource } from "@t3tools/contracts";
@@ -200,9 +201,11 @@ function QuitStep({
       </DialogHeader>
       <DialogFooter>
         <Button variant="outline" onClick={onCancel}>
-          Cancel
+          <T>Cancel</T>
         </Button>
-        <DialogAction onClick={onRechecked}>I&rsquo;ve quit it</DialogAction>
+        <DialogAction onClick={onRechecked}>
+          <T>I’ve quit it</T>
+        </DialogAction>
       </DialogFooter>
     </>
   );
@@ -305,14 +308,14 @@ function FullDiskAccessStep({
       </DialogPanel>
       <DialogFooter>
         <Button variant="outline" onClick={onCancel}>
-          Cancel
+          <T>Cancel</T>
         </Button>
         <PermissionContinueButton
           ready={permission.isReady(["fullDiskAccess"])}
           busy={opening}
           onClick={onGranted}
         >
-          Continue
+          <T>Continue</T>
         </PermissionContinueButton>
       </DialogFooter>
     </>
@@ -354,7 +357,7 @@ function ConfigureStep({
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
           <section className="flex-1 space-y-2">
             <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-              From
+              <T>From</T>
             </p>
             {source.profiles.map((profile) => (
               <SelectableTile
@@ -372,7 +375,7 @@ function ConfigureStep({
           </div>
           <section className="flex-1 space-y-2">
             <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-              Into
+              <T>Into</T>
             </p>
             {canCreateProfile ? (
               <SelectableTile
@@ -401,13 +404,13 @@ function ConfigureStep({
       </DialogPanel>
       <DialogFooter>
         <Button variant="outline" onClick={onCancel}>
-          Cancel
+          <T>Cancel</T>
         </Button>
         <Button
           disabled={sourceProfileDirectory === "" || targetMissing || targetUncreatable}
           onClick={onImport}
         >
-          Import
+          <T>Import</T>
         </Button>
       </DialogFooter>
     </>
@@ -461,13 +464,19 @@ function ImportingStep() {
   return (
     <>
       <DialogHeader>
-        <DialogTitle>Importing cookies</DialogTitle>
-        <DialogDescription>This may take a moment.</DialogDescription>
+        <DialogTitle>
+          <T>Importing cookies</T>
+        </DialogTitle>
+        <DialogDescription>
+          <T>This may take a moment.</T>
+        </DialogDescription>
       </DialogHeader>
       <DialogPanel>
         <div className="flex items-center gap-3 py-2">
           <Spinner size="md" tone="muted" />
-          <span className="text-sm text-muted-foreground">Importing…</span>
+          <span className="text-sm text-muted-foreground">
+            <T>Importing…</T>
+          </span>
         </div>
       </DialogPanel>
     </>
@@ -539,14 +548,14 @@ function DoneStep({
       {skippedDomains.length > 0 ? (
         <DialogPanel>
           <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-            Skipped
+            <T>Skipped</T>
           </p>
           <p className="mt-1 text-sm text-foreground">{formatSkippedDomains(skippedDomains)}</p>
         </DialogPanel>
       ) : null}
       <DialogFooter>
         <DialogClose render={<Button />} onClick={onClose}>
-          Done
+          <T>Done</T>
         </DialogClose>
       </DialogFooter>
     </>
@@ -574,9 +583,13 @@ function BlockedStep({
       </DialogHeader>
       <DialogFooter>
         <Button variant="outline" onClick={onClose}>
-          Close
+          <T>Close</T>
         </Button>
-        {onRetry ? <DialogAction onClick={onRetry}>Try again</DialogAction> : null}
+        {onRetry ? (
+          <DialogAction onClick={onRetry}>
+            <T>Try again</T>
+          </DialogAction>
+        ) : null}
       </DialogFooter>
     </>
   );

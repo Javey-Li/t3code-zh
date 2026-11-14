@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { useCopyToClipboard } from "~/hooks/useCopyToClipboard";
 import { cn } from "~/lib/utils";
 
@@ -55,7 +56,7 @@ export function PullRequestCopyableCode({
             isCopied ? "opacity-100" : "opacity-0",
           )}
         >
-          Copied
+          <T>Copied</T>
         </span>
       </TooltipTrigger>
       <TooltipPopup variant="code" side={tooltipSide}>

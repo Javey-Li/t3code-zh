@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { useLegendListRef } from "~/hooks/useLegendListRef";
 import {
   ANTIGRAVITY_DEFAULT_MODEL,
@@ -246,7 +247,7 @@ function ModelPickerProviderNotices({
               void navigate({ to: "/settings/providers" });
             }}
           >
-            Provider settings
+            <T>Provider settings</T>
           </InlineButton>
         </p>
       ))}

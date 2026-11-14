@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import type { AuthConnectDevice, EnvironmentId } from "@t3tools/contracts";
 import {
   isAtomCommandInterrupted,
@@ -89,7 +90,7 @@ export function ConnectDeviceApprovalSettings({
                     )
                   }
                 >
-                  Deny
+                  <T>Deny</T>
                 </Button>
                 <Button
                   size="xs"

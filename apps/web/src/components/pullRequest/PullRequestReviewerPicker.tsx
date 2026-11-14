@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { useAtomCommand } from "~/state/use-atom-command";
 import type {
   EnvironmentId,
@@ -141,7 +142,9 @@ export function PullRequestReviewerPicker({
         <>
           <PullRequestActorLabel actor={candidate} className="flex-1" />
           {candidate.kind === "team" ? (
-            <span className="shrink-0 text-muted-foreground">team</span>
+            <span className="shrink-0 text-muted-foreground">
+              <T>team</T>
+            </span>
           ) : null}
           {candidate.isRequested ? (
             <CheckIcon aria-label="Already asked" className="size-3.5 shrink-0" />

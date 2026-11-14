@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import type { EnvironmentId, SecretProviderConfig, SecretProviderId } from "@t3tools/contracts";
 import * as Result from "effect/Result";
 import { useState } from "react";
@@ -84,7 +85,9 @@ export function SecretProviderDialog({
             }}
           >
             <div className="grid gap-1.5">
-              <Label htmlFor="secret-provider-name">Name</Label>
+              <Label htmlFor="secret-provider-name">
+                <T>Name</T>
+              </Label>
               <Input
                 id="secret-provider-name"
                 placeholder="Personal"
@@ -108,7 +111,9 @@ export function SecretProviderDialog({
               ) : null}
             </div>
             <div className="grid gap-1.5">
-              <Label htmlFor="secret-provider-account">Account</Label>
+              <Label htmlFor="secret-provider-account">
+                <T>Account</T>
+              </Label>
               <Input
                 id="secret-provider-account"
                 placeholder="my.1password.com"
@@ -131,15 +136,17 @@ export function SecretProviderDialog({
                 </p>
               ) : null}
               <p className="text-xs text-muted-foreground">
-                The account shorthand, sign-in address without https://, or ID that op account list
-                shows.
+                <T>
+                  The account shorthand, sign-in address without https://, or ID that op account
+                  list shows.
+                </T>
               </p>
             </div>
           </form>
         </DialogPanel>
         <DialogFooter variant="bare">
           <Button variant="outline" onClick={onClose}>
-            Cancel
+            <T>Cancel</T>
           </Button>
           <Button
             type="submit"

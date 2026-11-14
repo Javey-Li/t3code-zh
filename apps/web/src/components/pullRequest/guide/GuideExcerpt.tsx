@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import type {
   DiffLineAnnotation,
   FileDiffContentsLoader,
@@ -148,7 +149,7 @@ export function GuideExcerpt({
             {excerpt.end} are not in the loaded diff.
           </span>
           <Button size="xs" variant="outline" onClick={() => onOpenFile(excerpt.path)}>
-            Open in Code
+            <T>Open in Code</T>
           </Button>
         </div>
       )}

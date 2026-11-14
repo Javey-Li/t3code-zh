@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { DownloadIcon } from "lucide-react";
 import { useSyncExternalStore } from "react";
 import type { RelayClientInstallProgressStage } from "@t3tools/contracts";
@@ -92,12 +93,14 @@ export function RelayClientInstallDialog() {
                 value={activeStepIndex + 1}
               />
               <p className="text-xs leading-relaxed text-muted-foreground">
-                Keep T3 Code open while the relay client is installed.
+                <T>Keep T3 Code open while the relay client is installed.</T>
               </p>
             </div>
           ) : (
             <div className="rounded-xl border border-border/70 bg-muted/35 p-3">
-              <p className="text-sm font-medium text-foreground">Managed relay client</p>
+              <p className="text-sm font-medium text-foreground">
+                <T>Managed relay client</T>
+              </p>
               <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
                 T3 Code will download and install version{" "}
                 {view.status === "confirming" ? view.version : ""} locally.
@@ -111,10 +114,10 @@ export function RelayClientInstallDialog() {
               variant="outline"
               onClick={() => respondToRelayClientInstallConfirmation(false)}
             >
-              Cancel
+              <T>Cancel</T>
             </Button>
             <DialogAction onClick={() => respondToRelayClientInstallConfirmation(true)}>
-              Download and install
+              <T>Download and install</T>
             </DialogAction>
           </DialogFooter>
         ) : null}

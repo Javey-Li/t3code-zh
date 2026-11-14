@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { sourceControlClients } from "@t3tools/client-runtime/source-control-clients";
 import { ArrowLeftIcon, ExternalLinkIcon } from "lucide-react";
 import type { MouseEvent as ReactMouseEvent } from "react";
@@ -46,7 +47,9 @@ function BackButton({ onBack, focusable }: { onBack: () => void; focusable: bool
           </Button>
         }
       />
-      <TooltipPopup side="top">Back to pull requests</TooltipPopup>
+      <TooltipPopup side="top">
+        <T>Back to pull requests</T>
+      </TooltipPopup>
     </Tooltip>
   );
 }

@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { useAtomValue } from "@effect/atom-react";
 import { EnvironmentId } from "@t3tools/contracts";
 import { Atom } from "effect/reactivity";
@@ -165,9 +166,15 @@ function UpdateEverythingDialogContent({
               role="row"
               className="col-span-full grid grid-cols-subgrid border-b pb-1.5 text-muted-foreground text-xs"
             >
-              <span role="columnheader">Machine</span>
-              <span role="columnheader">T3 Code</span>
-              <span role="columnheader">Providers</span>
+              <span role="columnheader">
+                <T>Machine</T>
+              </span>
+              <span role="columnheader">
+                <T>T3 Code</T>
+              </span>
+              <span role="columnheader">
+                <T>Providers</T>
+              </span>
               <span role="columnheader" />
             </div>
             {updating.map((row) => (
@@ -183,7 +190,9 @@ function UpdateEverythingDialogContent({
                 <span role="cell">
                   {row.app !== null ? APP_LABELS[row.app] : null}
                   {row.app === null && row.skipped !== null ? (
-                    <span className="text-muted-foreground">Skipped</span>
+                    <span className="text-muted-foreground">
+                      <T>Skipped</T>
+                    </span>
                   ) : null}
                   {row.app === "this-app" ? (
                     <span className="block text-muted-foreground text-xs">restarts last</span>
@@ -242,7 +251,7 @@ function UpdateEverythingDialogContent({
           </p>
         ) : null}
         <AlertDialogClose ref={cancelRef} render={<Button variant="outline" disabled={busy} />}>
-          Cancel
+          <T>Cancel</T>
         </AlertDialogClose>
         <Button disabled={disabledReason !== null || busy} onClick={onConfirm}>
           {confirmLabel}

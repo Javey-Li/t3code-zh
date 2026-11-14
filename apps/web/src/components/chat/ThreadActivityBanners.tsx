@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import type {
   EnvironmentId,
   OrchestrationV2PendingBackgroundTask,
@@ -111,7 +112,7 @@ export function goalNowItem(input: {
             <InlineButton
               onClick={() => void onSendCommand("/goal resume", "Failed to resume goal.")}
             >
-              Resume
+              <T>Resume</T>
             </InlineButton>
             <span aria-hidden>·</span>
           </>
@@ -120,7 +121,7 @@ export function goalNowItem(input: {
           tone="muted"
           onClick={() => void onSendCommand("/goal clear", "Failed to clear goal.")}
         >
-          Clear
+          <T>Clear</T>
         </InlineButton>
       </>
     ),
@@ -259,7 +260,7 @@ export function backgroundWorkNowItem(input: {
         />
         {onlyThreadId === undefined ? null : (
           <InlineButton tone="muted" onClick={() => onOpenThread(onlyThreadId)}>
-            Open
+            <T>Open</T>
           </InlineButton>
         )}
         <InlineButton disabled={input.stopDisabled} onClick={() => void input.onStop()}>
@@ -286,7 +287,9 @@ export function branchMismatchBannerItem(input: {
     icon: <GitBranchIcon />,
     title: (
       <span className="flex min-w-0 items-baseline gap-1.5">
-        <span className="shrink-0 font-normal text-muted-foreground">Branch changed from</span>
+        <span className="shrink-0 font-normal text-muted-foreground">
+          <T>Branch changed from</T>
+        </span>
         <Tooltip>
           <TooltipTrigger
             render={

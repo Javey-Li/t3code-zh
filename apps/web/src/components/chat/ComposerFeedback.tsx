@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import {
   codexFeedbackNotice,
   type CodexFeedbackSubmission,
@@ -38,7 +39,7 @@ export function feedbackBannerItem(
             );
           }}
         >
-          Copy ID
+          <T>Copy ID</T>
         </Button>
       ) : undefined,
     ...(submission.status !== "uploading"

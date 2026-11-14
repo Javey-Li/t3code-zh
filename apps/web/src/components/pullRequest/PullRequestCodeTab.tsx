@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import {
   parsePullRequestAnchor,
   pullRequestDiffPathMatches,
@@ -313,14 +314,16 @@ function FileViewedToggle({
         {stale ? (
           <Tooltip>
             <TooltipTrigger render={<span className="text-warning-foreground" />}>
-              Changed
+              <T>Changed</T>
             </TooltipTrigger>
             <TooltipPopup side="bottom">
-              This file has been pushed to since you marked it viewed.
+              <T>This file has been pushed to since you marked it viewed.</T>
             </TooltipPopup>
           </Tooltip>
         ) : (
-          <span className="@max-xs:hidden">Viewed</span>
+          <span className="@max-xs:hidden">
+            <T>Viewed</T>
+          </span>
         )}
       </label>
     </span>
@@ -952,9 +955,11 @@ function PullRequestCodeTab({
       >
         {diffQuery.error !== null ? (
           <>
-            <span>The rest of this diff could not be loaded.</span>
+            <span>
+              <T>The rest of this diff could not be loaded.</T>
+            </span>
             <Button size="xs" variant="outline" onClick={() => diffQuery.refresh()}>
-              Retry
+              <T>Retry</T>
             </Button>
           </>
         ) : diffQuery.isPending ? (
@@ -1214,7 +1219,9 @@ function PullRequestCodeTab({
                 onValueChange={(value) => onSelectedCommitChange(value === "all" ? null : value)}
               >
                 <DropdownMenuRadioItem value="all" closeOnClick>
-                  <span>All commits</span>
+                  <span>
+                    <T>All commits</T>
+                  </span>
                 </DropdownMenuRadioItem>
                 {orderedCommits.slice(0, visibleCommitCount).map((entry) => (
                   <DropdownMenuRadioItem key={entry.oid} value={entry.oid} closeOnClick>
@@ -1272,9 +1279,11 @@ function PullRequestCodeTab({
                     />
                   </TooltipTrigger>
                   <TooltipPopup side="bottom">
-                    This host keeps no shared record of which files you have read, so these ticks
-                    are kept by this environment. They follow you between the apps connected to it,
-                    but the host's own web UI will not show them.
+                    <T>
+                      This host keeps no shared record of which files you have read, so these ticks
+                      are kept by this environment. They follow you between the apps connected to
+                      it, but the host's own web UI will not show them.
+                    </T>
                   </TooltipPopup>
                 </Tooltip>
               ) : null}
@@ -1301,8 +1310,10 @@ function PullRequestCodeTab({
                     />
                   </TooltipTrigger>
                   <TooltipPopup side="bottom">
-                    This change has more files than the host will report ticks for in one read, so
-                    the count is short and some boxes below start empty.
+                    <T>
+                      This change has more files than the host will report ticks for in one read, so
+                      the count is short and some boxes below start empty.
+                    </T>
                   </TooltipPopup>
                 </Tooltip>
               ) : null}
@@ -1317,7 +1328,10 @@ function PullRequestCodeTab({
                 />
               </TooltipTrigger>
               <TooltipPopup side="bottom">
-                The host withheld part of this diff: a binary file, or a change too large to inline.
+                <T>
+                  The host withheld part of this diff: a binary file, or a change too large to
+                  inline.
+                </T>
               </TooltipPopup>
             </Tooltip>
           ) : null}
@@ -1330,7 +1344,9 @@ function PullRequestCodeTab({
                 />
               </TooltipTrigger>
               <TooltipPopup side="bottom">
-                A comment is anchored to the whole change, so switch to All commits to write one.
+                <T>
+                  A comment is anchored to the whole change, so switch to All commits to write one.
+                </T>
               </TooltipPopup>
             </Tooltip>
           ) : null}
@@ -1350,20 +1366,22 @@ function PullRequestCodeTab({
             >
               <Settings2Icon className="size-3.5" />
             </TooltipTrigger>
-            <TooltipPopup side="top">Diff options</TooltipPopup>
+            <TooltipPopup side="top">
+              <T>Diff options</T>
+            </TooltipPopup>
           </Tooltip>
           <DropdownMenuContent align="end">
             <DropdownMenuCheckboxItem
               checked={ignoreWhitespace}
               onCheckedChange={(checked) => changeIgnoreWhitespace(checked)}
             >
-              Hide whitespace changes
+              <T>Hide whitespace changes</T>
             </DropdownMenuCheckboxItem>
             <DropdownMenuCheckboxItem
               checked={wordWrap}
               onCheckedChange={(checked) => setWordWrapOverride(checked)}
             >
-              Wrap lines
+              <T>Wrap lines</T>
             </DropdownMenuCheckboxItem>
             <DropdownMenuSeparator />
             <DropdownMenuRadioGroup
@@ -1375,10 +1393,10 @@ function PullRequestCodeTab({
               }}
             >
               <DropdownMenuRadioItem value="stacked" closeOnClick>
-                Stacked
+                <T>Stacked</T>
               </DropdownMenuRadioItem>
               <DropdownMenuRadioItem value="split" closeOnClick>
-                Split
+                <T>Split</T>
               </DropdownMenuRadioItem>
             </DropdownMenuRadioGroup>
           </DropdownMenuContent>

@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import {
   isAtomCommandInterrupted,
   settlePromise,
@@ -62,7 +63,7 @@ export function ProviderSetupSection(props: ProviderSetupSectionProps) {
             </span>
             {!props.enabled && !props.readOnly ? (
               <Button size="sm" variant="outline" onClick={props.onEnable}>
-                Enable Antigravity
+                <T>Enable Antigravity</T>
               </Button>
             ) : null}
           </div>
@@ -200,12 +201,14 @@ function ProviderSetupActions({
           <div className="space-y-2">
             {usesCustomBinary ? (
               <p className="text-muted-foreground">
-                Uses the custom binary path below. Installation keeps that path.
+                <T>Uses the custom binary path below. Installation keeps that path.</T>
               </p>
             ) : null}
             {!installed && !provider.setup?.canInstall ? (
               <p className="text-muted-foreground">
-                Automatic installation unavailable. Set a binary path or use another environment.
+                <T>
+                  Automatic installation unavailable. Set a binary path or use another environment.
+                </T>
               </p>
             ) : null}
           </div>
@@ -253,7 +256,7 @@ function ProviderSetupActions({
                       );
                     }}
                   >
-                    Cancel installation
+                    <T>Cancel installation</T>
                   </Button>
                 ) : !installActive && provider.setup?.canInstall ? (
                   <Button
@@ -293,7 +296,9 @@ function ProviderSetupActions({
                   >
                     <Trash2Icon className="size-3.5" />
                   </TooltipTrigger>
-                  <TooltipPopup>Remove downloaded runtime</TooltipPopup>
+                  <TooltipPopup>
+                    <T>Remove downloaded runtime</T>
+                  </TooltipPopup>
                 </Tooltip>
               ) : null}
             </div>
@@ -324,7 +329,7 @@ function ProviderSetupActions({
                 installQuery.refresh();
               }}
             >
-              Retry setup status
+              <T>Retry setup status</T>
             </Button>
           ) : null}
         </div>

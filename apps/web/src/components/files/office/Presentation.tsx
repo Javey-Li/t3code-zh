@@ -1,4 +1,5 @@
 /* oxlint-disable react/no-unstable-nested-components -- These callbacks return overlays, and are invoked as render functions. */
+import { T } from "gt-react";
 import { useEffect, useRef, useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import {
@@ -130,7 +131,7 @@ export default function Presentation(props: {
                 role="status"
                 className="absolute inset-0 flex items-center justify-center bg-background/80 p-4 text-xs text-foreground"
               >
-                This slide could not be drawn.
+                <T>This slide could not be drawn.</T>
               </p>
             ) : null}
           </>
@@ -139,7 +140,11 @@ export default function Presentation(props: {
           const slide = opened.slides[index];
           return slide?.notes || slide?.hidden ? (
             <div className="space-y-1 text-xs text-muted-foreground">
-              {slide.hidden ? <p>Hidden slide</p> : null}
+              {slide.hidden ? (
+                <p>
+                  <T>Hidden slide</T>
+                </p>
+              ) : null}
               {slide.notes ? (
                 <p
                   role="note"

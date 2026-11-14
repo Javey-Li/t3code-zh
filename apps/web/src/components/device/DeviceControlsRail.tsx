@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import type { DeviceHostSummary, DevicePlatform } from "@t3tools/contracts";
 import {
   Camera,
@@ -105,7 +106,7 @@ export function DeviceControlsRail(props: {
                   <MenuItem
                     onClick={() => void controls.act({ type: "setOrientation", value: "portrait" })}
                   >
-                    Portrait
+                    <T>Portrait</T>
                   </MenuItem>
                   <MenuItem
                     onClick={() =>

@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import {
   ANOTHER_ADDRESS,
   type LinkableMachine,
@@ -32,7 +33,7 @@ export function LinkMachineBadge({ machine }: { readonly machine: LinkableMachin
   if (machine.linked) {
     return (
       <Badge variant="success" size="sm">
-        Linked
+        <T>Linked</T>
       </Badge>
     );
   }
@@ -69,7 +70,7 @@ export function LinkMachineSelect({
   return (
     <div className="space-y-1.5">
       <span id={labelId} className="block text-xs font-medium text-foreground">
-        Machine
+        <T>Machine</T>
       </span>
       <Select
         value={value}
@@ -97,7 +98,7 @@ export function LinkMachineSelect({
             </SelectItem>
           ))}
           <SelectItem value={ANOTHER_ADDRESS} hideIndicator>
-            Another address…
+            <T>Another address…</T>
           </SelectItem>
         </SelectPopup>
       </Select>

@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { ArrowDownIcon, ArrowUpIcon, PencilIcon, PlusIcon, StarIcon, XIcon } from "lucide-react";
 import { memo, useEffect, useRef, useState } from "react";
 import {
@@ -431,10 +432,10 @@ export function ProviderModelsSection({
           />
           <div className="flex shrink-0 gap-2">
             <Button size="sm" variant="outline" onClick={handleAdd}>
-              Add
+              <T>Add</T>
             </Button>
             <Button size="sm" variant="ghost" onClick={cancelAdd}>
-              Cancel
+              <T>Cancel</T>
             </Button>
           </div>
         </div>
@@ -561,7 +562,9 @@ const ProviderModelRow = memo(function ProviderModelRow({
               >
                 <ArrowUpIcon className="size-3" />
               </TooltipTrigger>
-              <TooltipPopup side="top">Move up</TooltipPopup>
+              <TooltipPopup side="top">
+                <T>Move up</T>
+              </TooltipPopup>
             </Tooltip>
             <Tooltip>
               <TooltipTrigger
@@ -577,7 +580,9 @@ const ProviderModelRow = memo(function ProviderModelRow({
               >
                 <ArrowDownIcon className="size-3" />
               </TooltipTrigger>
-              <TooltipPopup side="top">Move down</TooltipPopup>
+              <TooltipPopup side="top">
+                <T>Move down</T>
+              </TooltipPopup>
             </Tooltip>
           </>
         ) : null}
@@ -597,7 +602,9 @@ const ProviderModelRow = memo(function ProviderModelRow({
               >
                 <PencilIcon className="size-3" />
               </TooltipTrigger>
-              <TooltipPopup side="top">Edit name and options</TooltipPopup>
+              <TooltipPopup side="top">
+                <T>Edit name and options</T>
+              </TooltipPopup>
             </Tooltip>
             <Tooltip>
               <TooltipTrigger
@@ -613,7 +620,9 @@ const ProviderModelRow = memo(function ProviderModelRow({
               >
                 <XIcon className="size-3" />
               </TooltipTrigger>
-              <TooltipPopup side="top">Remove custom model</TooltipPopup>
+              <TooltipPopup side="top">
+                <T>Remove custom model</T>
+              </TooltipPopup>
             </Tooltip>
           </>
         ) : null}

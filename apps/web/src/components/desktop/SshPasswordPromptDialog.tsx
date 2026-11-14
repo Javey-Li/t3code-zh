@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { settlePromise } from "@t3tools/client-runtime/state/runtime";
 import type { DesktopSshPasswordPromptRequest } from "@t3tools/contracts";
 import * as AsyncResult from "effect/reactivity/AsyncResult";
@@ -163,7 +164,9 @@ function ActiveSshPasswordPrompt({
     >
       <DialogPopup className="max-w-md" initialFocus={inputRef} showCloseButton={false}>
         <DialogHeader>
-          <DialogTitle>SSH verification required</DialogTitle>
+          <DialogTitle>
+            <T>SSH verification required</T>
+          </DialogTitle>
           <DialogDescription>
             Enter the password or verification code required by <code>{target}</code>. T3 Code
             passes your response to the local SSH process and keeps it in memory to reuse for this
@@ -208,8 +211,10 @@ function ActiveSshPasswordPrompt({
               <p className="text-sm text-destructive">{visibleResponseError}</p>
             ) : (
               <p className="text-sm text-muted-foreground">
-                SSH keys may replace a password, but your server can still require a verification
-                code.
+                <T>
+                  SSH keys may replace a password, but your server can still require a verification
+                  code.
+                </T>
               </p>
             )}
           </form>
@@ -219,7 +224,7 @@ function ActiveSshPasswordPrompt({
             {isExpired ? "Dismiss" : "Cancel"}
           </Button>
           <Button disabled={isResponding || isExpired} form={formId} type="submit">
-            Continue
+            <T>Continue</T>
           </Button>
         </DialogFooter>
       </DialogPopup>

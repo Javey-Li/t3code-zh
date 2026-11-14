@@ -1,4 +1,5 @@
 /* oxlint-disable react/no-array-index-key -- Read-only cells retain their database row and column positions. */
+import { T } from "gt-react";
 import {
   decodeFilePreviewText,
   filePreviewKind,
@@ -68,7 +69,9 @@ function ArchiveFile(props: { readonly path: string; readonly bytes: Uint8Array<
   return (
     <>
       {text.truncated ? (
-        <FileSurfaceNotice>Preview limited to the first 1 MB.</FileSurfaceNotice>
+        <FileSurfaceNotice>
+          <T>Preview limited to the first 1 MB.</T>
+        </FileSurfaceNotice>
       ) : null}
       <Suspense fallback={<FileSurfaceLoading />}>
         <SourcePreview name={props.path} text={text.text} />
@@ -267,7 +270,9 @@ export default function BinaryViewer(props: {
             {sizeBytes !== null ? ` · ${formatAttachmentSize(sizeBytes)}` : ""}
           </div>
           <FileSurfaceNotice>
-            Read-only. Up to 50 columns and 1,024 characters per cell. Blob contents are omitted.
+            <T>
+              Read-only. Up to 50 columns and 1,024 characters per cell. Blob contents are omitted.
+            </T>
           </FileSurfaceNotice>
         </>
       ) : null}
@@ -291,13 +296,13 @@ export default function BinaryViewer(props: {
             <thead className="sticky top-0 bg-background text-muted-foreground">
               <tr>
                 <th scope="col" className="px-3 py-2 text-left font-normal">
-                  Name
+                  <T>Name</T>
                 </th>
                 <th scope="col" className="px-3 py-2 text-right font-normal">
-                  Size
+                  <T>Size</T>
                 </th>
                 <th scope="col" className="px-3 py-2 text-right font-normal">
-                  Modified
+                  <T>Modified</T>
                 </th>
               </tr>
             </thead>
@@ -344,7 +349,9 @@ export default function BinaryViewer(props: {
             </tbody>
           </table>
           {children.size === 0 ? (
-            <p className="p-6 text-xs text-muted-foreground">This folder is empty.</p>
+            <p className="p-6 text-xs text-muted-foreground">
+              <T>This folder is empty.</T>
+            </p>
           ) : null}
         </div>
       ) : rows ? (
@@ -382,11 +389,15 @@ export default function BinaryViewer(props: {
             </tbody>
           </table>
           {rows.rows.length === 0 ? (
-            <p className="p-6 text-xs text-muted-foreground">This table is empty.</p>
+            <p className="p-6 text-xs text-muted-foreground">
+              <T>This table is empty.</T>
+            </p>
           ) : null}
         </div>
       ) : (
-        <p className="p-6 text-xs text-muted-foreground">This database has no readable tables.</p>
+        <p className="p-6 text-xs text-muted-foreground">
+          <T>This database has no readable tables.</T>
+        </p>
       )}
     </div>
   );

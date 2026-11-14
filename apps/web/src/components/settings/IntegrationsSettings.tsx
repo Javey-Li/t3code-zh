@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { DeviceHostUpdates } from "../device/DeviceHostUpdates";
 import { DeviceToolVersions } from "../device/DeviceToolVersions";
 import { useScopedSettings, useUpdateScopedSettings } from "./useScopedSettings";
@@ -393,10 +394,16 @@ function BrowserViewportSetting({ disabled }: { readonly disabled: boolean }) {
               <SelectValue>{viewportSelectLabel(viewport)}</SelectValue>
             </SelectTrigger>
             <SelectPopup align="end" alignItemWithTrigger={false}>
-              <SelectItem value={FILL_VALUE}>Fill panel</SelectItem>
-              <SelectItem value={RESPONSIVE_VALUE}>Responsive</SelectItem>
+              <SelectItem value={FILL_VALUE}>
+                <T>Fill panel</T>
+              </SelectItem>
+              <SelectItem value={RESPONSIVE_VALUE}>
+                <T>Responsive</T>
+              </SelectItem>
               <SelectGroup>
-                <SelectGroupLabel>Standard</SelectGroupLabel>
+                <SelectGroupLabel>
+                  <T>Standard</T>
+                </SelectGroupLabel>
                 {PREVIEW_VIEWPORT_PRESETS.map((preset) => (
                   <SelectItem key={preset.id} value={preset.id}>
                     <span className="flex w-full items-center justify-between gap-5">
@@ -460,7 +467,9 @@ function BrowserViewportSetting({ disabled }: { readonly disabled: boolean }) {
                     </Button>
                   }
                 />
-                <TooltipPopup side="top">Rotate</TooltipPopup>
+                <TooltipPopup side="top">
+                  <T>Rotate</T>
+                </TooltipPopup>
               </Tooltip>
             </div>
           ) : null}
@@ -1320,20 +1329,28 @@ function BrowserProfilesSetting({ disabled }: { readonly disabled: boolean }) {
               disabled={!settingsHydrated || atProfileLimit}
               onClick={() => createProfile("New profile")}
             >
-              Blank profile
+              <T>Blank profile</T>
             </MenuItem>
             {atProfileLimit ? (
-              <MenuItem disabled>You&rsquo;ve reached the profile limit</MenuItem>
+              <MenuItem disabled>
+                <T>You’ve reached the profile limit</T>
+              </MenuItem>
             ) : null}
             <MenuSeparator />
             <MenuGroup>
-              <MenuGroupLabel>Import from</MenuGroupLabel>
+              <MenuGroupLabel>
+                <T>Import from</T>
+              </MenuGroupLabel>
               {cookieImportDenial !== undefined ? (
                 <MenuItem disabled>{cookieImportDenial}</MenuItem>
               ) : sources === null ? (
-                <MenuItem disabled>Looking for browsers…</MenuItem>
+                <MenuItem disabled>
+                  <T>Looking for browsers…</T>
+                </MenuItem>
               ) : importableSources.length === 0 ? (
-                <MenuItem disabled>No supported browsers found</MenuItem>
+                <MenuItem disabled>
+                  <T>No supported browsers found</T>
+                </MenuItem>
               ) : (
                 <>
                   {importableSources.map((source) => (
@@ -1357,7 +1374,9 @@ function BrowserProfilesSetting({ disabled }: { readonly disabled: boolean }) {
                     </MenuItem>
                   ))}
                   {primaryEnvironment == null ? (
-                    <MenuItem disabled>Connect to an environment to import cookies</MenuItem>
+                    <MenuItem disabled>
+                      <T>Connect to an environment to import cookies</T>
+                    </MenuItem>
                   ) : null}
                 </>
               )}
@@ -1402,7 +1421,9 @@ function BrowserProfilesSetting({ disabled }: { readonly disabled: boolean }) {
                 )}
                 {isDefault ? (
                   <span className={cn("flex", profileWritesDisabled && "opacity-64")}>
-                    <Badge>Default</Badge>
+                    <Badge>
+                      <T>Default</T>
+                    </Badge>
                   </span>
                 ) : null}
               </span>
@@ -1428,7 +1449,7 @@ function BrowserProfilesSetting({ disabled }: { readonly disabled: boolean }) {
                       }
                     }}
                   >
-                    Set as default
+                    <T>Set as default</T>
                   </MenuItem>
                   <MenuItem
                     disabled={!settingsHydrated || !removalAvailable}
@@ -1438,7 +1459,7 @@ function BrowserProfilesSetting({ disabled }: { readonly disabled: boolean }) {
                       } else clearProfileData(profile.id, profile.name);
                     }}
                   >
-                    Clear cookies and cache
+                    <T>Clear cookies and cache</T>
                   </MenuItem>
                   {builtIn ? null : (
                     <MenuItem
@@ -1448,7 +1469,7 @@ function BrowserProfilesSetting({ disabled }: { readonly disabled: boolean }) {
                         if (settingsHydrated) setProfilePendingRemoval(profile);
                       }}
                     >
-                      Remove profile and data
+                      <T>Remove profile and data</T>
                     </MenuItem>
                   )}
                   {!removalAvailable ? (
@@ -1480,8 +1501,10 @@ function BrowserProfilesSetting({ disabled }: { readonly disabled: boolean }) {
           <AlertDialogHeader>
             <AlertDialogTitle>Remove “{profilePendingRemoval?.name}”?</AlertDialogTitle>
             <AlertDialogDescription>
-              Its cookies and logins are deleted. Desktop tabs already open in this profile stay
-              open until you close them; server browser tabs close now.
+              <T>
+                Its cookies and logins are deleted. Desktop tabs already open in this profile stay
+                open until you close them; server browser tabs close now.
+              </T>
             </AlertDialogDescription>
             {profileRemovalError ? (
               <p aria-live="polite" className="text-sm text-destructive">
@@ -1490,7 +1513,7 @@ function BrowserProfilesSetting({ disabled }: { readonly disabled: boolean }) {
             ) : null}
             {!removalAvailable ? (
               <p className="text-sm text-muted-foreground">
-                Connect to an environment to remove this profile and its data.
+                <T>Connect to an environment to remove this profile and its data.</T>
               </p>
             ) : null}
           </AlertDialogHeader>
@@ -1499,7 +1522,7 @@ function BrowserProfilesSetting({ disabled }: { readonly disabled: boolean }) {
               disabled={profileRemovalInFlight}
               render={<Button variant="outline" disabled={profileRemovalInFlight} />}
             >
-              Cancel
+              <T>Cancel</T>
             </AlertDialogClose>
             <Button
               variant="destructive"
@@ -1527,11 +1550,15 @@ function BrowserProfilesSetting({ disabled }: { readonly disabled: boolean }) {
               Clear “{profilePendingClear?.name}”’s cookies and cache?
             </AlertDialogTitle>
             <AlertDialogDescription>
-              You are signed out of its sites. Server browser tabs open in this profile close now.
+              <T>
+                You are signed out of its sites. Server browser tabs open in this profile close now.
+              </T>
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogClose render={<Button variant="outline" />}>Cancel</AlertDialogClose>
+            <AlertDialogClose render={<Button variant="outline" />}>
+              <T>Cancel</T>
+            </AlertDialogClose>
             <Button
               variant="destructive"
               onClick={() => {
@@ -1540,7 +1567,7 @@ function BrowserProfilesSetting({ disabled }: { readonly disabled: boolean }) {
                 setProfilePendingClear(null);
               }}
             >
-              Clear data
+              <T>Clear data</T>
             </Button>
           </AlertDialogFooter>
         </AlertDialogPopup>

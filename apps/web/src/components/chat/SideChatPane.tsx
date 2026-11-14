@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { scopeThreadRef } from "@t3tools/client-runtime/environment";
 import { threadRuntimeIsActive } from "@t3tools/client-runtime/state/shell";
 import { resolveLatestMergeBackRun } from "@t3tools/client-runtime/state/thread-workflows";
@@ -141,7 +142,7 @@ export default function SideChatPane(props: {
                 aria-disabled={bringBackBlockedReason !== null || bringingBack || undefined}
                 onClick={() => void bringBack()}
               >
-                Bring back
+                <T>Bring back</T>
               </Button>
             }
           />
@@ -164,7 +165,9 @@ export default function SideChatPane(props: {
       </div>
       {shell === null ? (
         snapshotLoaded ? (
-          <p className="p-3 text-xs text-muted-foreground">This side chat was deleted.</p>
+          <p className="p-3 text-xs text-muted-foreground">
+            <T>This side chat was deleted.</T>
+          </p>
         ) : null
       ) : (
         <BackgroundThreadContext value>

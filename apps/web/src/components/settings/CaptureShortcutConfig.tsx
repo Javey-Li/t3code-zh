@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import {
   isModifierPairShortcut,
   type DesktopCaptureConfigApplied,
@@ -142,13 +143,15 @@ export function CaptureShortcutConfig({
     <div className="space-y-4 text-sm">
       {!result ? (
         <div className="flex items-center justify-between gap-3">
-          <span>Shortcut</span>
+          <span>
+            <T>Shortcut</T>
+          </span>
           {recorder.input}
         </div>
       ) : null}
       {recorder.recording ? (
         <p role="status" className="text-xs text-muted-foreground">
-          Press your shortcut. Esc cancels.
+          <T>Press your shortcut. Esc cancels.</T>
         </p>
       ) : null}
       {result ? (
@@ -188,7 +191,7 @@ export function CaptureShortcutConfig({
           ) : null}
           {changed ? (
             <p className="text-xs text-muted-foreground">
-              Only these changes will be saved. We'll keep a backup.
+              <T>Only these changes will be saved. We'll keep a backup.</T>
             </p>
           ) : null}
           <div className="flex gap-2">
@@ -211,15 +214,17 @@ export function CaptureShortcutConfig({
               </Button>
             ) : null}
             <Button variant="ghost" disabled={actionBusy} onClick={() => setPreview(null)}>
-              Cancel
+              <T>Cancel</T>
             </Button>
           </div>
         </>
       ) : (
         <>
           <p className="text-muted-foreground">
-            Allow T3 Code to read your desktop settings. You'll review any changes here before
-            saving.
+            <T>
+              Allow T3 Code to read your desktop settings. You'll review any changes here before
+              saving.
+            </T>
           </p>
           <Button
             disabled={actionBusy || !bridge}
@@ -243,22 +248,32 @@ export function CaptureShortcutConfig({
         </p>
       ) : null}
       <details className="text-xs text-muted-foreground">
-        <summary className="cursor-pointer">Advanced</summary>
+        <summary className="cursor-pointer">
+          <T>Advanced</T>
+        </summary>
         <div className="mt-3 space-y-3">
           {error?.detail || result?.warning ? (
             <div className="space-y-1">
-              <p className="font-medium text-foreground">Troubleshooting</p>
+              <p className="font-medium text-foreground">
+                <T>Troubleshooting</T>
+              </p>
               <p className="break-words">{error?.detail ?? result?.warning}</p>
             </div>
           ) : null}
           <div className="space-y-1">
-            <p className="font-medium text-foreground">Settings file</p>
+            <p className="font-medium text-foreground">
+              <T>Settings file</T>
+            </p>
             <p className="break-all font-mono">
               {preview?.path ??
                 state.shortcutConfigPath ??
                 (niri ? "~/.config/niri/config.kdl" : "~/.config/hypr/hyprland.conf")}
             </p>
-            {niri ? <p>T3 Code also reads any files included by this file.</p> : null}
+            {niri ? (
+              <p>
+                <T>T3 Code also reads any files included by this file.</T>
+              </p>
+            ) : null}
             {preview && preview.resolvedPath !== preview.path ? (
               <p className="break-all">Linked to {preview.resolvedPath}. The link will be kept.</p>
             ) : null}
@@ -270,7 +285,7 @@ export function CaptureShortcutConfig({
               disabled={actionBusy || !bridge}
               onClick={() => void read(true)}
             >
-              Choose a different file…
+              <T>Choose a different file…</T>
             </Button>
             <Button
               size="sm"
@@ -278,7 +293,7 @@ export function CaptureShortcutConfig({
               disabled={actionBusy || !bridge}
               onClick={() => void read(customFile, "remove")}
             >
-              Remove shortcut…
+              <T>Remove shortcut…</T>
             </Button>
             {result ? (
               <Button
@@ -287,7 +302,7 @@ export function CaptureShortcutConfig({
                 disabled={actionBusy || !bridge}
                 onClick={() => void read()}
               >
-                Review changes
+                <T>Review changes</T>
               </Button>
             ) : null}
           </div>
@@ -298,7 +313,9 @@ export function CaptureShortcutConfig({
               : "On Omarchy, use your own bindings file, not its defaults."}
           </p>
           {result?.backupPath ? <p className="break-all">Backup: {result.backupPath}</p> : null}
-          <p className="font-medium text-foreground">Manual setup</p>
+          <p className="font-medium text-foreground">
+            <T>Manual setup</T>
+          </p>
           <p>
             {niri
               ? "Paste this inside binds { … } in your Niri config, then save."
@@ -332,7 +349,7 @@ export function CaptureShortcutConfig({
               disabled={actionBusy || state.shortcutActionRegistered === false}
               onClick={() => void onComplete()}
             >
-              I've added the shortcut
+              <T>I've added the shortcut</T>
             </Button>
           ) : null}
         </div>

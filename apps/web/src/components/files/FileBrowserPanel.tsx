@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { RefreshIcon } from "~/components/ui/refresh-icon";
 import type {
   ContextMenuItem as TreeContextMenuItem,
@@ -587,7 +588,7 @@ export default function FileBrowserPanel({
       ) : null}
       {query.trim() && pathSearch.truncated && !pathSearch.isPending ? (
         <div className="px-3 py-1 text-xs text-muted-foreground">
-          More matches available. Refine your search.
+          <T>More matches available. Refine your search.</T>
         </div>
       ) : null}
       {(!ready || pathSearch.isPending) && (
@@ -599,13 +600,13 @@ export default function FileBrowserPanel({
               : "px-3 py-1 text-xs text-muted-foreground"
           }
         >
-          Loading files…
+          <T>Loading files…</T>
         </div>
       )}
       {hasNoSearchMatches ? (
         ready && !isPending && !pathSearch.isPending && !error && !pathSearch.error ? (
           <div role="status" className="px-3 py-4 text-xs text-muted-foreground">
-            No matching files.
+            <T>No matching files.</T>
           </div>
         ) : null
       ) : (

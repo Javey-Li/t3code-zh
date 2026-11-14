@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { useAuth } from "@clerk/react";
 import { Link } from "@tanstack/react-router";
 import { managedCapabilityDenial } from "@t3tools/contracts";
@@ -87,7 +88,7 @@ function GuestLinksRowWithSignIn() {
       description="Share a thread with a guest who watches it live in a browser and sends messages you approve. Sign in to T3 Connect to use guest links."
       control={
         <Button size="sm" variant="outline" onClick={openAuthPrompt}>
-          Sign in
+          <T>Sign in</T>
         </Button>
       }
     />
@@ -118,7 +119,7 @@ function GuestLinksRow() {
           Share a thread with a guest who watches it live in a browser and sends messages you
           approve. Needs T3 Connect: sign in and link this machine in{" "}
           <Link to="/settings/access" className="underline underline-offset-2">
-            Sharing & access
+            <T>Sharing & access</T>
           </Link>
           . Turning it off stops every guest link.
         </>
@@ -148,7 +149,7 @@ function LinkedEnvironmentsRow() {
           Let agents here work on your other machines, and theirs here. Turn it on for each machine,
           then link them in{" "}
           <Link to="/settings/connections" className="underline underline-offset-2">
-            Connections
+            <T>Connections</T>
           </Link>
           . While off, nothing new starts over a link; running tasks finish.
         </>
@@ -211,7 +212,7 @@ function SimlockHostsRow() {
           </a>{" "}
           pool, added in{" "}
           <Link to="/settings/devices" className="underline underline-offset-2">
-            Devices
+            <T>Devices</T>
           </Link>
           . An alpha that may change or break. T3 Code never installs Simlock.
         </>

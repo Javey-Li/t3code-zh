@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import {
   memo,
   useEffect,
@@ -311,7 +312,7 @@ export const ComposerPrimaryActions = memo(function ComposerPrimaryActions({
               onClick={onPreviousPendingQuestion}
               disabled={pendingAction.isResponding}
             >
-              Previous
+              <T>Previous</T>
             </Button>
           )
         ) : null}

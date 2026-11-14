@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import {
   MousePointer2Icon,
   PaintbrushIcon,
@@ -900,7 +901,9 @@ export function ThemeEditorPanel({
 
   const renderNameField = () => (
     <label className="grid grid-cols-[minmax(0,1fr)_minmax(0,2fr)] items-center gap-3">
-      <span className="text-sm font-medium">Theme name</span>
+      <span className="text-sm font-medium">
+        <T>Theme name</T>
+      </span>
       <Input
         autoFocus
         size="sm"
@@ -933,7 +936,9 @@ export function ThemeEditorPanel({
 
   const renderAppearanceButtons = () => (
     <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,2fr)] items-center gap-3">
-      <span className="text-sm font-medium">Appearance</span>
+      <span className="text-sm font-medium">
+        <T>Appearance</T>
+      </span>
       <ToggleGroup
         aria-label="Theme appearance"
         variant="segmented"
@@ -957,9 +962,13 @@ export function ThemeEditorPanel({
   const renderColorsHeader = () => (
     <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,2fr)] items-start gap-3">
       <div>
-        <h3 className="text-sm font-medium">Colors</h3>
+        <h3 className="text-sm font-medium">
+          <T>Colors</T>
+        </h3>
         {isAdvanced ? null : (
-          <p className="text-xs text-muted-foreground">Two colors, rest derived</p>
+          <p className="text-xs text-muted-foreground">
+            <T>Two colors, rest derived</T>
+          </p>
         )}
       </div>
       <div className="flex min-w-0 items-start gap-3">
@@ -974,7 +983,9 @@ export function ThemeEditorPanel({
           />
         ) : null}
         <label className="ml-auto flex shrink-0 cursor-pointer items-center gap-2 pt-0.5 text-sm font-medium">
-          <span>Advanced</span>
+          <span>
+            <T>Advanced</T>
+          </span>
           <Switch
             aria-label="Use advanced theme colors"
             checked={isAdvanced}
@@ -1028,7 +1039,11 @@ export function ThemeEditorPanel({
             {renderRoleFields(group.families, "grid gap-1")}
           </section>
         ))}
-        {groups.length === 0 ? <p className="text-xs text-muted-foreground">No matches.</p> : null}
+        {groups.length === 0 ? (
+          <p className="text-xs text-muted-foreground">
+            <T>No matches.</T>
+          </p>
+        ) : null}
       </div>
     ) : (
       <div className="grid gap-1">
@@ -1249,7 +1264,7 @@ export function ThemeEditorPanel({
           </div>
           <div className="flex items-center justify-end gap-2 border-t border-border/70 px-3 py-2">
             <Button size="sm" variant="ghost" onClick={() => onOpenChange(false)}>
-              Cancel
+              <T>Cancel</T>
             </Button>
             <Button disabled={!name.trim()} size="sm" onClick={handleSubmit}>
               {isEditing ? (

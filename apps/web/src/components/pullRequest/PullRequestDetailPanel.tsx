@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import {
   parsePullRequestAnchor,
   pullRequestLinkCommit,
@@ -1444,7 +1445,7 @@ export function PullRequestDetailPanel({
               ) : null}
               {!nativeStack && supportsStackActions && nativeStackQuery.error ? (
                 <Button variant="ghost" size="xs" onClick={nativeStackQuery.refresh}>
-                  Retry stack lookup
+                  <T>Retry stack lookup</T>
                 </Button>
               ) : null}
               {nativeStack ? (

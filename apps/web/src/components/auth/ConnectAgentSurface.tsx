@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import {
   type AuthMcpApprovalDecision,
   type AuthMcpApprovalDetails,
@@ -237,7 +238,7 @@ export function McpConsent({
       <StandalonePage>
         <ConnectAgentHeading title="This sign-in cannot continue" description={loaded.message} />
         <p className="mt-4 text-sm text-muted-foreground">
-          Close this page and start the sign-in again from your agent.
+          <T>Close this page and start the sign-in again from your agent.</T>
         </p>
         {footer}
       </StandalonePage>
@@ -269,11 +270,18 @@ export function McpConsent({
         }
       />
       <dl className="mt-4 grid grid-cols-[auto_minmax(0,1fr)] gap-x-4 gap-y-1 text-sm">
-        <dt className="text-muted-foreground">App</dt>
+        <dt className="text-muted-foreground">
+          <T>App</T>
+        </dt>
         <dd className="min-w-0 break-words">
-          {details.clientName} <span className="text-muted-foreground">· name set by the app</span>
+          {details.clientName}{" "}
+          <span className="text-muted-foreground">
+            <T>· name set by the app</T>
+          </span>
         </dd>
-        <dt className="text-muted-foreground">Access goes to</dt>
+        <dt className="text-muted-foreground">
+          <T>Access goes to</T>
+        </dt>
         <dd className="min-w-0 break-words font-medium">
           {details.redirectHost}
           {redirectsToThisComputer(details.redirectHost) ? (
@@ -289,7 +297,9 @@ export function McpConsent({
           )}
         </dd>
       </dl>
-      <p className="mt-2 text-xs text-muted-foreground">Only approve a sign-in you just started.</p>
+      <p className="mt-2 text-xs text-muted-foreground">
+        <T>Only approve a sign-in you just started.</T>
+      </p>
 
       <form
         className="mt-6 space-y-5"
@@ -301,7 +311,7 @@ export function McpConsent({
         {acceptsCode ? (
           <div className="space-y-2">
             <label className="text-sm font-medium" htmlFor="connect-agent-pairing-code">
-              Sign-in code
+              <T>Sign-in code</T>
             </label>
             <Input
               id="connect-agent-pairing-code"
@@ -324,13 +334,15 @@ export function McpConsent({
 
         {codeAccess ? (
           <p className="text-sm">
-            <span className="text-muted-foreground">Access</span>{" "}
+            <span className="text-muted-foreground">
+              <T>Access</T>
+            </span>{" "}
             <span className="font-medium">{accessConfig[codeAccess].label}</span>
           </p>
         ) : (
           <div className="space-y-2">
             <span id="connect-agent-access-label" className="text-sm font-medium">
-              What it may do
+              <T>What it may do</T>
             </span>
             <RadioGroup
               aria-labelledby="connect-agent-access-label"
@@ -347,8 +359,10 @@ export function McpConsent({
               ))}
             </RadioGroup>
             <p className="text-xs text-muted-foreground">
-              Beyond read only, it can start, message and stop threads, and none of them can run
-              with more than the mode you pick.
+              <T>
+                Beyond read only, it can start, message and stop threads, and none of them can run
+                with more than the mode you pick.
+              </T>
             </p>
           </div>
         )}

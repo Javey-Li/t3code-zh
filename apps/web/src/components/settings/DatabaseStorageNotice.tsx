@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { useAtomValue } from "@effect/atom-react";
 import {
   isAtomCommandInterrupted,
@@ -84,7 +85,7 @@ export function DatabaseStorageNotice({
             size="xs"
             onClick={() => setDismissed((current) => [...current, environmentId])}
           >
-            Dismiss
+            <T>Dismiss</T>
           </Button>
         );
         return reclaimable ? (
@@ -107,7 +108,7 @@ export function DatabaseStorageNotice({
                   size="xs"
                   onClick={() => copyToClipboard(status.compactCommand, undefined)}
                 >
-                  Copy command
+                  <T>Copy command</T>
                 </Button>
                 {dismiss}
               </div>
@@ -189,8 +190,12 @@ function ReclaimRow({
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogClose render={<Button variant="outline" />}>Cancel</AlertDialogClose>
-                <Button onClick={() => void start()}>Restart and reclaim</Button>
+                <AlertDialogClose render={<Button variant="outline" />}>
+                  <T>Cancel</T>
+                </AlertDialogClose>
+                <Button onClick={() => void start()}>
+                  <T>Restart and reclaim</T>
+                </Button>
               </AlertDialogFooter>
             </AlertDialogPopup>
           </AlertDialog>

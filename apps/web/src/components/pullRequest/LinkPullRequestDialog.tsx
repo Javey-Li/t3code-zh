@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import type { ScopedThreadRef } from "@t3tools/contracts";
 import {
   pullRequestLinkProject,
@@ -123,10 +124,14 @@ function LinkPullRequestDialog({
     <Dialog open={open} onOpenChange={(next) => (pending ? undefined : onOpenChange(next))}>
       <DialogPopup className="max-w-xl" initialFocus={inputRef}>
         <DialogHeader>
-          <DialogTitle>Link pull request</DialogTitle>
+          <DialogTitle>
+            <T>Link pull request</T>
+          </DialogTitle>
           <DialogDescription>
-            Attach a pull request to this thread by its URL, or by its number for this thread's
-            repository.
+            <T>
+              Attach a pull request to this thread by its URL, or by its number for this thread's
+              repository.
+            </T>
           </DialogDescription>
         </DialogHeader>
         <DialogPanel>
@@ -161,7 +166,7 @@ function LinkPullRequestDialog({
             onClick={() => onOpenChange(false)}
             disabled={pending}
           >
-            Cancel
+            <T>Cancel</T>
           </Button>
           <Button
             type="button"

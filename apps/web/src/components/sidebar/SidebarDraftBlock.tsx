@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { discardComposerDraft } from "../../lib/discardComposerDraft";
 import { assistantCitationsToPlainText } from "@t3tools/shared/assistantCitations";
 import { replaceComposerContextReferences } from "@t3tools/shared/composerContextReferences";
@@ -123,7 +124,9 @@ const SidebarDraftRow = memo(function SidebarDraftRow(props: {
                     </button>
                   }
                 />
-                <TooltipPopup side="top">Discard draft</TooltipPopup>
+                <TooltipPopup side="top">
+                  <T>Discard draft</T>
+                </TooltipPopup>
               </Tooltip>
             </span>
           </div>

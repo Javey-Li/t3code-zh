@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { useState } from "react";
 import * as Option from "effect/Option";
 import type { SshDeviceHostConfig } from "@t3tools/contracts";
@@ -113,7 +114,9 @@ function DeviceHostEditorForm({
       </DialogHeader>
       <DialogPanel>
         <label className="block space-y-1.5 text-sm">
-          <span>Name</span>
+          <span>
+            <T>Name</T>
+          </span>
           <Input
             autoFocus
             required
@@ -127,7 +130,9 @@ function DeviceHostEditorForm({
           />
         </label>
         <label className="block space-y-1.5 text-sm">
-          <span>SSH target</span>
+          <span>
+            <T>SSH target</T>
+          </span>
           <Input
             required
             value={draft.target}
@@ -143,10 +148,14 @@ function DeviceHostEditorForm({
           open={host.port !== undefined || host.identityFile !== undefined || undefined}
           className="text-sm"
         >
-          <summary className="cursor-pointer text-muted-foreground">SSH options</summary>
+          <summary className="cursor-pointer text-muted-foreground">
+            <T>SSH options</T>
+          </summary>
           <div className="mt-3 grid grid-cols-[minmax(0,1fr)_7rem] gap-3">
             <label className="block space-y-1.5">
-              <span>Identity file</span>
+              <span>
+                <T>Identity file</T>
+              </span>
               <Input
                 value={draft.identityFile ?? ""}
                 disabled={busy}
@@ -161,7 +170,9 @@ function DeviceHostEditorForm({
               />
             </label>
             <label className="block space-y-1.5">
-              <span>Port</span>
+              <span>
+                <T>Port</T>
+              </span>
               <Input
                 type="number"
                 min={1}
@@ -180,7 +191,7 @@ function DeviceHostEditorForm({
             </label>
           </div>
           <p className="mt-2 text-xs text-muted-foreground">
-            Optional. Resolved separately on each environment.
+            <T>Optional. Resolved separately on each environment.</T>
           </p>
         </details>
         <Collapsible
@@ -263,7 +274,9 @@ function DeviceHostEditorForm({
                     ) : null}
                     {result.status === "failed" ? (
                       <details className="mt-1.5 text-muted-foreground">
-                        <summary className="cursor-pointer">Show error</summary>
+                        <summary className="cursor-pointer">
+                          <T>Show error</T>
+                        </summary>
                         <p className="mt-1 max-h-32 overflow-auto whitespace-pre-wrap break-words">
                           {result.error}
                         </p>
@@ -278,7 +291,7 @@ function DeviceHostEditorForm({
       </DialogPanel>
       <DialogFooter>
         <Button type="button" variant="ghost" disabled={busy} onClick={onClose}>
-          Cancel
+          <T>Cancel</T>
         </Button>
         <Button type="submit" disabled={busy || checking || !valid || !draft.label.trim()}>
           {busy ? <Spinner size="xs" /> : null} Save host

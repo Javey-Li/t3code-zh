@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import {
   DndContext,
   type DragEndEvent,
@@ -118,10 +119,12 @@ function MicrophoneRow(props: {
       <span className="col-start-2 flex @min-[32rem]/settings-row:col-start-auto">
         {props.inUse ? (
           <span className="rounded-sm bg-success/12 px-1 text-2xs text-success-foreground">
-            In use
+            <T>In use</T>
           </span>
         ) : props.notConnected ? (
-          <span className="text-2xs text-muted-foreground">Not connected</span>
+          <span className="text-2xs text-muted-foreground">
+            <T>Not connected</T>
+          </span>
         ) : null}
       </span>
       <span

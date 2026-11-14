@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { useState } from "react";
 
 import { isLocalEnvironmentDisabled } from "../../localEnvironment";
@@ -76,7 +77,7 @@ export function LocalEnvironmentSetting() {
           {error ? <p className="px-6 pb-4 text-sm text-destructive">{error}</p> : null}
           <AlertDialogFooter>
             <AlertDialogClose disabled={isUpdating} render={<Button variant="outline" />}>
-              Cancel
+              <T>Cancel</T>
             </AlertDialogClose>
             <Button
               variant={enabled ? "destructive" : "default"}

@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { useScopedSettingsWriteAllowed } from "./useScopedSettings";
 import { SettingsIcon } from "lucide-react";
 import { useState } from "react";
@@ -116,9 +117,11 @@ function BackgroundActivityAdvancedDialog({
     <Dialog open={open && canWriteSettings} onOpenChange={onOpenChange}>
       <DialogPopup className="max-w-xl">
         <DialogHeader>
-          <DialogTitle>Background Activity</DialogTitle>
+          <DialogTitle>
+            <T>Background Activity</T>
+          </DialogTitle>
           <DialogDescription>
-            Tune the shared power policy and the background intervals that feed it.
+            <T>Tune the shared power policy and the background intervals that feed it.</T>
           </DialogDescription>
         </DialogHeader>
         <DialogPanel>
@@ -128,9 +131,11 @@ function BackgroundActivityAdvancedDialog({
           >
             <div className="flex flex-col gap-3 border-b px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
               <div className="min-w-0 space-y-1">
-                <div className="text-sm font-medium">Shared policy</div>
+                <div className="text-sm font-medium">
+                  <T>Shared policy</T>
+                </div>
                 <p className="text-xs leading-relaxed text-muted-foreground">
-                  Controls whether background work may run after a subscribed interval fires.
+                  <T>Controls whether background work may run after a subscribed interval fires.</T>
                 </p>
               </div>
               <Select
@@ -174,7 +179,7 @@ function BackgroundActivityAdvancedDialog({
                   {searchableSetting("git-fetch-interval").title}
                 </div>
                 <p className="text-xs leading-relaxed text-muted-foreground">
-                  Refresh remote branch status in the background.
+                  <T>Refresh remote branch status in the background.</T>
                 </p>
               </div>
               <div className="flex shrink-0 items-center gap-2">
@@ -200,10 +205,14 @@ function BackgroundActivityAdvancedDialog({
 
             <div className="flex flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
               <div className="min-w-0 space-y-1">
-                <div className="text-sm font-medium">Provider health interval</div>
+                <div className="text-sm font-medium">
+                  <T>Provider health interval</T>
+                </div>
                 <p className="text-xs leading-relaxed text-muted-foreground">
-                  Refresh provider availability, versions, and auth state. Model catalog updates
-                  follow Provider update checks.
+                  <T>
+                    Refresh provider availability, versions, and auth state. Model catalog updates
+                    follow Provider update checks.
+                  </T>
                 </p>
               </div>
               <div className="flex shrink-0 items-center gap-2">
@@ -229,9 +238,11 @@ function BackgroundActivityAdvancedDialog({
 
             <div className="flex flex-col gap-3 border-t px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
               <div className="min-w-0 space-y-1">
-                <div className="text-sm font-medium">Host power monitor</div>
+                <div className="text-sm font-medium">
+                  <T>Host power monitor</T>
+                </div>
                 <p className="text-xs leading-relaxed text-muted-foreground">
-                  Poll host power state while clients are active.
+                  <T>Poll host power state while clients are active.</T>
                 </p>
               </div>
               <div className="flex shrink-0 items-center gap-2">
@@ -257,9 +268,11 @@ function BackgroundActivityAdvancedDialog({
 
             <div className="flex flex-col gap-3 border-t px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
               <div className="min-w-0 space-y-1">
-                <div className="text-sm font-medium">Idle host monitor</div>
+                <div className="text-sm font-medium">
+                  <T>Idle host monitor</T>
+                </div>
                 <p className="text-xs leading-relaxed text-muted-foreground">
-                  Poll host power state when no foreground client is active.
+                  <T>Poll host power state when no foreground client is active.</T>
                 </p>
               </div>
               <div className="flex shrink-0 items-center gap-2">
@@ -316,9 +329,11 @@ function BackgroundActivityAdvancedDialog({
             disabled={!canWriteSettings}
             onClick={() => updateSettings(resetBackgroundActivitySettings())}
           >
-            Reset all
+            <T>Reset all</T>
           </Button>
-          <Button onClick={() => onOpenChange(false)}>Done</Button>
+          <Button onClick={() => onOpenChange(false)}>
+            <T>Done</T>
+          </Button>
         </DialogFooter>
       </DialogPopup>
     </Dialog>
@@ -426,7 +441,9 @@ export function BackgroundActivitySettingsRow() {
                   </Button>
                 }
               />
-              <TooltipPopup side="top">Configure background activity</TooltipPopup>
+              <TooltipPopup side="top">
+                <T>Configure background activity</T>
+              </TooltipPopup>
             </Tooltip>
           ) : null}
           <BackgroundActivityAdvancedDialog

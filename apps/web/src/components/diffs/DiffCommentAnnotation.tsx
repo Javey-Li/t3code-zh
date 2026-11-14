@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import type { EnvironmentId, ProjectId } from "@t3tools/contracts";
 import { MessageCircle, Trash2 } from "lucide-react";
 import { useLayoutEffect, useRef, useState, type ReactNode } from "react";
@@ -155,10 +156,12 @@ export function DiffCommentAnnotation({
         }}
       />
       <div className="mt-1.5 flex flex-wrap items-center gap-1">
-        <span className="mr-auto text-3xs text-muted-foreground/70">⌘/Ctrl Enter to send</span>
+        <span className="mr-auto text-3xs text-muted-foreground/70">
+          <T>⌘/Ctrl Enter to send</T>
+        </span>
         {speech ? <TextFieldSpeechControls speech={speech} disabled={pending} /> : null}
         <Button variant="ghost-muted" size="xs" onClick={onCancel}>
-          Cancel
+          <T>Cancel</T>
         </Button>
         {secondaryAction ? (
           <Button

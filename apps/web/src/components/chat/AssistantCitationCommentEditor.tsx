@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { ASSISTANT_CITATION_MAX_COMMENT_LENGTH, type AssistantCitation } from "@t3tools/contracts";
 import { use, useEffect, useRef, useState, type RefObject } from "react";
 
@@ -120,7 +121,7 @@ export function AssistantCitationCommentEditor({
           onPointerDown={(event) => event.preventDefault()}
           onClick={onCancel}
         >
-          Cancel
+          <T>Cancel</T>
         </Button>
         <Button
           size="xs"

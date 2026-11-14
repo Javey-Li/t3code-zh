@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { DeviceHostUpdates } from "./DeviceHostUpdates";
 import type {
   DevicePlatform,
@@ -285,7 +286,7 @@ export function DevicePanel(props: {
             >
               {loadError !== null ? (
                 <Button size="sm" variant="outline" onClick={refreshState}>
-                  Retry
+                  <T>Retry</T>
                 </Button>
               ) : null}
             </DeviceLoadingView>
@@ -460,7 +461,7 @@ function DeviceDiscoveryWarning(props: {
             aria-label={`Details for ${props.label}`}
             render={<Button size="micro" variant="ghost" />}
           >
-            Details
+            <T>Details</T>
           </PopoverTrigger>
           <PopoverPopup side="bottom" align="end" width="lg" padding="compact">
             <p className="whitespace-pre-wrap break-words font-mono text-xs text-muted-foreground">

@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { pipe } from "effect/Function";
 import { useAtomValue } from "@effect/atom-react";
 import {
@@ -139,7 +140,7 @@ function PendingLinkRequest(props: {
             disabled={declining}
             onClick={() => void decline()}
           >
-            Decline
+            <T>Decline</T>
           </Button>
           <Button type="button" size="xs" disabled={declining} onClick={() => setOpen(true)}>
             {picksMachine(item) ? "Choose machine…" : "Review link…"}
@@ -339,7 +340,9 @@ function LinkRequestDialog(props: {
                 ) : null}
                 {asksAddress ? (
                   <label className="block space-y-1.5">
-                    <span className="block text-xs font-medium text-foreground">Address</span>
+                    <span className="block text-xs font-medium text-foreground">
+                      <T>Address</T>
+                    </span>
                     <Input
                       value={address}
                       onChange={(event) => setAddress(event.target.value)}
@@ -368,7 +371,7 @@ function LinkRequestDialog(props: {
                     {canMint ? null : (
                       <label className="block space-y-1.5">
                         <span className="block text-xs font-medium text-foreground">
-                          Pairing code
+                          <T>Pairing code</T>
                         </span>
                         <Input
                           value={pairingCode}
@@ -414,11 +417,11 @@ function LinkRequestDialog(props: {
                 setError(null);
               }}
             >
-              Back
+              <T>Back</T>
             </Button>
           ) : (
             <Button variant="outline" type="button" disabled={busy} onClick={close}>
-              Cancel
+              <T>Cancel</T>
             </Button>
           )}
           <Button
@@ -445,7 +448,7 @@ function MachinePicker(props: {
   return (
     <div className="space-y-2">
       <span id={labelId} className="block text-xs font-medium">
-        Machine
+        <T>Machine</T>
       </span>
       <RadioGroup
         aria-labelledby={labelId}
@@ -469,7 +472,9 @@ function MachinePicker(props: {
         ))}
         <label className="flex cursor-pointer items-center gap-2.5 rounded-lg border px-3 py-2 text-sm">
           <Radio value={ANOTHER_ADDRESS} />
-          <span className="min-w-0 flex-1 font-medium">Another address…</span>
+          <span className="min-w-0 flex-1 font-medium">
+            <T>Another address…</T>
+          </span>
         </label>
       </RadioGroup>
     </div>

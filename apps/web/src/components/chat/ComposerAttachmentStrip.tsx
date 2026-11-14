@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import type {
   ChatAttachment,
   ChatFileAttachment,
@@ -274,7 +275,9 @@ export function ComposerAttachmentMediaRow({
                     }
                   />
                   <TooltipPopup side="top">
-                    Draft attachment could not be saved locally and may be lost on navigation.
+                    <T>
+                      Draft attachment could not be saved locally and may be lost on navigation.
+                    </T>
                   </TooltipPopup>
                 </Tooltip>
               )}
@@ -741,7 +744,9 @@ export function ComposerAttachButton({
           {/* The clip's weight sits in its upper loop; 1px down reads as centered on the row. */}
           <PaperclipIcon className="translate-y-px" />
         </TooltipTrigger>
-        <TooltipPopup>Attach files</TooltipPopup>
+        <TooltipPopup>
+          <T>Attach files</T>
+        </TooltipPopup>
       </Tooltip>
     </>
   );

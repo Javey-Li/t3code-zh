@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { InlineAudioPreview } from "../files/InlineAudioPreview";
 import { filePreviewKind } from "@t3tools/shared/filePreview";
 import {
@@ -345,7 +346,7 @@ function AutomationMessageRow({ row }: { row: Extract<TimelineRow, { kind: "mess
                 search={{ environmentId: ctx.activeThreadEnvironmentId, taskId: scheduledTaskId }}
                 className="rounded-sm text-xs text-muted-foreground hover:underline focus-visible:outline-2 focus-visible:outline-ring"
               >
-                Open automation
+                <T>Open automation</T>
               </Link>
             ) : null}
             <TimelineRowTimestamp
@@ -804,7 +805,7 @@ function UserTimelineRow({ row }: { row: Extract<TimelineRow, { kind: "message" 
           onClick={() => ctx.onOpenThread(senderRef.threadId, senderRef.environmentId)}
           tone="muted"
         >
-          Open thread
+          <T>Open thread</T>
         </InlineButton>
       ) : null}
       <Tooltip>
@@ -853,7 +854,7 @@ function UserTimelineRow({ row }: { row: Extract<TimelineRow, { kind: "message" 
           className="me-1 text-2xs text-muted-foreground/70"
           data-user-message-attribution="t3code"
         >
-          Sent by T3 Code
+          <T>Sent by T3 Code</T>
         </p>
       ) : null}
       {/* The row's heading already names the guest for screen readers. */}
@@ -1127,7 +1128,9 @@ function RevertUserMessageButton({
       >
         <PencilIcon className="size-3" />
       </TooltipTrigger>
-      <TooltipPopup side="top">Edit from here</TooltipPopup>
+      <TooltipPopup side="top">
+        <T>Edit from here</T>
+      </TooltipPopup>
     </Tooltip>
   );
 }

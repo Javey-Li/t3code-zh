@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { MICROPHONE_PERMISSION_ERROR } from "@t3tools/client-runtime/voice-input";
 import { MicIcon, PauseIcon, PlayIcon, RotateCcwIcon, SquareIcon, XIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -217,7 +218,7 @@ export function MicrophoneTest({
     </p>
   ) : phase === "starting" ? (
     <span role="status" className="min-w-0 flex-1 truncate text-xs text-muted-foreground">
-      Opening microphone…
+      <T>Opening microphone…</T>
     </span>
   ) : phase === "recording" ? (
     <>
@@ -317,7 +318,7 @@ function MicrophonePlayback({ src, duration }: { src: string; duration: number }
       </Button>
       {failed ? (
         <p role="alert" className="min-w-0 flex-1 text-xs text-destructive">
-          Could not play this recording. Try recording again.
+          <T>Could not play this recording. Try recording again.</T>
         </p>
       ) : (
         <input

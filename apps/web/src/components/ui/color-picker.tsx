@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import {
   useId,
   useRef,
@@ -122,8 +123,10 @@ export function ColorSaturationValuePlane({
       {...handlers}
     >
       <span id={instructionsId} className="sr-only">
-        Use arrow keys to adjust the focused value. Hold Shift for larger steps. Use Home and End
-        for the minimum and maximum. Press Tab to move between saturation and brightness.
+        <T>
+          Use arrow keys to adjust the focused value. Hold Shift for larger steps. Use Home and End
+          for the minimum and maximum. Press Tab to move between saturation and brightness.
+        </T>
       </span>
       {(
         [

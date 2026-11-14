@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { useComposerMenuState } from "../chat/useComposerMenuState";
 import { useOrchestrationCommand } from "../../state/use-orchestration-command";
 import { AuthOrchestrationOperateScope } from "@t3tools/contracts";
@@ -234,7 +235,7 @@ export function ProjectSettingsPanel({
   if (members.length === 0)
     return (
       <p className="p-8 text-sm text-muted-foreground">
-        This checkout is no longer available in the selected project and environment.
+        <T>This checkout is no longer available in the selected project and environment.</T>
       </p>
     );
   const scopedGroup = scopeProjectSettingsGroup(selected, members);
@@ -437,7 +438,7 @@ function ProjectDetail({
           onClick={() => void removeMembers([member])}
           aria-label={`Remove checkout ${member.workspaceRoot}`}
         >
-          Remove
+          <T>Remove</T>
         </Button>
       ) : null}
     </div>
@@ -445,8 +446,10 @@ function ProjectDetail({
   const checkoutChoices = (
     <SettingsSection title="Checkouts">
       <p className="px-3 py-2.5 text-xs text-muted-foreground sm:px-4">
-        Grouping rule decides how each checkout joins project groups in the sidebar. Changing it can
-        move a checkout to a different project.
+        <T>
+          Grouping rule decides how each checkout joins project groups in the sidebar. Changing it
+          can move a checkout to a different project.
+        </T>
       </p>
       {Array.from(checkoutsByEnvironment, ([environmentId, members]) => {
         if (checkoutsByEnvironment.size === 1) {
@@ -520,7 +523,10 @@ function ProjectDetail({
         <Alert variant="info">
           <InfoIcon aria-hidden />
           <AlertDescription>
-            Can't find a setting? Keep this project picked above and hop to any other settings page.
+            <T>
+              Can't find a setting? Keep this project picked above and hop to any other settings
+              page.
+            </T>
           </AlertDescription>
         </Alert>
         <SettingsSection id="project-overview" title="Project" hideTitle>
@@ -602,7 +608,7 @@ function ProjectDetail({
                   disabled={isSavingFavicon || !canEditGroup}
                   onClick={() => setIconPickerOpen(true)}
                 >
-                  Choose icon
+                  <T>Choose icon</T>
                 </Button>
                 <Button
                   size="sm"
@@ -612,7 +618,7 @@ function ProjectDetail({
                   disabled={isSavingFavicon || !canEditGroup}
                   onClick={() => setFaviconPickerOpen(true)}
                 >
-                  Choose file
+                  <T>Choose file</T>
                 </Button>
               </div>
             }

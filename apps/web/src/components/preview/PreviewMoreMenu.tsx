@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import type { DesktopPreviewColorScheme } from "@t3tools/contracts";
 import { Minus, MoreVertical, Plus as PlusIcon, RotateCcw } from "lucide-react";
 
@@ -65,7 +66,9 @@ const MenuTriggerButton = () => (
     >
       <MoreVertical />
     </TooltipTrigger>
-    <TooltipPopup>More</TooltipPopup>
+    <TooltipPopup>
+      <T>More</T>
+    </TooltipPopup>
   </Tooltip>
 );
 
@@ -94,11 +97,11 @@ export function PreviewMoreMenu({
           </MenuItem>
         ) : null}
         <MenuItem onClick={actions.hardReload} disabled={disabled}>
-          Hard reload
+          <T>Hard reload</T>
         </MenuItem>
         {actions.openDevTools ? (
           <MenuItem onClick={actions.openDevTools} disabled={disabled}>
-            Open DevTools
+            <T>Open DevTools</T>
           </MenuItem>
         ) : null}
         {actions.toggleNativePictureInPicture ? (
@@ -113,7 +116,9 @@ export function PreviewMoreMenu({
           {deviceToolbarVisible ? "Hide device toolbar" : "Show device toolbar"}
         </MenuItem>
         <MenuSub>
-          <MenuSubTrigger disabled={disabled}>Appearance</MenuSubTrigger>
+          <MenuSubTrigger disabled={disabled}>
+            <T>Appearance</T>
+          </MenuSubTrigger>
           <MenuSubPopup>
             <MenuRadioGroup
               value={colorScheme}
@@ -134,7 +139,9 @@ export function PreviewMoreMenu({
           className="justify-between"
           disabled={disabled}
         >
-          <span>Zoom</span>
+          <span>
+            <T>Zoom</T>
+          </span>
           <span className="flex items-center gap-1">
             <Button
               variant="outline"
@@ -178,8 +185,12 @@ export function PreviewMoreMenu({
               <span className="block truncate">Profile: {profileName}</span>
             </MenuGroupLabel>
           ) : null}
-          <MenuItem onClick={actions.clearCookies}>Clear cookies</MenuItem>
-          <MenuItem onClick={actions.clearCache}>Clear cache</MenuItem>
+          <MenuItem onClick={actions.clearCookies}>
+            <T>Clear cookies</T>
+          </MenuItem>
+          <MenuItem onClick={actions.clearCache}>
+            <T>Clear cache</T>
+          </MenuItem>
         </MenuGroup>
       </MenuPopup>
     </Menu>

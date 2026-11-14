@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { useAtomValue } from "@effect/atom-react";
 import { ANOTHER_ADDRESS, linkRequestFailureMessage } from "@t3tools/client-runtime/link-request";
 import {
@@ -271,7 +272,9 @@ function LinkEnvironmentAction({ environmentId }: { readonly environmentId: Envi
       />
       <DialogPopup className="max-w-md">
         <DialogHeader>
-          <DialogTitle>Link an environment</DialogTitle>
+          <DialogTitle>
+            <T>Link an environment</T>
+          </DialogTitle>
           <DialogDescription>
             Agents here can then launch, message and wait on threads there. It appears under
             Authorized clients in that environment's Sharing & access, where it can be revoked.
@@ -297,12 +300,14 @@ function LinkEnvironmentAction({ environmentId }: { readonly environmentId: Envi
             ) : null}
             {machine?.linked ? (
               <p className="text-xs text-muted-foreground">
-                Already linked. Linking again renews it with the access you pick.
+                <T>Already linked. Linking again renews it with the access you pick.</T>
               </p>
             ) : null}
             {needsAddress ? (
               <label className="block space-y-1.5">
-                <span className="block text-xs font-medium text-foreground">Address</span>
+                <span className="block text-xs font-medium text-foreground">
+                  <T>Address</T>
+                </span>
                 <Input
                   value={address}
                   onChange={(event) => {
@@ -327,7 +332,9 @@ function LinkEnvironmentAction({ environmentId }: { readonly environmentId: Envi
             {needsAddress && address.trim() ? <LinkAddressWarning address={address} /> : null}
             {selected === null || canMint ? null : (
               <label className="block space-y-1.5">
-                <span className="block text-xs font-medium text-foreground">Pairing code</span>
+                <span className="block text-xs font-medium text-foreground">
+                  <T>Pairing code</T>
+                </span>
                 <Input
                   value={pairingCode}
                   onChange={(event) => setPairingCode(event.target.value)}
@@ -352,7 +359,7 @@ function LinkEnvironmentAction({ environmentId }: { readonly environmentId: Envi
         </DialogPanel>
         <DialogFooter variant="bare">
           <DialogClose disabled={busy} render={<Button variant="outline" type="button" />}>
-            Cancel
+            <T>Cancel</T>
           </DialogClose>
           <Button form={formId} type="submit" disabled={busy || !ready}>
             {busy ? "Linking…" : "Link"}

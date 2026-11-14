@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import type { ModelSelection, ProviderInstanceId, RuntimeMode } from "@t3tools/contracts";
 import { createModelSelection } from "@t3tools/shared/model";
 import { type ComponentProps, memo, useId, useRef, useState } from "react";
@@ -116,7 +117,9 @@ export function ComposerPermissionsSection(props: {
   const descriptionId = useId();
   return (
     <div data-composer-permissions className="grid w-72 gap-1.5 px-2 py-1.5">
-      <div className="font-medium text-muted-foreground text-xs">Permissions</div>
+      <div className="font-medium text-muted-foreground text-xs">
+        <T>Permissions</T>
+      </div>
       <MenuPrimitive.RadioGroup
         aria-label="Permissions"
         value={props.runtimeMode}

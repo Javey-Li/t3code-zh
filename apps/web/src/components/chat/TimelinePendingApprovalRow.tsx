@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import {
   FULL_ACCESS_OVERRIDE_QUESTION,
   fullAccessOverrideExplanation,
@@ -97,7 +98,7 @@ export const TimelinePendingApprovalRow = memo(function TimelinePendingApprovalR
             </>
           ) : (
             <span className="text-warning">
-              Provider process is gone. Interrupt or restart the run to respond.
+              <T>Provider process is gone. Interrupt or restart the run to respond.</T>
             </span>
           )}
           {approval.fullAccessOverride ? (

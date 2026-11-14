@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import type { EnvironmentId, SecretProviderConfig, SecretProviderId } from "@t3tools/contracts";
 import { PlusIcon } from "lucide-react";
 import { useState } from "react";
@@ -56,7 +57,10 @@ export function SecretsSettingsPanel() {
       ) : (
         <SettingsSection {...searchableSetting("secret-providers")}>
           <p className="px-4 py-3 text-sm text-muted-foreground">
-            Connect an environment to manage the secret providers its provider variables read from.
+            <T>
+              Connect an environment to manage the secret providers its provider variables read
+              from.
+            </T>
           </p>
         </SettingsSection>
       )}
@@ -110,7 +114,7 @@ function EnvironmentSecretProviders({
       >
         {projectScoped ? (
           <p className="px-4 pt-3 text-xs text-muted-foreground">
-            Environment-wide setting. Select an environment to change it.
+            <T>Environment-wide setting. Select an environment to change it.</T>
           </p>
         ) : null}
         {entries.length === 0 ? (
@@ -161,7 +165,7 @@ function EnvironmentSecretProviders({
                           variant="ghost"
                           onClick={() => setDialog({ mode: "edit", id })}
                         >
-                          Edit
+                          <T>Edit</T>
                         </Button>
                       ) : null}
                       <RemoveSecretProviderButton
@@ -206,7 +210,7 @@ function RemoveSecretProviderButton({
   return (
     <>
       <Button size="xs" variant="ghost" onClick={() => setOpen(true)}>
-        Remove
+        <T>Remove</T>
       </Button>
       <AlertDialog open={open} onOpenChange={setOpen}>
         <AlertDialogPopup>
@@ -215,7 +219,9 @@ function RemoveSecretProviderButton({
             <SecretProviderUses environmentId={environmentId} id={id} label={label} />
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogClose render={<Button variant="outline" />}>Cancel</AlertDialogClose>
+            <AlertDialogClose render={<Button variant="outline" />}>
+              <T>Cancel</T>
+            </AlertDialogClose>
             <Button
               variant="destructive"
               onClick={() => {
@@ -223,7 +229,7 @@ function RemoveSecretProviderButton({
                 onConfirm();
               }}
             >
-              Remove provider
+              <T>Remove provider</T>
             </Button>
           </AlertDialogFooter>
         </AlertDialogPopup>

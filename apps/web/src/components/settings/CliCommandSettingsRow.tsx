@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { useState } from "react";
 
 import {
@@ -70,7 +71,7 @@ export function CliCommandSettingsRow() {
         <div className="flex gap-2">
           {state.pathSetup && !state.pathSetup.added ? (
             <Button size="sm" variant="outline" disabled={busy} onClick={() => run("addToPath")}>
-              Add to PATH
+              <T>Add to PATH</T>
             </Button>
           ) : null}
           <Button

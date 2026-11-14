@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { useAtomValue } from "@effect/atom-react";
 import { AuthProvidersManageScope, ProviderDriverKind } from "@t3tools/contracts";
 import { readPreparedConnection, useEnvironmentScope } from "../../state/session";
@@ -154,7 +155,9 @@ export function CodexSetupSection(props: CodexSetupSectionProps) {
               Ready
             </span>
           ) : existingChecking ? (
-            <span className="text-xs text-muted-foreground">Checking...</span>
+            <span className="text-xs text-muted-foreground">
+              <T>Checking...</T>
+            </span>
           ) : existingAuthenticated ? (
             <span className="text-xs text-muted-foreground">{existingSummary.headline}</span>
           ) : (
@@ -167,7 +170,7 @@ export function CodexSetupSection(props: CodexSetupSectionProps) {
                   props.onModeChange("managed");
                 }}
               >
-                Continue with ChatGPT
+                <T>Continue with ChatGPT</T>
               </ChatGptConnectionButton>
             </ManagedControl>
           )
@@ -180,7 +183,7 @@ export function CodexSetupSection(props: CodexSetupSectionProps) {
               disabled={props.existingCliDisabled}
               onClick={() => props.onModeChange("existing")}
             >
-              Use existing CLI
+              <T>Use existing CLI</T>
             </Button>
           ) : null
         }
@@ -192,12 +195,12 @@ export function CodexSetupSection(props: CodexSetupSectionProps) {
           description={<CodexSignInDescription />}
           control={
             <Button size="sm" variant="outline" className="min-w-44" disabled>
-              Open sign-in page
+              <T>Open sign-in page</T>
             </Button>
           }
           secondaryControl={
             <Button size="sm" variant="ghost-muted" disabled>
-              Cancel
+              <T>Cancel</T>
             </Button>
           }
         />
@@ -697,7 +700,9 @@ function ManagedCodexSetup({
   const callbackCompletion =
     !handoff && auth?.phase === "waiting" && url ? (
       <div className="flex w-full flex-col gap-3 text-xs leading-relaxed text-muted-foreground">
-        <p>If sign-in doesn't return to T3 Code, paste the URL from the final localhost page.</p>
+        <p>
+          <T>If sign-in doesn't return to T3 Code, paste the URL from the final localhost page.</T>
+        </p>
         <form
           className="flex flex-col gap-2 sm:flex-row sm:items-center"
           onSubmit={(event) => {
@@ -734,7 +739,7 @@ function ManagedCodexSetup({
             type="submit"
             disabled={pending || readOnly || !callbackUrl.trim()}
           >
-            Connect
+            <T>Connect</T>
           </Button>
         </form>
         {!remoteWeb ? (
@@ -751,9 +756,11 @@ function ManagedCodexSetup({
         ) : null}
         {handoffUrl ? (
           <details>
-            <summary className="cursor-pointer">Other ways to connect</summary>
+            <summary className="cursor-pointer">
+              <T>Other ways to connect</T>
+            </summary>
             <Button className="mt-2" size="sm" variant="outline" render={<a href={handoffUrl} />}>
-              Use T3 desktop for automatic return
+              <T>Use T3 desktop for automatic return</T>
             </Button>
           </details>
         ) : null}
@@ -902,7 +909,7 @@ function ManagedCodexSetup({
                     );
                 }}
               >
-                Cancel
+                <T>Cancel</T>
               </Button>
             ) : !authActive && !authenticated && hasSavedAccount ? (
               <Button
@@ -911,7 +918,7 @@ function ManagedCodexSetup({
                 disabled={unavailable || busy}
                 onClick={() => void setup("chatgpt-change-account")}
               >
-                Use a different account
+                <T>Use a different account</T>
               </Button>
             ) : !authActive && !authenticated && allowExistingCli ? (
               <Button
@@ -920,7 +927,7 @@ function ManagedCodexSetup({
                 disabled={readOnly || busy || existingCliDisabled}
                 onClick={() => onModeChange("existing")}
               >
-                Use existing CLI
+                <T>Use existing CLI</T>
               </Button>
             ) : null
           }
@@ -959,7 +966,7 @@ function ManagedCodexSetup({
                       onSignInCancelled?.();
                     }}
                   >
-                    Cancel
+                    <T>Cancel</T>
                   </Button>
                 )}
               </>
@@ -979,7 +986,7 @@ function ManagedCodexSetup({
                   );
                 }}
               >
-                Cancel
+                <T>Cancel</T>
               </Button>
             ) : authenticated ? (
               <>
@@ -1001,7 +1008,7 @@ function ManagedCodexSetup({
                   disabled={unavailable || busy}
                   onClick={() => setAccountPickerOpen(true)}
                 >
-                  Change account
+                  <T>Change account</T>
                 </Button>
                 <Button
                   size="sm"
@@ -1009,7 +1016,7 @@ function ManagedCodexSetup({
                   disabled={unavailable || busy}
                   onClick={() => void run(() => logoutAuth(target))}
                 >
-                  Disconnect
+                  <T>Disconnect</T>
                 </Button>
               </>
             ) : (
@@ -1039,7 +1046,7 @@ function ManagedCodexSetup({
                     disabled={unavailable || busy}
                     onClick={() => void setup("chatgpt-change-account")}
                   >
-                    Use a different account
+                    <T>Use a different account</T>
                   </Button>
                 ) : null}
                 {allowExistingCli ? (
@@ -1049,7 +1056,7 @@ function ManagedCodexSetup({
                     disabled={readOnly || busy}
                     onClick={() => onModeChange("existing")}
                   >
-                    Use existing CLI
+                    <T>Use existing CLI</T>
                   </Button>
                 ) : null}
               </>

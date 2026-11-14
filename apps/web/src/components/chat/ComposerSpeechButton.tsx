@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import type { VoiceInputState } from "@t3tools/client-runtime/voice-input";
 import { CheckIcon, MicIcon, XIcon } from "lucide-react";
 import { useEffect, useState, type PointerEvent, type ReactElement } from "react";
@@ -201,7 +202,7 @@ export function ComposerSpeechRecordingPill(props: {
           onClick={props.onSkipPostProcessing}
           className="shrink-0"
         >
-          Skip
+          <T>Skip</T>
         </Button>
       ) : recording ? (
         <ShortcutTooltip label="Finish voice input" shortcut={props.finishShortcutLabel}>

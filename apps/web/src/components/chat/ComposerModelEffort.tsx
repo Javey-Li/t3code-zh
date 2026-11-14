@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import {
   buildTraitsTriggerDisplay,
   getDescriptorStringValue,
@@ -209,11 +210,17 @@ function ColumnRow(props: {
       <span className="min-w-0 flex-1 truncate">{props.label}</span>
       {props.selected ? (
         <>
-          {props.isDefault ? <span className="sr-only">Default</span> : null}
+          {props.isDefault ? (
+            <span className="sr-only">
+              <T>Default</T>
+            </span>
+          ) : null}
           <CheckIcon aria-hidden="true" className="size-3.5" />
         </>
       ) : props.isDefault ? (
-        <span className="text-muted-foreground/70 text-xs">Default</span>
+        <span className="text-muted-foreground/70 text-xs">
+          <T>Default</T>
+        </span>
       ) : null}
     </>
   );
@@ -448,7 +455,9 @@ function OptionMenuRow(props: {
                   ) : null}
                 </span>
                 {choice.isDefault ? (
-                  <span className="text-muted-foreground/70 text-xs">Default</span>
+                  <span className="text-muted-foreground/70 text-xs">
+                    <T>Default</T>
+                  </span>
                 ) : null}
                 <MenuRadioItemIndicator />
               </span>
@@ -485,7 +494,9 @@ function OptionSwitchRow(props: {
 
 function NoEffortRow() {
   return (
-    <div className="flex h-8 items-center px-2 text-muted-foreground text-sm">No effort levels</div>
+    <div className="flex h-8 items-center px-2 text-muted-foreground text-sm">
+      <T>No effort levels</T>
+    </div>
   );
 }
 

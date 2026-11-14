@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { ProviderInstanceIcon } from "../chat/ProviderInstanceIcon";
 
 import { Radio as RadioPrimitive } from "@base-ui/react/radio";
@@ -474,7 +475,7 @@ export function AddProviderInstanceDialog({
             <WizardPanel className={cn(isAcpRegistry && wizardStep === identityStep && "min-h-72")}>
               <div className={cn("grid gap-2", wizardStep !== 0 && "hidden")}>
                 <div id="add-instance-driver-label" className="text-sm font-medium text-foreground">
-                  Provider
+                  <T>Provider</T>
                 </div>
                 <ProviderOptionGrid
                   options={featuredDriverOptions}
@@ -510,7 +511,9 @@ export function AddProviderInstanceDialog({
                       {!acpRegistryAllowed ? null : (
                         <div className="flex items-center gap-3 text-xs text-muted-foreground">
                           <div aria-hidden className="flex-1 border-t border-border/70" />
-                          <span>Or choose from ACP Registry</span>
+                          <span>
+                            <T>Or choose from ACP Registry</T>
+                          </span>
                           <div aria-hidden className="flex-1 border-t border-border/70" />
                         </div>
                       )}
@@ -535,7 +538,7 @@ export function AddProviderInstanceDialog({
                               size="xs"
                               variant="ghost"
                             >
-                              Search registry
+                              <T>Search registry</T>
                             </Button>
                           </div>
                           <SettingsGroup variant="plain">
@@ -599,7 +602,7 @@ export function AddProviderInstanceDialog({
                         rel="noreferrer"
                         target="_blank"
                       >
-                        Docs
+                        <T>Docs</T>
                       </a>
                     ) : null}
                     {selectedAcp.repository ? (
@@ -610,7 +613,7 @@ export function AddProviderInstanceDialog({
                         rel="noreferrer"
                         target="_blank"
                       >
-                        Source
+                        <T>Source</T>
                       </a>
                     ) : null}
                   </div>
@@ -622,9 +625,15 @@ export function AddProviderInstanceDialog({
                 className={cn(wizardStep !== identityStep && "hidden")}
               >
                 <SettingsRow
-                  title={<label htmlFor="add-provider-label">Label</label>}
+                  title={
+                    <label htmlFor="add-provider-label">
+                      <T>Label</T>
+                    </label>
+                  }
                   description={
-                    <span id="add-provider-label-description">Shown in the provider list.</span>
+                    <span id="add-provider-label-description">
+                      <T>Shown in the provider list.</T>
+                    </span>
                   }
                   control={
                     <Input
@@ -639,10 +648,14 @@ export function AddProviderInstanceDialog({
                   }
                 />
                 <SettingsRow
-                  title={<label htmlFor="add-provider-instance-id">Instance ID</label>}
+                  title={
+                    <label htmlFor="add-provider-instance-id">
+                      <T>Instance ID</T>
+                    </label>
+                  }
                   description={
                     <span id="add-provider-instance-id-description">
-                      Letters, digits, '-', or '_'.
+                      <T>Letters, digits, '-', or '_'.</T>
                     </span>
                   }
                   status={
@@ -706,7 +719,7 @@ export function AddProviderInstanceDialog({
               ) : !isAcpRegistry && wizardStep === 2 ? (
                 <div className="grid gap-2">
                   <p className="text-sm text-muted-foreground">
-                    This driver has no required configuration. You can add the instance now.
+                    <T>This driver has no required configuration. You can add the instance now.</T>
                   </p>
                 </div>
               ) : null}
@@ -730,7 +743,7 @@ export function AddProviderInstanceDialog({
               {wizardStep === 0 && driver === "codex" ? (
                 <>
                   <Button variant="outline" size="sm" onClick={() => navigateToStep(1)}>
-                    Configure manually
+                    <T>Configure manually</T>
                   </Button>
                   {driverLocks?.configKeys.has("setupMode") ? null : (
                     <ChatGptConnectionButton
@@ -745,7 +758,7 @@ export function AddProviderInstanceDialog({
                   disabled={isPreparingRegistryAgent}
                   onClick={() => navigateToStep(wizardStep + 1)}
                 >
-                  Next
+                  <T>Next</T>
                 </Button>
               ) : (
                 <Button

@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import {
   type EnvironmentId,
   type ProviderInstanceId,
@@ -193,7 +194,7 @@ export const ProviderStatusBanner = memo(function ProviderStatusBanner({
             <div className="flex flex-wrap items-center justify-end gap-3">
               {onOpenProviderSetup && hasProviderSetup(status) ? (
                 <InlineButton onClick={() => onOpenProviderSetup(status.instanceId)}>
-                  Open provider setup
+                  <T>Open provider setup</T>
                 </InlineButton>
               ) : null}
               <Button

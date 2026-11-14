@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import type { EnvironmentId, ScopedThreadRef } from "@t3tools/contracts";
 import {
   HTML_RENDER_COLUMN_WIDTH,
@@ -104,7 +105,9 @@ export function HtmlRenderFrame(props: {
               >
                 <Maximize2Icon className="size-3.5" />
               </TooltipTrigger>
-              <TooltipPopup side="left">Open full screen</TooltipPopup>
+              <TooltipPopup side="left">
+                <T>Open full screen</T>
+              </TooltipPopup>
             </Tooltip>
           </div>
           {expandedSrc !== null ? (

@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { RefreshIcon } from "~/components/ui/refresh-icon";
 import { ChevronDownIcon } from "lucide-react";
 import { useAtomValue } from "@effect/atom-react";
@@ -169,7 +170,9 @@ function itemSummary({
       const authDetail = optionLabel(auth.detail);
       return (
         <>
-          <span>Authenticated</span>
+          <span>
+            <T>Authenticated</T>
+          </span>
           {authAccount ? (
             <>
               <span aria-hidden>as</span>
@@ -206,7 +209,11 @@ function itemSummary({
     );
   }
 
-  return <span>Available</span>;
+  return (
+    <span>
+      <T>Available</T>
+    </span>
+  );
 }
 
 function DiscoveryItemRow({
@@ -253,7 +260,7 @@ function DiscoveryItemRow({
               {version ? <code className="text-xs text-muted-foreground">{version}</code> : null}
               {isVcsNotReady(item) ? (
                 <Badge variant="warning" size="sm">
-                  Coming Soon
+                  <T>Coming Soon</T>
                 </Badge>
               ) : null}
               {authStatus?.badge ? (
@@ -493,7 +500,9 @@ export function SourceControlSettingsPanel() {
           </Button>
         }
       />
-      <TooltipPopup side="top">Rescan Git and hosting integrations</TooltipPopup>
+      <TooltipPopup side="top">
+        <T>Rescan Git and hosting integrations</T>
+      </TooltipPopup>
     </Tooltip>
   );
 
@@ -503,7 +512,9 @@ export function SourceControlSettingsPanel() {
       {environmentId === null ? (
         <SettingsSection id={searchableSetting("source-control").id} title="Server environment">
           <p className="px-4 py-3 text-sm text-muted-foreground">
-            Connect an environment to inspect its version control tools and hosting integrations.
+            <T>
+              Connect an environment to inspect its version control tools and hosting integrations.
+            </T>
           </p>
         </SettingsSection>
       ) : isInitialScanPending ? (

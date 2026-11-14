@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import {
   parsePullRequestAnchor,
   pullRequestAnchorMatchesUrl,
@@ -208,7 +209,9 @@ function AddToChatButton({
       >
         <MessageSquarePlusIcon className="size-3" />
       </TooltipTrigger>
-      <TooltipPopup>Add to chat</TooltipPopup>
+      <TooltipPopup>
+        <T>Add to chat</T>
+      </TooltipPopup>
     </Tooltip>
   );
 }
@@ -497,8 +500,16 @@ function ReviewThreadEvent({
               Resolved
             </span>
           ) : null}
-          {dismissed ? <span className="shrink-0 font-medium">Review dismissed</span> : null}
-          {thread.isOutdated ? <span className="shrink-0 font-medium">Outdated</span> : null}
+          {dismissed ? (
+            <span className="shrink-0 font-medium">
+              <T>Review dismissed</T>
+            </span>
+          ) : null}
+          {thread.isOutdated ? (
+            <span className="shrink-0 font-medium">
+              <T>Outdated</T>
+            </span>
+          ) : null}
           {expanded ? null : (
             <span className="shrink-0">
               · {event.actor?.login ?? "ghost"}
@@ -681,7 +692,11 @@ function ReviewVerdictEvent({
                 }
               >
                 {pullRequestReviewOutcomeLabel(outcome)}
-                {stale ? <span className="sr-only">, before the latest commits</span> : null}
+                {stale ? (
+                  <span className="sr-only">
+                    <T>, before the latest commits</T>
+                  </span>
+                ) : null}
               </TooltipTrigger>
               <TooltipPopup>{pullRequestReviewOutcomeStaleLabel(outcome)}</TooltipPopup>
             </Tooltip>
@@ -882,7 +897,9 @@ export function PullRequestTimelineTab({
       <div ref={scrollerRef} className="scrollbar-gutter-both h-full overflow-y-auto px-4 py-5">
         <div className="flex flex-col items-center justify-center py-16 text-center text-muted-foreground">
           <PullRequestGlyph.pullRequest className="mb-2 size-5" />
-          <p className="text-xs">No activity yet.</p>
+          <p className="text-xs">
+            <T>No activity yet.</T>
+          </p>
         </div>
       </div>
     );

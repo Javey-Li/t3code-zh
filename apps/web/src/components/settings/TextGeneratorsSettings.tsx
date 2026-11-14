@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import {
   type EnvironmentId,
   isSecretReference,
@@ -146,7 +147,9 @@ export function TextGeneratorsSettings({
                         <MoreVertical />
                       </MenuTrigger>
                       <MenuPopup align="end">
-                        <MenuItem onClick={() => setEditing({ id, config })}>Edit</MenuItem>
+                        <MenuItem onClick={() => setEditing({ id, config })}>
+                          <T>Edit</T>
+                        </MenuItem>
                         <MenuItem
                           disabled={!config.enabled}
                           onClick={() => setViewing({ id, config })}
@@ -154,7 +157,7 @@ export function TextGeneratorsSettings({
                           Show models
                         </MenuItem>
                         <MenuItem variant="destructive" onClick={() => setRemoving(id)}>
-                          Remove
+                          <T>Remove</T>
                         </MenuItem>
                       </MenuPopup>
                     </Menu>
@@ -211,7 +214,9 @@ export function TextGeneratorsSettings({
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogClose render={<Button variant="outline" />}>Cancel</AlertDialogClose>
+            <AlertDialogClose render={<Button variant="outline" />}>
+              <T>Cancel</T>
+            </AlertDialogClose>
             <Button
               variant="destructive"
               onClick={() => {
@@ -219,7 +224,7 @@ export function TextGeneratorsSettings({
                 setRemoving(null);
               }}
             >
-              Remove
+              <T>Remove</T>
             </Button>
           </AlertDialogFooter>
         </AlertDialogPopup>
@@ -470,7 +475,7 @@ function TextGeneratorWizard({
           leading={
             step > 0 ? (
               <Button variant="ghost" onClick={() => setStep(0)}>
-                Back
+                <T>Back</T>
               </Button>
             ) : null
           }
@@ -478,7 +483,7 @@ function TextGeneratorWizard({
           {step === 0 ? (
             <>
               <Button variant="outline" onClick={onClose}>
-                Cancel
+                <T>Cancel</T>
               </Button>
               <Button onClick={() => void connect()} disabled={!canConnect || checking}>
                 {checking ? <Spinner /> : null}
@@ -488,7 +493,7 @@ function TextGeneratorWizard({
           ) : (
             // Connect's button unmounts here; without this, focus lands on the step list.
             <Button autoFocus onClick={onClose}>
-              Done
+              <T>Done</T>
             </Button>
           )}
         </WizardFooter>
@@ -586,7 +591,9 @@ function TextGenerationTaskPicker({
           >
             {/* Keeps the label's width while testing, so the row never reflows. */}
             <span className="relative">
-              <span className={testing ? "invisible" : undefined}>Test</span>
+              <span className={testing ? "invisible" : undefined}>
+                <T>Test</T>
+              </span>
               {testing ? (
                 <span className="absolute inset-0 flex items-center justify-center">
                   <Spinner />
@@ -632,7 +639,9 @@ function TextGeneratorModelList({
       ) : null}
       <div className="max-h-80 overflow-y-auto rounded-lg border divide-y divide-border/60">
         {shown.length === 0 ? (
-          <p className="px-3 py-2 text-sm text-muted-foreground">No models match.</p>
+          <p className="px-3 py-2 text-sm text-muted-foreground">
+            <T>No models match.</T>
+          </p>
         ) : (
           <ul role={onSelect ? "listbox" : "list"} aria-label="Models">
             {shown.map((model) => {
@@ -743,7 +752,9 @@ function TextGeneratorModelsDialog({
             <RefreshIcon refreshing={refreshing} />
             Refresh
           </Button>
-          <Button onClick={onClose}>Done</Button>
+          <Button onClick={onClose}>
+            <T>Done</T>
+          </Button>
         </DialogFooter>
       </DialogPopup>
     </Dialog>

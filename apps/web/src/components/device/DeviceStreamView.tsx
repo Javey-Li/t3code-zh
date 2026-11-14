@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import type { DevicePlatform, EnvironmentId } from "@t3tools/contracts";
 import { useAtomValue } from "@effect/atom-react";
 import { AsyncResult, Atom } from "effect/reactivity";
@@ -492,7 +493,7 @@ export function DeviceStreamView(props: {
                     session?.reconnect();
                   }}
                 >
-                  Reconnect
+                  <T>Reconnect</T>
                 </Button>
               ) : null}
             </DeviceLoadingView>

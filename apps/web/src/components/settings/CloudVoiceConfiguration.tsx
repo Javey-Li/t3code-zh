@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { useAtomRefresh, useAtomValue } from "@effect/atom-react";
 import { cloudSpeechDisclosure } from "@t3tools/shared/speech";
 import type { PreparedConnection } from "@t3tools/client-runtime/connection";
@@ -360,7 +361,9 @@ export function CloudVoiceConfiguration({
                 }}
               >
                 <div className="grid gap-2">
-                  <Label htmlFor="voice-cloud-model">Model</Label>
+                  <Label htmlFor="voice-cloud-model">
+                    <T>Model</T>
+                  </Label>
                   {listedModels ? (
                     <ModelPicker
                       models={listedModels}
@@ -371,11 +374,11 @@ export function CloudVoiceConfiguration({
                     />
                   ) : AsyncResult.isFailure(models) ? (
                     <Button size="sm" variant="outline" type="button" onClick={refreshModels}>
-                      Retry loading models
+                      <T>Retry loading models</T>
                     </Button>
                   ) : (
                     <p role="status" className="text-sm text-muted-foreground">
-                      Loading transcription models…
+                      <T>Loading transcription models…</T>
                     </p>
                   )}
                 </div>
@@ -430,7 +433,7 @@ export function CloudVoiceConfiguration({
             </div>
           )}
           <Button type="button" size="sm" variant="outline" disabled={busy} onClick={close}>
-            Cancel
+            <T>Cancel</T>
           </Button>
           {connected &&
             (remove ? (

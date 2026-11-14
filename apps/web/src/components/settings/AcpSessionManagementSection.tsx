@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import {
   AuthOrchestrationOperateScope,
   AuthProvidersManageScope,
@@ -528,9 +529,11 @@ function InstanceSessionManagement(
         <div className="grid gap-3 border-t border-border/60 px-3 py-3 sm:px-4">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <div>
-              <p className="text-xs font-medium text-foreground">Agent providers</p>
+              <p className="text-xs font-medium text-foreground">
+                <T>Agent providers</T>
+              </p>
               <p className="text-xs text-muted-foreground">
-                Configure non-secret routing. Headers are write-only.
+                <T>Configure non-secret routing. Headers are write-only.</T>
               </p>
             </div>
             <Button
@@ -621,7 +624,7 @@ function InstanceSessionManagement(
                             }
                             onClick={() => void disableConfiguredProvider(provider)}
                           >
-                            Disable
+                            <T>Disable</T>
                           </Button>
                         ) : null}
                       </div>

@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { Alert, AlertDescription } from "../ui/alert";
 import type { AuthSessionState } from "@t3tools/contracts";
 import { squashAtomCommandFailure } from "@t3tools/client-runtime/state/runtime";
@@ -92,7 +93,7 @@ export function PairingRouteSurface({
       <form className="mt-6 space-y-4" onSubmit={(event) => void handleSubmit(event)}>
         <div className="space-y-2">
           <label className="text-sm font-medium" htmlFor="pairing-token">
-            Pairing token
+            <T>Pairing token</T>
           </label>
           <Input
             id="pairing-token"
@@ -124,7 +125,7 @@ export function PairingRouteSurface({
             size="sm"
             variant="outline"
           >
-            Reload app
+            <T>Reload app</T>
           </Button>
         </div>
       </form>
@@ -228,8 +229,10 @@ export function HostedPairingRouteSurface() {
       {status === "error" ? (
         <Alert variant="error" className="mt-5">
           <AlertDescription>
-            Verify the backend is reachable from this browser, supports CORS for hosted clients, and
-            is served over HTTPS when opening this page from HTTPS.
+            <T>
+              Verify the backend is reachable from this browser, supports CORS for hosted clients,
+              and is served over HTTPS when opening this page from HTTPS.
+            </T>
           </AlertDescription>
         </Alert>
       ) : null}
@@ -237,16 +240,16 @@ export function HostedPairingRouteSurface() {
       <div className="mt-6 flex flex-wrap gap-2">
         {status === "pairing" ? (
           <Button disabled size="sm">
-            Pairing...
+            <T>Pairing...</T>
           </Button>
         ) : canRetry ? (
           <Button size="sm" onClick={() => void submitHostedPairingRequest()}>
-            Try again
+            <T>Try again</T>
           </Button>
         ) : null}
         {status === "paired" ? (
           <Button size="sm" variant="outline" onClick={() => (window.location.href = "/")}>
-            Open app
+            <T>Open app</T>
           </Button>
         ) : null}
       </div>

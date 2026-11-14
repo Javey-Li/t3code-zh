@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import {
   DEFAULT_SERVER_SETTINGS,
   PROJECT_FILE_BACKED_SETTINGS,
@@ -377,7 +378,7 @@ export function SettingInheritance({
                     {chain}
                     {hasMultipleEnvironments ? (
                       <p className="px-2 pt-1.5 text-xs text-muted-foreground">
-                        Same on all machines
+                        <T>Same on all machines</T>
                       </p>
                     ) : null}
                   </>
@@ -399,7 +400,9 @@ export function SettingInheritance({
                           Overridden by
                         </CollapsibleTrigger>
                       ) : (
-                        <span>Overridden by</span>
+                        <span>
+                          <T>Overridden by</T>
+                        </span>
                       )}
                       {onClearOverrides ? (
                         <InlineButton onClick={() => onClearOverrides(overriding)}>

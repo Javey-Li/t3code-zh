@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { RefreshIcon } from "~/components/ui/refresh-icon";
 import {
   ArrowLeft,
@@ -112,7 +113,9 @@ export function PreviewChromeRow({
             >
               <ArrowLeft />
             </TooltipTrigger>
-            <TooltipPopup>Back</TooltipPopup>
+            <TooltipPopup>
+              <T>Back</T>
+            </TooltipPopup>
           </Tooltip>
           <Tooltip>
             <TooltipTrigger
@@ -129,7 +132,9 @@ export function PreviewChromeRow({
             >
               <ArrowRight />
             </TooltipTrigger>
-            <TooltipPopup>Forward</TooltipPopup>
+            <TooltipPopup>
+              <T>Forward</T>
+            </TooltipPopup>
           </Tooltip>
           <Tooltip>
             <TooltipTrigger
@@ -210,7 +215,9 @@ export function PreviewChromeRow({
                   >
                     <ExternalLink />
                   </TooltipTrigger>
-                  <TooltipPopup>Open in system browser</TooltipPopup>
+                  <TooltipPopup>
+                    <T>Open in system browser</T>
+                  </TooltipPopup>
                 </Tooltip>
               </span>
             </InputGroupAddon>

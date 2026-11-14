@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { resolvePullRequestDetailChecks } from "@t3tools/client-runtime/pull-request-checks";
 import {
   capitalizeTerm,
@@ -532,7 +533,7 @@ export function ThreadDetailsPrRow({
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogClose render={<Button variant="outline" size="sm" />}>
-                Cancel
+                <T>Cancel</T>
               </AlertDialogClose>
               <Button
                 size="sm"
@@ -542,7 +543,7 @@ export function ThreadDetailsPrRow({
                   void perform("merge", selectedMergeMethod);
                 }}
               >
-                Merge
+                <T>Merge</T>
               </Button>
             </AlertDialogFooter>
           </AlertDialogPopup>

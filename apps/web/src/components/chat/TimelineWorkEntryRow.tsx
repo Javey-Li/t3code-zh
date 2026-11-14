@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { TimelinePendingApprovalRow } from "./TimelinePendingApprovalRow";
 import { WorkLogDetails, WorkLogRow } from "./WorkLog";
 import {
@@ -524,7 +525,7 @@ function WorkEntryLogRow(props: WorkEntryRowProps) {
               }}
               onKeyDown={stopRowToggle}
             >
-              Open chat
+              <T>Open chat</T>
             </button>
           ) : null}
           {notifiedSubagentThreadId ? (
@@ -536,7 +537,7 @@ function WorkEntryLogRow(props: WorkEntryRowProps) {
               }}
               onKeyDown={stopRowToggle}
             >
-              Open subagent
+              <T>Open subagent</T>
             </InlineButton>
           ) : null}
           {showFailedIndicator &&

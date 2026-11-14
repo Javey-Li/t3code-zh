@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import {
   type OrchestrationV2LimitRecovery,
   type OrchestrationV2LimitRecoveryUpdate,
@@ -89,7 +90,7 @@ export function usageLimitRecoveryBannerItem(props: RecoveryProps): ComposerBann
         {recoveryActions}
         {workspaceLimit ? (
           <Button size="xs" variant="ghost" onClick={copyAdminRequest}>
-            Copy request for admin
+            <T>Copy request for admin</T>
           </Button>
         ) : (
           <ChatGptUsageButton size="xs" variant="ghost" />

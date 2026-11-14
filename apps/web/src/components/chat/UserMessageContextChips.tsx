@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { documentChipKindForFileName } from "~/pierre-icons";
 import { isSvgAttachment } from "@t3tools/shared/image";
 import { useRenderedAppearance } from "../../hooks/useTheme";
@@ -167,7 +168,7 @@ function UserMessagePreviewAnnotationDetails(props: {
         </button>
       ) : (
         <div className="border-b border-border/70 bg-muted/40 px-3 py-2 text-secondary-label text-xs">
-          Screenshot unavailable
+          <T>Screenshot unavailable</T>
         </div>
       )}
       <div className="min-w-0 px-3 py-2.5">

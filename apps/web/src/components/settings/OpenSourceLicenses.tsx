@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { ChevronRightIcon, ExternalLinkIcon, SearchIcon } from "lucide-react";
 import { useAtomRefresh, useAtomValue } from "@effect/atom-react";
 import * as Cause from "effect/Cause";
@@ -167,7 +168,9 @@ function LicenseHeaderAction({
               </Button>
             }
           />
-          <TooltipPopup side="top">Search licenses</TooltipPopup>
+          <TooltipPopup side="top">
+            <T>Search licenses</T>
+          </TooltipPopup>
         </Tooltip>
       </div>
     );
@@ -209,13 +212,15 @@ function LicenseManifestError({ message, onRetry }: { message: string; onRetry: 
   return (
     <div className="flex flex-col items-start gap-3 px-3 py-5 sm:px-4">
       <div className="flex flex-col gap-1">
-        <h3 className="text-sm font-medium text-foreground">Open-source notices are unavailable</h3>
+        <h3 className="text-sm font-medium text-foreground">
+          <T>Open-source notices are unavailable</T>
+        </h3>
         <p className="max-w-[70ch] text-pretty text-xs leading-normal text-muted-foreground/80">
           {message}
         </p>
       </div>
       <Button type="button" size="xs" variant="outline" onClick={onRetry}>
-        Try again
+        <T>Try again</T>
       </Button>
     </div>
   );
@@ -271,7 +276,7 @@ export function OpenSourceLicensesPanel() {
               })
             ) : (
               <p className="px-3 py-8 text-center text-sm/6 text-muted-foreground sm:px-4">
-                No licenses match that search.
+                <T>No licenses match that search.</T>
               </p>
             )}
           </div>
@@ -279,7 +284,7 @@ export function OpenSourceLicensesPanel() {
           <LicenseManifestError message={errorMessage} onRetry={retry} />
         ) : (
           <p className="px-3 py-5 text-sm/6 text-muted-foreground sm:px-4">
-            Loading open-source notices…
+            <T>Loading open-source notices…</T>
           </p>
         )}
       </SettingsSection>

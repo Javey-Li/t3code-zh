@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { useStableCallback } from "../../hooks/useStableCallback";
 import { type EnvironmentId } from "@t3tools/contracts";
 import { type EnvironmentConnectionPresentation } from "@t3tools/client-runtime/connection";
@@ -170,7 +171,7 @@ export function useSystemComposerBanners(input: SystemComposerBannersInput) {
             )
           }
         >
-          Disconnect server
+          <T>Disconnect server</T>
         </Button>
       ) : undefined;
     const environmentReconnecting =

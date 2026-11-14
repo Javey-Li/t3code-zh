@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { type ProviderDriverKind, type ProviderInstanceId } from "@t3tools/contracts";
 import { memo } from "react";
 import { CheckIcon, StarIcon } from "lucide-react";
@@ -90,12 +91,12 @@ export const ModelListRow = memo(function ModelListRow(props: {
             className="shrink-0 rounded border border-update/35 bg-update/15 px-0.5 py-px text-3xs font-bold uppercase leading-none tracking-wide text-update-foreground"
             aria-label="New model"
           >
-            New
+            <T>New</T>
           </span>
         ) : null}
         {props.unavailable ? (
           <Badge variant="outline" size="sm">
-            Unavailable
+            <T>Unavailable</T>
           </Badge>
         ) : null}
       </div>

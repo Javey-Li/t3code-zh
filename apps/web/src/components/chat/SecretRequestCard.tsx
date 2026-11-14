@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { pipe } from "effect/Function";
 import {
   SECRET_REQUEST_DEFAULT_PLACEHOLDER,
@@ -223,7 +224,7 @@ function PendingSecretRequestForm(props: {
           )}
         </div>
         <Button type="submit" disabled={submitting || draft.trim().length === 0}>
-          Save securely
+          <T>Save securely</T>
         </Button>
       </div>
       {error !== null ? (
@@ -246,7 +247,7 @@ function PendingSecretRequestForm(props: {
           disabled={submitting}
           onClick={() => void send({ type: "decline" })}
         >
-          Decline
+          <T>Decline</T>
         </Button>
       </div>
     </form>

@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { Spinner } from "~/components/ui/spinner";
 import { AuthFilesystemReadScope, type ProjectContentMatch } from "@t3tools/contracts";
 
@@ -91,7 +92,7 @@ function EmptyContentSearchDialog() {
       value=""
     >
       <p className="m-auto px-6 text-center text-muted-foreground text-sm">
-        Open a project to search its files.
+        <T>Open a project to search its files.</T>
       </p>
     </CommandPaletteContent>
   );
@@ -234,7 +235,9 @@ function OpenContentSearchDialog(props: {
           ) : search.error ? (
             <span className="text-destructive">{search.error}</span>
           ) : search.invalidRegex ? (
-            <span className="text-destructive">Invalid regular expression</span>
+            <span className="text-destructive">
+              <T>Invalid regular expression</T>
+            </span>
           ) : (
             `${matches.length.toLocaleString()}${search.truncated ? "+" : ""} results in ${fileCount.toLocaleString()} files`
           )}

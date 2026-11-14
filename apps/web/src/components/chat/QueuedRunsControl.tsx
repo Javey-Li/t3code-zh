@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { scopeThreadRef } from "@t3tools/client-runtime/environment";
 import { deriveThreadQueueWorkflowState } from "@t3tools/client-runtime/state/thread-workflows";
 import { assistantCitationsToPlainText } from "@t3tools/shared/assistantCitations";
@@ -306,14 +307,16 @@ export function QueuedRunsControl({
                 ) : null}
                 {isEditing ? (
                   <>
-                    <span className="px-1 text-foreground">Editing in the composer</span>
+                    <span className="px-1 text-foreground">
+                      <T>Editing in the composer</T>
+                    </span>
                     <Button
                       size="xs"
                       variant="ghost"
                       aria-label="Cancel editing queued message"
                       onClick={props.onCancelEdit}
                     >
-                      Cancel
+                      <T>Cancel</T>
                     </Button>
                   </>
                 ) : (
@@ -366,7 +369,9 @@ export function QueuedRunsControl({
                       >
                         <XIcon />
                       </TooltipTrigger>
-                      <TooltipPopup>Remove from queue</TooltipPopup>
+                      <TooltipPopup>
+                        <T>Remove from queue</T>
+                      </TooltipPopup>
                     </Tooltip>
                   </>
                 )}
@@ -447,7 +452,9 @@ function QueuedMessage(props: {
   return (
     <>
       {attribution === "t3code" ? (
-        <p className="me-1 text-2xs text-muted-foreground/70">Sent by T3 Code</p>
+        <p className="me-1 text-2xs text-muted-foreground/70">
+          <T>Sent by T3 Code</T>
+        </p>
       ) : null}
       {presentation?.guestName === undefined ? null : (
         <GuestMessageName name={presentation.guestName} />
@@ -519,7 +526,7 @@ function QueuedMessage(props: {
                 tone="muted"
                 onClick={() => props.onOpenThread(senderRef.threadId, senderRef.environmentId)}
               >
-                Open thread
+                <T>Open thread</T>
               </InlineButton>
             ) : null}
             {scheduledTaskId ? (
@@ -532,7 +539,7 @@ function QueuedMessage(props: {
                   />
                 }
               >
-                Open automation
+                <T>Open automation</T>
               </InlineButton>
             ) : null}
             <TimelineRowTimestamp

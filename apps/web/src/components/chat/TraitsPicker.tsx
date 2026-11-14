@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import {
   buildTraitsTriggerDisplay,
   getDescriptorStringValue,
@@ -106,7 +107,7 @@ type TraitsPersistence =
 function DefaultBadge() {
   return (
     <Badge variant="outline" size="sm" className="min-w-0">
-      Default
+      <T>Default</T>
     </Badge>
   );
 }

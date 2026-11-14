@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { useNavigate } from "@tanstack/react-router";
 import { useRef, useState } from "react";
 import {
@@ -276,7 +277,7 @@ export function SourceControlWritingSettingsSection() {
                     setEditingAllInstructions(false);
                   }}
                 >
-                  Apply instructions to all
+                  <T>Apply instructions to all</T>
                 </Button>
               </>
             ) : (
@@ -288,7 +289,7 @@ export function SourceControlWritingSettingsSection() {
                   setEditingAllInstructions(true);
                 }}
               >
-                Write custom instructions for all
+                <T>Write custom instructions for all</T>
               </Button>
             )}
           </div>
@@ -338,7 +339,7 @@ export function SourceControlWritingSettingsSection() {
             control={
               !hasServerTargets ? (
                 <span className="text-sm text-muted-foreground">
-                  Connect an environment to choose its review guide model.
+                  <T>Connect an environment to choose its review guide model.</T>
                 </span>
               ) : (
                 <div className="flex flex-wrap items-center justify-end gap-2">
@@ -522,13 +523,13 @@ export function SourceControlWritingSettingsSection() {
           control={
             !hasServerTargets ? (
               <span className="text-sm text-muted-foreground">
-                Connect an environment to choose its source control writer model.
+                <T>Connect an environment to choose its source control writer model.</T>
               </span>
             ) : (
               <div className="flex flex-wrap items-center justify-end gap-2">
                 {usesDedicatedModel && !canEnableDedicatedModel ? (
                   <span className="text-sm text-muted-foreground">
-                    No text generation providers available.
+                    <T>No text generation providers available.</T>
                   </span>
                 ) : null}
                 {usesDedicatedModel && canEnableDedicatedModel ? (

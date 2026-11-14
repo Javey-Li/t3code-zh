@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { useState } from "react";
 import {
   AuthSourceControlWriteScope,
@@ -90,13 +91,19 @@ export function PullRequestMarkdownEditor({
           if (mode === "write" || mode === "preview") setPreview(mode === "preview");
         }}
       >
-        <Toggle value="write">Write</Toggle>
-        <Toggle value="preview">Preview</Toggle>
+        <Toggle value="write">
+          <T>Write</T>
+        </Toggle>
+        <Toggle value="preview">
+          <T>Preview</T>
+        </Toggle>
       </ToggleGroup>
       {preview ? (
         <div className="rounded-lg border border-border/60 px-3 py-2">
           {empty ? (
-            <p className="text-xs text-muted-foreground">Nothing to preview.</p>
+            <p className="text-xs text-muted-foreground">
+              <T>Nothing to preview.</T>
+            </p>
           ) : (
             <PullRequestMarkdown
               text={draft}
@@ -120,7 +127,7 @@ export function PullRequestMarkdownEditor({
       )}
       <div className="flex justify-end gap-2">
         <Button size="xs" variant="ghost" disabled={saving} onClick={onCancel}>
-          Cancel
+          <T>Cancel</T>
         </Button>
         <Button
           size="xs"

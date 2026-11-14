@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { useAtomValue } from "@effect/atom-react";
 import { useState, type ReactNode } from "react";
 
@@ -62,7 +63,7 @@ function EmptyProjectFilePicker() {
       value=""
     >
       <div className="py-10 text-center text-sm text-muted-foreground">
-        Open a project to search its files.
+        <T>Open a project to search its files.</T>
       </div>
     </CommandPaletteContent>
   );

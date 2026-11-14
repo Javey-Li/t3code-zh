@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import {
   workflowMemberModelSelection,
   type SubagentWorkflowGroup,
@@ -210,7 +211,9 @@ export function ThreadLineageWorkflowRow({
                   accessory={
                     <>
                       {status === "failed" ? (
-                        <SectionHeaderStatus>Failed</SectionHeaderStatus>
+                        <SectionHeaderStatus>
+                          <T>Failed</T>
+                        </SectionHeaderStatus>
                       ) : null}
                       <span className="shrink-0 text-2xs font-normal tabular-nums">
                         {phase.settledCount}/{phase.members.length}{" "}

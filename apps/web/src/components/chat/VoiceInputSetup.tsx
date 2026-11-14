@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { useStableCallback } from "~/hooks/useStableCallback";
 import {
   listBrowserMicrophones,
@@ -145,7 +146,7 @@ export function VoiceInputSetup(props: {
                 </div>
               ) : !props.error ? (
                 <p role="status" className="text-muted-foreground">
-                  Loading transcription models…
+                  <T>Loading transcription models…</T>
                 </p>
               ) : null}
               {props.error ? (
@@ -158,7 +159,7 @@ export function VoiceInputSetup(props: {
           ) : (
             <section className="space-y-2 text-sm">
               <label className="sr-only" htmlFor="voice-setup-microphone">
-                Microphone
+                <T>Microphone</T>
               </label>
               <div className="flex items-center gap-2">
                 <Select
@@ -189,10 +190,12 @@ export function VoiceInputSetup(props: {
                     <SelectValue>{selectedMicrophoneLabel}</SelectValue>
                   </SelectTrigger>
                   <SelectPopup align="end" alignItemWithTrigger={false}>
-                    <SelectItem value="system-default">System default</SelectItem>
+                    <SelectItem value="system-default">
+                      <T>System default</T>
+                    </SelectItem>
                     {selectedIsUnavailable ? (
                       <SelectItem value={`device:${selectedMicrophone}`}>
-                        Selected microphone (Unavailable)
+                        <T>Selected microphone (Unavailable)</T>
                       </SelectItem>
                     ) : null}
                     {microphones.map((device) => (
@@ -235,11 +238,13 @@ export function VoiceInputSetup(props: {
             }
           >
             {props.onRetryCatalog ? (
-              <Button onClick={props.onRetryCatalog}>Retry loading models</Button>
+              <Button onClick={props.onRetryCatalog}>
+                <T>Retry loading models</T>
+              </Button>
             ) : null}
             {props.downloading ? (
               <Button variant="outline" disabled={!canManage} onClick={props.onCancelDownload}>
-                Cancel download
+                <T>Cancel download</T>
               </Button>
             ) : null}
             {model ? (

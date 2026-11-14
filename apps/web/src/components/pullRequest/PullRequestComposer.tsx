@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import {
   capitalizeTerm,
   sourceControlClients,
@@ -117,7 +118,9 @@ export function PullRequestComposer({
                 if (value === "comment" || value === "review") setRequestedMode(value);
               }}
             >
-              <Toggle value="comment">Comment</Toggle>
+              <Toggle value="comment">
+                <T>Comment</T>
+              </Toggle>
               <Toggle value="review">
                 {pendingComments.length > 0 ? `Review (${pendingComments.length})` : "Review"}
               </Toggle>

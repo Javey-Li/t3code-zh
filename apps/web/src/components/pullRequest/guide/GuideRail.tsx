@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import type { PullRequestReviewGuideStop } from "@t3tools/contracts";
 import { CheckIcon } from "lucide-react";
 
@@ -29,7 +30,7 @@ export function GuideRail({
           <>
             {stop.attention !== null ? (
               <Badge size="sm" variant="warning">
-                Look closely
+                <T>Look closely</T>
               </Badge>
             ) : null}
             <span>{stopSubline(stop)}</span>

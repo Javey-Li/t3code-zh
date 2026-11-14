@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { SettingsGroup } from "./SettingsGroup";
 import { RefreshIcon } from "~/components/ui/refresh-icon";
 import {
@@ -191,7 +192,11 @@ function ProviderLastChecked({ environmentId }: { environmentId: EnvironmentId }
   }
 
   if (lastCheckedRelative.status === "invalid") {
-    return <span>Checked unavailable</span>;
+    return (
+      <span>
+        <T>Checked unavailable</T>
+      </span>
+    );
   }
 
   return (
@@ -991,7 +996,9 @@ export function EnvironmentProviderSettings({
                   </Button>
                 }
               />
-              <TooltipPopup side="top">Add provider</TooltipPopup>
+              <TooltipPopup side="top">
+                <T>Add provider</T>
+              </TooltipPopup>
             </Tooltip>
           ) : null
         }
@@ -1010,7 +1017,9 @@ export function EnvironmentProviderSettings({
                     onClick={() => void refreshProviders()}
                   >
                     <RefreshIcon refreshing={isRefreshingProviders} />
-                    <span className="sr-only">Refresh provider status</span>
+                    <span className="sr-only">
+                      <T>Refresh provider status</T>
+                    </span>
                     <span className="hidden min-w-0 truncate sm:inline">
                       {isRefreshingProviders ? (
                         "Refreshing providers"
@@ -1021,7 +1030,9 @@ export function EnvironmentProviderSettings({
                   </Button>
                 }
               />
-              <TooltipPopup side="top">Refresh provider status</TooltipPopup>
+              <TooltipPopup side="top">
+                <T>Refresh provider status</T>
+              </TooltipPopup>
             </Tooltip>
           </div>
         }

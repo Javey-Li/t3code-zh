@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { useAtomValue } from "@effect/atom-react";
 import type { OtlpEndpointCheckResult, OtlpSignal, ServerObservability } from "@t3tools/contracts";
 import { useEffect, useEffectEvent, useState } from "react";
@@ -169,8 +170,10 @@ function TelemetryExportForm() {
         }}
       >
         <p className="text-xs text-muted-foreground">
-          Send traces, metrics, and logs to an OTLP HTTP receiver. Restart the server to apply.
-          Environment variables override these settings.
+          <T>
+            Send traces, metrics, and logs to an OTLP HTTP receiver. Restart the server to apply.
+            Environment variables override these settings.
+          </T>
         </p>
         {!canEdit && (
           <p className="text-xs text-muted-foreground">
@@ -227,7 +230,7 @@ function TelemetryExportForm() {
                     disabled={!isHttpUrl(url) || checks[key]?.result === null}
                     onClick={() => void checkEndpoint(key, signal, url)}
                   >
-                    Test
+                    <T>Test</T>
                   </Button>
                 )}
               </div>
@@ -266,7 +269,7 @@ function TelemetryExportForm() {
                 }
               }}
             >
-              Discard
+              <T>Discard</T>
             </Button>
             <Button type="submit" size="xs" disabled={!changed || saving || !canEdit}>
               {saving ? "Saving…" : "Save"}
