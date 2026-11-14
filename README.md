@@ -1,3 +1,9 @@
+> **简体中文版** · 本仓库维护 T3 Code 的中文版本。
+>
+> - 全中文桌面 Beta（macOS Apple Silicon）：[简体中文 Beta 0.1.9 下载](https://github.com/Javey-Li/t3code-zh/releases/tag/zh-hans-beta-0.1.9)
+> - 安装前先退出官方 T3 Code / Nightly（两者共用数据目录）。未公证，被 macOS 拦截时右键点 App 选「打开」，或执行 `xattr -cr "/Applications/T3 Code (Beta).app"`。
+> - 翻译正在迁移到官方 gt-react 框架（[讨论 #35259](https://github.com/pingdotgg/t3code/discussions/35259)），以便长期跟随官方更新。
+
 # T3 Code
 
 T3 Code is an "agent harness control surface". It enables control of the agents on your machine with a best-in-class mobile app ([iOS](https://apps.apple.com/us/app/t3-code-remote-claude-more/id6787819824), [Android](https://play.google.com/store/apps/details?id=com.t3tools.t3code)), [web app](https://app.t3.codes) and [Electron-based desktop app](https://t3.codes).
