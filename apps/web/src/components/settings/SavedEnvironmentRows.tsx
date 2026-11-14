@@ -804,7 +804,7 @@ export function CloudLinkRow({
   if (!canReadRelay) {
     return (
       <SettingsRow
-        title="T3 Connect"
+        title={<T>T3 Connect</T>}
         description="To edit these settings, pair this connection with both View relay and Manage relay permissions."
       />
     );

@@ -69,12 +69,12 @@ export function LinkedEnvironmentsSettings({
       headerAction={canLink ? <LinkEnvironmentAction environmentId={environmentId} /> : null}
     >
       {links.error ? (
-        <SettingsRow title="Could not load linked environments" description={links.error} />
+        <SettingsRow title={<T>Could not load linked environments</T>} description={links.error} />
       ) : !links.data ? (
-        <SettingsRow title="Loading linked environments…" role="status" />
+        <SettingsRow title={<T>Loading linked environments…</T>} role="status" />
       ) : links.data.links.length === 0 ? (
         <SettingsRow
-          title="No linked environments"
+          title={<T>No linked environments</T>}
           description="Link another machine running T3 Code, such as a VPS, so agents here can launch and drive threads there."
         />
       ) : (

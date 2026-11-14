@@ -442,7 +442,7 @@ export function ProviderEnvironmentSection(props: {
 
   return (
     <SettingsRow
-      title="Variables"
+      title={<T>Variables</T>}
       description="API keys, base URLs, and other per-instance CLI settings."
       control={
         <Button type="button" size="sm" variant="outline" onClick={addVariable}>
@@ -1269,7 +1269,7 @@ export function ProviderInstanceCard({
     />
   ) : (
     <SettingsRow
-      title="Driver"
+      title={<T>Driver</T>}
       description={
         <span>
           This instance uses <code className="text-foreground">{String(instance.driver)}</code>,
@@ -1282,9 +1282,9 @@ export function ProviderInstanceCard({
   return (
     <>
       <SettingsSection title={displayName} icon={titleIconNode} headerAction={editorHeaderAction}>
-        <SettingsRow title="Status" status={statusContent} />
+        <SettingsRow title={<T>Status</T>} status={statusContent} />
         <SettingsRow
-          title="Display name"
+          title={<T>Display name</T>}
           control={
             <div
               inert={readOnly}

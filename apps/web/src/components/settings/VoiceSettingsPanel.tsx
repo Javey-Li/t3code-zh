@@ -555,7 +555,7 @@ function CleanupModelRow() {
       serverScoped
       settingKeys={["speechPostProcessingModelSelection"]}
       {...searchableSetting("speech-post-processing-model")}
-      title="Cleanup model"
+      title={<T>Cleanup model</T>}
       description="Model for transcript cleanup, such as a cheaper or faster one. When disabled, use the text generation model configured for this environment."
       control={
         connectedEnvironments.length === 0 ? (
@@ -741,7 +741,7 @@ function AdvancedSpeechSettings({
     <AdvancedSettings targetIds={[searchableSetting("speech-hardware").id]}>
       <SettingsRow
         {...searchableSetting("speech-hardware")}
-        title="Hardware"
+        title={<T>Hardware</T>}
         description="Auto uses the environment’s GPU when it has one."
         control={
           <Select
@@ -784,7 +784,7 @@ function AdvancedSpeechSettings({
         }
       />
       <SettingsRow
-        title="Unload model"
+        title={<T>Unload model</T>}
         description="Release the model’s memory on the environment after it sits idle."
         control={
           <Select
@@ -878,14 +878,14 @@ function SpeechModelBrowser(props: {
     return (
       <SettingsRow
         {...searchableSetting("speech-models")}
-        title="Models"
+        title={<T>Models</T>}
         description={`This environment can’t transcribe audio: ${status.reason}.`}
       />
     );
   return (
     <SettingsRow
       {...searchableSetting("speech-models")}
-      title="Models"
+      title={<T>Models</T>}
       description={`Grades are error rates and speed is seconds per 30 s of audio, from Handy’s benchmark ${status.benchmarkTier === "cpu" ? "CPU" : "GPU"}.`}
       className="@container/voice-models"
     >
@@ -1308,7 +1308,7 @@ export function VoiceSettingsPanel() {
       <SettingsSection id="voice-input" title="Input">
         <SettingsRow
           {...searchableSetting("voice-microphone")}
-          title="Microphone"
+          title={<T>Microphone</T>}
           description="Voice input uses the first connected microphone in this list."
           control={
             <Tooltip>
@@ -1342,7 +1342,7 @@ export function VoiceSettingsPanel() {
         />
         <SettingsRow
           {...searchableSetting("dictation-shortcut-mode")}
-          title="Dictation shortcut"
+          title={<T>Dictation shortcut</T>}
           description={`${SHORTCUT_MODES[settings.voiceShortcutMode].hint}.`}
           control={
             <Select
@@ -1375,7 +1375,7 @@ export function VoiceSettingsPanel() {
       <SettingsSection id="voice-transcription" title="Transcription">
         <SettingsRow
           {...searchableSetting("voice-transcription-destination")}
-          title="Transcribe with"
+          title={<T>Transcribe with</T>}
           description={
             destination.environmentId && chosenUnsupported
               ? `${chosenEnvironment.label} can’t transcribe audio locally. Choose another destination.`
@@ -1528,7 +1528,7 @@ export function VoiceSettingsPanel() {
         {(model || destination.cloudProvider) && (
           <SettingsRow
             {...searchableSetting("speech-language")}
-            title="Language"
+            title={<T>Language</T>}
             description={
               destination.cloudProvider
                 ? "The provider detects your language automatically."
@@ -1545,7 +1545,7 @@ export function VoiceSettingsPanel() {
         )}
         {model?.supportsTranslation ? (
           <SettingsRow
-            title="Translate to English"
+            title={<T>Translate to English</T>}
             description="Speak any language and get English text."
             control={
               <Switch
@@ -1560,7 +1560,7 @@ export function VoiceSettingsPanel() {
         ) : null}
         <SettingsRow
           {...searchableSetting("speech-silence-filtering")}
-          title="Silence filtering"
+          title={<T>Silence filtering</T>}
           description={
             destination.cloudProvider === "openai"
               ? "OpenAI handles silence itself."
@@ -1579,7 +1579,7 @@ export function VoiceSettingsPanel() {
         />
         <SettingsRow
           {...searchableSetting("remove-filler-words")}
-          title="Remove filler words"
+          title={<T>Remove filler words</T>}
           description="Drop “um” and “uh” from transcripts."
           control={
             <Switch
@@ -1625,7 +1625,7 @@ export function VoiceSettingsPanel() {
 
       <SettingsSection id={searchableSetting("speech-post-processing").id} title="Cleanup">
         <SettingsRow
-          title="Clean up transcripts"
+          title={<T>Clean up transcripts</T>}
           description="Off by default. Sends the transcript and nearby draft text, never audio, to the cleanup model."
           control={
             <Switch
@@ -1699,7 +1699,7 @@ export function VoiceSettingsPanel() {
         {cleanupEnabled ? (
           <SettingsRow
             {...searchableSetting("speech-correction-word")}
-            title="Correction cue"
+            title={<T>Correction cue</T>}
             description="The phrase you say to fix a mistake, like “scratch that”."
             control={
               <Input

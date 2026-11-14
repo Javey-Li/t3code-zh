@@ -57,7 +57,7 @@ export function ProviderWizardAuthenticationStep({
             />
           ) : (
             <SettingsRow
-              title="Account"
+              title={<T>Account</T>}
               description={
                 isDiscovering
                   ? "Discovering sign-in methods…"

@@ -1,4 +1,4 @@
-import { useGT } from "gt-react";
+import { T, useGT } from "gt-react";
 import { useRef } from "react";
 import { BranchNamingMode, DEFAULT_SERVER_SETTINGS } from "@t3tools/contracts";
 
@@ -82,7 +82,7 @@ export function BranchNamingSettings() {
         <SettingsRow
           serverScoped
           settingKeys={["branchNamePrefix"]}
-          title="Branch prefix"
+          title={<T>Branch prefix</T>}
           description="For example, t3 or t3/ produces t3/add-search. Leave empty for no prefix."
           resetAction={
             prefixMixed ||
@@ -120,7 +120,7 @@ export function BranchNamingSettings() {
         <SettingsRow
           serverScoped
           settingKeys={["branchNameInstructions"]}
-          title="Branch naming instructions"
+          title={<T>Branch naming instructions</T>}
           description="Appended to the naming prompt. The model returns the complete branch name; no prefix or suffix is added."
           resetAction={
             instructionsMixed || settings.branchNameInstructions !== "" ? (

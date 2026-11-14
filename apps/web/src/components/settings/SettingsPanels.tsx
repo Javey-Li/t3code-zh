@@ -2042,7 +2042,7 @@ export function ThreadsSettingsPanel() {
             <SettingsRow
               serverScoped
               settingKeys={["sidebarAutoSettleKeepPullRequests"]}
-              title="Keep threads with a PR"
+              title={<T>Keep threads with a PR</T>}
               description="Inactivity does not settle threads with a pull request. Merge and close still do."
               control={
                 <ScopedSwitch
@@ -2375,7 +2375,7 @@ export function AboutSettingsPanel() {
       <SettingsSection id="about" title="App">
         {primaryPolicy ? (
           <SettingsRow
-            title="Organization"
+            title={<T>Organization</T>}
             description={`This environment is managed by ${primaryPolicy.organization}. Some settings and features follow its policy.`}
             control={
               primaryPolicy.supportUrl ? (

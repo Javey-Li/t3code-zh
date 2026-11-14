@@ -396,7 +396,7 @@ function InstanceSessionManagement(
   return (
     <div className="grid gap-3">
       <SettingsRow
-        title="Native sessions"
+        title={<T>Native sessions</T>}
         description="Resume agent-owned conversations as T3 threads."
         status={
           canList && props.projects.length === 0

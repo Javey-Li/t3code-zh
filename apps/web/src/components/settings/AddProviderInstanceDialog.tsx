@@ -690,7 +690,7 @@ export function AddProviderInstanceDialog({
                   }
                 />
                 <SettingsRow
-                  title="Accent color"
+                  title={<T>Accent color</T>}
                   description="Optional marker shown in the picker."
                   control={
                     <ProviderAccentColorPicker

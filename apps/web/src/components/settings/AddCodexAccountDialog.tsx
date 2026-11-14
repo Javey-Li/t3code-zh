@@ -100,7 +100,7 @@ export function AddCodexAccountDialog({
             provider?.setup ? (
               renderSetup(instanceId, provider)
             ) : (
-              <SettingsRow title="Codex runtime" description="Preparing managed setup." />
+              <SettingsRow title={<T>Codex runtime</T>} description="Preparing managed setup." />
             )
           ) : (
             <form
@@ -112,7 +112,7 @@ export function AddCodexAccountDialog({
               }}
             >
               <SettingsRow
-                title="Account name"
+                title={<T>Account name</T>}
                 description="Shown in the provider list and model picker."
                 control={
                   <Input

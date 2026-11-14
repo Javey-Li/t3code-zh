@@ -607,14 +607,14 @@ function ScheduledTaskEnvironmentList({
       })}
       {taskId && linkedState?.tasks && linkedState.error === null && !linkedTask ? (
         <SettingsRow
-          title="Task unavailable"
+          title={<T>Task unavailable</T>}
           description="This task was deleted or belongs to a different project. Check your project filter."
           role="status"
         />
       ) : null}
       {populated.length === 0 && loaded.length > 0 ? (
         <SettingsRow
-          title="No scheduled tasks"
+          title={<T>No scheduled tasks</T>}
           description="No tasks match this environment and project selection."
         />
       ) : null}
@@ -696,25 +696,25 @@ function ScheduledTaskEnvironmentSection({
     >
       {!connected ? (
         <SettingsRow
-          title="Environment disconnected"
+          title={<T>Environment disconnected</T>}
           description={`Reconnect ${environment.label} to view its scheduled tasks.`}
         />
       ) : tasksQuery.error ? (
-        <SettingsRow title="Could not load scheduled tasks" description={tasksQuery.error} />
+        <SettingsRow title={<T>Could not load scheduled tasks</T>} description={tasksQuery.error} />
       ) : !tasks ? (
-        <SettingsRow title="Loading scheduled tasks…" role="status" />
+        <SettingsRow title={<T>Loading scheduled tasks…</T>} role="status" />
       ) : (
         <>
           {taskId && !linkedTask ? (
             <SettingsRow
-              title="Task unavailable"
+              title={<T>Task unavailable</T>}
               description="This task was deleted or belongs to a different project. Check your project filter."
               role="status"
             />
           ) : null}
           {tasks.length === 0 ? (
             <SettingsRow
-              title="No scheduled tasks"
+              title={<T>No scheduled tasks</T>}
               description="No tasks match this environment and project selection."
             />
           ) : (

@@ -539,7 +539,7 @@ function ProjectDetail({
             </p>
           ) : null}
           <SettingsRow
-            title="Name"
+            title={<T>Name</T>}
             description="The shared name for this project group in the sidebar and thread lists."
             resetAction={
               canResetScratchTitle ? (
@@ -579,7 +579,7 @@ function ProjectDetail({
             }
           />
           <SettingsRow
-            title="Project icon"
+            title={<T>Project icon</T>}
             description={
               projectIcon?.kind === "lucide"
                 ? `${projectIcon.name} · ${projectIcon.color}`
@@ -627,7 +627,7 @@ function ProjectDetail({
           {canOrganize ? (
             <>
               <SettingsRow
-                title="Pin"
+                title={<T>Pin</T>}
                 description="Pinned projects come first in project pickers."
                 control={
                   <Switch
@@ -644,7 +644,7 @@ function ProjectDetail({
                 }
               />
               <SettingsRow
-                title="Archive"
+                title={<T>Archive</T>}
                 description={
                   group.archived
                     ? "Hidden from project pickers. Threads and files are kept."

@@ -114,7 +114,7 @@ export function ProjectActionsSettings() {
         serverScoped
         settingKeys={["defaultProjectScripts"]}
         mixed={mixed}
-        title="Actions"
+        title={<T>Actions</T>}
         description="Commands that run in this project's checkout or its worktree, with optional shortcuts."
         onResetOverride={() => void persist(() => null)}
         control={
@@ -189,7 +189,7 @@ export function ProjectActionsSettings() {
       )}
       {t3File.status === "invalid" ? (
         <SettingsRow
-          title="t3.json is invalid"
+          title={<T>t3.json is invalid</T>}
           description="A t3.json exists in this checkout but fails to parse, so every action and icon it declares is ignored. Check the JSON syntax and icon values."
           className="text-warning"
         />

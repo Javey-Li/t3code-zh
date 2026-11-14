@@ -771,7 +771,7 @@ function BrowserSearchEngineSetting() {
       />
       {engine === "custom" ? (
         <SettingsRow
-          title="Custom search URL"
+          title={<T>Custom search URL</T>}
           description="Use %s where the search terms go."
           status={
             isValidSearchUrlTemplate(customUrl)

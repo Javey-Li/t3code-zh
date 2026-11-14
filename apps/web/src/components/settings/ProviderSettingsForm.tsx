@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { useState, type ReactNode } from "react";
 import * as Option from "effect/Option";
 import * as Schema from "effect/Schema";
@@ -236,7 +237,7 @@ function ProviderCommandArguments({
 
   return (
     <SettingsRow
-      title="Arguments"
+      title={<T>Arguments</T>}
       description="One literal argument per row, in launch order."
       managed={managedReason}
       control={

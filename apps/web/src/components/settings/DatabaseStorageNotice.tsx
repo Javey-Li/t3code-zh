@@ -71,7 +71,7 @@ export function DatabaseStorageNotice({
   return (
     <SettingsSection id="storage-database" title="Database">
       <SettingsRow
-        title="Reclaim freed database space"
+        title={<T>Reclaim freed database space</T>}
         description={`These databases still hold space freed by history cleanup.${
           visible.every((recommendation) => recommendation.reclaimable)
             ? ""

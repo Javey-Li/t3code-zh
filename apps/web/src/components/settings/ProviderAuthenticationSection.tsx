@@ -172,7 +172,7 @@ export function ProviderAuthenticationSection({
 
   return (
     <SettingsRow
-      title="Account"
+      title={<T>Account</T>}
       description={
         signedIn && !active && provider.auth.email?.trim() ? (
           <span>

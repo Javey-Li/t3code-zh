@@ -133,7 +133,7 @@ export function ProjectDefaultsSettings({ category }: { category: ProjectSetting
       settingKeys={["defaultModelSelection"]}
       mixed={mixedModel}
       id="default-model"
-      title="Model"
+      title={<T>Model</T>}
       description={
         isProjectScope
           ? "Model for new threads in this project."
@@ -205,7 +205,7 @@ export function ProjectDefaultsSettings({ category }: { category: ProjectSetting
       settingKeys={["defaultThreadEnvMode"]}
       mixed={mixedWorkspace}
       id={searchableSetting("new-threads").id}
-      title="Workspace"
+      title={<T>Workspace</T>}
       description={
         isProjectScope
           ? "Where new threads in this project start."
@@ -418,7 +418,7 @@ export function ProjectDefaultsSettings({ category }: { category: ProjectSetting
             settingKeys={["defaultAutoPull"]}
             mixed={mixedAutoPull}
             id="automatic-pull"
-            title="Automatically pull"
+            title={<T>Automatically pull</T>}
             description={
               isProjectScope
                 ? "Keeps this project's default branch current when the checkout has no local changes or commits."

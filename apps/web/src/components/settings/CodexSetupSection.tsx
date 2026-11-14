@@ -205,7 +205,7 @@ export function CodexSetupSection(props: CodexSetupSectionProps) {
           }
         />
       ) : (
-        <SettingsRow title="ChatGPT account" description="Preparing sign-in." />
+        <SettingsRow title={<T>ChatGPT account</T>} description="Preparing sign-in." />
       )
     ) : (
       <ManagedCodexSetup
@@ -948,7 +948,7 @@ function ManagedCodexSetup({
     <section aria-label={gt("Codex setup")} className="divide-y divide-border/50">
       {accountPicker}
       <SettingsRow
-        title="ChatGPT account"
+        title={<T>ChatGPT account</T>}
         description={accountDescription}
         control={
           <div className="flex max-w-88 flex-wrap items-center justify-end gap-2">
@@ -1108,7 +1108,7 @@ export function CodexManagedRuntimeFields({
   return (
     <>
       <SettingsRow
-        title="Binary path"
+        title={<T>Binary path</T>}
         description="Selected by T3 Code."
         control={
           <div className="w-full sm:w-80">
@@ -1123,7 +1123,7 @@ export function CodexManagedRuntimeFields({
         }
       />
       <SettingsRow
-        title="CODEX_HOME path"
+        title={<T>CODEX_HOME path</T>}
         description="Shared Codex config, sessions, and state."
         control={
           <div className="w-full sm:w-80">
@@ -1138,7 +1138,7 @@ export function CodexManagedRuntimeFields({
         }
       />
       <SettingsRow
-        title="Shadow home path"
+        title={<T>Shadow home path</T>}
         description={
           provider?.runtimePaths?.shadowHomePath
             ? "Account-specific home sharing the Codex state above."

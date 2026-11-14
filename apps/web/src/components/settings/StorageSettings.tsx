@@ -621,7 +621,7 @@ export function WorktreeCleanupSection() {
       <>
         {isProjectScope && (
           <SettingsRow
-            title="Automatic worktree cleanup"
+            title={<T>Automatic worktree cleanup</T>}
             description={
               mode === "off"
                 ? "Keep this project's worktrees until you delete them manually."
@@ -671,7 +671,7 @@ export function WorktreeCleanupSection() {
         {(!isProjectScope || (!mixedModes && mode === "custom")) && (
           <>
             <SettingsRow
-              title="Delete worktrees with deleted threads"
+              title={<T>Delete worktrees with deleted threads</T>}
               status={ruleStatus("worktreeOnDelete")}
               managedPaths={lockablePath("worktreeOnDelete")}
               description="Remove unused worktrees when active or archived threads are deleted. Worktrees with local changes are kept."
@@ -685,7 +685,7 @@ export function WorktreeCleanupSection() {
               }
             />
             <SettingsRow
-              title="Delete merged worktrees"
+              title={<T>Delete merged worktrees</T>}
               status={ruleStatus("worktreeOnMerge")}
               managedPaths={lockablePath("worktreeOnMerge")}
               description="Remove worktrees whose pull request is merged and whose commits are included in the default branch."
@@ -699,7 +699,7 @@ export function WorktreeCleanupSection() {
               }
             />
             <SettingsRow
-              title="Delete inactive worktrees"
+              title={<T>Delete inactive worktrees</T>}
               status={ruleStatus("worktreeAfterDays")}
               managedPaths={lockablePath("worktreeAfterDays")}
               description="Remove worktrees after their threads have been inactive for this many days. Branches and thread history are kept."
@@ -725,7 +725,7 @@ export function WorktreeCleanupSection() {
                     true,
                 ) && (
                   <SettingsRow
-                    title="Delete settled worktrees"
+                    title={<T>Delete settled worktrees</T>}
                     managedPaths={lockablePath("worktreeSettledAfterDays")}
                     status={[
                       ruleStatus("worktreeSettledAfterDays"),
@@ -750,7 +750,7 @@ export function WorktreeCleanupSection() {
                   />
                 )}
               <SettingsRow
-                title="Delete unchanged worktrees"
+                title={<T>Delete unchanged worktrees</T>}
                 status={ruleStatus("worktreeUnchanged")}
                 managedPaths={lockablePath("worktreeUnchanged")}
                 description="Remove worktrees with no commits beyond the default branch."
@@ -878,7 +878,7 @@ export function StorageCleanupSections() {
       <SettingsSection id="storage-artifacts" title="Artifacts and logs">
         <AnimatedHeight>
           <SettingsRow
-            title="Delete old browser artifacts"
+            title={<T>Delete old browser artifacts</T>}
             status={artifactsStatus}
             managedPaths={["storageCleanup.browserArtifactsAfterDays"]}
             description="Delete saved browser captures after this many days. Older capture links will no longer open."
@@ -896,7 +896,7 @@ export function StorageCleanupSections() {
         </AnimatedHeight>
         <AnimatedHeight>
           <SettingsRow
-            title="Delete old rotated logs"
+            title={<T>Delete old rotated logs</T>}
             status={logsStatus}
             managedPaths={["storageCleanup.logsAfterDays"]}
             description="Delete inactive rotated log files after this many days. Current logs are kept."

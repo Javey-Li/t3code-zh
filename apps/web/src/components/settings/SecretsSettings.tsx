@@ -119,7 +119,7 @@ function EnvironmentSecretProviders({
         ) : null}
         {entries.length === 0 ? (
           <SettingsRow
-            title="No secret providers configured."
+            title={<T>No secret providers configured.</T>}
             description="Add a 1Password account, then pick it as the source of a provider variable."
           />
         ) : (

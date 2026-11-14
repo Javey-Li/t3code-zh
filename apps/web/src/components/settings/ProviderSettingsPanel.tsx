@@ -1045,7 +1045,7 @@ export function EnvironmentProviderSettings({
         {readOnly ? (
           <SettingsGroup divided={false} className="overflow-hidden">
             <SettingsRow
-              title="Limited permissions"
+              title={<T>Limited permissions</T>}
               description={`This session can view ${environmentLabel}'s providers but can't change their settings.`}
             />
           </SettingsGroup>
@@ -1392,7 +1392,7 @@ function ProviderInstanceRow({
           driver === "cursor" &&
           liveProvider?.setup?.canAuthenticate === false ? (
           <SettingsRow
-            title="Cursor account"
+            title={<T>Cursor account</T>}
             description="Using CURSOR_API_KEY. Remove it from this provider's environment to use browser sign-in."
           />
         ) : null

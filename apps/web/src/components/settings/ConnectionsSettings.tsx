@@ -1046,7 +1046,7 @@ function ConnectionsSettingsContent({
         />
         {desktopWslState.enabled ? (
           <SettingsRow
-            title="WSL only"
+            title={<T>WSL only</T>}
             description="Run only the WSL backend. T3 Code restarts when this changes."
             className="bg-muted/20 pl-7 sm:pl-8"
             control={
@@ -1250,7 +1250,7 @@ function ConnectionsSettingsContent({
             ) : null}
             {canManageLocalBackend ? (
               <SettingsRow
-                title="Version"
+                title={<T>Version</T>}
                 description={
                   primaryServerUpdateState.status !== "idle" ? (
                     <ServerUpdateProgress state={primaryServerUpdateState} />
@@ -1683,7 +1683,7 @@ function ConnectionsSettingsContent({
       ) : (
         <SettingsSection {...searchableSetting("connections-environment")}>
           <SettingsRow
-            title="No environment selected"
+            title={<T>No environment selected</T>}
             description="Connect an environment to view its settings and access."
           />
         </SettingsSection>
