@@ -337,7 +337,7 @@ export const SETTINGS_SEARCH_ITEMS = [
   },
   {
     id: "diff-color-scheme",
-    title: "Diff colors",
+    title: msg("Diff colors"),
     to: "/settings/diffs",
     searchTerms: ["red green blue orange additions deletions changes counts palette colorblind"],
   },
@@ -713,25 +713,25 @@ export const SETTINGS_SEARCH_ITEMS = [
   },
   {
     id: "hide-whitespace-changes",
-    title: "Hide whitespace changes",
+    title: msg("Hide whitespace changes"),
     to: "/settings/diffs",
     searchTerms: ["diff ignore spaces edits default"],
   },
   {
     id: "default-diff-file-state",
-    title: "Default diff file state",
+    title: msg("Default diff file state"),
     to: "/settings/diffs",
     searchTerms: ["collapsed expanded collapse expand files pull request pr code tab"],
   },
   {
     id: "diff-layout",
-    title: "Diff layout",
+    title: msg("Diff layout"),
     to: "/settings/diffs",
     searchTerms: ["stacked split side by side unified inline view"],
   },
   {
     id: "proactive-panels",
-    title: "Open pull requests and changes panels proactively",
+    title: msg("Open pull requests and changes panels proactively"),
     to: "/settings/diffs",
     searchTerms: ["proactive automatically open diff pull request pr right panel agent completion"],
   },
