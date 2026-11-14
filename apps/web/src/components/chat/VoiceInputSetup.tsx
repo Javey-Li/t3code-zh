@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, useGT } from "gt-react";
 import { useStableCallback } from "~/hooks/useStableCallback";
 import {
   listBrowserMicrophones,
@@ -46,6 +46,7 @@ export function VoiceInputSetup(props: {
   onCancelDownload(): void;
   onStartRecording(): void;
 }) {
+  const gt = useGT();
   const navigate = useNavigate();
   const environment = useEnvironment(props.environmentId);
   const canManage = useEnvironmentScope(props.environmentId, AuthSettingsWriteScope);
@@ -123,7 +124,7 @@ export function VoiceInputSetup(props: {
                     <div role="status" className="space-y-1.5">
                       <div
                         role="progressbar"
-                        aria-label="Speech model download progress"
+                        aria-label={gt("Speech model download progress")}
                         aria-valuemin={0}
                         aria-valuemax={100}
                         aria-valuenow={progress ?? undefined}
@@ -183,7 +184,7 @@ export function VoiceInputSetup(props: {
                   <SelectTrigger
                     id="voice-setup-microphone"
                     size="sm"
-                    aria-label="Microphone"
+                    aria-label={gt("Microphone")}
                     className="min-w-0 flex-1"
                   >
                     <MicIcon aria-hidden className="size-3.5 shrink-0 text-muted-foreground" />
@@ -210,7 +211,7 @@ export function VoiceInputSetup(props: {
                   variant="ghost"
                   size="icon-sm"
                   disabled={loadingMicrophones}
-                  aria-label="Refresh microphones"
+                  aria-label={gt("Refresh microphones")}
                   onClick={() => void refreshMicrophones()}
                 >
                   <RefreshCwIcon className="size-3.5" />

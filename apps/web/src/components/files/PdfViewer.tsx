@@ -1,3 +1,4 @@
+import { useGT } from "gt-react";
 import {
   useEffect,
   useEffectEvent,
@@ -136,6 +137,7 @@ export default function PdfViewer(props: {
   initialView?: PdfViewState;
   onViewChange?: (view: PdfViewState) => void;
 }) {
+  const gt = useGT();
   const [savedPosition] = useState(() =>
     props.positionKey === undefined ? undefined : positions.get(props.positionKey),
   );
@@ -398,8 +400,8 @@ export default function PdfViewer(props: {
             ref={find}
             size="compact"
             type="search"
-            aria-label="Find in PDF"
-            placeholder="Find in PDF"
+            aria-label={gt("Find in PDF")}
+            placeholder={gt("Find in PDF")}
             value={query}
             onChange={(event) => {
               setQuery(event.target.value);

@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, useGT } from "gt-react";
 import { useAtomRefresh, useAtomValue } from "@effect/atom-react";
 import { cloudSpeechDisclosure } from "@t3tools/shared/speech";
 import type { PreparedConnection } from "@t3tools/client-runtime/connection";
@@ -100,6 +100,7 @@ function ModelPicker({
   /** The grant's model, flagged when the catalog no longer lists it. */
   current: string | undefined;
 }) {
+  const gt = useGT();
   const { contains } = useComboboxFilter();
   const selected = models.find((model) => model.id === value) ?? null;
   const delisted = current !== undefined && !models.some((model) => model.id === current);
@@ -120,7 +121,7 @@ function ModelPicker({
         <ComboboxInput
           id="voice-cloud-model"
           aria-label="OpenRouter model"
-          placeholder="Search transcription models"
+          placeholder={gt("Search transcription models")}
           autoFocus
           size="sm"
         />

@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, useGT } from "gt-react";
 import { ASSISTANT_CITATION_MAX_COMMENT_LENGTH, type AssistantCitation } from "@t3tools/contracts";
 import { use, useEffect, useRef, useState, type RefObject } from "react";
 
@@ -25,6 +25,7 @@ export function AssistantCitationCommentEditor({
   onDraftChange?: (comment: string) => void;
   onVoiceSetupOpenChange?: (open: boolean) => void;
 }) {
+  const gt = useGT();
   const [comment, setComment] = useState(citation.comment ?? "");
   const localInputRef = useRef<HTMLTextAreaElement | null>(null);
   const textareaRef = inputRef ?? localInputRef;
@@ -82,10 +83,12 @@ export function AssistantCitationCommentEditor({
       <textarea
         ref={textareaRef}
         readOnly={speech.freezesEditor}
-        aria-label="Comment on selected text"
-        aria-description="Enter to save the citation comment; Command/Ctrl+Enter to save and send; Shift+Enter for a new line."
+        aria-label={gt("Comment on selected text")}
+        aria-description={gt(
+          "Enter to save the citation comment; Command/Ctrl+Enter to save and send; Shift+Enter for a new line.",
+        )}
         aria-invalid={commentTooLong || undefined}
-        placeholder="Add an optional comment..."
+        placeholder={gt("Add an optional comment...")}
         rows={2}
         dir={textDirection(comment)}
         className="field-sizing-content block max-h-40 min-h-16 w-full resize-none bg-transparent px-1 py-1.5 text-base outline-none placeholder:text-muted-foreground sm:text-sm"

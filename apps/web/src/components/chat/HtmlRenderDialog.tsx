@@ -1,3 +1,4 @@
+import { useGT } from "gt-react";
 import type { ScopedThreadRef } from "@t3tools/contracts";
 import {
   HTML_RENDER_COLUMN_WIDTH,
@@ -19,6 +20,7 @@ export function HtmlRenderDialog(props: {
   readonly threadRef?: ScopedThreadRef | undefined;
   readonly onClose: () => void;
 }) {
+  const gt = useGT();
   const { title } = props.htmlRender;
   const [zoom, setZoom] = useState(1);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -49,7 +51,7 @@ export function HtmlRenderDialog(props: {
         <div className="relative w-[min(92vw,1176px)]">
           <Button
             ref={closeButtonRef}
-            aria-label="Close"
+            aria-label={gt("Close")}
             size="icon-xs"
             variant="media-close"
             className="absolute right-0 -top-10 z-20"
@@ -74,7 +76,7 @@ export function HtmlRenderDialog(props: {
             <span className="truncate">{title}</span>
             <div className="flex shrink-0 items-center gap-1">
               <Button
-                aria-label="Zoom out"
+                aria-label={gt("Zoom out")}
                 size="icon-sm"
                 variant="overlay"
                 disabled={zoom === 0.5}
@@ -83,7 +85,7 @@ export function HtmlRenderDialog(props: {
                 <MinusIcon />
               </Button>
               <Button
-                aria-label="Reset zoom"
+                aria-label={gt("Reset zoom")}
                 size="sm"
                 variant="overlay"
                 onClick={() => setZoom(1)}
@@ -91,7 +93,7 @@ export function HtmlRenderDialog(props: {
                 {Math.round(zoom * 100)}%
               </Button>
               <Button
-                aria-label="Zoom in"
+                aria-label={gt("Zoom in")}
                 size="icon-sm"
                 variant="overlay"
                 disabled={zoom === 2}

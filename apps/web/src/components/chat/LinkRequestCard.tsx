@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, useGT } from "gt-react";
 import { pipe } from "effect/Function";
 import { useAtomValue } from "@effect/atom-react";
 import {
@@ -170,6 +170,7 @@ function LinkRequestDialog(props: {
   readonly open: boolean;
   readonly onOpenChange: (open: boolean) => void;
 }) {
+  const gt = useGT();
   const { item } = props;
   const formId = useId();
   const pickMachine = picksMachine(item);
@@ -376,7 +377,7 @@ function LinkRequestDialog(props: {
                         <Input
                           value={pairingCode}
                           onChange={(event) => setPairingCode(event.target.value)}
-                          placeholder="Paste the code"
+                          placeholder={gt("Paste the code")}
                           disabled={busy}
                           autoComplete="one-time-code"
                           nativeInput

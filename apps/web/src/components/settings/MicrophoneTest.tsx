@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, useGT } from "gt-react";
 import { MICROPHONE_PERMISSION_ERROR } from "@t3tools/client-runtime/voice-input";
 import { MicIcon, PauseIcon, PlayIcon, RotateCcwIcon, SquareIcon, XIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -39,6 +39,7 @@ export function MicrophoneTest({
   /** Labels and device ids become readable once the browser grants access. */
   onMicrophoneAccess: () => void;
 }) {
+  const gt = useGT();
   const [phase, setPhase] = useState<"idle" | "starting" | "recording" | "ready">("idle");
   const [recording, setRecording] = useState<{ url: string; duration: number } | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -196,7 +197,7 @@ export function MicrophoneTest({
       <Button
         size="sm"
         variant="outline"
-        aria-label="Stop recording"
+        aria-label={gt("Stop recording")}
         disabled={phase !== "recording"}
         onClick={() => {
           const recorder = capture.current?.recorder;
@@ -228,12 +229,12 @@ export function MicrophoneTest({
       </div>
       <span
         className="ms-auto shrink-0 text-xs tabular-nums text-muted-foreground"
-        aria-label="Recording time"
+        aria-label={gt("Recording time")}
       >
         {formatTime(elapsed)} / {formatTime(LOOPBACK_SECONDS)}
       </span>
       <meter
-        aria-label="Microphone input level"
+        aria-label={gt("Microphone input level")}
         min={0}
         max={1}
         value={level}
@@ -274,6 +275,7 @@ export function MicrophoneTest({
 }
 
 function MicrophonePlayback({ src, duration }: { src: string; duration: number }) {
+  const gt = useGT();
   const audio = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
   const [position, setPosition] = useState(0);
@@ -323,7 +325,7 @@ function MicrophonePlayback({ src, duration }: { src: string; duration: number }
       ) : (
         <input
           type="range"
-          aria-label="Recording playback position"
+          aria-label={gt("Recording playback position")}
           min={0}
           max={duration}
           step={0.01}

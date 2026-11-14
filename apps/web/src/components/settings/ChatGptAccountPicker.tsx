@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, useGT } from "gt-react";
 import { useState } from "react";
 import type { ProviderAuthMethod } from "@t3tools/contracts";
 import { RadioGroup, Radio } from "../ui/radio-group";
@@ -32,6 +32,7 @@ export function ChatGptAccountPicker({
   canRemove: boolean;
   error: string | null;
 }) {
+  const gt = useGT();
   const profiles = methods.filter((method) => method.id.startsWith("chatgpt-profile:"));
   const [selection, setSelection] = useState<string | null>(null);
   const selectedMethodId =
@@ -58,7 +59,7 @@ export function ChatGptAccountPicker({
         </DialogHeader>
         <div className="px-6 pb-6">
           <RadioGroup
-            aria-label="ChatGPT account to connect"
+            aria-label={gt("ChatGPT account to connect")}
             disabled={disabled}
             value={selectedMethodId}
             onValueChange={(value) => setSelection(value)}

@@ -1,3 +1,4 @@
+import { useGT } from "gt-react";
 import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
 import { useRender } from "@base-ui/react/use-render";
 import { XIcon } from "lucide-react";
@@ -109,6 +110,7 @@ function DialogPopup({
   bottomStickOnMobile?: boolean;
   variant?: "default" | "media";
 }) {
+  const gt = useGT();
   const { popupRef, initialFocus } = useDialogActionInitialFocus();
   const popup = useRender({
     ref: popupRef,
@@ -129,7 +131,7 @@ function DialogPopup({
         {children}
         {showCloseButton && (
           <DialogPrimitive.Close
-            aria-label="Close"
+            aria-label={gt("Close")}
             className="absolute end-2 top-2"
             render={<Button size="icon" variant="ghost" />}
           >

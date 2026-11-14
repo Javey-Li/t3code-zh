@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, useGT } from "gt-react";
 import type { ReactNode } from "react";
 
 import { T3Wordmark } from "../T3Wordmark";
@@ -21,10 +21,11 @@ export function StandalonePageHeader({
   readonly title: ReactNode;
   readonly description: ReactNode;
 }) {
+  const gt = useGT();
   return (
     <>
       <div className="flex items-baseline justify-between gap-3 text-muted-foreground">
-        <span className="flex items-baseline gap-1.5" role="img" aria-label="T3 Code">
+        <span className="flex items-baseline gap-1.5" role="img" aria-label={gt("T3 Code")}>
           <T3Wordmark className="h-3 w-auto shrink-0 text-foreground" aria-hidden />
           <span className="text-lg font-medium tracking-tight">
             <T>Code</T>

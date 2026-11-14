@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, useGT } from "gt-react";
 import { PlusIcon, XIcon } from "lucide-react";
 import { useRef, useState, type PointerEvent } from "react";
 
@@ -17,6 +17,7 @@ function ProviderCustomColorPanel(props: {
   readonly onCommit: (value: string) => void;
   readonly showAddButton: boolean;
 }) {
+  const gt = useGT();
   const { onCommit, onPreview } = props;
   const [hsv, setHsv] = useState(() => hexToHsv(props.value));
   const currentColor = hsvToHex(hsv.h, hsv.s, hsv.v);
@@ -87,7 +88,7 @@ function ProviderCustomColorPanel(props: {
           }}
           onBlur={() => setHexDraft(null)}
           font="mono"
-          aria-label="Custom hex accent color"
+          aria-label={gt("Custom hex accent color")}
           spellCheck={false}
         />
         {props.showAddButton ? (
