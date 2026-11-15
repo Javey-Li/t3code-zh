@@ -1,4 +1,4 @@
-import { useMessages } from "gt-react";
+import { useGT, useMessages } from "gt-react";
 import { formatPercent } from "@t3tools/shared/usageFormat";
 import type { ReactNode } from "react";
 
@@ -21,6 +21,7 @@ export function UsageShareBar({
   readonly format: (value: number) => string;
   readonly aside?: ReactNode;
 }) {
+  const gt = useGT();
   const m = useMessages();
   const visible = segments.filter((segment) => segment.value > 0);
   const total = visible.reduce((sum, segment) => sum + segment.value, 0);
@@ -34,7 +35,12 @@ export function UsageShareBar({
       </div>
       <div
         role="img"
-        aria-label={`${label}: ${visible.map((segment) => `${segment.label} ${format(segment.value)}`).join(", ")}`}
+        aria-label={gt("{label}: {details}", {
+          label: m(label),
+          details: visible
+            .map((segment) => `${m(segment.label)} ${format(segment.value)}`)
+            .join(", "),
+        })}
         className="flex h-2 gap-0.5"
       >
         {visible.map((segment) => (

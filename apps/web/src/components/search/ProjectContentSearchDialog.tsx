@@ -108,6 +108,7 @@ function OpenContentSearchDialog(props: {
   readonly onOpenChange: (open: boolean) => void;
   readonly target: ActiveProjectTarget;
 }) {
+  const gt = useGT();
   const { target } = props;
   const { resolvedTheme } = useTheme();
   const renderedAppearance = useRenderedAppearance();
@@ -166,7 +167,7 @@ function OpenContentSearchDialog(props: {
 
   return (
     <CommandPaletteContent
-      aria-label={`Search file contents in ${target.projectName}`}
+      aria-label={gt("Search file contents in {project}", { project: target.projectName })}
       escapeLabel="Back"
       footerActionLabel="Open file"
       inputAccessory={

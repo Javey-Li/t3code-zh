@@ -200,6 +200,7 @@ function UsageRow({
   readonly tooltip: ReactNode;
   readonly muted?: boolean;
 }) {
+  const gt = useGT();
   const m = useMessages();
   const text = m(label);
   return (
@@ -208,7 +209,7 @@ function UsageRow({
         render={
           <div
             tabIndex={0}
-            aria-label={`${text}: ${ariaValue}`}
+            aria-label={gt("{text}: {value}", { text, value: ariaValue })}
             className="col-span-3 grid h-6 cursor-default grid-cols-subgrid items-center rounded-lg px-2.5 outline-none hover:bg-black/[0.035] focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring data-popup-open:bg-black/[0.035] dark:hover:bg-white/[0.08] dark:data-popup-open:bg-white/[0.08]"
           />
         }
