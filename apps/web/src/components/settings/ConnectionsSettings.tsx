@@ -177,6 +177,7 @@ export function ConnectionsSettings({ view }: { readonly view: "environments" | 
 }
 
 function AccessSettings() {
+  const gt = useGT();
   // A link that names an environment, such as the MCP wizard's, opens the page on it. The
   // settings layout remounts this page when the link changes.
   const linkedEnvironmentId = useSearch({
@@ -198,7 +199,7 @@ function AccessSettings() {
             if (next !== null) setSelectedEnvironmentId(next);
           }}
         >
-          <SelectTrigger size="sm" className="w-auto max-w-72" aria-label="Environment">
+          <SelectTrigger size="sm" className="w-auto max-w-72" aria-label={gt("Environment")}>
             <SelectValue>
               {(value: EnvironmentId) => {
                 const environment = candidates.find(
@@ -802,7 +803,7 @@ function ConnectionsSettingsContent({
       onCheckedChange={(checked) => {
         setPendingDesktopServerExposureMode(checked ? "network-accessible" : "local-only");
       }}
-      aria-label="Enable network access"
+      aria-label={gt("Enable network access")}
     />
   );
   const renderEndpointRows = () =>
@@ -1030,7 +1031,7 @@ function ConnectionsSettingsContent({
               <SelectTrigger
                 size="sm"
                 className="w-full sm:w-56"
-                aria-label="WSL backend"
+                aria-label={gt("WSL backend")}
                 disabled={isUpdatingWslBackend}
               >
                 <SelectValue>{selectLabel}</SelectValue>
@@ -1065,7 +1066,7 @@ function ConnectionsSettingsContent({
                 checked={desktopWslState.wslOnly}
                 disabled={isUpdatingWslBackend}
                 onCheckedChange={(checked) => handleToggleWslOnly(checked)}
-                aria-label="Run WSL only"
+                aria-label={gt("Run WSL only")}
               />
             }
           />
@@ -1096,7 +1097,7 @@ function ConnectionsSettingsContent({
               }
               handleStartTailscaleServeDisable(tailscaleHttpsEndpoint);
             }}
-            aria-label="Enable Tailscale HTTPS"
+            aria-label={gt("Enable Tailscale HTTPS")}
           />
         ) : null
       }
@@ -1192,7 +1193,7 @@ function ConnectionsSettingsContent({
                   <Switch
                     checked={isLocalBackendNetworkAccessible}
                     disabled
-                    aria-label="Enable network access"
+                    aria-label={gt("Enable network access")}
                   />
                 </span>
               }
@@ -1238,7 +1239,7 @@ function ConnectionsSettingsContent({
                         type="button"
                         variant="ghost-muted"
                         size="icon-xs"
-                        aria-label="More actions for this machine"
+                        aria-label={gt("More actions for this machine")}
                       />
                     }
                   >

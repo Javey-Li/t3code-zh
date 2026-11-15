@@ -722,7 +722,7 @@ export function WorktreeCleanupSection() {
               serverScoped={!isProjectScope}
               control={
                 <RetentionControl
-                  label="Delete inactive worktrees"
+                  label={gt("Delete inactive worktrees")}
                   value={settings.worktreeAfterDays}
                   onChange={(worktreeAfterDays, onFailed) =>
                     updateWorktree({ worktreeAfterDays }, { onFailed })
@@ -760,7 +760,7 @@ export function WorktreeCleanupSection() {
                     serverScoped={!isProjectScope}
                     control={
                       <RetentionControl
-                        label="Delete settled worktrees"
+                        label={gt("Delete settled worktrees")}
                         value={settings.worktreeSettledAfterDays}
                         minimum={0}
                         onChange={(worktreeSettledAfterDays, onFailed) =>
@@ -912,7 +912,7 @@ export function StorageCleanupSections() {
             serverScoped
             control={
               <RetentionControl
-                label="Delete old browser artifacts"
+                label={gt("Delete old browser artifacts")}
                 value={settings.browserArtifactsAfterDays}
                 onChange={(browserArtifactsAfterDays, onFailed) =>
                   update({ browserArtifactsAfterDays }, { onFailed })
@@ -932,7 +932,7 @@ export function StorageCleanupSections() {
             serverScoped
             control={
               <RetentionControl
-                label="Delete old rotated logs"
+                label={gt("Delete old rotated logs")}
                 value={settings.logsAfterDays}
                 onChange={(logsAfterDays, onFailed) => update({ logsAfterDays }, { onFailed })}
               />

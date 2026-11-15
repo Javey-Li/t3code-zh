@@ -59,7 +59,7 @@ function ProviderCustomColorPanel(props: {
     <div className="w-56 bg-popover">
       <div onPointerDownCapture={startDrag}>
         <ColorSaturationValuePlane
-          label="Accent color"
+          label={gt("Accent color")}
           value={hsv}
           onChange={changeHsv}
           onInteractionEnd={endDrag}
@@ -69,7 +69,7 @@ function ProviderCustomColorPanel(props: {
       <div className="grid gap-3 p-3">
         <div onPointerDownCapture={startDrag}>
           <ColorHueSlider
-            label="Accent color hue"
+            label={gt("Accent color hue")}
             value={hsv.h}
             onChange={(h) => changeHsv({ ...hsv, h })}
             onInteractionEnd={endDrag}

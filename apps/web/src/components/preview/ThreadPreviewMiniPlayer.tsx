@@ -218,6 +218,7 @@ export function ThreadPreviewMiniPlayer({ threadRef, miniPlayer }: Props) {
 }
 
 function BrowserMiniPlayer({ threadRef, tabId, miniPlayer }: Props & { readonly tabId: string }) {
+  const gt = useGT();
   const m = useMessages();
   const httpBaseUrl = useEnvironmentHttpBaseUrl(threadRef.environmentId);
   const { serverEpoch, snapshot, desktopOverlay, serverTab, sourceSize } =
@@ -281,7 +282,7 @@ function BrowserMiniPlayer({ threadRef, tabId, miniPlayer }: Props & { readonly 
       threadRef={threadRef}
       miniPlayer={miniPlayer}
       sourceSize={sourceSize}
-      label="Floating browser preview"
+      label={gt("Floating browser preview")}
       recording={recording}
       onOpenInPanel={openInPanel}
       pillActions={
@@ -377,6 +378,7 @@ function DeviceMiniPlayer({
   source,
   miniPlayer,
 }: Props & { readonly source: Extract<PreviewMiniPlayerSource, { kind: "device" }> }) {
+  const gt = useGT();
   const { state: deviceState } = useDeviceState(threadRef.environmentId);
   const viewId = miniPlayerDeviceViewId(threadRef, source);
   const screen = useAtomValue(deviceStreamScreenAtom(viewId));
@@ -404,7 +406,7 @@ function DeviceMiniPlayer({
       threadRef={threadRef}
       miniPlayer={miniPlayer}
       sourceSize={sourceSize}
-      label="Floating device preview"
+      label={gt("Floating device preview")}
       onOpenInPanel={openInPanel}
       cornerRadius={cornerRadius}
     >

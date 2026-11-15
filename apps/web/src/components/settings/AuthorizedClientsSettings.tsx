@@ -303,7 +303,7 @@ const PairingLinkListRow = memo(function PairingLinkListRow({
               <TooltipPopup side="top">{expiresAbsolute}</TooltipPopup>
             </Tooltip>
             <span aria-hidden> · </span>
-            <AccessScopeSummary scopes={pairingLink.scopes} label="Pairing link scopes" />
+            <AccessScopeSummary scopes={pairingLink.scopes} label={gt("Pairing link scopes")} />
           </p>
           {!credential ? (
             <p className="text-2xs text-muted-foreground/70">
@@ -517,6 +517,7 @@ const ConnectedClientListRow = memo(function ConnectedClientListRow({
   onRevokeSession,
   canRevoke,
 }: ConnectedClientListRowProps) {
+  const gt = useGT();
   const nowMs = useNowSecond();
   const isLive = clientSession.current || clientSession.connected;
   const lastConnectedAt = clientSession.lastConnectedAt;
@@ -564,7 +565,7 @@ const ConnectedClientListRow = memo(function ConnectedClientListRow({
                 <span aria-hidden> · </span>
               </>
             ) : null}
-            <AccessScopeSummary scopes={clientSession.scopes} label="Client scopes" />
+            <AccessScopeSummary scopes={clientSession.scopes} label={gt("Client scopes")} />
           </p>
         </div>
         <div className="flex w-full shrink-0 items-center gap-2 sm:w-auto sm:justify-end">

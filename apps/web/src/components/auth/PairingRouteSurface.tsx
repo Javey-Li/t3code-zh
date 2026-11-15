@@ -22,7 +22,7 @@ export function PairingPendingSurface() {
     <StandalonePage>
       <StandalonePageHeader
         title={gt("Pairing with this environment")}
-        description="Validating the pairing link and preparing your session."
+        description={gt("Validating the pairing link and preparing your session.")}
       />
     </StandalonePage>
   );

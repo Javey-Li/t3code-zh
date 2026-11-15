@@ -1,4 +1,4 @@
-import { T, msg, useMessages } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import { scopeThreadRef } from "@t3tools/client-runtime/environment";
 import { deriveThreadQueueWorkflowState } from "@t3tools/client-runtime/state/thread-workflows";
 import { assistantCitationsToPlainText } from "@t3tools/shared/assistantCitations";
@@ -95,6 +95,7 @@ export function QueuedRunsControl({
   readonly timestampFormat: TimestampFormat;
   readonly onOpenThread: (threadId: ThreadId, environmentId?: EnvironmentId) => void;
 }) {
+  const gt = useGT();
   const projection = useThreadProjection(
     scopeThreadRef(props.environmentId, props.threadId),
   )?.projection;
@@ -313,7 +314,7 @@ export function QueuedRunsControl({
                     <Button
                       size="xs"
                       variant="ghost"
-                      aria-label="Cancel editing queued message"
+                      aria-label={gt("Cancel editing queued message")}
                       onClick={props.onCancelEdit}
                     >
                       <T>Cancel</T>
@@ -327,7 +328,7 @@ export function QueuedRunsControl({
                         <Button
                           size="icon-xs"
                           variant="ghost-muted"
-                          aria-label="Edit queued message"
+                          aria-label={gt("Edit queued message")}
                           disabled={
                             item.runId === null ||
                             !item.editable ||
@@ -359,7 +360,7 @@ export function QueuedRunsControl({
                           <Button
                             size="icon-xs"
                             variant="ghost-muted"
-                            aria-label="Remove queued message"
+                            aria-label={gt("Remove queued message")}
                             disabled={item.runId === null || busyRunId !== null}
                             onClick={() => {
                               if (item.runId !== null) void remove(item.runId);

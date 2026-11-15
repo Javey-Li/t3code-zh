@@ -1,4 +1,4 @@
-import { useMessages } from "gt-react";
+import { useGT, useMessages } from "gt-react";
 import {
   SecretReference,
   type EnvironmentId,
@@ -74,6 +74,7 @@ export function SecretSourceSelect(props: {
   readonly disabled?: boolean;
   readonly onValueChange: (provider: SecretProviderId | null) => void;
 }) {
+  const gt = useGT();
   const m = useMessages();
   const { value, sources } = props;
   const known = value === null || sources.some((source) => source.id === value);
@@ -101,7 +102,7 @@ export function SecretSourceSelect(props: {
       </SelectTrigger>
       <SelectPopup align="start" alignItemWithTrigger={false}>
         <SelectItem value={STORED_VALUE}>
-          <SourceLabel icon={TypeIcon} label="Value" />
+          <SourceLabel icon={TypeIcon} label={gt("Value")} />
         </SelectItem>
         {sources.map((source) => (
           <SelectItem key={source.id} value={source.id}>

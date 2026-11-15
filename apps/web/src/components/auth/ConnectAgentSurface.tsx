@@ -228,7 +228,7 @@ export function McpConsent({
       <StandalonePage>
         <ConnectAgentHeading
           title={gt("Checking the sign-in request")}
-          description="One moment while this environment verifies the agent's request."
+          description={gt("One moment while this environment verifies the agent's request.")}
         />
         <Spinner className="mt-6" size="lg" tone="muted" />
       </StandalonePage>

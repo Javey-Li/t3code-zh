@@ -1,5 +1,5 @@
 /* oxlint-disable react/no-unstable-nested-components -- These callbacks return overlays, and are invoked as render functions. */
-import { T, msg } from "gt-react";
+import { T, msg, useGT } from "gt-react";
 import { useEffect, useRef, useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import {
@@ -18,6 +18,7 @@ export default function Presentation(props: {
   onDetails: (text: string) => void;
   onError: (cause: unknown) => void;
 }) {
+  const gt = useGT();
   const { onError, bytes: source, onDetails } = props;
   const [opened, setOpened] = useState<Opened>();
   const [page, setPage] = useState(0);
@@ -148,7 +149,7 @@ export default function Presentation(props: {
               {slide.notes ? (
                 <p
                   role="note"
-                  aria-label="Speaker notes"
+                  aria-label={gt("Speaker notes")}
                   className="select-text whitespace-pre-wrap break-words"
                 >
                   {slide.notes}

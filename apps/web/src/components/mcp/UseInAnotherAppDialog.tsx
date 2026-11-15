@@ -465,7 +465,7 @@ function GateScreen({
                   <p className="text-sm text-destructive-foreground">
                     Your T3 Connect account is out of tunnels.
                   </p>
-                  <ManageAccessButton environment={environment} label="Manage tunnels" />
+                  <ManageAccessButton environment={environment} label={gt("Manage tunnels")} />
                 </>
               ) : null}
             </div>

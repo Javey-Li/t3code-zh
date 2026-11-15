@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, useGT } from "gt-react";
 import type {
   ChatAttachment,
   ChatFileAttachment,
@@ -173,6 +173,7 @@ export function ComposerAttachmentMediaRow({
   readonly onRemoveImage: (imageId: string) => void;
   readonly onRemoveFile: (fileId: string) => void;
 }) {
+  const gt = useGT();
   const uploadsByImageId = useAttachmentUploadStore((state) => state.uploadsByImageId);
   const pendingSnapShotIdSet = new Set(pendingSnapShotIds);
   const nonPersistedImageIdSet = new Set(nonPersistedImageIds);
@@ -267,7 +268,7 @@ export function ComposerAttachmentMediaRow({
                     render={
                       <span
                         role="img"
-                        aria-label="Draft attachment may not persist"
+                        aria-label={gt("Draft attachment may not persist")}
                         className="absolute left-1 top-1 inline-flex items-center justify-center rounded bg-background/85 p-0.5 text-warning-foreground"
                       >
                         <CircleAlertIcon className="size-3" />
@@ -709,6 +710,7 @@ export function ComposerAttachButton({
   readonly addComposerAttachments: (files: File[]) => Promise<boolean>;
   readonly focusComposer: () => void;
 }) {
+  const gt = useGT();
   const inputRef = useRef<HTMLInputElement>(null);
   return (
     <>
@@ -737,7 +739,7 @@ export function ComposerAttachButton({
               size="icon-sm"
               onPointerDown={(event) => event.preventDefault()}
               onClick={() => inputRef.current?.click()}
-              aria-label="Attach files"
+              aria-label={gt("Attach files")}
             />
           }
         >

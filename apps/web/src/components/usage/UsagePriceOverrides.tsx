@@ -1,4 +1,4 @@
-import { T, useMessages } from "gt-react";
+import { T, useGT, useMessages } from "gt-react";
 import { useAtomValue } from "@effect/atom-react";
 import { AuthSettingsWriteScope, type EnvironmentId, sessionGrantsScope } from "@t3tools/contracts";
 import { ChevronDownIcon, PlusIcon, RotateCcwIcon, XIcon } from "lucide-react";
@@ -102,6 +102,7 @@ export function UsagePriceOverrides({
   readonly initialModel?: string | undefined;
   readonly onOpenChange: (open: boolean) => void;
 }) {
+  const gt = useGT();
   const m = useMessages();
   const environments = useAtomValue(priceTargetsAtom);
   const [selectedIds, setSelectedIds] = useState(initialSelectedEnvironmentIds);
@@ -355,7 +356,7 @@ export function UsagePriceOverrides({
           ) : (
             <>
               <div className="min-w-0 overflow-hidden rounded-lg border border-border">
-                <Table className="min-w-180 table-fixed" aria-label="Custom model prices">
+                <Table className="min-w-180 table-fixed" aria-label={gt("Custom model prices")}>
                   <colgroup>
                     <col className="w-[22%]" />
                     <col className="w-[18%]" />
@@ -379,7 +380,7 @@ export function UsagePriceOverrides({
                         <Button
                           size="icon-xs"
                           variant="ghost"
-                          aria-label="Add model price"
+                          aria-label={gt("Add model price")}
                           disabled={locked}
                           onClick={() => {
                             const id = `new:${nextRowId.current++}`;
@@ -421,12 +422,12 @@ export function UsagePriceOverrides({
                                       focusRowRef.current = null;
                                     }
                                   }}
-                                  aria-label="New model ID"
+                                  aria-label={gt("New model ID")}
                                   aria-invalid={
                                     (row.model.trim() !== "" && error !== undefined) || undefined
                                   }
                                   list="usage-price-models"
-                                  placeholder="Model ID"
+                                  placeholder={gt("Model ID")}
                                   autoComplete="off"
                                   spellCheck={false}
                                   disabled={locked}

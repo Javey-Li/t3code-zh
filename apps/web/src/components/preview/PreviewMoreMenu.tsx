@@ -55,22 +55,32 @@ interface Props {
   move?: { readonly label: string; readonly onMove: () => void };
 }
 
-const MenuTriggerButton = () => (
-  <Tooltip>
-    <TooltipTrigger
-      render={
-        <MenuTrigger
-          render={<Button variant="ghost" size="icon-xs" type="button" aria-label="Preview menu" />}
-        />
-      }
-    >
-      <MoreVertical />
-    </TooltipTrigger>
-    <TooltipPopup>
-      <T>More</T>
-    </TooltipPopup>
-  </Tooltip>
-);
+const MenuTriggerButton = () => {
+  const gt = useGT();
+  return (
+    <Tooltip>
+      <TooltipTrigger
+        render={
+          <MenuTrigger
+            render={
+              <Button
+                variant="ghost"
+                size="icon-xs"
+                type="button"
+                aria-label={gt("Preview menu")}
+              />
+            }
+          />
+        }
+      >
+        <MoreVertical />
+      </TooltipTrigger>
+      <TooltipPopup>
+        <T>More</T>
+      </TooltipPopup>
+    </Tooltip>
+  );
+};
 
 export function PreviewMoreMenu({
   enabled,

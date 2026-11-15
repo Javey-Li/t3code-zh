@@ -436,7 +436,9 @@ function ProviderSettingsPanelContent(target: ProviderSettingsTarget) {
           deviceTabs={deviceTabs}
           icon={<EnvironmentMachineIcon kind={resolveEnvironmentMachineKind(null)} />}
           title={gt("Device unavailable")}
-          description="Reconnect this device to set up its provider, or select another device."
+          description={gt(
+            "Reconnect this device to set up its provider, or select another device.",
+          )}
         />
       ) : null}
       {options.length === 0 && !targetEnvironmentMissing ? (
@@ -1168,7 +1170,7 @@ export function EnvironmentProviderSettings({
               )}
             >
               <IntervalSecondsField
-                label="provider health check interval"
+                label={gt("provider health check interval")}
                 value={providerHealthRefreshIntervalSeconds}
                 min={0}
                 step={PROVIDER_HEALTH_INTERVAL_STEP_SECONDS}

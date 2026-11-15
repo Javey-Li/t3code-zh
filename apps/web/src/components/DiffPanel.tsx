@@ -1,4 +1,4 @@
-import { T, msg, useMessages } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import { RefreshIcon } from "~/components/ui/refresh-icon";
 import { useAtomValue } from "@effect/atom-react";
 import type { FileDiffContentsLoader, FileDiffMetadata } from "@pierre/diffs";
@@ -229,6 +229,7 @@ export default function DiffPanel({
   workspaceMutationId,
   visible,
 }: DiffPanelProps) {
+  const gt = useGT();
   const m = useMessages();
   const resolvedTheme = useRenderedAppearance();
   const settings = useClientSettings((settings) => ({
@@ -1076,7 +1077,7 @@ export default function DiffPanel({
                 className="w-72 min-w-0 max-w-[calc(100vw-1rem)] overflow-hidden"
               >
                 <ComboboxSearchInput
-                  placeholder="Search refs..."
+                  placeholder={gt("Search refs...")}
                   value={baseRefQuery}
                   onChange={(event) => setBaseRefQuery(event.target.value)}
                 />
@@ -1140,7 +1141,7 @@ export default function DiffPanel({
                                   <span className="flex justify-end text-muted-foreground">
                                     <CheckIcon
                                       role="img"
-                                      aria-label="Remote only"
+                                      aria-label={gt("Remote only")}
                                       className="size-3"
                                     />
                                   </span>
@@ -1220,7 +1221,7 @@ export default function DiffPanel({
           </Tooltip>
         )}
         <ToggleGroup
-          aria-label="Diff layout"
+          aria-label={gt("Diff layout")}
           className="shrink-0"
           variant="segmented"
           value={[diffLayout]}
@@ -1231,10 +1232,10 @@ export default function DiffPanel({
             }
           }}
         >
-          <Toggle aria-label="Stacked diff view" value="stacked">
+          <Toggle aria-label={gt("Stacked diff view")} value="stacked">
             <Rows3Icon className="size-3.5" />
           </Toggle>
-          <Toggle aria-label="Split diff view" value="split">
+          <Toggle aria-label={gt("Split diff view")} value="split">
             <Columns2Icon className="size-3.5" />
           </Toggle>
         </ToggleGroup>
@@ -1285,7 +1286,7 @@ export default function DiffPanel({
             <TooltipTrigger
               render={
                 <Toggle
-                  aria-label="Hide test files"
+                  aria-label={gt("Hide test files")}
                   variant="ghost"
                   size="sm"
                   pressed={hideTestFiles}

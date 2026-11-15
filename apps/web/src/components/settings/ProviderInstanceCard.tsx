@@ -351,6 +351,7 @@ export function ProviderEnvironmentSection(props: {
   readonly secretSources?: ReadonlyArray<SecretSource>;
   readonly environmentId?: EnvironmentId | undefined;
 }) {
+  const gt = useGT();
   const [storedDraft, setDraft] = useState(() =>
     seedRowsDraft(props.environment, toEnvironmentDraftRows),
   );
@@ -473,7 +474,7 @@ export function ProviderEnvironmentSection(props: {
                 value={variable.name}
                 onCommit={(name) => updateVariable(variable.id, { name: name.trim() })}
                 disabled={variable.valueRedacted === true}
-                placeholder="VARIABLE_NAME"
+                placeholder={gt("VARIABLE_NAME")}
                 spellCheck={false}
                 aria-label={`Environment variable name ${index + 1}`}
               />
@@ -546,7 +547,7 @@ export function ProviderEnvironmentSection(props: {
                     className="min-w-0 flex-1"
                     value={variable.valueRedacted ? "" : variable.value}
                     onCommit={(value) => updateVariable(variable.id, { value })}
-                    placeholder="value"
+                    placeholder={gt("value")}
                     configured={variable.valueRedacted === true}
                     spellCheck={false}
                     aria-label={`Environment variable value ${index + 1}`}
@@ -570,7 +571,7 @@ export function ProviderEnvironmentSection(props: {
                       }
                       onCommit={(value) => updateVariable(variable.id, { value })}
                       autoComplete="off"
-                      placeholder="value"
+                      placeholder={gt("value")}
                       spellCheck={false}
                       aria-label={`Environment variable value ${index + 1}`}
                     />,
@@ -598,6 +599,7 @@ function ProjectOverrideInheritance({
   readonly projectEnabled: boolean;
   readonly deviceEnabled: boolean;
 }) {
+  const gt = useGT();
   const m = useMessages();
   const layers = [
     { key: "project", label: msg("Project"), enabled: projectEnabled, effective: true },
@@ -613,7 +615,7 @@ function ProjectOverrideInheritance({
                 <Button
                   size="icon-micro"
                   variant="ghost-muted"
-                  aria-label="Overridden for this project. Show where this value comes from"
+                  aria-label={gt("Overridden for this project. Show where this value comes from")}
                 />
               }
             />
@@ -1084,7 +1086,7 @@ export function ProviderInstanceCard({
                       variant="ghost-muted"
                       className="shrink-0"
                       onClick={() => copyToClipboard(updateCommand, { providerName: displayName })}
-                      aria-label="Copy update command"
+                      aria-label={gt("Copy update command")}
                     >
                       <CopyIcon className="size-3" />
                     </Button>

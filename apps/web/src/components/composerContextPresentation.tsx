@@ -352,11 +352,12 @@ function ComposerThreadContextChip(props: { record: ThreadContextRecord }) {
 }
 
 function UnresolvedContextChip(props: { label: string }) {
+  const gt = useGT();
   const m = useMessages();
   return (
     <UnresolvedChip
       label={m(props.label)}
-      tooltip="This context is no longer available. Remove it or attach it again."
+      tooltip={gt("This context is no longer available. Remove it or attach it again.")}
     />
   );
 }

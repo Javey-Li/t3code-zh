@@ -1626,7 +1626,7 @@ export function VoiceSettingsPanel() {
         >
           <div className="mt-3 pb-2">
             <DictionaryEditor
-              label="dictionary"
+              label={gt("dictionary")}
               words={settings.speechCustomWords}
               onChange={(words) => void updateClientSettings({ speechCustomWords: words })}
             />

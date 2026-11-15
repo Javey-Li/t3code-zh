@@ -1,3 +1,4 @@
+import { useGT } from "gt-react";
 import { workspaceAreaProps } from "../lib/workspaceFocus";
 import { Outlet, createFileRoute, redirect, useLocation } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
@@ -107,6 +108,7 @@ function SettingsScopeBoundary({ pathname, children }: { pathname: string; child
 }
 
 function SettingsContentLayout() {
+  const gt = useGT();
   const contentArea = workspaceAreaProps("settings", 1, "Settings content");
   const location = useLocation();
   const { search, environment } = useSettingsScope();
@@ -117,7 +119,7 @@ function SettingsContentLayout() {
   const [restoreSignal, setRestoreSignal] = useState(0);
 
   return (
-    <AppRouteModal label="Settings">
+    <AppRouteModal label={gt("Settings")}>
       <div className="relative flex min-h-0 flex-1">
         <SettingsSidebarNav pathname={location.pathname} />
         <div {...contentArea} className="flex min-h-0 min-w-0 flex-1 flex-col">

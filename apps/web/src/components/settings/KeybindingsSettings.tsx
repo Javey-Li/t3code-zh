@@ -1136,13 +1136,14 @@ function NewKeybindingCommandSelect({
   commandOptions: ReadonlyArray<KeybindingCommandOption>;
   className?: string | undefined;
 }) {
+  const gt = useGT();
   return (
     <Select
       value={draft.commandDraft}
       onValueChange={(value) => draft.setCommandDraft(value as KeybindingCommand)}
     >
       <SelectTrigger size="sm" className={className}>
-        <SelectValue placeholder="Command" />
+        <SelectValue placeholder={gt("Command")} />
       </SelectTrigger>
       <SelectContent alignItemWithTrigger={false} matchTriggerWidth={false} className="max-h-72">
         {commandOptions.map((command) => (

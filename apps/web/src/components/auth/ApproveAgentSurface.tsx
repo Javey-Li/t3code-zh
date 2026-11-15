@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, useGT } from "gt-react";
 import { useAuth, useClerk } from "@clerk/react";
 import { useAtomValue } from "@effect/atom-react";
 import { managedRelaySessionAtom } from "@t3tools/client-runtime/relay";
@@ -75,6 +75,7 @@ function connectTransport(
  * T3 Connect here and approves with that session, so no sign-in code is needed.
  */
 export function ApproveAgentSurface() {
+  const gt = useGT();
   const [environmentId] = useState(readEnvironmentId);
   const [authorization] = useState(readAuthorizationRequest);
   // Another site could frame this page and steer a click onto Approve.
@@ -107,7 +108,7 @@ export function ApproveAgentSurface() {
     return (
       <Message
         title="This sign-in link is incomplete"
-        description="Close this page and start the sign-in again from your agent."
+        description={gt("Close this page and start the sign-in again from your agent.")}
       />
     );
   }
