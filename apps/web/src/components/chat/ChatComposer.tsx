@@ -1,4 +1,4 @@
-import { useGT } from "gt-react";
+import { msg, useGT, useMessages } from "gt-react";
 import { VoiceInputSetup } from "./VoiceInputSetup";
 import { useComposerTypingGuard } from "./useComposerTypingGuard";
 import { insertAttachmentReferencesForDraft } from "./composerAttachmentReferences";
@@ -498,6 +498,7 @@ const NO_PROVIDER_SKILLS: ServerProvider["skills"] = [];
 const NO_PROVIDER_SLASH_COMMANDS: ServerProvider["slashCommands"] = [];
 
 export const ChatComposer = memo(function ChatComposer(props: ChatComposerProps) {
+  const m = useMessages();
   const gt = useGT();
   const {
     composerDraftTarget,
@@ -2141,7 +2142,7 @@ export const ChatComposer = memo(function ChatComposer(props: ChatComposerProps)
       toastManager.add({
         type: "info",
         title: "Still compressing a pasted image.",
-        description: "Send again once its thumbnail appears.",
+        description: msg("Send again once its thumbnail appears."),
       });
       return false;
     }
@@ -2150,7 +2151,7 @@ export const ChatComposer = memo(function ChatComposer(props: ChatComposerProps)
       toastManager.add({
         type: "info",
         title: "Still bringing attached context into this message.",
-        description: "Send again once its chip resolves.",
+        description: msg("Send again once its chip resolves."),
       });
       return false;
     }
@@ -2531,7 +2532,7 @@ export const ChatComposer = memo(function ChatComposer(props: ChatComposerProps)
                       variant="ghost"
                       onClick={() => handleRuntimeModeChange(runtimeModeCeilingFallback)}
                     >
-                      Switch to {runtimeModeConfig[runtimeModeCeilingFallback].label}
+                      Switch to {m(runtimeModeConfig[runtimeModeCeilingFallback].label)}
                     </Button>
                   ),
                 }),
@@ -2680,7 +2681,7 @@ export const ChatComposer = memo(function ChatComposer(props: ChatComposerProps)
         toastManager.add({
           type: "error",
           title: `Couldn't get the path of "${folder.name}"`,
-          description: "Type the folder path with @ instead.",
+          description: msg("Type the folder path with @ instead."),
         });
         continue;
       }
@@ -2691,7 +2692,7 @@ export const ChatComposer = memo(function ChatComposer(props: ChatComposerProps)
         toastManager.add({
           type: "error",
           title: "Unable to add folder",
-          description: "The composer is busy; try again once it is ready.",
+          description: msg("The composer is busy; try again once it is ready."),
         });
         break;
       }
@@ -2796,7 +2797,7 @@ export const ChatComposer = memo(function ChatComposer(props: ChatComposerProps)
       toastManager.add({
         type: "error",
         title: "Unable to add to chat",
-        description: "The composer is busy; try again once it is ready.",
+        description: msg("The composer is busy; try again once it is ready."),
       });
     },
   });
@@ -2893,7 +2894,7 @@ export const ChatComposer = memo(function ChatComposer(props: ChatComposerProps)
         toastManager.add({
           type: "error",
           title: "Unable to add thread",
-          description: "The composer is busy; try again once it is ready.",
+          description: msg("The composer is busy; try again once it is ready."),
         });
         return;
       }

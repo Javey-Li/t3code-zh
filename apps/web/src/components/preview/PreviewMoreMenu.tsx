@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import type { DesktopPreviewColorScheme } from "@t3tools/contracts";
 import { Minus, MoreVertical, Plus as PlusIcon, RotateCcw } from "lucide-react";
 
@@ -24,9 +24,9 @@ const COLOR_SCHEME_OPTIONS: ReadonlyArray<{
   value: DesktopPreviewColorScheme;
   label: string;
 }> = [
-  { value: "system", label: "System" },
-  { value: "light", label: "Light" },
-  { value: "dark", label: "Dark" },
+  { value: "system", label: msg("System") },
+  { value: "light", label: msg("Light") },
+  { value: "dark", label: msg("Dark") },
 ];
 
 export interface PreviewMoreMenuActions {
@@ -84,6 +84,7 @@ export function PreviewMoreMenu({
   findShortcutLabel,
   move,
 }: Props) {
+  const m = useMessages();
   const gt = useGT();
   const zoomLabel = `${Math.round(zoomFactor * 100)}%`;
   const disabled = !enabled;
@@ -112,7 +113,7 @@ export function PreviewMoreMenu({
               : "Open separate preview window"}
           </MenuItem>
         ) : null}
-        {move ? <MenuItem onClick={move.onMove}>{move.label}</MenuItem> : null}
+        {move ? <MenuItem onClick={move.onMove}>{m(move.label)}</MenuItem> : null}
         <MenuItem onClick={onToggleDeviceToolbar} disabled={disabled}>
           {deviceToolbarVisible ? "Hide device toolbar" : "Show device toolbar"}
         </MenuItem>
@@ -127,7 +128,7 @@ export function PreviewMoreMenu({
             >
               {COLOR_SCHEME_OPTIONS.map((option) => (
                 <MenuRadioItem key={option.value} value={option.value}>
-                  {option.label}
+                  {m(option.label)}
                 </MenuRadioItem>
               ))}
             </MenuRadioGroup>

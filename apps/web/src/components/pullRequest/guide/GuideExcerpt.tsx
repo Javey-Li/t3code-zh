@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, msg } from "gt-react";
 import type {
   DiffLineAnnotation,
   FileDiffContentsLoader,
@@ -306,7 +306,7 @@ function ExcerptDiff({
                 {...(commenting.canComment && onAskAgent !== null
                   ? {
                       secondaryAction: {
-                        label: "Ask agent",
+                        label: msg("Ask agent"),
                         onAction: (text: string) => askAgent(text),
                       },
                     }

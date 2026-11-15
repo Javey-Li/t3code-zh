@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, useMessages } from "gt-react";
 import type { EnvironmentId, SecretProviderConfig, SecretProviderId } from "@t3tools/contracts";
 import { PlusIcon } from "lucide-react";
 import { useState } from "react";
@@ -36,6 +36,7 @@ const SECRET_PROVIDER_KINDS: Readonly<
 };
 
 export function SecretsSettingsPanel() {
+  const m = useMessages();
   const { scope, environment } = useSettingsScope();
   const connected = environment?.connection.phase === "connected";
   return (
@@ -45,7 +46,7 @@ export function SecretsSettingsPanel() {
       environment.serverConfig.secretProviderSettings !== true ? (
         <SettingsSection {...searchableSetting("secret-providers")}>
           <p className="px-4 py-3 text-sm text-muted-foreground">
-            Update T3 Code on {environment.label} to manage its secret providers.
+            Update T3 Code on {m(environment.label)} to manage its secret providers.
           </p>
         </SettingsSection>
       ) : connected ? (
@@ -75,6 +76,7 @@ function EnvironmentSecretProviders({
   readonly environment: EnvironmentPresentation;
   readonly projectScoped: boolean;
 }) {
+  const m = useMessages();
   const environmentId = environment.environmentId;
   const sessionState = useEnvironmentSessionState(environmentId);
   // The server requires the same grant for secret providers as for provider settings.
@@ -137,7 +139,7 @@ function EnvironmentSecretProviders({
                     {kind ? (
                       <kind.icon className="size-4.5 shrink-0 text-foreground/80" aria-hidden />
                     ) : null}
-                    <span className="min-w-0 wrap-anywhere">{config.label}</span>
+                    <span className="min-w-0 wrap-anywhere">{m(config.label)}</span>
                   </span>
                 }
                 description={
@@ -171,7 +173,7 @@ function EnvironmentSecretProviders({
                       <RemoveSecretProviderButton
                         environmentId={environmentId}
                         id={id}
-                        label={config.label}
+                        label={m(config.label)}
                         onConfirm={() => updateSettings({ secretProviders: { [id]: null } })}
                       />
                     </div>
@@ -186,7 +188,7 @@ function EnvironmentSecretProviders({
         <SecretProviderDialog
           onClose={() => setDialog(null)}
           environmentId={environmentId}
-          environmentLabel={environment.label}
+          environmentLabel={m(environment.label)}
           existingIds={new Set(Object.keys(providers))}
           {...(editing === undefined ? {} : { existing: editing })}
         />
@@ -247,6 +249,7 @@ function SecretProviderUses({
   readonly id: SecretProviderId;
   readonly label: string;
 }) {
+  const m = useMessages();
   const uses = secretProviderUses(useEnvironmentSettings(environmentId), id);
   if (uses.length === 0) {
     return (
@@ -262,7 +265,7 @@ function SecretProviderUses({
       </AlertDialogDescription>
       <ul className="max-h-48 list-disc space-y-0.5 overflow-y-auto ps-5 text-sm wrap-anywhere">
         {uses.map((use) => (
-          <li key={use.id}>{use.label}</li>
+          <li key={use.id}>{m(use.label)}</li>
         ))}
       </ul>
     </>

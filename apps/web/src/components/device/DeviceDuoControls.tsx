@@ -1,4 +1,4 @@
-import { useGT } from "gt-react";
+import { msg, useGT } from "gt-react";
 import { useState } from "react";
 import {
   duoFoldState,
@@ -17,8 +17,8 @@ const FOLDS = [
   { id: "open", angle: 180 },
 ] as const;
 const STANDS = [
-  { id: "laptop", label: "Laptop stand" },
-  { id: "tent", label: "Tent stand" },
+  { id: "laptop", label: msg("Laptop stand") },
+  { id: "tent", label: msg("Tent stand") },
 ] as const;
 
 export function DeviceDuoControls(props: {

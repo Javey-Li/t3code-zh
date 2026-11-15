@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, useGT, useMessages } from "gt-react";
 import {
   type EnvironmentId,
   isSecretReference,
@@ -265,6 +265,7 @@ function TextGeneratorWizard({
   readonly onSave: (id: ProviderInstanceId, config: TextGeneratorConfig) => void;
   readonly newId: (preset: TextGeneratorPreset) => ProviderInstanceId;
 }) {
+  const m = useMessages();
   const existing = editing === "new" ? null : editing.config;
   const [step, setStep] = useState(0);
   const [preset, setPreset] = useState(TEXT_GENERATOR_PRESETS[0]!);
@@ -382,7 +383,7 @@ function TextGeneratorWizard({
                             ) : (
                               <ProviderInstanceIcon
                                 driverKind={textGeneratorBrand(candidate)}
-                                displayName={candidate.label}
+                                displayName={m(candidate.label)}
                                 badgeContent="none"
                               />
                             )}
@@ -464,7 +465,7 @@ function TextGeneratorWizard({
                     environmentId={environmentId}
                     providers={providers}
                     settingKey={task.key}
-                    label={task.label}
+                    label={m(task.label)}
                   />
                 ))}
               </div>

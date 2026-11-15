@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import { DeviceHostUpdates } from "../device/DeviceHostUpdates";
 import { DeviceToolVersions } from "../device/DeviceToolVersions";
 import { useScopedSettings, useUpdateScopedSettings } from "./useScopedSettings";
@@ -322,6 +322,7 @@ const rotateViewport = (
 });
 
 function BrowserViewportSetting({ disabled }: { readonly disabled: boolean }) {
+  const m = useMessages();
   const gt = useGT();
   const viewport = useClientSettings((settings) => settings.browserDefaultViewport);
   const updateSettings = useUpdateScopedSettings();
@@ -408,7 +409,7 @@ function BrowserViewportSetting({ disabled }: { readonly disabled: boolean }) {
                 {PREVIEW_VIEWPORT_PRESETS.map((preset) => (
                   <SelectItem key={preset.id} value={preset.id}>
                     <span className="flex w-full items-center justify-between gap-5">
-                      <span>{preset.label}</span>
+                      <span>{m(preset.label)}</span>
                       <span className="text-xs tabular-nums text-muted-foreground">
                         {preset.detail}
                       </span>
@@ -1219,7 +1220,7 @@ function BrowserProfilesSetting({ disabled }: { readonly disabled: boolean }) {
       toastManager.add({
         type: "error",
         title: `Could not clear ${name}'s data`,
-        description: "You're not connected to a server yet.",
+        description: msg("You're not connected to a server yet."),
       });
       return;
     }
@@ -1610,7 +1611,7 @@ function BrowserProfilesSetting({ disabled }: { readonly disabled: boolean }) {
                 toastManager.add({
                   type: "error",
                   title: "Could not open System Settings",
-                  description: "Open Privacy & Security → Full Disk Access manually.",
+                  description: msg("Open Privacy & Security → Full Disk Access manually."),
                 });
               });
           }}

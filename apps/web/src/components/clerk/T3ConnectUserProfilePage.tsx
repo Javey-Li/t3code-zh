@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import { findErrorTraceId } from "@t3tools/client-runtime/errors";
 import {
   isAtomCommandInterrupted,
@@ -52,6 +52,7 @@ function T3ConnectEnvironmentRow(props: {
   readonly onConfirmationChange: (open: boolean) => void;
   readonly onDeregister: (environment: RelayClientEnvironmentRecord) => void;
 }) {
+  const m = useMessages();
   const { environment } = props;
   return (
     <ClerkUserProfileRow icon={<ServerIcon className="size-4" />}>
@@ -59,7 +60,7 @@ function T3ConnectEnvironmentRow(props: {
         <div className="flex items-start gap-4">
           <div className="min-w-0 flex-1">
             <h3 className="truncate text-sm leading-4.5 font-medium text-foreground">
-              {environment.label}
+              {m(environment.label)}
             </h3>
             <p className="mt-1 text-xs leading-4.5 text-muted-foreground">
               {linkedAtLabel(environment.linkedAt)} · {endpointLabel(environment)}
@@ -85,7 +86,7 @@ function T3ConnectEnvironmentRow(props: {
                 <T>Deregister server</T>
               </h4>
               <p className="mt-1 text-xs leading-4.5 text-muted-foreground">
-                “{environment.label}” will be removed from this account.
+                “{m(environment.label)}” will be removed from this account.
               </p>
               <p className="mt-4 max-w-xl text-xs leading-4.5 text-muted-foreground">
                 <T>
@@ -211,7 +212,7 @@ export function T3ConnectUserProfilePage() {
       toastManager.add({
         type: "success",
         title: "Server deregistered",
-        description: "T3 Connect access was revoked and a host space is now available.",
+        description: msg("T3 Connect access was revoked and a host space is now available."),
       });
       return;
     }

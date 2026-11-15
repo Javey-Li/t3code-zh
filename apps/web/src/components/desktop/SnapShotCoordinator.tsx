@@ -1,3 +1,4 @@
+import { msg } from "gt-react";
 import {
   type DesktopBridge,
   type DesktopPendingSnapShot,
@@ -375,7 +376,7 @@ export function SnapShotCoordinator() {
               stackedThreadToast({
                 type: "error",
                 title: "Snapshot taken, but no project is available",
-                description: "Add a project, then capture the window again.",
+                description: msg("Add a project, then capture the window again."),
               }),
             );
             continue;

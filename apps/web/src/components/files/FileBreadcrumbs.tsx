@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, useGT, useMessages } from "gt-react";
 import { RefreshIcon } from "~/components/ui/refresh-icon";
 import { Spinner } from "~/components/ui/spinner";
 import type { EnvironmentId } from "@t3tools/contracts";
@@ -54,6 +54,7 @@ function BreadcrumbLabel(props: {
   readonly label: string;
   readonly pathLabel: string;
 }) {
+  const m = useMessages();
   return (
     <Tooltip>
       <TooltipTrigger
@@ -66,7 +67,7 @@ function BreadcrumbLabel(props: {
           />
         }
       >
-        {props.label}
+        {m(props.label)}
       </TooltipTrigger>
       <TooltipPopup side="top">{props.pathLabel}</TooltipPopup>
     </Tooltip>
@@ -85,6 +86,7 @@ function BreadcrumbMenuContent(props: {
   readonly rootPath: string;
   readonly workspaceMutationId: string | null;
 }) {
+  const m = useMessages();
   const entriesQuery = useProjectEntriesQuery(
     props.environmentId,
     props.cwd,
@@ -171,7 +173,7 @@ function BreadcrumbMenuContent(props: {
                         />
                       }
                     >
-                      {entry.label}
+                      {m(entry.label)}
                     </TooltipTrigger>
                     <TooltipPopup side="right">{entry.path}</TooltipPopup>
                   </Tooltip>
@@ -277,6 +279,7 @@ function FolderBreadcrumb(props: {
   readonly onNavigate: (path: string) => void;
   readonly projectName: string;
 }) {
+  const m = useMessages();
   return (
     <Tooltip>
       <TooltipTrigger
@@ -291,7 +294,7 @@ function FolderBreadcrumb(props: {
           />
         }
       >
-        <span className="block truncate">{props.crumb.label}</span>
+        <span className="block truncate">{m(props.crumb.label)}</span>
       </TooltipTrigger>
       <TooltipPopup side="top">{props.crumb.path || props.projectName}</TooltipPopup>
     </Tooltip>
@@ -300,6 +303,7 @@ function FolderBreadcrumb(props: {
 
 /** Host paths outside the workspace omit contents menus; the browser already lists their destination. */
 export function FileBreadcrumbs(props: FileBreadcrumbsProps) {
+  const m = useMessages();
   const gt = useGT();
   const hostPath = isHostPath(props.relativePath);
   const breadcrumbs = fileBreadcrumbs(props.projectName, props.trail);
@@ -322,12 +326,12 @@ export function FileBreadcrumbs(props: FileBreadcrumbsProps) {
                 <span aria-current="page">
                   <BreadcrumbLabel
                     current
-                    label={crumb.label}
+                    label={m(crumb.label)}
                     pathLabel={crumb.path || props.projectName}
                   />
                 </span>
               ) : hostPath && !isListableHostFolder(crumb.path) ? (
-                <BreadcrumbLabel label={crumb.label} pathLabel={crumb.path} />
+                <BreadcrumbLabel label={m(crumb.label)} pathLabel={crumb.path} />
               ) : (
                 <FolderBreadcrumb
                   crumb={crumb}

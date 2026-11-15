@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import { pipe } from "effect/Function";
 import { ChevronsLeftRightEllipsisIcon, PlusIcon, TerminalIcon } from "lucide-react";
 import { useAtomValue } from "@effect/atom-react";
@@ -87,6 +87,7 @@ export function AddEnvironmentDialog({
   readonly onOpenChange: (open: boolean) => void;
   readonly onErrorChange: (error: string | null) => void;
 }) {
+  const m = useMessages();
   const gt = useGT();
   const desktopBridge = window.desktopBridge;
   const keybindings = useAtomValue(primaryServerKeybindingsAtom);
@@ -265,7 +266,7 @@ export function AddEnvironmentDialog({
         : {
             type: "success",
             title: "Backend added",
-            description: "The environment is saved and will reconnect on app startup.",
+            description: msg("The environment is saved and will reconnect on app startup."),
           },
     );
     setIsAddingSavedBackend(false);
@@ -389,7 +390,7 @@ export function AddEnvironmentDialog({
         <span className="min-w-0">
           <span className="block text-sm font-medium text-foreground">{input.title}</span>
           <span className="mt-1 block text-xs leading-relaxed text-muted-foreground">
-            {input.description}
+            {m(input.description)}
           </span>
         </span>
       </button>
@@ -660,14 +661,14 @@ export function AddEnvironmentDialog({
               {renderConnectionModeCard({
                 mode: "remote",
                 title: "Remote link",
-                description: "Enter a backend host and pairing code.",
+                description: msg("Enter a backend host and pairing code."),
                 icon: <ChevronsLeftRightEllipsisIcon aria-hidden className="size-4" />,
               })}
               {desktopBridge
                 ? renderConnectionModeCard({
                     mode: "ssh",
                     title: "SSH",
-                    description: "Use local SSH config, agent, and tunnels for the backend.",
+                    description: msg("Use local SSH config, agent, and tunnels for the backend."),
                     icon: <TerminalIcon aria-hidden className="size-4" />,
                   })
                 : null}

@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, useGT, useMessages } from "gt-react";
 import { DeviceHostUpdates } from "./DeviceHostUpdates";
 import type {
   DevicePlatform,
@@ -55,6 +55,7 @@ export function DevicePanel(props: {
   readonly visible: boolean;
   readonly onDismissSetup: () => void;
 }) {
+  const m = useMessages();
   const { environmentId, threadId } = props.threadRef;
   const { state, loaded, error: stateError, refresh: refreshState } = useDeviceState(environmentId);
   const list = useAtomCommand(deviceEnvironment.list, { reportFailure: false });
@@ -229,7 +230,7 @@ export function DevicePanel(props: {
             {diagnostics.map((diagnostic) => (
               <DeviceDiscoveryWarning
                 key={`${environmentId}\u0000${diagnostic.hostId}`}
-                label={diagnostic.label}
+                label={m(diagnostic.label)}
                 detail={diagnostic.detail}
                 incompletePlatforms={diagnostic.incompletePlatforms}
                 onRetry={() => list({ environmentId, input: {} })}

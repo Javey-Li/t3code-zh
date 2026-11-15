@@ -1,3 +1,4 @@
+import { useMessages } from "gt-react";
 import { useAtomValue } from "@effect/atom-react";
 import {
   isTerminalSubagentStatus,
@@ -40,6 +41,7 @@ export function WorkflowOpeningBlock(props: {
   readonly environmentId: EnvironmentId;
   readonly onOpenThread: (threadId: string) => void;
 }) {
+  const m = useMessages();
   const { opening } = props;
   const providers = useAtomValue(providersIgnoringCheckedAtAtom(props.environmentId));
   const headline = workflowOpeningHeadline(opening);
@@ -71,7 +73,7 @@ export function WorkflowOpeningBlock(props: {
           </h3>
           {headline.description ? (
             <p className="text-xs text-muted-foreground" data-thread-find-text="true">
-              {headline.description}
+              {m(headline.description)}
             </p>
           ) : null}
         </div>

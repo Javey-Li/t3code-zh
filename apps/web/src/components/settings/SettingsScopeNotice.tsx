@@ -1,3 +1,4 @@
+import { msg, useMessages } from "gt-react";
 import { resolveEnvironmentMachineKind, type EnvironmentId } from "@t3tools/contracts";
 import { useLocation, useNavigate } from "@tanstack/react-router";
 import { ChevronRightIcon, LayersIcon } from "lucide-react";
@@ -41,6 +42,7 @@ export function SettingsScopeNotice({
   targetId?: string;
   eligibleEnvironmentIds?: readonly EnvironmentId[];
 }) {
+  const m = useMessages();
   const { selectScope, search, groups } = useSettingsScope();
   const navigate = useNavigate({ from: "/settings" });
   const pathname = useLocation({ select: (location) => location.pathname });
@@ -114,7 +116,7 @@ export function SettingsScopeNotice({
               })
           : [
               {
-                label: "Open all environments",
+                label: msg("Open all environments"),
                 icon: <LayersIcon aria-hidden className="size-4 shrink-0 text-muted-foreground" />,
                 search: {},
               },
@@ -144,7 +146,7 @@ export function SettingsScopeNotice({
       >
         {choice.icon}
         <span className="min-w-0 flex-1">
-          <span className="block truncate text-sm font-medium">{choice.label}</span>
+          <span className="block truncate text-sm font-medium">{m(choice.label)}</span>
           {choice.secondary ? (
             <Tooltip>
               <TooltipTrigger

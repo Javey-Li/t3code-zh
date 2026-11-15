@@ -1,4 +1,4 @@
-import { useGT } from "gt-react";
+import { msg, useGT, useMessages } from "gt-react";
 import {
   type ProviderApprovalDecision,
   type ProviderApprovalOption,
@@ -25,10 +25,10 @@ interface ComposerPendingApprovalActionsProps {
 }
 
 const DEFAULT_APPROVAL_OPTIONS = [
-  { decision: "cancel", label: "Cancel" },
-  { decision: "decline", label: "Decline" },
-  { decision: "acceptForSession", label: "Always allow this session" },
-  { decision: "accept", label: "Approve" },
+  { decision: "cancel", label: msg("Cancel") },
+  { decision: "decline", label: msg("Decline") },
+  { decision: "acceptForSession", label: msg("Always allow this session") },
+  { decision: "accept", label: msg("Approve") },
 ] satisfies ReadonlyArray<ProviderApprovalOption>;
 
 export const ComposerPendingApprovalActions = memo(function ComposerPendingApprovalActions({
@@ -40,6 +40,7 @@ export const ComposerPendingApprovalActions = memo(function ComposerPendingAppro
   options = DEFAULT_APPROVAL_OPTIONS,
   onRespondToApproval,
 }: ComposerPendingApprovalActionsProps) {
+  const m = useMessages();
   const gt = useGT();
   const primaryOptions = options.filter(
     (option) => option.decision === "decline" || option.decision === "accept",
@@ -64,7 +65,7 @@ export const ComposerPendingApprovalActions = memo(function ComposerPendingAppro
           <>
             {option.warning ? <TriangleAlertIcon className="size-3 shrink-0" /> : null}
             <span className={presentation === "inline" ? "whitespace-normal" : "max-w-40 truncate"}>
-              {option.label}
+              {m(option.label)}
             </span>
           </>
         );
@@ -123,7 +124,9 @@ export const ComposerPendingApprovalActions = memo(function ComposerPendingAppro
                   }}
                 >
                   {option.warning ? <TriangleAlertIcon className="size-3 text-warning" /> : null}
-                  <span className="min-w-0 whitespace-normal wrap-break-word">{option.label}</span>
+                  <span className="min-w-0 whitespace-normal wrap-break-word">
+                    {m(option.label)}
+                  </span>
                 </MenuItem>
               );
               return option.warning ? (

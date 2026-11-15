@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, msg, useMessages } from "gt-react";
 import { useAtomValue } from "@effect/atom-react";
 import { resolveEnvironmentMachineKind } from "@t3tools/contracts";
 import {
@@ -18,9 +18,9 @@ import { FoldedSettingsSection } from "./FoldedSettingsSection";
 import { searchableSetting } from "./settingsSearch";
 
 const options: ReadonlyArray<{ value: PullRequestRoutingPermission; label: string }> = [
-  { value: "off", label: "Off" },
-  { value: "read", label: "Read PRs" },
-  { value: "read-write", label: "Read and act" },
+  { value: "off", label: msg("Off") },
+  { value: "read", label: msg("Read PRs") },
+  { value: "read-write", label: msg("Read and act") },
 ];
 
 const summaryLabels = { "read-write": "read and act", read: "read PRs" } as const;
@@ -45,6 +45,7 @@ export function PullRequestRoutingSettings({
 }: {
   readonly environments: ReadonlyArray<EnvironmentPresentation>;
 }) {
+  const m = useMessages();
   const permissions = useAtomValue(environmentCatalog.pullRequestRoutingPermissionsValueAtom);
   const catalog = useAtomValue(environmentCatalog.catalogValueAtom);
   const update = useAtomCommand(environmentCatalog.setPullRequestRoutingPermission);
@@ -77,7 +78,7 @@ export function PullRequestRoutingSettings({
         <EnvironmentRow
           key={environment.environmentId}
           kind={resolveEnvironmentMachineKind(environment.serverConfig)}
-          label={environment.label}
+          label={m(environment.label)}
           subtitle={<EnvironmentTransportLabel environment={environment} />}
         >
           <Select

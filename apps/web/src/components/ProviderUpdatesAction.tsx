@@ -1,3 +1,4 @@
+import { useMessages } from "gt-react";
 import { AuthProvidersManageScope, PROVIDER_DISPLAY_NAMES } from "@t3tools/contracts";
 import {
   isAtomCommandInterrupted,
@@ -68,6 +69,7 @@ export function useCheckProviderUpdates() {
 }
 
 export function useProviderUpdates() {
+  const m = useMessages();
   const { environments } = useEnvironments();
   const manageableIds = useEnvironmentsWithScope(environments, AuthProvidersManageScope);
   const providersByEnvironment = useEnvironmentProviders();
@@ -110,7 +112,7 @@ export function useProviderUpdates() {
       toastManager.add(
         stackedThreadToast({
           ...view,
-          description: <span className="whitespace-pre-line">{view.description}</span>,
+          description: <span className="whitespace-pre-line">{m(view.description)}</span>,
         }),
       );
     }
@@ -121,6 +123,7 @@ export function useProviderUpdates() {
 }
 
 export function ProviderUpdatesAction() {
+  const m = useMessages();
   const { machines, updateAll } = useProviderUpdates();
   const pending = useRef(false);
   const [isPending, setIsPending] = useState(false);
@@ -154,7 +157,7 @@ export function ProviderUpdatesAction() {
       <TooltipPopup side="top">
         {machines.map((machine) => (
           <div key={machine.environmentId}>
-            {machine.label}:{" "}
+            {m(machine.label)}:{" "}
             {machine.candidates
               .map((candidate) => PROVIDER_DISPLAY_NAMES[candidate.driver] ?? candidate.driver)
               .join(", ")}

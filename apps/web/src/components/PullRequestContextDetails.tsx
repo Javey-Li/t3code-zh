@@ -1,3 +1,4 @@
+import { useMessages } from "gt-react";
 import type { PullRequestContextMetadata } from "@t3tools/contracts";
 import {
   capitalizeTerm,
@@ -10,6 +11,7 @@ import { cn } from "~/lib/utils";
 import { resolvePullRequestState } from "./pullRequest/pullRequestPresentation";
 
 export function PullRequestContextDetails({ metadata }: { metadata: PullRequestContextMetadata }) {
+  const m = useMessages();
   const state = resolvePullRequestState(metadata);
   // A context chip carries the change request's URL alone, so the URL names its host.
   const { singular } = (
@@ -22,7 +24,7 @@ export function PullRequestContextDetails({ metadata }: { metadata: PullRequestC
         <span className="text-foreground">
           {capitalizeTerm(singular)} #{metadata.number}
         </span>
-        <span className={state.toneClassName}>{state.label}</span>
+        <span className={state.toneClassName}>{m(state.label)}</span>
       </div>
       <div className="wrap-break-word text-foreground">{metadata.title}</div>
       <div className="flex min-w-0 items-center gap-1 text-secondary-label text-3xs">

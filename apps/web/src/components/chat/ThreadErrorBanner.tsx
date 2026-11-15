@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT } from "gt-react";
 import type { OrchestrationV2ProviderFailureClass } from "@t3tools/contracts";
 import {
   CHATGPT_USAGE_LIMIT_CODE,
@@ -21,7 +21,7 @@ export function copyAdminRequest() {
       toastManager.add({
         type: "success",
         title: "Request copied",
-        description: "Send it to your workspace admin.",
+        description: msg("Send it to your workspace admin."),
       }),
     () => toastManager.add({ type: "error", title: "Could not copy the request" }),
   );

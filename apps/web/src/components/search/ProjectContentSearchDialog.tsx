@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, useGT, useMessages } from "gt-react";
 import { Spinner } from "~/components/ui/spinner";
 import { AuthFilesystemReadScope, type ProjectContentMatch } from "@t3tools/contracts";
 
@@ -58,12 +58,13 @@ function SearchOptionButton(props: {
   readonly onClick: () => void;
   readonly children: ReactNode;
 }) {
+  const m = useMessages();
   return (
     <Tooltip>
       <TooltipTrigger
         render={
           <Toggle
-            aria-label={props.label}
+            aria-label={m(props.label)}
             disabled={props.disabled}
             pressed={props.active}
             size="segmented"
@@ -74,7 +75,7 @@ function SearchOptionButton(props: {
       >
         <span className="font-mono">{props.children}</span>
       </TooltipTrigger>
-      <TooltipPopup side="top">{props.label}</TooltipPopup>
+      <TooltipPopup side="top">{m(props.label)}</TooltipPopup>
     </Tooltip>
   );
 }

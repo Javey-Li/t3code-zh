@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import { useAtomValue } from "@effect/atom-react";
 import type { OtlpEndpointCheckResult, OtlpSignal, ServerObservability } from "@t3tools/contracts";
 import { useEffect, useEffectEvent, useState } from "react";
@@ -19,21 +19,21 @@ const SIGNALS = [
     key: "otlpTracesUrl",
     sourceKey: "otlpTracesSource",
     variableKey: "otlpTracesVariable",
-    label: "Traces",
+    label: msg("Traces"),
     signal: "traces",
   },
   {
     key: "otlpMetricsUrl",
     sourceKey: "otlpMetricsSource",
     variableKey: "otlpMetricsVariable",
-    label: "Metrics",
+    label: msg("Metrics"),
     signal: "metrics",
   },
   {
     key: "otlpLogsUrl",
     sourceKey: "otlpLogsSource",
     variableKey: "otlpLogsVariable",
-    label: "Logs",
+    label: msg("Logs"),
     signal: "logs",
   },
 ] as const;
@@ -58,10 +58,10 @@ type EndpointCheck = { readonly url: string; readonly result: OtlpEndpointCheckR
 const isHttpUrl = (url: string) => /^https?:\/\/./i.test(url);
 
 function endpointStatus(url: string, check: EndpointCheck | undefined) {
-  if (url === "") return { label: "Off", dot: "bg-muted-foreground/40" };
-  if (check?.url !== url) return { label: "Not checked", dot: "bg-muted-foreground/40" };
+  if (url === "") return { label: msg("Off"), dot: "bg-muted-foreground/40" };
+  if (check?.url !== url) return { label: msg("Not checked"), dot: "bg-muted-foreground/40" };
   const { result } = check;
-  if (result === null) return { label: "Checking…", dot: "bg-warning" };
+  if (result === null) return { label: msg("Checking…"), dot: "bg-warning" };
   switch (result._tag) {
     case "Accepted":
       return { label: `Connected · ${Math.round(result.latencyMs)} ms`, dot: "bg-success" };
@@ -88,6 +88,7 @@ export function TelemetryExportSettings() {
 }
 
 function TelemetryExportForm() {
+  const m = useMessages();
   const gt = useGT();
   const { environment } = useSettingsScope();
   const saved = useScopedSettings((settings) => settings.observability);
@@ -201,7 +202,7 @@ function TelemetryExportForm() {
                   {status && <ConnectionStatusDot dotClassName={status.dot} />}
                   <Label htmlFor={key}>{label} endpoint</Label>
                 </div>
-                {status && <span className="text-xs text-muted-foreground">{status.label}</span>}
+                {status && <span className="text-xs text-muted-foreground">{m(status.label)}</span>}
               </div>
               <div className="flex gap-2">
                 <Input

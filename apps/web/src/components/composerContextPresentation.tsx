@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, useGT, useMessages } from "gt-react";
 import ChatMarkdown from "./ChatMarkdown";
 import { isSvgAttachment } from "@t3tools/shared/image";
 import { ReadOnlySourcePreview } from "./files/AttachmentFilePreview";
@@ -141,12 +141,13 @@ function ContextChip(props: {
   detailsMode: ContextPresentationCapability["details"];
   kind: ContextChipKind;
 }) {
+  const m = useMessages();
   if (props.detailsMode === "popover") {
     return (
       <ContextChipPopover
         kind={props.kind}
         icon={props.icon}
-        label={props.label}
+        label={m(props.label)}
         accessibleLabel={props.kindLabel + ", " + props.label}
       >
         {props.details}
@@ -157,7 +158,7 @@ function ContextChip(props: {
     <ContextChipShell
       kind={props.kind}
       icon={props.icon}
-      label={props.label}
+      label={m(props.label)}
       aria-label={
         props.detailsMode === "tooltip" ? `${props.kindLabel}, ${props.label}` : undefined
       }
@@ -351,9 +352,10 @@ function ComposerThreadContextChip(props: { record: ThreadContextRecord }) {
 }
 
 function UnresolvedContextChip(props: { label: string }) {
+  const m = useMessages();
   return (
     <UnresolvedChip
-      label={props.label}
+      label={m(props.label)}
       tooltip="This context is no longer available. Remove it or attach it again."
     />
   );

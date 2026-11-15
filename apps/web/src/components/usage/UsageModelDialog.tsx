@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, msg, useMessages } from "gt-react";
 import { formatPercent, formatTokens, formatUsd } from "@t3tools/shared/usageFormat";
 import { isModelCostUnknown, type ModelTotals } from "@t3tools/shared/usageMerge";
 
@@ -49,6 +49,7 @@ export function UsageModelDialog({
   readonly onSetPrice: () => void;
   readonly onClose: () => void;
 }) {
+  const m = useMessages();
   const usage = mergeAnsweredUsage(
     environments,
     (bucket) => bucket.provider === model.provider && bucket.model === model.model,
@@ -59,9 +60,9 @@ export function UsageModelDialog({
   const hitRate = cacheHitRate(model);
   const perMillion = costPerMillionTokens(model);
   const stats = [
-    { label: "Cost", value: costUnknown ? "Unpriced" : formatUsd(model.costUsd) },
-    { label: "Tokens", value: formatTokens(model.totalTokens) },
-    perMillion === null ? null : { label: "Per 1M tokens", value: formatUsd(perMillion) },
+    { label: msg("Cost"), value: costUnknown ? "Unpriced" : formatUsd(model.costUsd) },
+    { label: msg("Tokens"), value: formatTokens(model.totalTokens) },
+    perMillion === null ? null : { label: msg("Per 1M tokens"), value: formatUsd(perMillion) },
     hitRate === null ? null : { label: "Cache hit", value: formatPercent(hitRate) },
   ].filter((stat) => stat !== null);
 
@@ -77,13 +78,13 @@ export function UsageModelDialog({
           <div className="flex items-center gap-2">
             <ProviderInstanceIcon
               driverKind={presentation.driverKind}
-              displayName={presentation.label}
+              displayName={m(presentation.label)}
               iconClassName="size-5"
             />
             <DialogTitle>{model.model}</DialogTitle>
           </div>
           <DialogDescription>
-            {presentation.label}
+            {m(presentation.label)}
             {costUnknown ? "" : ` · ${formatPercent(model.costShare)} of cost`}
           </DialogDescription>
         </DialogHeader>
@@ -91,8 +92,8 @@ export function UsageModelDialog({
           <div className="flex flex-col gap-8">
             <div className="grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-4">
               {stats.map((stat) => (
-                <div key={stat.label} className="flex min-w-0 flex-col gap-0.5">
-                  <span className="text-xs text-muted-foreground">{stat.label}</span>
+                <div key={m(stat.label)} className="flex min-w-0 flex-col gap-0.5">
+                  <span className="text-xs text-muted-foreground">{m(stat.label)}</span>
                   <span className="text-2xl font-semibold text-foreground">{stat.value}</span>
                 </div>
               ))}

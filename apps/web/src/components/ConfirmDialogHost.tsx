@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, useMessages } from "gt-react";
 import { useSyncExternalStore } from "react";
 
 import {
@@ -53,6 +53,7 @@ function resolveConfirmDialogCopy(message: string): ConfirmationCopy {
 }
 
 export function ConfirmDialogHost() {
+  const m = useMessages();
   const state = useSyncExternalStore(
     subscribeConfirmDialogHost,
     readConfirmDialogState,
@@ -80,7 +81,7 @@ export function ConfirmDialogHost() {
           <AlertDialogTitle>{copy.title}</AlertDialogTitle>
           {copy.description ? (
             <AlertDialogDescription className="whitespace-pre-line">
-              {copy.description}
+              {m(copy.description)}
             </AlertDialogDescription>
           ) : null}
         </AlertDialogHeader>

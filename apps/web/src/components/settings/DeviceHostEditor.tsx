@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, useGT, useMessages } from "gt-react";
 import { useState } from "react";
 import * as Option from "effect/Option";
 import type { SshDeviceHostConfig } from "@t3tools/contracts";
@@ -76,6 +76,7 @@ function DeviceHostEditorForm({
   onSave: (host: SshDeviceHostConfig) => void;
   onClose: () => void;
 }) {
+  const m = useMessages();
   const gt = useGT();
   const [draft, setDraft] = useState(host);
   const [expandedChecks, setExpandedChecks] = useState<{ key: string; open: boolean } | null>(null);
@@ -121,7 +122,7 @@ function DeviceHostEditorForm({
           <Input
             autoFocus
             required
-            value={draft.label}
+            value={m(draft.label)}
             disabled={busy}
             onChange={(event) => {
               const label = event.target.value;
@@ -245,7 +246,7 @@ function DeviceHostEditorForm({
                 return (
                   <li key={target.environmentId} className="px-3 py-2.5 text-xs">
                     <div className="flex items-center justify-between gap-3">
-                      <span className="truncate font-medium">{target.label}</span>
+                      <span className="truncate font-medium">{m(target.label)}</span>
                       <span
                         className={`flex shrink-0 items-center gap-1.5 ${result.status === "failed" ? "text-destructive" : "text-muted-foreground"}`}
                       >

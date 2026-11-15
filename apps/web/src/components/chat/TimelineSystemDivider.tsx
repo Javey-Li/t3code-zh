@@ -1,3 +1,4 @@
+import { useMessages } from "gt-react";
 import type { ReactNode } from "react";
 import type { LucideIcon } from "lucide-react";
 
@@ -14,6 +15,7 @@ export function TimelineSystemDivider(props: {
   readonly actionLabel?: string;
   readonly onAction?: () => void;
 }) {
+  const m = useMessages();
   const Icon = props.icon;
   const content = (
     <>
@@ -24,7 +26,7 @@ export function TimelineSystemDivider(props: {
         )}
       >
         {Icon ? <Icon className="size-3 shrink-0 self-center" /> : null}
-        {props.label}
+        {m(props.label)}
       </span>
       {props.detail ? (
         <span

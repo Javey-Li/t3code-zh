@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, useMessages } from "gt-react";
 import { AuthMcpClientAccess } from "@t3tools/contracts";
 import { useId } from "react";
 
@@ -15,6 +15,7 @@ export function LinkAccessPicker({
   readonly onChange: (access: AuthMcpClientAccess) => void;
   readonly disabled?: boolean;
 }) {
+  const m = useMessages();
   const labelId = useId();
   const selected = accessConfig[value];
   return (
@@ -33,7 +34,7 @@ export function LinkAccessPicker({
           <SelectValue>
             <span className="flex items-center gap-2">
               <selected.icon aria-hidden className="size-4" />
-              {selected.label}
+              {m(selected.label)}
             </span>
           </SelectValue>
         </SelectTrigger>
@@ -55,9 +56,9 @@ export function LinkAccessPicker({
         </SelectPopup>
       </Select>
       <p className="text-xs text-muted-foreground">
-        {selected.description} An agent never gets more access there than its own mode here. Below
-        full access, it can change only threads this link started, not that machine's own threads,
-        projects or settings.
+        {m(selected.description)} An agent never gets more access there than its own mode here.
+        Below full access, it can change only threads this link started, not that machine's own
+        threads, projects or settings.
       </p>
     </div>
   );

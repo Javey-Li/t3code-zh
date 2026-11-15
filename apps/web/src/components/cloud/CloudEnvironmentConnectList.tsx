@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, useMessages } from "gt-react";
 import { findErrorTraceId } from "@t3tools/client-runtime/errors";
 import {
   type ConnectionTarget,
@@ -93,6 +93,7 @@ export function CloudEnvironmentConnectRows({
     readonly onChange: (environmentId: EnvironmentId, selected: boolean) => void;
   };
 }) {
+  const m = useMessages();
   const environmentsState = useRelayEnvironmentDiscovery();
   const registerEnvironment = useAtomCommand(environmentCatalog.register, {
     reportFailure: false,
@@ -399,7 +400,7 @@ export function CloudEnvironmentConnectRows({
             className="size-4 shrink-0 text-muted-foreground"
           />
           <span className="min-w-0 flex-1">
-            <span className="block truncate text-sm font-medium">{environment.label}</span>
+            <span className="block truncate text-sm font-medium">{m(environment.label)}</span>
             {unsupportedDetail !== null ? (
               <span className="mt-0.5 block text-xs text-muted-foreground">
                 {unsupportedDetail}
@@ -464,7 +465,7 @@ export function CloudEnvironmentConnectRows({
                 kind={machineKind}
                 className="size-4 shrink-0 text-muted-foreground"
               />
-              <p className="truncate text-sm font-medium">{environment.label}</p>
+              <p className="truncate text-sm font-medium">{m(environment.label)}</p>
             </div>
             <p
               className={cn(

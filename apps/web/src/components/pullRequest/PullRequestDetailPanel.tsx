@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import {
   parsePullRequestAnchor,
   pullRequestLinkCommit,
@@ -207,10 +207,10 @@ const UPDATE_BRANCH_REBASE_FAILURE_HINT =
   "The host refused it. A rebase stops at the first commit that does not apply cleanly; updating with a merge commit may still work.";
 
 const TABS: ReadonlyArray<{ value: PullRequestDetailTab; label: string }> = [
-  { value: "summary", label: "Summary" },
-  { value: "guide", label: "Guide" },
-  { value: "timeline", label: "Timeline" },
-  { value: "code", label: "Code" },
+  { value: "summary", label: msg("Summary") },
+  { value: "guide", label: msg("Guide") },
+  { value: "timeline", label: msg("Timeline") },
+  { value: "code", label: msg("Code") },
 ];
 
 // Defer the diff viewer's worker pool until Code is approached.
@@ -331,6 +331,7 @@ export function PullRequestDetailPanel({
   initialTab?: PullRequestDetailTab;
   onTabChange?: ((tab: PullRequestDetailTab) => void) | undefined;
 }) {
+  const m = useMessages();
   const gt = useGT();
   const environmentConfigs = useServerConfigs();
   const projects = useProjects();
@@ -930,7 +931,7 @@ export function PullRequestDetailPanel({
       toastManager.add({
         type: "error",
         title: "Could not open a thread",
-        description: "Try again from the project, or open a thread first.",
+        description: msg("Try again from the project, or open a thread first."),
       });
       return;
     }
@@ -955,7 +956,7 @@ export function PullRequestDetailPanel({
       toastManager.add({
         type: "success",
         title: "Added to the composer",
-        description: "The task is in the composer. Read it over, then send.",
+        description: msg("The task is in the composer. Read it over, then send."),
       });
       return;
     }
@@ -991,7 +992,7 @@ export function PullRequestDetailPanel({
       toastManager.update(toastId, {
         type: "error",
         title: "Could not open a thread for the checkout",
-        description: "Try again from the project, or open a thread first.",
+        description: msg("Try again from the project, or open a thread first."),
       });
       return;
     }
@@ -1062,7 +1063,7 @@ export function PullRequestDetailPanel({
         ? {
             type: "success",
             title: "Checkout ready",
-            description: "The task is in the composer. Read it over, then send.",
+            description: msg("The task is in the composer. Read it over, then send."),
           }
         : offHeadPullRequestCheckoutToast(terminology),
     );
@@ -1451,7 +1452,7 @@ export function PullRequestDetailPanel({
               ) : null}
               {nativeStack ? (
                 <PullRequestStackMenu
-                  hostLabel={hostClient.label}
+                  hostLabel={m(hostClient.label)}
                   terminology={terminology}
                   stack={nativeStack}
                   notice={nativeStackQuery.notice}

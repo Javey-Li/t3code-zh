@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, useGT, useMessages } from "gt-react";
 import { useParams } from "@tanstack/react-router";
 import { scopeProjectRef } from "@t3tools/client-runtime/environment";
 import {
@@ -94,6 +94,7 @@ export function AddProjectToMachineDialogHost() {
 }
 
 function AddProjectToMachineDialog({ request }: { request: AddProjectToMachineRequest }) {
+  const m = useMessages();
   const gt = useGT();
   const id = useId();
   const project = useProject(request.projectRef);
@@ -308,7 +309,7 @@ function AddProjectToMachineDialog({ request }: { request: AddProjectToMachineRe
                         <SelectItem key={t.environmentId} value={t.environmentId}>
                           <span className="inline-flex items-center gap-1.5">
                             <EnvironmentMachineIcon kind={t.machine} className="size-3" />
-                            {t.label}
+                            {m(t.label)}
                           </span>
                         </SelectItem>
                       ))}

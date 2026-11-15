@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, useMessages } from "gt-react";
 import { SessionPermissions } from "./SessionPermissions";
 import {
   ChevronRightIcon,
@@ -120,6 +120,7 @@ export function SavedBackendListRow({
   onRemove,
   onAddRoute,
 }: SavedBackendListRowProps) {
+  const m = useMessages();
   const [routesOpen, setRoutesOpen] = useState(false);
   const [permissionsOpen, setPermissionsOpen] = useState(false);
   const [diagnosisOpen, setDiagnosisOpen] = useState(false);
@@ -245,7 +246,7 @@ export function SavedBackendListRow({
   return (
     <EnvironmentRow
       kind={machineKind}
-      label={environment.label}
+      label={m(environment.label)}
       dimmed={!enabled}
       subtitle={
         <span className="flex min-w-0 items-center gap-1">
@@ -334,7 +335,7 @@ export function SavedBackendListRow({
         <>
           {diagnosis && diagnosisOpen ? (
             <ConnectionDiagnosisPanel
-              hostLabel={environment.label}
+              hostLabel={m(environment.label)}
               diagnosis={diagnosis}
               onRetry={() => void retryNow(environmentId)}
               onAddRoute={relayOnly ? () => onAddRoute(environment) : null}

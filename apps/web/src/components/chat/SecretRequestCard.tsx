@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, useMessages } from "gt-react";
 import { pipe } from "effect/Function";
 import {
   SECRET_REQUEST_DEFAULT_PLACEHOLDER,
@@ -39,6 +39,7 @@ export function SecretRequestCard(props: {
   readonly item: SecretRequestItem;
   readonly visibility: OrchestrationV2ProjectedTurnItem["visibility"];
 }) {
+  const m = useMessages();
   const { item } = props;
   const display = secretRequestDisplay(item, props.visibility);
   if (display.kind === "answered" || display.kind === "pending-elsewhere") {
@@ -54,7 +55,7 @@ export function SecretRequestCard(props: {
         icon={<Icon className="size-3.5 text-icon-muted" aria-hidden />}
         label={
           <>
-            {item.label} · {display.label}
+            {m(item.label)} · {m(display.label)}
           </>
         }
       />
@@ -76,6 +77,7 @@ function PendingSecretRequestForm(props: {
   readonly environmentId: EnvironmentId;
   readonly item: SecretRequestItem;
 }) {
+  const m = useMessages();
   const { item } = props;
   const inputId = useId();
   const errorId = useId();
@@ -148,7 +150,7 @@ function PendingSecretRequestForm(props: {
     >
       <div className="flex min-w-0 flex-col gap-1">
         <label htmlFor={inputId} className="text-sm font-medium text-foreground">
-          {item.label}
+          {m(item.label)}
         </label>
         {item.reason.trim() ? (
           <p className="text-sm wrap-anywhere text-muted-foreground">{item.reason}</p>
@@ -175,7 +177,7 @@ function PendingSecretRequestForm(props: {
           <SecretSourceSelect
             value={source?.id ?? null}
             sources={sources}
-            label={item.label}
+            label={m(item.label)}
             disabled={submitting}
             onValueChange={(next) => {
               setSourceId(next);

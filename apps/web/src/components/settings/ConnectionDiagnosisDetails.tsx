@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, useMessages } from "gt-react";
 import { useAtomValue } from "@effect/atom-react";
 import {
   AVAILABLE_CONNECTION_STATE,
@@ -128,6 +128,7 @@ export function ConnectionDiagnosisPanel({
   readonly onRetry: () => void;
   readonly onAddRoute: (() => void) | null;
 }) {
+  const m = useMessages();
   const { copyToClipboard } = useCopyToClipboard({
     target: "connection diagnostics",
     onCopy: () => toastManager.add({ type: "success", title: "Diagnostics copied" }),
@@ -154,7 +155,7 @@ export function ConnectionDiagnosisPanel({
             <span aria-hidden className="w-3 text-center">
               {HOP_MARK[hop.result]}
             </span>
-            <span className={cn(hop.result === "ok" && "text-foreground")}>{hop.label}</span>
+            <span className={cn(hop.result === "ok" && "text-foreground")}>{m(hop.label)}</span>
             <span>{HOP_NOTE[hop.result]}</span>
           </li>
         ))}

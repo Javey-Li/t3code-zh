@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, useGT, useMessages } from "gt-react";
 import type {
   EnvironmentId,
   PullRequestAction,
@@ -46,6 +46,7 @@ export function ActOnEnvironmentPicker({
   onChange: (environmentId: EnvironmentId) => void;
   disabled: boolean;
 }) {
+  const m = useMessages();
   return (
     <>
       <MenuSeparator />
@@ -64,7 +65,7 @@ export function ActOnEnvironmentPicker({
                 kind={environment.machine ?? "server"}
                 className="size-3.5 shrink-0"
               />
-              <span className="truncate">{environment.label}</span>
+              <span className="truncate">{m(environment.label)}</span>
             </span>
           </MenuRadioItem>
         ))}
@@ -220,6 +221,7 @@ export function PullRequestPrimaryAction({
   perform: PerformPullRequestAction;
   resolveConflicts: ReactNode;
 }) {
+  const m = useMessages();
   const gt = useGT();
   const inlineConfirm = useInlineActionConfirm(pullRequestKey);
   const actionPending = pendingAction !== null;
@@ -396,7 +398,7 @@ export function PullRequestPrimaryAction({
         <Badge size="control" variant="outline">
           <span className={cn("flex items-center gap-1", statePresentation.toneClassName)}>
             <statePresentation.Icon className="size-3.5" />
-            {statePresentation.label}
+            {m(statePresentation.label)}
           </span>
         </Badge>
       ) : null}

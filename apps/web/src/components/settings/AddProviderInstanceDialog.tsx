@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import { ProviderInstanceIcon } from "../chat/ProviderInstanceIcon";
 
 import { Radio as RadioPrimitive } from "@base-ui/react/radio";
@@ -97,6 +97,7 @@ function ProviderOptionGrid({
   readonly "aria-label"?: string;
   readonly "aria-labelledby"?: string;
 }) {
+  const m = useMessages();
   return (
     <RadioGroup
       {...labelProps}
@@ -113,11 +114,11 @@ function ProviderOptionGrid({
         >
           <ProviderInstanceIcon
             driverKind={option.driverKind}
-            displayName={option.label}
+            displayName={m(option.label)}
             iconClassName="size-4"
           />
           <span className="min-w-0 flex-1 truncate text-sm font-medium text-foreground">
-            {option.label}
+            {m(option.label)}
           </span>
           <RadioPrimitive.Indicator
             className="grid size-5 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground"
@@ -361,7 +362,7 @@ export function AddProviderInstanceDialog({
     }));
     setIdentityByDriver((existing) =>
       updateProviderIdentityDraft(existing, ACP_REGISTRY_DRIVER_KIND, {
-        label: "Local ACP",
+        label: msg("Local ACP"),
         instanceIdOverride: null,
       }),
     );

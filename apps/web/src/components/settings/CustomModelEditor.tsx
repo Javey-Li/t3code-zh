@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, useGT, useMessages } from "gt-react";
 import { PlusIcon, XIcon } from "lucide-react";
 import { useState } from "react";
 import type { ProviderDriverKind, ServerProviderModel } from "@t3tools/contracts";
@@ -44,6 +44,7 @@ export function CustomModelEditor({
   onSave,
   onCancel,
 }: CustomModelEditorProps) {
+  const m = useMessages();
   const gt = useGT();
   const [draft, setDraft] = useState<CustomModelDraft>(() => draftFromDefinition(entry));
   const [error, setError] = useState<string | null>(null);
@@ -148,7 +149,7 @@ export function CustomModelEditor({
       />
       <Input
         size="compact"
-        value={choice.label}
+        value={m(choice.label)}
         onChange={(event) =>
           updateChoice(descriptor.key, choice.key, { label: event.target.value })
         }
@@ -204,7 +205,7 @@ export function CustomModelEditor({
                 <SelectItem key={preset.id} value={preset.id}>
                   <span className="flex items-baseline gap-2">
                     <code className="font-mono text-xs">{preset.id}</code>
-                    <span className="text-muted-foreground">{preset.label}</span>
+                    <span className="text-muted-foreground">{m(preset.label)}</span>
                   </span>
                 </SelectItem>
               ))}
@@ -228,7 +229,7 @@ export function CustomModelEditor({
         ) : null}
         <Input
           size="compact"
-          value={descriptor.label}
+          value={m(descriptor.label)}
           onChange={(event) => updateDescriptor(descriptor.key, { label: event.target.value })}
           placeholder={gt("Label")}
           className="min-w-0 flex-1"
@@ -356,7 +357,7 @@ export function CustomModelEditor({
                 onClick={() => addDescriptor(descriptorFromPreset(preset))}
               >
                 <PlusIcon className="size-3" />
-                {preset.label}
+                {m(preset.label)}
               </Button>
             ))}
           <Button

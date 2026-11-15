@@ -1,3 +1,4 @@
+import { msg } from "gt-react";
 import { lazy, Suspense, useSyncExternalStore } from "react";
 
 import { useTheme } from "../../hooks/useTheme";
@@ -39,7 +40,7 @@ export function ThemeEditorHost() {
           stackedThreadToast({
             type: "error",
             title: "Could not save your theme",
-            description: "Browser storage is unavailable, so the change was not kept.",
+            description: msg("Browser storage is unavailable, so the change was not kept."),
           }),
         );
         return false;
@@ -75,7 +76,7 @@ export function ThemeEditorHost() {
         stackedThreadToast({
           type: "error",
           title: "Could not save your theme",
-          description: "Browser storage is unavailable, so the change was not kept.",
+          description: msg("Browser storage is unavailable, so the change was not kept."),
         }),
       );
       return false;
@@ -84,7 +85,7 @@ export function ThemeEditorHost() {
       stackedThreadToast({
         type: "success",
         title: `${savedTheme.label} created`,
-        description: "It’s now active.",
+        description: msg("It’s now active."),
       }),
     );
     return true;

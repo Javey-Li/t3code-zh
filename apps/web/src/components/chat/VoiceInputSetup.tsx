@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, useGT, useMessages } from "gt-react";
 import { useStableCallback } from "~/hooks/useStableCallback";
 import {
   listBrowserMicrophones,
@@ -46,6 +46,7 @@ export function VoiceInputSetup(props: {
   onCancelDownload(): void;
   onStartRecording(): void;
 }) {
+  const m = useMessages();
   const gt = useGT();
   const navigate = useNavigate();
   const environment = useEnvironment(props.environmentId);
@@ -201,7 +202,7 @@ export function VoiceInputSetup(props: {
                     ) : null}
                     {microphones.map((device) => (
                       <SelectItem key={device.deviceId} value={`device:${device.deviceId}`}>
-                        {device.label}
+                        {m(device.label)}
                       </SelectItem>
                     ))}
                   </SelectPopup>

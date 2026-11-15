@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, useMessages } from "gt-react";
 import {
   isSecretReference,
   type EnvironmentId,
@@ -35,6 +35,7 @@ export function SourceControlTokenSettings({
   readonly credentials: SourceControlHostCredentials;
   readonly onSaved: () => void;
 }) {
+  const m = useMessages();
   const { tokens } = useEnvironmentSettings(environmentId, (settings) =>
     readHostCredentialSettings(settings, definition.kind),
   );
@@ -93,7 +94,7 @@ export function SourceControlTokenSettings({
           <code className="rounded bg-muted px-1 py-px text-2xs">{credentials.tokenEnvVar}</code>{" "}
           and the{" "}
           <code className="rounded bg-muted px-1 py-px text-2xs">{credentials.cliName}</code> login,
-          so {definition.label} works without the {credentials.cliLabel}. Give it{" "}
+          so {m(definition.label)} works without the {credentials.cliLabel}. Give it{" "}
           {credentials.tokenAccess}.{" "}
           {normalizedHost || defaultHost ? (
             <InlineButton

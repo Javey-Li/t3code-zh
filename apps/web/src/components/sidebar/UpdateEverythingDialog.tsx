@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, useMessages } from "gt-react";
 import { useAtomValue } from "@effect/atom-react";
 import { EnvironmentId } from "@t3tools/contracts";
 import { Atom } from "effect/reactivity";
@@ -107,6 +107,7 @@ function UpdateEverythingDialogContent({
   busy = false,
   checking = false,
 }: UpdateEverythingDialogContentProps) {
+  const m = useMessages();
   const stopped = useAtomValue(
     runningThreadCountAtom(
       restarts
@@ -184,8 +185,8 @@ function UpdateEverythingDialogContent({
                 className="col-span-full grid grid-cols-subgrid border-b border-border/50 py-1.5 last:border-b-0"
               >
                 <span role="cell" className="max-w-32 min-w-0">
-                  <span className="sr-only">{row.label}</span>
-                  <MiddleTruncate value={row.label} aria-hidden />
+                  <span className="sr-only">{m(row.label)}</span>
+                  <MiddleTruncate value={m(row.label)} aria-hidden />
                 </span>
                 <span role="cell">
                   {row.app !== null ? APP_LABELS[row.app] : null}
@@ -225,7 +226,7 @@ function UpdateEverythingDialogContent({
                   {skipped.map((row) => (
                     <Fragment key={row.environmentId ?? "this-app"}>
                       <span className="max-w-32 min-w-0">
-                        <MiddleTruncate value={row.label} />
+                        <MiddleTruncate value={m(row.label)} />
                       </span>
                       <span className="wrap-anywhere">{row.skipped}</span>
                     </Fragment>

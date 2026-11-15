@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import { Spinner } from "~/components/ui/spinner";
 
 import {
@@ -288,13 +288,14 @@ function ProviderEnvironmentFieldRow(props: {
   readonly secretSources: ReadonlyArray<SecretSource>;
   readonly environmentId?: EnvironmentId | undefined;
 }) {
+  const m = useMessages();
   const inputId = `${props.idPrefix}-environment-${props.field.name}`;
   const value = props.variable?.valueRedacted ? "" : (props.variable?.value ?? "");
 
   return (
     <SettingsRow
-      title={<label htmlFor={inputId}>{props.field.label}</label>}
-      description={props.field.description}
+      title={<label htmlFor={inputId}>{m(props.field.label)}</label>}
+      description={m(props.field.description)}
       managed={props.managedReason}
       control={
         <div className="flex w-full min-w-0 items-center gap-2 @min-[32rem]/settings-row:w-56">
@@ -319,7 +320,7 @@ function ProviderEnvironmentFieldRow(props: {
               placeholder={props.field.placeholder}
               configured={props.variable?.valueRedacted === true}
               spellCheck={false}
-              aria-label={props.field.label}
+              aria-label={m(props.field.label)}
               sources={props.secretSources}
               environmentId={props.environmentId}
               onSecretChange={(secret) => props.onSecretChange(props.field, secret)}
@@ -597,9 +598,10 @@ function ProjectOverrideInheritance({
   readonly projectEnabled: boolean;
   readonly deviceEnabled: boolean;
 }) {
+  const m = useMessages();
   const layers = [
-    { key: "project", label: "Project", enabled: projectEnabled, effective: true },
-    { key: "device", label: "Device", enabled: deviceEnabled, effective: false },
+    { key: "project", label: msg("Project"), enabled: projectEnabled, effective: true },
+    { key: "device", label: msg("Device"), enabled: deviceEnabled, effective: false },
   ];
   return (
     <Popover>
@@ -639,7 +641,7 @@ function ProjectOverrideInheritance({
                   layer.effective ? "font-medium text-foreground" : "text-muted-foreground",
                 )}
               >
-                {layer.label}
+                {m(layer.label)}
               </span>
               <span
                 className={cn(
@@ -808,7 +810,7 @@ export function ProviderInstanceCard({
       toastManager.add({
         type: "success",
         title: `${providerName} update command copied`,
-        description: "Run it in a terminal when you are ready to update.",
+        description: msg("Run it in a terminal when you are ready to update."),
       });
     },
     onError: (error, { providerName }) => {

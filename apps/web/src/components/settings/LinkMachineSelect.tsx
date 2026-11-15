@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, useMessages } from "gt-react";
 import {
   ANOTHER_ADDRESS,
   type LinkableMachine,
@@ -46,10 +46,11 @@ export function LinkMachineBadge({ machine }: { readonly machine: LinkableMachin
 }
 
 function MachineName({ machine }: { readonly machine: LinkableMachine }) {
+  const m = useMessages();
   return (
     <span className="flex min-w-0 items-center gap-2">
       <EnvironmentMachineIcon kind={machine.machine} className="size-4 shrink-0 opacity-80" />
-      <span className="min-w-0 truncate">{machine.label}</span>
+      <span className="min-w-0 truncate">{m(machine.label)}</span>
     </span>
   );
 }

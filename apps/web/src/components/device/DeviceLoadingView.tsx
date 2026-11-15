@@ -1,3 +1,4 @@
+import { useMessages } from "gt-react";
 import type { ReactNode } from "react";
 import { Smartphone } from "lucide-react";
 
@@ -11,6 +12,7 @@ export function DeviceLoadingView(props: {
   readonly error?: boolean;
   readonly children?: ReactNode;
 }) {
+  const m = useMessages();
   return (
     <div
       role={props.error ? "alert" : "status"}
@@ -23,7 +25,7 @@ export function DeviceLoadingView(props: {
         <div className="space-y-1">
           <p className="text-sm font-medium">{props.name}</p>
           {props.description ? (
-            <p className="text-xs text-muted-foreground">{props.description}</p>
+            <p className="text-xs text-muted-foreground">{m(props.description)}</p>
           ) : null}
         </div>
         <div className="flex items-center gap-2 text-xs text-muted-foreground">

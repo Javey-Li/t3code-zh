@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, msg } from "gt-react";
 import { PermissionChecklist, PermissionContinueButton } from "../permissions/PermissionChecklist";
 import { usePermissionStatus } from "../permissions/usePermissionStatus";
 import {
@@ -23,43 +23,44 @@ import {
 } from "./SnapShotSetupDialog.logic";
 
 const SETUP_STEPS = [
-  { id: "access", label: "Access" },
-  { id: "shortcut", label: "Shortcut" },
+  { id: "access", label: msg("Access") },
+  { id: "shortcut", label: msg("Shortcut") },
 ] as const;
 
 const GNOME_ACCESS_COPY = {
   "not-installed": {
     title: "Install the extension",
-    description:
+    description: msg(
       "The T3 Code GNOME extension lets you capture other windows and bring them into your draft. Sign out once after installing.",
+    ),
   },
   "restart-required": {
     title: "Extension installed",
-    description: "Save your work, then sign out and back in. Your setup will be waiting here.",
+    description: msg("Save your work, then sign out and back in. Your setup will be waiting here."),
   },
   "update-required": {
     title: "Update the extension",
-    description: "Install the update, then sign out and back in.",
+    description: msg("Install the update, then sign out and back in."),
   },
   "extensions-disabled": {
     title: "Allow GNOME extensions",
-    description: "Open GNOME Extensions and turn on extensions, then check again.",
+    description: msg("Open GNOME Extensions and turn on extensions, then check again."),
   },
   disabled: {
     title: "Enable the extension",
-    description: "Enable T3 Code SnapShots to start capturing windows.",
+    description: msg("Enable T3 Code SnapShots to start capturing windows."),
   },
   enabled: {
     title: "Capture is ready",
-    description: "Next, choose your shortcut.",
+    description: msg("Next, choose your shortcut."),
   },
   unsupported: {
     title: "Automatic capture isn't available",
-    description: "Use Take snapshot from the command palette to choose a window.",
+    description: msg("Use Take snapshot from the command palette to choose a window."),
   },
   error: {
     title: "Couldn't set up the extension",
-    description: "Check T3 Code SnapShots in GNOME Extensions, then try again.",
+    description: msg("Check T3 Code SnapShots in GNOME Extensions, then try again."),
   },
 };
 
@@ -146,44 +147,46 @@ export function SnapShotSetupDialog({
     state.message && !macPermissions
       ? {
           title: "Let's try that again",
-          description: "Couldn't check snapshots. Try again to continue.",
+          description: msg("Couldn't check snapshots. Try again to continue."),
         }
       : backend === "gnome" && extension
         ? extension.status === "enabled" && !accessReady
           ? {
               title: "Check capture access",
-              description: "The extension isn't ready yet. Try again in a moment.",
+              description: msg("The extension isn't ready yet. Try again in a moment."),
             }
           : GNOME_ACCESS_COPY[extension.status]
         : helperBackend
           ? helper?.status === "ready"
             ? {
                 title: "Capture is ready",
-                description: "Next, choose your shortcut.",
+                description: msg("Next, choose your shortcut."),
               }
             : helper?.status === "error"
               ? {
                   title: "Let's fix capture access",
-                  description: "Try reinstalling the capture helper, then check again.",
+                  description: msg("Try reinstalling the capture helper, then check again."),
                 }
               : {
                   title:
                     helper?.status === "update-required"
                       ? "Update the capture helper"
                       : "Allow snapshots",
-                  description:
+                  description: msg(
                     "T3 Code's capture helper lets you capture other apps and return to your draft. It's included with T3 Code.",
+                  ),
                 }
           : backend === "niri"
             ? {
                 title: "Capture is ready",
-                description: "Next, choose your shortcut.",
+                description: msg("Next, choose your shortcut."),
               }
             : backend === "picker"
               ? {
                   title: "Choose a window each time",
-                  description:
+                  description: msg(
                     "Your desktop doesn't support automatic capture. You'll choose the window to capture instead.",
+                  ),
                 }
               : {
                   title: "Allow snapshots",
@@ -268,7 +271,7 @@ export function SnapShotSetupDialog({
                         id: "screenRecording",
                         icon: <MacScreenRecordingIcon className="size-8 shrink-0 drop-shadow-sm" />,
                         title: "Screen Recording",
-                        description: "Capture the window you're using.",
+                        description: msg("Capture the window you're using."),
                         granted: macPermissions.screenRecording,
                         onAllow: () => void onAction("allow-screen-recording"),
                       },

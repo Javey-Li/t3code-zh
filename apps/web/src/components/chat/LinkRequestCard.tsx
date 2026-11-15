@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, useGT, useMessages } from "gt-react";
 import { pipe } from "effect/Function";
 import { useAtomValue } from "@effect/atom-react";
 import {
@@ -60,6 +60,7 @@ export function LinkRequestCard(props: {
   readonly item: LinkRequestItem;
   readonly visibility: OrchestrationV2ProjectedTurnItem["visibility"];
 }) {
+  const m = useMessages();
   const { item } = props;
   const display = linkRequestDisplay(item, props.visibility, accessLabel);
   if (display.kind === "answered" || display.kind === "pending-elsewhere") {
@@ -75,7 +76,7 @@ export function LinkRequestCard(props: {
       <WorkLogRow
         data-v2-item-type={item.type}
         icon={<Icon className="size-3.5 text-icon-muted" aria-hidden />}
-        label={display.label}
+        label={m(display.label)}
       />
     );
   }
@@ -170,6 +171,7 @@ function LinkRequestDialog(props: {
   readonly open: boolean;
   readonly onOpenChange: (open: boolean) => void;
 }) {
+  const m = useMessages();
   const gt = useGT();
   const { item } = props;
   const formId = useId();
@@ -354,8 +356,8 @@ function LinkRequestDialog(props: {
                     />
                     {target.kind === "machine" ? (
                       <span className="block text-xs text-muted-foreground">
-                        This app has no address for {target.label} that another machine can reach.
-                        Enter its https or Tailscale address.
+                        This app has no address for {m(target.label)} that another machine can
+                        reach. Enter its https or Tailscale address.
                       </span>
                     ) : null}
                   </label>
@@ -445,6 +447,7 @@ function MachinePicker(props: {
   readonly disabled: boolean;
   readonly onChange: (value: string) => void;
 }) {
+  const m = useMessages();
   const labelId = useId();
   return (
     <div className="space-y-2">
@@ -467,7 +470,7 @@ function MachinePicker(props: {
               kind={machine.machine}
               className="size-4 shrink-0 text-muted-foreground"
             />
-            <span className="min-w-0 flex-1 truncate font-medium">{machine.label}</span>
+            <span className="min-w-0 flex-1 truncate font-medium">{m(machine.label)}</span>
             <LinkMachineBadge machine={machine} />
           </label>
         ))}

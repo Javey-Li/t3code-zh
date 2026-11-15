@@ -1,3 +1,4 @@
+import { useMessages } from "gt-react";
 import type { ReactNode } from "react";
 import type { EnvironmentId } from "@t3tools/contracts";
 import { ContextChipLabel } from "../ContextChip";
@@ -11,6 +12,7 @@ export function FileTagChipContent(props: {
   environmentId?: EnvironmentId | null | undefined;
   cwd?: string | undefined;
 }) {
+  const m = useMessages();
   return (
     <>
       {props.icon ?? (
@@ -21,7 +23,7 @@ export function FileTagChipContent(props: {
           theme={props.theme}
         />
       )}
-      <ContextChipLabel>{props.label}</ContextChipLabel>
+      <ContextChipLabel>{m(props.label)}</ContextChipLabel>
     </>
   );
 }

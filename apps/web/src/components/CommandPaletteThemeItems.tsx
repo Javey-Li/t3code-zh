@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, msg } from "gt-react";
 import { BUILT_IN_THEMES } from "@t3tools/shared/themePalettes";
 import { MonitorIcon, MoonIcon, PaletteIcon, SunIcon } from "lucide-react";
 
@@ -21,9 +21,9 @@ import {
 import { stackedThreadToast, toastManager } from "./ui/toast";
 
 export const APPEARANCE_OPTIONS = [
-  { mode: "system", label: "System", icon: MonitorIcon },
-  { mode: "light", label: "Light", icon: SunIcon },
-  { mode: "dark", label: "Dark", icon: MoonIcon },
+  { mode: "system", label: msg("System"), icon: MonitorIcon },
+  { mode: "light", label: msg("Light"), icon: SunIcon },
+  { mode: "dark", label: msg("Dark"), icon: MoonIcon },
 ] as const;
 
 export function notifyThemeSaveFailure(): void {
@@ -31,7 +31,7 @@ export function notifyThemeSaveFailure(): void {
     stackedThreadToast({
       type: "error",
       title: "Couldn't save theme selection",
-      description: "Try again.",
+      description: msg("Try again."),
     }),
   );
 }
@@ -77,7 +77,7 @@ export function useCommandPaletteThemeItems() {
     groups: [
       {
         value: "themes",
-        label: "Change theme",
+        label: msg("Change theme"),
         items: themeCards.map(({ id, label, previews }) => ({
           kind: "action",
           value: id === null ? "theme:standard" : `theme:palette:${id}`,
@@ -127,7 +127,7 @@ export function useCommandPaletteThemeItems() {
     groups: [
       {
         value: "appearance",
-        label: "Change appearance",
+        label: msg("Change appearance"),
         items: APPEARANCE_OPTIONS.map(({ mode, label, icon: Icon }) => ({
           kind: "action",
           value: `appearance:${mode}`,

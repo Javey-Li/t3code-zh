@@ -1,3 +1,4 @@
+import { useMessages } from "gt-react";
 import type { EnvironmentId, PullRequestContextMetadata } from "@t3tools/contracts";
 import { CircleDashedIcon, FilmIcon, ImageIcon } from "lucide-react";
 import {
@@ -71,6 +72,7 @@ export function ContextChipPopover(props: {
   accent?: string | undefined;
   children: ReactNode;
 }) {
+  const m = useMessages();
   return (
     <Popover>
       <PopoverTrigger
@@ -89,7 +91,7 @@ export function ContextChipPopover(props: {
         }
       >
         {props.icon}
-        <ContextChipLabel>{props.label}</ContextChipLabel>
+        <ContextChipLabel>{m(props.label)}</ContextChipLabel>
       </PopoverTrigger>
       <PopoverPopup side="top" width="lg" padding="compact">
         <PopoverTitle className="sr-only">{props.accessibleLabel}</PopoverTitle>
@@ -108,6 +110,7 @@ export function PullRequestChip(props: {
   copyMarkdown?: string;
   onOpen: (event: MouseEvent<HTMLElement>, url: string) => void;
 }) {
+  const m = useMessages();
   const previewTarget = usePullRequestPreviewTarget(props.environmentId, props.metadata.url);
   const displayState =
     props.metadata.state === "open" && props.metadata.isDraft ? "draft" : props.metadata.state;
@@ -122,7 +125,7 @@ export function PullRequestChip(props: {
       onAuxClick={(event) => props.onOpen(event, props.metadata.url)}
     >
       <StateIcon />
-      <ContextChipLabel>{props.label}</ContextChipLabel>
+      <ContextChipLabel>{m(props.label)}</ContextChipLabel>
     </ContextChip>
   );
   if (previewTarget !== null) {
@@ -341,10 +344,11 @@ function FileChipContent(props: {
 }
 
 export function UnresolvedChip(props: { label: string; tooltip: string; copyMarkdown?: string }) {
+  const m = useMessages();
   return (
     <ContextChipShell
       icon={<CircleDashedIcon />}
-      label={props.label}
+      label={m(props.label)}
       state="unresolved"
       aria-label={`Unavailable context, ${props.label}`}
       data-markdown-copy={props.copyMarkdown}

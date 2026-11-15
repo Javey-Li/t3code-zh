@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, useGT, useMessages } from "gt-react";
 import { useAuth } from "@clerk/react";
 import { useAtomValue } from "@effect/atom-react";
 import type {
@@ -1737,6 +1737,7 @@ function ImportRepositoryGroup({
   readonly selectedKeys: ReadonlySet<string>;
   readonly onToggle: (keys: ReadonlyArray<string>, checked: boolean) => void;
 }) {
+  const m = useMessages();
   const keys = group.candidates.map((candidate) => candidate.key);
   const selectedCount = keys.filter((key) => selectedKeys.has(key)).length;
   const single = group.candidates.length === 1;
@@ -1745,7 +1746,7 @@ function ImportRepositoryGroup({
     return (
       <ImportCandidateRow
         candidate={only}
-        label={group.label}
+        label={m(group.label)}
         path={only.path}
         checked={selectedKeys.has(only.key)}
         onCheckedChange={(checked) => onToggle([only.key], checked)}
@@ -1762,7 +1763,7 @@ function ImportRepositoryGroup({
         />
         <CollapsibleTrigger className="group flex min-w-0 flex-1 items-center gap-1.5 text-left">
           <ChevronRightIcon className="size-3.5 shrink-0 text-muted-foreground transition-transform group-data-panel-open:rotate-90" />
-          <span className="truncate text-sm font-medium">{group.label}</span>
+          <span className="truncate text-sm font-medium">{m(group.label)}</span>
           <ImportRowMeta
             sources={[...new Set(group.candidates.flatMap((c) => c.sources))]}
             threadCount={group.threadCount}

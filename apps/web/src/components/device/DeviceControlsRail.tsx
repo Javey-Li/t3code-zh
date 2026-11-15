@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, useGT, useMessages } from "gt-react";
 import type { DeviceHostSummary, DevicePlatform } from "@t3tools/contracts";
 import {
   Camera,
@@ -289,11 +289,12 @@ function RailButton(props: {
   onClick: () => void;
   children: ReactNode;
 }) {
+  const m = useMessages();
   const button = (
     <Button
       size="icon-sm"
       variant={props.pressed ? "secondary" : "ghost"}
-      aria-label={props.label}
+      aria-label={m(props.label)}
       aria-pressed={props.pressed}
       disabled={props.disabled}
       onClick={props.onClick}
@@ -306,7 +307,7 @@ function RailButton(props: {
       {props.disabled && props.description ? (
         <TooltipTrigger
           render={
-            <span className="inline-flex" tabIndex={0} role="group" aria-label={props.label} />
+            <span className="inline-flex" tabIndex={0} role="group" aria-label={m(props.label)} />
           }
         >
           {button}

@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import { SettingsGroup } from "./SettingsGroup";
 import { RefreshIcon } from "~/components/ui/refresh-icon";
 import {
@@ -324,6 +324,7 @@ export function ProviderSettingsPanel(target: ProviderSettingsTarget) {
 }
 
 function ProviderSettingsPanelContent(target: ProviderSettingsTarget) {
+  const m = useMessages();
   const gt = useGT();
   const { environments, isReady } = useEnvironments();
   const primaryEnvironmentId = usePrimaryEnvironmentId();
@@ -405,7 +406,7 @@ function ProviderSettingsPanelContent(target: ProviderSettingsTarget) {
                         className="size-3.5 shrink-0"
                         aria-hidden
                       />
-                      <span className="max-w-40 truncate">{environment.label}</span>
+                      <span className="max-w-40 truncate">{m(environment.label)}</span>
                       {environment.connection.phase !== "connected" ? (
                         <ConnectionStatusDot
                           dotClassName={connectionPhaseDotClassName(environment.connection.phase)}
@@ -509,6 +510,7 @@ function AccessGatedProviderSettings({
   readonly targetInstanceId?: ProviderInstanceId | undefined;
   readonly projectIds: readonly ProjectId[];
 }) {
+  const m = useMessages();
   const access = classifyProviderEnvironmentAccess({
     connectionPhase: environment.connection.phase,
     hasServerConfig: environment.serverConfig !== null,
@@ -526,7 +528,7 @@ function AccessGatedProviderSettings({
   return (
     <EnvironmentProviderSettings
       environmentId={environment.environmentId}
-      environmentLabel={environment.label}
+      environmentLabel={m(environment.label)}
       readOnly={access.kind === "read-only"}
       deviceTabs={deviceTabs}
       targetInstanceId={targetInstanceId}
@@ -605,7 +607,7 @@ export function EnvironmentProviderSettings({
           toastManager.add({
             type: "warning",
             title: "Authentication request expired",
-            description: "Refresh the provider and start the authentication flow again.",
+            description: msg("Refresh the provider and start the authentication flow again."),
           });
           return;
         }

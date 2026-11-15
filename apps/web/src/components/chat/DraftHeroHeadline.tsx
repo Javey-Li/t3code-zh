@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import type { DraftId } from "~/composerDraftStore";
 import { composerDraftHasUserContent, useComposerDraftStore } from "~/composerDraftStore";
 import { resolveEnvironmentMachineKind, type ScopedProjectRef } from "@t3tools/contracts";
@@ -75,6 +75,7 @@ export function DraftHeroHeadline({
   activeProjectRef,
   activeProjectTitle,
 }: DraftHeroHeadlineProps) {
+  const m = useMessages();
   const gt = useGT();
   const projects = useProjects();
   const threads = useVisibleThreadShells();
@@ -167,7 +168,7 @@ export function DraftHeroHeadline({
   const pickerItems: readonly PickerItem[] = useOrderWhileOpen(
     [
       ...menuEntries.map(({ group }) => ({ value: group.projectKey, label: group.displayName })),
-      { value: ADD_PROJECT_VALUE, label: "Add project" },
+      { value: ADD_PROJECT_VALUE, label: msg("Add project") },
     ],
     (item) => item.value,
     pickerOpen,
@@ -343,9 +344,9 @@ export function DraftHeroHeadline({
                 ) : null}
                 <Tooltip>
                   <TooltipTrigger render={<span className="min-w-0 flex-1 text-sm" />}>
-                    <DraftProjectName value={item.label} />
+                    <DraftProjectName value={m(item.label)} />
                   </TooltipTrigger>
-                  <TooltipPopup side="top">{item.label}</TooltipPopup>
+                  <TooltipPopup side="top">{m(item.label)}</TooltipPopup>
                 </Tooltip>
                 {entry && canPinProjectGroup(entry.group) ? (
                   <ProjectPinButton

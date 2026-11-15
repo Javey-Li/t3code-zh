@@ -1,3 +1,4 @@
+import { msg } from "gt-react";
 import { ThreadDetailsControl } from "./chat/ThreadDetailsControl";
 import { ComposerContextLabel } from "./ComposerContextLabel";
 import { useRightPanelStore } from "../rightPanelStore";
@@ -392,7 +393,7 @@ export function BranchToolbarBranchSelector({
     event.preventDefault();
     event.stopPropagation();
     const items: ContextMenuItem<"copy-branch-name">[] = [
-      { id: "copy-branch-name", label: "Copy branch name", icon: "copy" },
+      { id: "copy-branch-name", label: msg("Copy branch name"), icon: "copy" },
     ];
     void api.contextMenu.show(items, { x: event.clientX, y: event.clientY }).then((action) => {
       if (action === "copy-branch-name") copyBranchName(branchName);
@@ -408,7 +409,7 @@ export function BranchToolbarBranchSelector({
         stackedThreadToast({
           type: "error",
           title: "Action unavailable",
-          description: "This connection cannot change the thread's branch.",
+          description: msg("This connection cannot change the thread's branch."),
         }),
       );
       return;

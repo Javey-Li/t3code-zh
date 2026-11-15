@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import {
   type AuthMcpApprovalDecision,
   type AuthMcpApprovalDetails,
@@ -38,8 +38,8 @@ export const accessConfig: Record<
   { readonly label: string; readonly description: string; readonly icon: LucideIcon }
 > = {
   "read-only": {
-    label: "Read only",
-    description: "Read projects and threads. Cannot start, message or change anything.",
+    label: msg("Read only"),
+    description: msg("Read projects and threads. Cannot start, message or change anything."),
     icon: EyeIcon,
   },
   ...runtimeModeConfig,
@@ -146,6 +146,7 @@ export function McpConsent({
   readonly environmentLabel?: string | undefined;
   readonly footer?: ReactNode;
 }) {
+  const m = useMessages();
   const gt = useGT();
   const [loaded, setLoaded] = useState<Loaded>({ status: "loading" });
   const [requestedAccess, setAccess] = useState<AuthMcpClientAccess | null>(null);
@@ -341,7 +342,7 @@ export function McpConsent({
             <span className="text-muted-foreground">
               <T>Access</T>
             </span>{" "}
-            <span className="font-medium">{accessConfig[codeAccess].label}</span>
+            <span className="font-medium">{m(accessConfig[codeAccess].label)}</span>
           </p>
         ) : (
           <div className="space-y-2">

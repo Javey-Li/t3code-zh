@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT } from "gt-react";
 import { useAuth, useClerk } from "@clerk/react";
 import { readConnectAuthorizeRequest } from "@t3tools/shared/connectAuth";
 import { useEffect, useEffectEvent, useRef, useState } from "react";
@@ -16,8 +16,9 @@ import { Button } from "../ui/button";
 const invalidLinkMessage = {
   context: "Authorization request",
   title: "This connect link is incomplete",
-  description:
+  description: msg(
     "The link is missing its authorization request. Re-run `t3 connect` in your terminal and open the freshly printed URL.",
+  ),
 } as const;
 
 export function ConnectCliAuthorizeSurface() {

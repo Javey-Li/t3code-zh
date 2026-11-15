@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, useGT, useMessages } from "gt-react";
 import { documentChipKindForFileName } from "~/pierre-icons";
 import { isSvgAttachment } from "@t3tools/shared/image";
 import { useRenderedAppearance } from "../../hooks/useTheme";
@@ -68,6 +68,7 @@ function UserMessageMentionChip(props: {
   record: Extract<KnownComposerContextRecord, { kind: "mention" }>;
   copyMarkdown: string;
 }) {
+  const m = useMessages();
   const ctx = use(TimelineRowCtx);
   return (
     <Tooltip>
@@ -89,7 +90,7 @@ function UserMessageMentionChip(props: {
               cwd={ctx.workspaceRoot}
               theme={ctx.resolvedTheme}
             />
-            <ContextChipLabel>{props.record.label}</ContextChipLabel>
+            <ContextChipLabel>{m(props.record.label)}</ContextChipLabel>
           </ContextChip>
         }
       />
@@ -280,9 +281,10 @@ interface UserMessageContextRenderContext {
 }
 
 function UnavailableUserMessageContextChip(props: UserMessageContextRenderContext) {
+  const m = useMessages();
   return (
     <UnresolvedChip
-      label={props.reference.label}
+      label={m(props.reference.label)}
       copyMarkdown={props.copyMarkdown}
       tooltip="This context is no longer available."
     />

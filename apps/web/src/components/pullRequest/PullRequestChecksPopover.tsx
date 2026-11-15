@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, useMessages } from "gt-react";
 import type * as React from "react";
 import type {
   EnvironmentId,
@@ -153,6 +153,7 @@ export function PullRequestChecksPopover({
   className?: string;
   render?: React.ReactElement;
 }) {
+  const m = useMessages();
   const presentation = pullRequestChecksStatePresentation(checksState);
   const incompleteCount =
     checks?.filter((check) => check.status === "pending" || check.status === "action-required")
@@ -201,7 +202,7 @@ export function PullRequestChecksPopover({
         ) : null}
       </PopoverTrigger>
       <PopoverPopup align="start" width="md" side="bottom">
-        <p className="mb-2 font-medium text-sm">{presentation.label}</p>
+        <p className="mb-2 font-medium text-sm">{m(presentation.label)}</p>
         {summary === null ? null : <p className="mb-2 text-muted-foreground text-xs">{summary}</p>}
         {stale ? (
           <p className="text-muted-foreground text-xs">

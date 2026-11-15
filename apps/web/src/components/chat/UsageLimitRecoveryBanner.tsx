@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, msg } from "gt-react";
 import {
   type OrchestrationV2LimitRecovery,
   type OrchestrationV2LimitRecoveryUpdate,
@@ -116,7 +116,7 @@ function RecoveryActions({ runId, resetAt, recovery, snoozedUntil, onChange }: R
       toastManager.add({
         type: "error",
         title: "Could not snooze thread",
-        description: "The reset time has passed. Retry the thread manually.",
+        description: msg("The reset time has passed. Retry the thread manually."),
       });
       // The deadline timer can lag after a throttled tab or sleep; disable now.
       deadlineStore(Date.parse(resetAt)).refresh();

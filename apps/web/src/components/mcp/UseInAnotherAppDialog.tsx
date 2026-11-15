@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, useGT, useMessages } from "gt-react";
 import { useAuth } from "@clerk/react";
 import { useAtomValue } from "@effect/atom-react";
 import { offersLinkedEnvironments } from "@t3tools/client-runtime/link-request";
@@ -564,6 +564,7 @@ function ConnectStep({
   /** Null when the sign-in page asks for the level, so no code is needed. */
   readonly access: AuthMcpClientAccess | null;
 }) {
+  const m = useMessages();
   const [anotherWay, setAnotherWay] = useState(choice === "other");
   const app = choice === "other" ? null : choice;
   const code =
@@ -576,7 +577,7 @@ function ConnectStep({
       <ApprovalCode
         key={access}
         environmentId={environment.environmentId}
-        name={environment.label}
+        name={m(environment.label)}
         access={access}
       />
     );
@@ -650,6 +651,7 @@ function openLink(url: string) {
 }
 
 function PrimaryAction({ app, mcpUrl }: { readonly app: McpApp; readonly mcpUrl: string }) {
+  const m = useMessages();
   const action = mcpHandoffAction(app, mcpUrl);
   const note = app.note ? <p className="text-xs text-muted-foreground">{app.note}</p> : null;
   if (action === null) {
@@ -707,7 +709,7 @@ function PrimaryAction({ app, mcpUrl }: { readonly app: McpApp; readonly mcpUrl:
   return (
     <div className="space-y-2">
       <Button className="w-full" onClick={() => void handOff()}>
-        {action.label}
+        {m(action.label)}
       </Button>
       {note}
     </div>
@@ -724,6 +726,7 @@ function ApprovalCode({
   readonly name: string;
   readonly access: AuthMcpClientAccess;
 }) {
+  const m = useMessages();
   const [code, setCode] = useState<{
     readonly credential: string;
     readonly expiresAt: number;
@@ -751,7 +754,7 @@ function ApprovalCode({
     <div className="space-y-1.5">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <span className="text-sm">
-          Code to approve <span className="font-medium">{accessConfig[access].label}</span>
+          Code to approve <span className="font-medium">{m(accessConfig[access].label)}</span>
         </span>
         {live ? null : (
           <Button size="sm" variant="outline" disabled={pending} onClick={() => void mint()}>

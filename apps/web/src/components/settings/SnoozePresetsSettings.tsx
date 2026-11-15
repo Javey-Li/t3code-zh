@@ -1,4 +1,4 @@
-import { useGT } from "gt-react";
+import { useGT, useMessages } from "gt-react";
 import { useState } from "react";
 import {
   DEFAULT_SNOOZE_PRESETS,
@@ -231,6 +231,7 @@ function SnoozePresetList(props: {
   onAdd: () => void;
   onSettle: () => void;
 }) {
+  const m = useMessages();
   const nowMinute = useNowMinute();
   const now = new Date(`${nowMinute}Z`);
   const formatTime = (date: Date) =>
@@ -289,7 +290,7 @@ function SnoozePresetList(props: {
             <div className="ml-auto flex min-w-0 items-center gap-2 text-xs text-muted-foreground">
               {preview.tone === "menu" ? (
                 <span className="truncate">
-                  <span className="text-foreground">{preview.label}</span>
+                  <span className="text-foreground">{m(preview.label)}</span>
                   <span className="ps-2 tabular-nums">{preview.when}</span>
                 </span>
               ) : (

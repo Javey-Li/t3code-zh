@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, useGT, useMessages } from "gt-react";
 import {
   parsePullRequestAnchor,
   pullRequestAnchorMatchesUrl,
@@ -625,6 +625,7 @@ function CommitEvent({
 }
 
 function LifecycleEvent({ event, term }: { event: PullRequestTimelineEvent; term: string }) {
+  const m = useMessages();
   const title = capitalizeTerm(term);
   const presentation =
     event.kind === "opened"
@@ -648,7 +649,7 @@ function LifecycleEvent({ event, term }: { event: PullRequestTimelineEvent; term
       <div className="py-1.5 text-xs">
         <div className="flex flex-wrap items-center gap-1.5">
           {event.actor ? <ActorName actor={event.actor} /> : null}
-          <span className="font-semibold text-foreground">{presentation.label}</span>
+          <span className="font-semibold text-foreground">{m(presentation.label)}</span>
         </div>
         <div className="mt-0.5 text-2xs text-muted-foreground">
           <RelativeTime timestamp={event.at} />

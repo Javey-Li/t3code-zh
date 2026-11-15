@@ -1,4 +1,4 @@
-import { useGT } from "gt-react";
+import { msg, useGT } from "gt-react";
 import {
   AuthOrchestrationOperateScope,
   type EnvironmentId,
@@ -225,7 +225,7 @@ export const ChatHeader = memo(function ChatHeader({
       const api = readLocalApi();
       if (!api) return;
       void api.contextMenu
-        .show([{ id: "project-settings", label: "Project settings", icon: "settings" }], {
+        .show([{ id: "project-settings", label: msg("Project settings"), icon: "settings" }], {
           x: event.clientX,
           y: event.clientY,
         })

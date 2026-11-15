@@ -1,3 +1,4 @@
+import { useMessages } from "gt-react";
 import { formatProviderSkillDisplayName } from "@t3tools/shared/inlineSkills";
 import type { ComposerPathSearchTarget } from "@t3tools/client-runtime/state/threads";
 import {
@@ -195,6 +196,7 @@ const ComposerCommandMenuItem = memo(function ComposerCommandMenuItem(props: {
   onHighlight: (itemId: string | null) => void;
   onSelect: (item: ComposerCommandItem) => void;
 }) {
+  const m = useMessages();
   const skillSourceKind =
     props.item.type === "skill" ? resolveProviderSkillSourceKind(props.item.skill) : null;
   const isSlashSkill =
@@ -258,7 +260,7 @@ const ComposerCommandMenuItem = memo(function ComposerCommandMenuItem(props: {
       {pullRequestPresentation ? (
         <pullRequestPresentation.Icon
           role="img"
-          aria-label={pullRequestPresentation.label}
+          aria-label={m(pullRequestPresentation.label)}
           className={cn("size-4 shrink-0", pullRequestPresentation.toneClassName)}
         />
       ) : null}
@@ -283,9 +285,9 @@ const ComposerCommandMenuItem = memo(function ComposerCommandMenuItem(props: {
               />
             }
           >
-            {props.item.description}
+            {m(props.item.description)}
           </TooltipTrigger>
-          <TooltipPopup>{props.item.description}</TooltipPopup>
+          <TooltipPopup>{m(props.item.description)}</TooltipPopup>
         </Tooltip>
         {skillSourceKind ? (
           <SkillSourceBadge

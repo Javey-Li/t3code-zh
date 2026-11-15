@@ -1,4 +1,4 @@
-import { useGT } from "gt-react";
+import { useGT, useMessages } from "gt-react";
 import { type RuntimeRequestId, type ScopedThreadRef } from "@t3tools/contracts";
 import { markdownProseDirection, textDirection } from "~/textDirection";
 import { memo, use, useEffect, useEffectEvent, useRef, useState } from "react";
@@ -84,6 +84,7 @@ const ComposerPendingUserInputCard = memo(function ComposerPendingUserInputCard(
   onAdvance: () => void;
   onDismiss: (requestId: RuntimeRequestId) => void;
 }) {
+  const m = useMessages();
   const gt = useGT();
   // Message-mode requests remain answerable after their provider turn ends.
   const canRespond = prompt.responseCapability !== "not_resumable";
@@ -295,14 +296,14 @@ const ComposerPendingUserInputCard = memo(function ComposerPendingUserInputCard(
                     </span>
                     <div className="min-w-0 flex-1 flex flex-col gap-0.5">
                       <span className="text-sm font-medium" dir={textDirection(option.label)}>
-                        {option.label}
+                        {m(option.label)}
                       </span>
                       {option.description && option.description !== option.label ? (
                         <span
                           className="text-secondary-label text-2xs"
                           dir={textDirection(option.description)}
                         >
-                          {option.description}
+                          {m(option.description)}
                         </span>
                       ) : null}
                     </div>

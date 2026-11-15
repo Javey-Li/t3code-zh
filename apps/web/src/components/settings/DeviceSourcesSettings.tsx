@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import { useAtomValue } from "@effect/atom-react";
 import { Fragment, useState, type ReactNode } from "react";
 import * as Cause from "effect/Cause";
@@ -114,7 +114,7 @@ function hostStatus(
   state: DeviceServiceState | undefined,
   hostId: string,
 ): SourceStatus | undefined {
-  if (!state) return { tone: "pending", label: "Loading" };
+  if (!state) return { tone: "pending", label: msg("Loading") };
   const status = state.hostStatuses[hostId];
   switch (status?.status) {
     case "ready": {
@@ -125,9 +125,9 @@ function hostStatus(
     }
     case "installing":
     case "starting":
-      return { tone: "pending", label: "Starting", detail: status.detail };
+      return { tone: "pending", label: msg("Starting"), detail: status.detail };
     case "failed":
-      return { tone: "error", label: "Failed", detail: status.detail };
+      return { tone: "error", label: msg("Failed"), detail: status.detail };
     default:
       return undefined;
   }
@@ -382,7 +382,7 @@ export function DeviceSourcesSettings(props: {
             ? {
                 ...status,
                 action: {
-                  label: "Refresh",
+                  label: msg("Refresh"),
                   run: () => void list({ environmentId: member.environmentId, input: {} }),
                 },
               }
@@ -423,7 +423,7 @@ export function DeviceSourcesSettings(props: {
         if (!held)
           return { environmentId: member.environmentId, label: member.label, added: false };
         const status = testing.has(host.id)
-          ? ({ tone: "pending", label: "Testing connection" } as const)
+          ? ({ tone: "pending", label: msg("Testing connection") } as const)
           : hostStatus(member.state, held.host.id);
         return {
           environmentId: member.environmentId,
@@ -434,8 +434,11 @@ export function DeviceSourcesSettings(props: {
             status?.tone === "error" && member.state?.supportsHostRetry
               ? {
                   ...status,
-                  label: "Can't connect",
-                  action: { label: "Retry", run: () => retry(member.environmentId, held.host.id) },
+                  label: msg("Can't connect"),
+                  action: {
+                    label: msg("Retry"),
+                    run: () => retry(member.environmentId, held.host.id),
+                  },
                 }
               : status,
         };
@@ -618,7 +621,7 @@ export function DeviceSourcesSettings(props: {
 
 const PLATFORMS = [
   { platform: "ios", label: "iOS", Icon: AppleIcon },
-  { platform: "android", label: "Android", Icon: AndroidIcon },
+  { platform: "android", label: msg("Android"), Icon: AndroidIcon },
 ] as const satisfies ReadonlyArray<{ platform: DevicePlatform; label: string; Icon: unknown }>;
 
 /** The platforms a source offers: one icon each, solid where available, muted where not. */
@@ -639,6 +642,7 @@ function PlatformIcon(props: {
   row: SourceRow;
   known: ReadonlyArray<SourceEnvironment>;
 }) {
+  const m = useMessages();
   const availability = (environment: SourceEnvironment) =>
     environment.platforms?.find((candidate) => candidate.platform === props.platform);
   const availableOn = props.known.filter((environment) => availability(environment)?.available);
@@ -683,7 +687,7 @@ function PlatformIcon(props: {
       </PopoverTrigger>
       <PopoverPopup side="top" align="end" width="sm">
         <p className="text-sm font-medium">
-          {props.label}{" "}
+          {m(props.label)}{" "}
           {available ? (partial ? "available on some" : "available") : "not available"}
         </p>
         {props.row.shared ? (
@@ -714,7 +718,7 @@ function PlatformIcon(props: {
                             : undefined;
                         return (
                           <dd key={environment.environmentId}>
-                            <span className="block truncate">{environment.label}</span>
+                            <span className="block truncate">{m(environment.label)}</span>
                             {reason ? (
                               <span className="block text-muted-foreground">{reason}</span>
                             ) : null}
@@ -733,7 +737,7 @@ function PlatformIcon(props: {
               const entry = availability(environment);
               return (
                 <Fragment key={environment.environmentId}>
-                  <dt className="text-muted-foreground">{environment.label}</dt>
+                  <dt className="text-muted-foreground">{m(environment.label)}</dt>
                   <dd className={entry?.available ? "" : "text-muted-foreground"}>
                     {entry?.available ? "Available" : (entry?.reason ?? "Not available")}
                   </dd>
@@ -752,6 +756,7 @@ function PlatformIcon(props: {
 }
 
 function DeviceSourceRow(props: { row: SourceRow }) {
+  const m = useMessages();
   const { row } = props;
   const several = row.environments.length > 1;
   const issues = row.environments.filter(
@@ -801,7 +806,7 @@ function DeviceSourceRow(props: { row: SourceRow }) {
             ) : null}
             {environment.status.action ? (
               <InlineButton onClick={environment.status.action.run}>
-                {environment.status.action.label}
+                {m(environment.status.action.label)}
               </InlineButton>
             ) : null}
           </p>
@@ -813,7 +818,7 @@ function DeviceSourceRow(props: { row: SourceRow }) {
           className="flex shrink-0 items-center gap-1.5 text-xs text-muted-foreground"
         >
           <Spinner size="xs" />
-          {pending.status.label}
+          {m(pending.status.label)}
         </span>
       ) : (
         <div className="flex shrink-0 items-center gap-0.5">

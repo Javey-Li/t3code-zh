@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import { ProcessSignalActions } from "./ProcessSignalActions";
 import { AuthEnvironmentMaintainScope } from "@t3tools/contracts";
 import { RefreshIcon } from "~/components/ui/refresh-icon";
@@ -321,7 +321,7 @@ function HealthSource({ label, health }: { label: string; health: ResourceTeleme
         presentation={
           expectedInBrowser
             ? {
-                label: "Desktop only",
+                label: msg("Desktop only"),
                 tone: "neutral",
               }
             : undefined
@@ -362,6 +362,7 @@ function HistoryWindowSelector({
   selectedWindowMs: number;
   onSelect: (windowMs: number) => void;
 }) {
+  const m = useMessages();
   const gt = useGT();
   return (
     <ToggleGroup
@@ -375,7 +376,7 @@ function HistoryWindowSelector({
     >
       {HISTORY_WINDOWS.map((option) => (
         <Toggle key={option.windowMs} value={String(option.windowMs)}>
-          {option.label}
+          {m(option.label)}
         </Toggle>
       ))}
     </ToggleGroup>

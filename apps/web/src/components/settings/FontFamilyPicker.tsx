@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT } from "gt-react";
 import { useLegendListRef } from "~/hooks/useLegendListRef";
 import { LegendList, type LegendListRef } from "@legendapp/list/react";
 import { CheckIcon } from "lucide-react";
@@ -143,7 +143,9 @@ export function FontFamilyPicker({
         stackedThreadToast({
           type: "error",
           title: `"${value}" isn't monospace`,
-          description: "Code and terminal need a fixed-width font, so the current font was kept.",
+          description: msg(
+            "Code and terminal need a fixed-width font, so the current font was kept.",
+          ),
         }),
       );
       return;

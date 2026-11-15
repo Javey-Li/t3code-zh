@@ -1,3 +1,4 @@
+import { msg } from "gt-react";
 import { ChildThreadApprovals } from "./chat/ChildThreadApprovals";
 import { workspaceAreaProps } from "../lib/workspaceFocus";
 import { sourceControlClients } from "@t3tools/client-runtime/source-control-clients";
@@ -649,7 +650,9 @@ export default function ChatView(props: ChatViewProps) {
       toastManager.add({
         type: "warning",
         title: "The composer is not ready",
-        description: "Try citing the selection after the connection or pending input is resolved.",
+        description: msg(
+          "Try citing the selection after the connection or pending input is resolved.",
+        ),
       });
     }
     return inserted;
@@ -1879,7 +1882,7 @@ export default function ChatView(props: ChatViewProps) {
       toastManager.add({
         type: "error",
         title: "Unable to add to chat",
-        description: "The composer is busy; try again once it is ready.",
+        description: msg("The composer is busy; try again once it is ready."),
       });
       return;
     }

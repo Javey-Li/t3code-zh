@@ -1,4 +1,4 @@
-import { useGT } from "gt-react";
+import { useGT, useMessages } from "gt-react";
 import { ArrowLeftIcon, FileDiffIcon } from "lucide-react";
 import type { ComponentProps, ReactNode } from "react";
 
@@ -79,6 +79,7 @@ export function PullRequestDetailTabBar<Tab extends string>({
   inert?: boolean;
   children?: ReactNode;
 }) {
+  const m = useMessages();
   const gt = useGT();
   return (
     <nav
@@ -103,7 +104,7 @@ export function PullRequestDetailTabBar<Tab extends string>({
             onPointerEnter={onTabIntent ? () => onTabIntent(tab.value) : undefined}
             onFocus={onTabIntent ? () => onTabIntent(tab.value) : undefined}
           >
-            {tab.label}
+            {m(tab.label)}
           </Toggle>
         ))}
       </ToggleGroup>

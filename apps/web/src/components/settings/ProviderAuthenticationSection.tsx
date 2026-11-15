@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, useGT, useMessages } from "gt-react";
 import {
   isAtomCommandInterrupted,
   squashAtomCommandFailure,
@@ -42,6 +42,7 @@ export function ProviderAuthenticationSection({
   readonly provider: ServerProvider;
   readonly readOnly: boolean;
 }) {
+  const m = useMessages();
   const gt = useGT();
   const target = { environmentId, input: { instanceId } };
   const query = useEnvironmentQuery(serverEnvironment.providerAuthState(target));
@@ -421,7 +422,7 @@ export function ProviderAuthenticationSection({
             >
               {interaction.fields.map((field) => (
                 <label key={field.name} className="grid gap-1">
-                  {field.label}
+                  {m(field.label)}
                   <Input
                     size="sm"
                     type={field.secret ? "password" : "text"}

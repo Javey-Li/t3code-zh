@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import { ProcessSignalActions } from "./ProcessSignalActions";
 import { resolveUsageAccess } from "@t3tools/client-runtime/state/usage-access";
 import { environmentSession } from "../../state/session";
@@ -550,6 +550,7 @@ function ResourceHistoryWindowSelector({
   selectedWindowMs: number;
   onSelect: (windowMs: number) => void;
 }) {
+  const m = useMessages();
   const gt = useGT();
   return (
     <ToggleGroup
@@ -565,7 +566,7 @@ function ResourceHistoryWindowSelector({
     >
       {RESOURCE_HISTORY_WINDOWS.map((option) => (
         <Toggle key={option.windowMs} value={String(option.windowMs)}>
-          {option.label}
+          {m(option.label)}
         </Toggle>
       ))}
     </ToggleGroup>
@@ -921,7 +922,9 @@ function DiagnosticsSettingsBody() {
         toastManager.add({
           type: "info",
           title: "Process already exited",
-          description: "The process is not a child of the T3 Server. It might already have exited.",
+          description: msg(
+            "The process is not a child of the T3 Server. It might already have exited.",
+          ),
         });
         return;
       }

@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import type { PullRequestListEntry, PullRequestSummary } from "@t3tools/contracts";
 import {
   ArrowLeftIcon,
@@ -45,9 +45,9 @@ function GhostBar({ className }: { className?: string | undefined }) {
 const TITLE_WIDTHS = ["w-3/5", "w-2/5", "w-1/2", "w-2/3", "w-2/5", "w-3/5", "w-1/2"];
 const META_WIDTHS = ["w-2/5", "w-1/3", "w-2/5", "w-1/4", "w-1/3", "w-2/5", "w-1/3"];
 const DEFAULT_DETAIL_TABS = [
-  { value: "summary", label: "Summary" },
-  { value: "timeline", label: "Timeline" },
-  { value: "code", label: "Code" },
+  { value: "summary", label: msg("Summary") },
+  { value: "timeline", label: msg("Timeline") },
+  { value: "code", label: msg("Code") },
 ] as const;
 
 export function PullRequestListGhost({ rows = 7, caption }: { rows?: number; caption?: string }) {
@@ -102,6 +102,7 @@ export function PullRequestDetailGhost({
   onClose?: (() => void) | undefined;
   onCheckoutError?: ((error: Error) => void) | undefined;
 }) {
+  const m = useMessages();
   const gt = useGT();
   const seed = summary
     ? {
@@ -288,7 +289,7 @@ export function PullRequestDetailGhost({
             <PullRequestChecksStatusLine
               className={checksPresentation.toneClassName}
               icon={<checksPresentation.Icon aria-hidden className="size-3.5" />}
-              label={checksPresentation.label}
+              label={m(checksPresentation.label)}
             />
           ) : (
             <PullRequestChecksStatusLine

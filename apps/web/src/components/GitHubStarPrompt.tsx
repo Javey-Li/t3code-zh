@@ -1,3 +1,4 @@
+import { msg } from "gt-react";
 import { type EnvironmentId, SourceControlProviderKind } from "@t3tools/contracts";
 import { runAtomCommand } from "@t3tools/client-runtime/state/runtime";
 import * as Schema from "effect/Schema";
@@ -43,7 +44,7 @@ function showStarPrompt(environmentId: EnvironmentId) {
       toastManager.update(id, {
         type: "success",
         title: "Thanks for the star!",
-        description: "It really helps T3 Code grow.",
+        description: msg("It really helps T3 Code grow."),
         timeout: 5_000,
         actionProps: undefined,
         data: {},
@@ -58,7 +59,7 @@ function showStarPrompt(environmentId: EnvironmentId) {
   };
   const id = toastManager.add({
     title: "Enjoying T3 Code?",
-    description: "Give us a star on GitHub to let us know!",
+    description: msg("Give us a star on GitHub to let us know!"),
     timeout: 0,
     onClose: dismiss,
     actionProps: { children: "Star on GitHub", onClick: () => void starInPlace() },

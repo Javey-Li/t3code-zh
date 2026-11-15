@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import { ThreadDetailsControl } from "./chat/ThreadDetailsControl";
 import { useAtomMount, useAtomValue } from "@effect/atom-react";
 import {
@@ -401,6 +401,7 @@ function GitActionProgressButtonContent({ progress }: { progress: GitActionProgr
 }
 
 function GitActionSuccessButtonContent({ success }: { success: InlineGitActionSuccess }) {
+  const m = useMessages();
   const hasDescription = success.description !== null;
 
   return (
@@ -426,10 +427,10 @@ function GitActionSuccessButtonContent({ success }: { success: InlineGitActionSu
                 <p className="truncate pt-0.5 text-left text-2xs font-normal text-muted-foreground" />
               }
             >
-              {success.description}
+              {m(success.description)}
             </TooltipTrigger>
             <TooltipPopup side="bottom" className="max-w-96 break-words">
-              {success.description}
+              {m(success.description)}
             </TooltipPopup>
           </Tooltip>
         </div>
@@ -448,6 +449,7 @@ interface PublishRepositoryDialogProps {
 }
 
 function PublishRepositoryDialog(props: PublishRepositoryDialogProps) {
+  const m = useMessages();
   const gt = useGT();
   const openLink = useOpenLink(props.threadRef);
   const navigate = useNavigate();
@@ -650,7 +652,7 @@ function PublishRepositoryDialog(props: PublishRepositoryDialogProps) {
                     >
                       <option.Icon className="size-5 shrink-0 text-muted-foreground" aria-hidden />
                       <span className="min-w-0 flex-1 truncate text-sm font-medium text-foreground">
-                        {option.label}
+                        {m(option.label)}
                       </span>
                       <Tooltip>
                         <TooltipTrigger
@@ -691,7 +693,7 @@ function PublishRepositoryDialog(props: PublishRepositoryDialogProps) {
                   >
                     <option.Icon className="size-5 shrink-0" aria-hidden />
                     <span className="min-w-0 flex-1 truncate text-sm font-medium text-foreground">
-                      {option.label}
+                      {m(option.label)}
                     </span>
                   </RadioPrimitive.Root>
                 );
@@ -751,14 +753,14 @@ function PublishRepositoryDialog(props: PublishRepositoryDialogProps) {
                 {[
                   {
                     value: "private" as const,
-                    label: "Private",
-                    description: "Only invited people",
+                    label: msg("Private"),
+                    description: msg("Only invited people"),
                     Icon: LockIcon,
                   },
                   {
                     value: "public" as const,
-                    label: "Public",
-                    description: "Anyone on the web",
+                    label: msg("Public"),
+                    description: msg("Anyone on the web"),
                     Icon: GlobeIcon,
                   },
                 ].map((option) => {
@@ -778,10 +780,10 @@ function PublishRepositoryDialog(props: PublishRepositoryDialogProps) {
                       <option.Icon className="size-4 shrink-0 text-muted-foreground" aria-hidden />
                       <span className="min-w-0 flex-1">
                         <span className="block text-sm font-medium text-foreground">
-                          {option.label}
+                          {m(option.label)}
                         </span>
                         <span className="block text-xs text-muted-foreground">
-                          {option.description}
+                          {m(option.description)}
                         </span>
                       </span>
                     </RadioPrimitive.Root>
@@ -968,6 +970,7 @@ export default function GitActionsControl({
   onOpenChanges,
   workspaceMutationId = null,
 }: GitActionsControlProps) {
+  const m = useMessages();
   const gt = useGT();
   const panelAnchorRef = useRef<HTMLDivElement | null>(null);
   const updateThreadMetadata = useAtomCommand(
@@ -1547,7 +1550,7 @@ export default function GitActionsControl({
               >
                 <MenuItem className="w-full" disabled>
                   <GitActionItemIcon icon={item.icon} SourceControlIcon={SourceControlIcon} />
-                  <MenuItemLabel>{item.label}</MenuItemLabel>
+                  <MenuItemLabel>{m(item.label)}</MenuItemLabel>
                 </MenuItem>
               </PopoverTrigger>
               <PopoverPopup tooltipStyle side="left" align="center">
@@ -1566,7 +1569,7 @@ export default function GitActionsControl({
             }}
           >
             <GitActionItemIcon icon={item.icon} SourceControlIcon={SourceControlIcon} />
-            <MenuItemLabel>{item.label}</MenuItemLabel>
+            <MenuItemLabel>{m(item.label)}</MenuItemLabel>
           </MenuItem>
         );
       })}
@@ -1674,7 +1677,7 @@ export default function GitActionsControl({
                     cn("not-sr-only ml-0 truncate", THREAD_DETAILS_PANEL_LABEL_CLASS),
                   )}
                 >
-                  {quickAction.label}
+                  {m(quickAction.label)}
                 </span>
               </PopoverTrigger>
               <PopoverPopup tooltipStyle side="bottom" align="start">
@@ -1707,10 +1710,10 @@ export default function GitActionsControl({
                     cn("not-sr-only ml-0 truncate", THREAD_DETAILS_PANEL_LABEL_CLASS),
                   )}
                 >
-                  {quickAction.label}
+                  {m(quickAction.label)}
                 </span>
               </TooltipTrigger>
-              <TooltipPopup side="top">{quickAction.label}</TooltipPopup>
+              <TooltipPopup side="top">{m(quickAction.label)}</TooltipPopup>
             </Tooltip>
           )}
           {gitActionProgress ? (

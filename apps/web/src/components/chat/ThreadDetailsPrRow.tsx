@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, msg, useMessages } from "gt-react";
 import { resolvePullRequestDetailChecks } from "@t3tools/client-runtime/pull-request-checks";
 import {
   capitalizeTerm,
@@ -115,6 +115,7 @@ export function ThreadDetailsPrRow({
   /** Fix and Resolve write here instead of checking the pull request out in a new thread. */
   composerTarget?: ComposerThreadTarget | undefined;
 }) {
+  const m = useMessages();
   const serverConfigs = useServerConfigs();
   const supportsPullRequests = serverConfigs.get(environmentId) !== undefined;
   const repository = sourceControlClients.repositorySelector(project?.repositoryIdentity);
@@ -207,7 +208,7 @@ export function ThreadDetailsPrRow({
     toastManager.add({
       type: "success",
       title: "Added to the composer",
-      description: "The task is in the composer. Read it over, then send.",
+      description: msg("The task is in the composer. Read it over, then send."),
     });
   };
 
@@ -290,7 +291,9 @@ export function ThreadDetailsPrRow({
                 aria-hidden
                 className={cn("size-3 shrink-0", statePresentation.toneClassName)}
               />
-              <div className="min-w-0 truncate text-foreground/75">{statePresentation.label}</div>
+              <div className="min-w-0 truncate text-foreground/75">
+                {m(statePresentation.label)}
+              </div>
             </div>
             <div className="flex min-w-0 items-center gap-2">
               <GitBranchIcon className="size-3 shrink-0 stroke-muted-foreground" />
@@ -349,7 +352,7 @@ export function ThreadDetailsPrRow({
   const trailingAction =
     rowAction === "resolve"
       ? {
-          label: "Resolve",
+          label: msg("Resolve"),
           pendingLabel: "Preparing...",
           pending: handoff === "conflicts",
           destructive: true,
@@ -362,7 +365,7 @@ export function ThreadDetailsPrRow({
         }
       : rowAction === "ready"
         ? {
-            label: "Ready",
+            label: msg("Ready"),
             pendingLabel: "Marking...",
             pending: actionPending,
             destructive: false,
@@ -372,7 +375,7 @@ export function ThreadDetailsPrRow({
           }
         : rowAction === "fix"
           ? {
-              label: "Fix",
+              label: msg("Fix"),
               pendingLabel: "Fix",
               pending: handoff === "findings",
               destructive: true,
@@ -390,7 +393,7 @@ export function ThreadDetailsPrRow({
             }
           : rowAction === "merge"
             ? {
-                label: "Merge",
+                label: msg("Merge"),
                 pendingLabel: "Merging...",
                 pending: actionPending,
                 destructive: false,

@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import {
   cancelEnvironmentSpeechModelDownload,
   downloadEnvironmentSpeechModel,
@@ -153,9 +153,9 @@ function CloudSpeechLogo({ provider }: { provider: CloudSpeechProvider }) {
 }
 const formatSize = (bytes: number) => `${Math.round(bytes / 1024 / 1024)} MB`;
 const SHORTCUT_MODES: Record<VoiceShortcutMode, { label: string; hint: string }> = {
-  auto: { label: "Auto", hint: "Tap to toggle, hold to talk" },
-  hold: { label: "Hold", hint: "Record while held" },
-  toggle: { label: "Toggle", hint: "Tap to start, tap to stop" },
+  auto: { label: msg("Auto"), hint: "Tap to toggle, hold to talk" },
+  hold: { label: msg("Hold"), hint: "Record while held" },
+  toggle: { label: msg("Toggle"), hint: "Tap to start, tap to stop" },
 };
 const UNLOAD_LABELS: Record<SpeechModelUnloadTimeout, string> = {
   never: "Never",
@@ -191,11 +191,12 @@ type ModelCardProps = {
 };
 
 function ModelBadge(props: { icon: ReactNode; label: string; tooltip: string }) {
+  const m = useMessages();
   return (
     <Tooltip>
       <TooltipTrigger render={<Badge variant="outline" />}>
         {props.icon}
-        {props.label}
+        {m(props.label)}
       </TooltipTrigger>
       <TooltipPopup side="top">{props.tooltip}</TooltipPopup>
     </Tooltip>
@@ -203,6 +204,7 @@ function ModelBadge(props: { icon: ReactNode; label: string; tooltip: string }) 
 }
 
 function ModelCard(props: ModelCardProps) {
+  const m = useMessages();
   const { model } = props;
   const downloading = model.state === "downloading" || model.state === "verifying";
   const progress = model.downloaded === undefined ? 0 : (model.downloaded / model.size) * 100;
@@ -242,7 +244,7 @@ function ModelCard(props: ModelCardProps) {
           </div>
           {model.description ? (
             <p className="mt-0.5 text-xs leading-normal text-muted-foreground">
-              {model.description}
+              {m(model.description)}
             </p>
           ) : null}
           {model.linkedFrom ? (
@@ -1207,6 +1209,7 @@ function TranscriptionTest(props: {
 }
 
 export function VoiceSettingsPanel() {
+  const m = useMessages();
   const gt = useGT();
   const cleanupEnabled = useCleanupGrant() !== null;
   const settings = useClientSettings();
@@ -1353,13 +1356,13 @@ export function VoiceSettingsPanel() {
               }}
             >
               <SelectTrigger size="sm" aria-label={gt("Dictation shortcut mode")}>
-                <SelectValue>{SHORTCUT_MODES[settings.voiceShortcutMode].label}</SelectValue>
+                <SelectValue>{m(SHORTCUT_MODES[settings.voiceShortcutMode].label)}</SelectValue>
               </SelectTrigger>
               <SelectPopup align="end" alignItemWithTrigger={false}>
                 {(Object.keys(SHORTCUT_MODES) as VoiceShortcutMode[]).map((mode) => (
                   <SelectItem key={mode} value={mode}>
                     <span className="flex flex-col">
-                      {SHORTCUT_MODES[mode].label}
+                      {m(SHORTCUT_MODES[mode].label)}
                       <span className="text-xs text-muted-foreground">
                         {SHORTCUT_MODES[mode].hint}
                       </span>
@@ -1451,7 +1454,7 @@ export function VoiceSettingsPanel() {
                         <SelectItem key={value} value={value}>
                           <span className="flex items-center gap-2">
                             <MonitorIcon aria-hidden className="size-4" />
-                            {environment.label}
+                            {m(environment.label)}
                           </span>
                         </SelectItem>
                       ))}
@@ -1459,7 +1462,7 @@ export function VoiceSettingsPanel() {
                   )}
                   {cloudGroups.map(({ environment, choices }) => (
                     <SelectGroup key={environment.environmentId}>
-                      <SelectGroupLabel>Cloud via {environment.label}</SelectGroupLabel>
+                      <SelectGroupLabel>Cloud via {m(environment.label)}</SelectGroupLabel>
                       {choices.map(({ value, provider }) => (
                         <SelectItem
                           key={value}

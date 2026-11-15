@@ -624,7 +624,7 @@ export function useSettingsRestore(onRestored?: () => void) {
         stackedThreadToast({
           type: "error",
           title: "Couldn’t restore theme settings",
-          description: "Try again.",
+          description: msg("Try again."),
         }),
       );
     };
@@ -1153,6 +1153,7 @@ export function GeneralSettingsPanel() {
 }
 
 export function ChatSettingsPanel() {
+  const m = useMessages();
   const gt = useGT();
   const setting = useTranslatedSearchableSetting();
   const modifierLabel = isMacPlatform(navigator.platform) ? "⌘" : "Ctrl";
@@ -1233,7 +1234,7 @@ export function ChatSettingsPanel() {
                 {sendShortcutOptions.map((option) => (
                   <SelectItem key={option.value} value={option.value}>
                     <span className="flex items-center justify-between gap-4">
-                      {option.label}
+                      {m(option.label)}
                       {settings.sendShortcut === option.value && <CheckIcon aria-hidden="true" />}
                     </span>
                   </SelectItem>
@@ -1731,6 +1732,7 @@ export function CompactIdleThreadsRow() {
 }
 
 function ScopedCompactIdleThreadsRow() {
+  const m = useMessages();
   const gt = useGT();
   const settings = useScopedSettings();
   const updateSettings = useUpdateScopedSettings();
@@ -1784,7 +1786,7 @@ function ScopedCompactIdleThreadsRow() {
                 // A server from before modes has only the on/off switch, so it cannot store "Never".
                 disabled={mode.value === "off" && !idleCompaction.neverAvailable}
               >
-                {mode.label}
+                {m(mode.label)}
               </SelectItem>
             ))}
           </SelectPopup>

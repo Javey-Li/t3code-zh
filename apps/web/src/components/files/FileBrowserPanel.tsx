@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT } from "gt-react";
 import { RefreshIcon } from "~/components/ui/refresh-icon";
 import type {
   ContextMenuItem as TreeContextMenuItem,
@@ -215,8 +215,8 @@ export default function FileBrowserPanel({
         const clicked = await api.contextMenu.show(
           [
             ...fileMenuItems,
-            { id: "copy-mention", label: "Copy mention" },
-            { id: "add-to-chat", label: "Add to chat" },
+            { id: "copy-mention", label: msg("Copy mention") },
+            { id: "add-to-chat", label: msg("Add to chat") },
           ],
           position,
         );
@@ -251,7 +251,7 @@ export default function FileBrowserPanel({
             toastManager.add({
               type: "error",
               title: "Unable to add to chat",
-              description: "Open a chat for this project and try again.",
+              description: msg("Open a chat for this project and try again."),
             });
             return;
           }
@@ -260,7 +260,7 @@ export default function FileBrowserPanel({
             toastManager.add({
               type: "error",
               title: "Unable to add to chat",
-              description: "The chat isn't ready to accept input right now.",
+              description: msg("The chat isn't ready to accept input right now."),
             });
           }
         }

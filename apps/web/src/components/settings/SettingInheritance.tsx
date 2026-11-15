@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, msg, useMessages } from "gt-react";
 import {
   DEFAULT_SERVER_SETTINGS,
   PROJECT_FILE_BACKED_SETTINGS,
@@ -111,7 +111,7 @@ export function settingInheritanceLayers(
   if (target.projectId !== null && isProjectScopedSettingKey(key)) {
     layers.push({
       key: "project",
-      label: "Project",
+      label: msg("Project"),
       value: source === "project" ? formatValue(key, target.settings[key]) : "Inherits",
       effective: source === "project",
       set: source === "project",
@@ -139,7 +139,7 @@ export function settingInheritanceLayers(
     : DEFAULT_SERVER_SETTINGS[key];
   layers.push({
     key: "built-in",
-    label: "Default",
+    label: msg("Default"),
     value: formatValue(key, builtIn),
     effective: source === "environment" && !environmentSet,
     set: true,
@@ -185,6 +185,7 @@ export function SettingInheritance({
   overridingProjects?: readonly SettingOverridingProject[];
   onClearOverrides?: (entries: readonly ProjectOverrideEntry[]) => void;
 }) {
+  const m = useMessages();
   const scopeContext = useOptionalSettingsScope();
   const key = keys[0];
   if (!key || targets.length === 0) return null;
@@ -323,7 +324,7 @@ export function SettingInheritance({
                       kind={machine}
                       className="size-3.5 shrink-0"
                     />
-                    <span className="min-w-0 truncate">{target.label}</span>
+                    <span className="min-w-0 truncate">{m(target.label)}</span>
                   </h4>
                 ) : null}
                 {hasMultipleEnvironments && groups.length > 1 ? (
@@ -363,7 +364,7 @@ export function SettingInheritance({
                                 kind={member.machine}
                                 className="size-3 shrink-0"
                               />
-                              <span className="truncate">{member.label}</span>
+                              <span className="truncate">{m(member.label)}</span>
                             </span>
                           ))}
                         </span>
@@ -426,7 +427,7 @@ export function SettingInheritance({
                               className="min-w-0 max-w-full justify-start"
                               onClick={project.open}
                             >
-                              <span className="truncate">{project.label}</span>
+                              <span className="truncate">{m(project.label)}</span>
                             </InlineButton>
                             {hasMultipleEnvironments ? (
                               <span className="max-w-full truncate text-xs text-muted-foreground">

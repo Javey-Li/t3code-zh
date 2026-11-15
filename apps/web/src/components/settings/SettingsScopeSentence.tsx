@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, msg, useMessages } from "gt-react";
 import { resolveEnvironmentMachineKind } from "@t3tools/contracts";
 import { fileBasename } from "@t3tools/shared/path";
 import { useLocation } from "@tanstack/react-router";
@@ -108,11 +108,12 @@ interface ScopeOption {
 }
 
 function ScopeOptionLabel({ option }: { option: ScopeOption }) {
+  const m = useMessages();
   return (
     <>
       {option.icon}
       <span className="min-w-0 flex-1">
-        <span className="block truncate">{option.label}</span>
+        <span className="block truncate">{m(option.label)}</span>
         {option.secondary ? (
           <span className="block truncate text-xs text-muted-foreground">{option.secondary}</span>
         ) : null}
@@ -289,7 +290,7 @@ function EnvironmentScopeMenu({
           ? null
           : {
               value: ALL_ENVIRONMENTS_VALUE,
-              label: "All environments",
+              label: msg("All environments"),
               icon: <LayersIcon aria-hidden className="size-3.5 shrink-0" />,
             }
       }
@@ -344,7 +345,7 @@ function CheckoutScopeMenu({ value, groups, onChange }: SettingsScopeMenuProps) 
           )
         }
         searchLabel="Search checkouts"
-        allOption={{ value: ALL_CHECKOUTS_VALUE, label: "All checkouts" }}
+        allOption={{ value: ALL_CHECKOUTS_VALUE, label: msg("All checkouts") }}
         options={checkouts.map((member) => ({
           value: member.physicalProjectKey,
           label: fileBasename(member.workspaceRoot),
@@ -369,7 +370,7 @@ function ProjectScopeMenu({ value, groups, environments, onChange }: SettingsSco
       value={projectAxisValue(value)}
       onChange={(next) => onChange(selectProjectAxis(value, next))}
       searchLabel="Search projects"
-      allOption={{ value: ALL_PROJECTS_VALUE, label: "All projects" }}
+      allOption={{ value: ALL_PROJECTS_VALUE, label: msg("All projects") }}
       options={projects.map(({ group, machines }) => {
         const sameName = projects.filter(
           (other) =>

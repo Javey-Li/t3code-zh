@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, useGT, useMessages } from "gt-react";
 import type { ReactNode } from "react";
 
 import { Spinner } from "~/components/ui/spinner";
@@ -66,6 +66,7 @@ export function FileSurfaceAction(props: {
   readonly onPress: () => void;
   readonly children: ReactNode;
 }) {
+  const m = useMessages();
   const pressed = props.pressed;
   return (
     <Tooltip>
@@ -77,7 +78,7 @@ export function FileSurfaceAction(props: {
               className="shrink-0"
               disabled={props.disabled ?? false}
               onClick={props.onPress}
-              aria-label={props.label}
+              aria-label={m(props.label)}
               variant="ghost"
               size="icon-sm"
             >
@@ -89,7 +90,7 @@ export function FileSurfaceAction(props: {
               pressed={pressed}
               disabled={props.disabled ?? false}
               onPressedChange={props.onPress}
-              aria-label={props.label}
+              aria-label={m(props.label)}
               variant="ghost"
               size="sm"
             >
@@ -98,7 +99,7 @@ export function FileSurfaceAction(props: {
           )
         }
       />
-      <TooltipPopup>{props.label}</TooltipPopup>
+      <TooltipPopup>{m(props.label)}</TooltipPopup>
     </Tooltip>
   );
 }

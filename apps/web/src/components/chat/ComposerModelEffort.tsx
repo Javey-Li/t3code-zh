@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, useMessages } from "gt-react";
 import {
   buildTraitsTriggerDisplay,
   getDescriptorStringValue,
@@ -192,6 +192,7 @@ function ColumnRow(props: {
   disabled?: boolean;
   onPick: () => void;
 }) {
+  const m = useMessages();
   const rowProps = {
     type: "button",
     role: "radio",
@@ -207,7 +208,7 @@ function ColumnRow(props: {
   } as const;
   const content = (
     <>
-      <span className="min-w-0 flex-1 truncate">{props.label}</span>
+      <span className="min-w-0 flex-1 truncate">{m(props.label)}</span>
       {props.selected ? (
         <>
           {props.isDefault ? (
@@ -229,7 +230,7 @@ function ColumnRow(props: {
     <Tooltip>
       <TooltipTrigger render={<button {...rowProps} />}>{content}</TooltipTrigger>
       <TooltipPopup side="right" className="max-w-56">
-        {props.description}
+        {m(props.description)}
       </TooltipPopup>
     </Tooltip>
   );
@@ -253,6 +254,7 @@ function moveBetweenRows(event: KeyboardEvent<HTMLElement>) {
 }
 
 function EffortLevels(props: { traits: TraitsSelectionInput }) {
+  const m = useMessages();
   const traits = useTraitsSelection(props.traits);
   const { effort, others } = columnControls(traits.selectDescriptors, traits.booleanDescriptors);
   if (traits.modelIsUnavailable) {
@@ -262,7 +264,7 @@ function EffortLevels(props: { traits: TraitsSelectionInput }) {
           const value = traits.currentLabel(descriptor);
           return value ? (
             <div key={descriptor.id}>
-              <div className={COLUMN_LABEL}>{descriptor.label}</div>
+              <div className={COLUMN_LABEL}>{m(descriptor.label)}</div>
               <div className="px-2 pb-1.5 text-muted-foreground/80 text-xs">{value}</div>
             </div>
           ) : null;
@@ -307,11 +309,12 @@ function EffortLevels(props: { traits: TraitsSelectionInput }) {
 type TraitsSelection = ReturnType<typeof useTraitsSelection>;
 
 function EffortRows(props: { control: ColumnControl; traits: TraitsSelection; locked: boolean }) {
+  const m = useMessages();
   const { control, traits } = props;
   const { descriptor } = control;
   if (control.kind === "boolean") {
     return (
-      <div role="radiogroup" aria-label={descriptor.label} className="flex flex-col gap-0.5">
+      <div role="radiogroup" aria-label={m(descriptor.label)} className="flex flex-col gap-0.5">
         {([true, false] as const).map((value) => (
           <ColumnRow
             key={String(value)}
@@ -330,7 +333,7 @@ function EffortRows(props: { control: ColumnControl; traits: TraitsSelection; lo
   // An "Ultrathink:" prefix selects a level the column does not offer.
   const shown = choices.some((option) => option.id === value);
   return (
-    <div role="radiogroup" aria-label={descriptor.label} className="flex flex-col gap-0.5">
+    <div role="radiogroup" aria-label={m(descriptor.label)} className="flex flex-col gap-0.5">
       {locked ? (
         <div className="px-2 pb-1.5 text-muted-foreground/80 text-xs">
           {ULTRATHINK_IN_BODY_NOTE}
@@ -339,10 +342,10 @@ function EffortRows(props: { control: ColumnControl; traits: TraitsSelection; lo
       {choices.map((option, index) => (
         <ColumnRow
           key={option.id}
-          label={option.label}
+          label={m(option.label)}
           selected={option.id === value}
           tabStop={shown ? option.id === value : index === 0}
-          description={option.description}
+          description={m(option.description)}
           isDefault={option.isDefault}
           disabled={locked}
           onPick={() => traits.changeSelect(control.descriptor, option.id)}
@@ -356,9 +359,10 @@ const OPTION_ROW = cn(COLUMN_ROW, "h-auto py-1");
 
 /** An option's name over its current value. */
 function OptionRowText(props: { label: string; value: string }) {
+  const m = useMessages();
   return (
     <span className="flex min-w-0 flex-1 flex-col">
-      <span className="truncate text-muted-foreground text-xs">{props.label}</span>
+      <span className="truncate text-muted-foreground text-xs">{m(props.label)}</span>
       <span className="truncate">{props.value}</span>
     </span>
   );
@@ -374,6 +378,7 @@ function OptionMenuRow(props: {
   /** Holds the column's tab stop when the model has no levels. */
   tabStop: boolean;
 }) {
+  const m = useMessages();
   const { descriptor, traits } = props;
   const [open, setOpen] = useState(false);
   const popupRef = useRef<HTMLDivElement>(null);
@@ -413,7 +418,7 @@ function OptionMenuRow(props: {
           />
         }
       >
-        <OptionRowText label={descriptor.label} value={current} />
+        <OptionRowText label={m(descriptor.label)} value={current} />
         <ChevronRightIcon
           aria-hidden="true"
           className="-me-1 size-3.5 shrink-0 text-muted-foreground"
@@ -437,7 +442,7 @@ function OptionMenuRow(props: {
         }}
       >
         <MenuRadioGroup
-          aria-label={descriptor.label}
+          aria-label={m(descriptor.label)}
           value={value}
           onValueChange={(next: string) => {
             if (next !== value) traits.changeSelect(descriptor, next);
@@ -447,10 +452,10 @@ function OptionMenuRow(props: {
             <MenuRadioItem key={choice.id} value={choice.id} closeOnClick>
               <span className="flex items-center gap-3">
                 <span className="flex min-w-0 flex-1 flex-col">
-                  <span className="truncate">{choice.label}</span>
+                  <span className="truncate">{m(choice.label)}</span>
                   {choice.description ? (
                     <span className="line-clamp-2 text-muted-foreground text-xs">
-                      {choice.description}
+                      {m(choice.description)}
                     </span>
                   ) : null}
                 </span>
@@ -475,16 +480,17 @@ function OptionSwitchRow(props: {
   traits: TraitsSelection;
   tabStop: boolean;
 }) {
+  const m = useMessages();
   const { descriptor, traits } = props;
   const checked = descriptor.currentValue === true;
   return (
     <label className={cn(OPTION_ROW, "has-focus-visible:bg-foreground/[0.09]")}>
-      <OptionRowText label={descriptor.label} value={checked ? "On" : "Off"} />
+      <OptionRowText label={m(descriptor.label)} value={checked ? "On" : "Off"} />
       <Switch
         size="sm"
         checked={checked}
         onCheckedChange={(next) => traits.changeBoolean(descriptor.id, next)}
-        aria-label={descriptor.label}
+        aria-label={m(descriptor.label)}
         data-effort-row
         tabIndex={props.tabStop ? 0 : -1}
       />
@@ -542,6 +548,7 @@ function SpeedSegment(props: {
   description?: string | undefined;
   onPick: () => void;
 }) {
+  const m = useMessages();
   const buttonProps = {
     type: "button",
     role: "radio",
@@ -555,19 +562,20 @@ function SpeedSegment(props: {
       {props.label === "Fast" || props.label === "Ultrafast" ? (
         <FastBolt ultra={props.label === "Ultrafast"} />
       ) : null}
-      {props.label}
+      {m(props.label)}
     </>
   );
   if (!props.description) return <button {...buttonProps}>{content}</button>;
   return (
     <Tooltip>
       <TooltipTrigger render={<button {...buttonProps} />}>{content}</TooltipTrigger>
-      <TooltipPopup side="top">{props.description}</TooltipPopup>
+      <TooltipPopup side="top">{m(props.description)}</TooltipPopup>
     </Tooltip>
   );
 }
 
 function SpeedControl(props: { traits: TraitsSelectionInput }) {
+  const m = useMessages();
   const traits = useTraitsSelection(props.traits);
   const { speedSelect, fastToggle } = splitSpeed(
     traits.selectDescriptors,
@@ -585,8 +593,8 @@ function SpeedControl(props: { traits: TraitsSelectionInput }) {
             <SpeedSegment
               key={option.id}
               checked={option.id === traits.selectValue(speedSelect)}
-              label={option.label}
-              description={option.description}
+              label={m(option.label)}
+              description={m(option.description)}
               onPick={() => traits.changeSelect(speedSelect, option.id)}
             />
           ))
@@ -605,6 +613,7 @@ function SpeedControl(props: { traits: TraitsSelectionInput }) {
 }
 
 function UltracodeControl(props: { traits: TraitsSelectionInput }) {
+  const m = useMessages();
   const traits = useTraitsSelection(props.traits);
   const { ultracodeToggle } = splitSpeed(traits.selectDescriptors, traits.booleanDescriptors);
   if (traits.modelIsUnavailable || !ultracodeToggle) return null;
@@ -619,7 +628,7 @@ function UltracodeControl(props: { traits: TraitsSelectionInput }) {
         onClick={() => traits.changeBoolean(ultracodeToggle.id, !on)}
       >
         <WorkflowIcon aria-hidden="true" className="size-3" />
-        {ultracodeToggle.label}
+        {m(ultracodeToggle.label)}
       </button>
     </div>
   );
@@ -631,6 +640,7 @@ function PermissionsMenu(props: {
   options: ReadonlyArray<RuntimeModeOption>;
   onChange: (mode: RuntimeMode) => void;
 }) {
+  const m = useMessages();
   const triggerRef = useRef<HTMLButtonElement>(null);
   const current = props.options.find((option) => option.mode === props.runtimeMode);
   if (!current) return null;
@@ -653,7 +663,7 @@ function PermissionsMenu(props: {
         }
       >
         <CurrentIcon aria-hidden="true" className="size-3.5" />
-        {current.label}
+        {m(current.label)}
         <ChevronUpIcon aria-hidden="true" className="size-3" />
       </MenuTrigger>
       <MenuPopup side="top" align="end" {...composerFloatingLayerProps}>

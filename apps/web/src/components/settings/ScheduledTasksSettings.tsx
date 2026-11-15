@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, useGT, useMessages } from "gt-react";
 import { useAtomValue } from "@effect/atom-react";
 import { connectionStatusTitle } from "@t3tools/client-runtime/connection";
 import { AsyncResult } from "effect/reactivity";
@@ -206,6 +206,7 @@ function WebhookFiltersField({
   filters: ReadonlyArray<WebhookFilterDraft>;
   onChange: (filters: ReadonlyArray<WebhookFilterDraft>) => void;
 }) {
+  const m = useMessages();
   const update = (index: number, patch: Partial<WebhookFilterDraft>) =>
     onChange(filters.map((filter, at) => (at === index ? { ...filter, ...patch } : filter)));
   return (
@@ -274,7 +275,7 @@ function WebhookFiltersField({
               <SelectPopup>
                 {WEBHOOK_FILTER_OPS.map((option) => (
                   <SelectItem key={option.op} value={option.op}>
-                    {option.label}
+                    {m(option.label)}
                   </SelectItem>
                 ))}
               </SelectPopup>
@@ -669,6 +670,7 @@ function ScheduledTaskEnvironmentSection({
   readonly taskId?: ScheduledTaskId | undefined;
   readonly onEdit: (environmentId: EnvironmentId, task: ScheduledTask) => void;
 }) {
+  const m = useMessages();
   const { scope } = useSettingsScope();
   const connected =
     environment.connection.phase === "connected" && environment.serverConfig !== null;
@@ -686,7 +688,7 @@ function ScheduledTaskEnvironmentSection({
   const linkedTask = tasks?.find((task) => task.id === taskId);
   return (
     <SettingsSection
-      title={environment.label}
+      title={m(environment.label)}
       hideTitle
       icon={
         <EnvironmentMachineIcon
@@ -1376,6 +1378,7 @@ function ScheduledTaskEditorForm({
   readonly onSavingChange: (saving: boolean) => void;
   readonly onClose: () => void;
 }) {
+  const m = useMessages();
   const gt = useGT();
   const { scope, connectedEnvironments } = useSettingsScope();
   const [environmentId, setEnvironmentId] = useState(initialEnvironmentId);
@@ -1635,7 +1638,7 @@ function ScheduledTaskEditorForm({
                     <SelectItem
                       key={entry.environmentId}
                       value={entry.environmentId}
-                      label={entry.label}
+                      label={m(entry.label)}
                     >
                       <span className="flex min-w-0 items-center gap-2">
                         <EnvironmentMachineIcon
@@ -1643,7 +1646,7 @@ function ScheduledTaskEditorForm({
                           className="size-4"
                         />
                         <span className="min-w-0">
-                          <span className="block truncate">{entry.label}</span>
+                          <span className="block truncate">{m(entry.label)}</span>
                           {secondary ? (
                             <span className="block max-w-72 truncate text-xs text-muted-foreground">
                               {secondary}

@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, useGT, useMessages } from "gt-react";
 import { useAtomRefresh, useAtomValue } from "@effect/atom-react";
 import { cloudSpeechDisclosure } from "@t3tools/shared/speech";
 import type { PreparedConnection } from "@t3tools/client-runtime/connection";
@@ -161,6 +161,7 @@ export function CloudVoiceConfiguration({
   active: boolean;
   close: () => void;
 }) {
+  const m = useMessages();
   const id = environment.environmentId;
   const name = CLOUD_SPEECH_LABELS[provider];
   const company = CLOUD_SPEECH_PROVIDER_NAMES[provider];
@@ -340,7 +341,7 @@ export function CloudVoiceConfiguration({
         {!remove && (
           <DialogPanel>
             {!connected ? (
-              <p>Connect to {environment.label} with dictation access to continue.</p>
+              <p>Connect to {m(environment.label)} with dictation access to continue.</p>
             ) : AsyncResult.isFailure(presence) && saved === undefined ? (
               <Button size="sm" variant="outline" onClick={refresh}>
                 Retry loading API key
@@ -349,7 +350,7 @@ export function CloudVoiceConfiguration({
               AsyncResult.isSuccess(presence) &&
               presence.value &&
               saved === undefined ? (
-              <p>Update {environment.label} to use OpenRouter dictation.</p>
+              <p>Update {m(environment.label)} to use OpenRouter dictation.</p>
             ) : saved === undefined ? (
               <p role="status">Checking for an API key…</p>
             ) : routed ? (
@@ -386,11 +387,11 @@ export function CloudVoiceConfiguration({
                 {editingKey ? (
                   <div className="grid gap-2">{keyField}</div>
                 ) : !saved ? (
-                  <p>Ask an administrator on {environment.label} to add an API key.</p>
+                  <p>Ask an administrator on {m(environment.label)} to add an API key.</p>
                 ) : (
                   <p className="text-sm text-muted-foreground">
-                    Uses the API key saved on {environment.label}. This choice applies only to this
-                    device.
+                    Uses the API key saved on {m(environment.label)}. This choice applies only to
+                    this device.
                   </p>
                 )}
               </form>
@@ -406,7 +407,7 @@ export function CloudVoiceConfiguration({
                 {keyField}
               </form>
             ) : !saved ? (
-              <p>Ask an administrator on {environment.label} to add an API key.</p>
+              <p>Ask an administrator on {m(environment.label)} to add an API key.</p>
             ) : (
               <p className="text-sm text-muted-foreground">
                 This choice applies only to this device. Choose Off to stop sharing.

@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, useMessages } from "gt-react";
 import { useAtomValue } from "@effect/atom-react";
 import { AuthSettingsWriteScope, type EnvironmentId, sessionGrantsScope } from "@t3tools/contracts";
 import { ChevronDownIcon, PlusIcon, RotateCcwIcon, XIcon } from "lucide-react";
@@ -102,6 +102,7 @@ export function UsagePriceOverrides({
   readonly initialModel?: string | undefined;
   readonly onOpenChange: (open: boolean) => void;
 }) {
+  const m = useMessages();
   const environments = useAtomValue(priceTargetsAtom);
   const [selectedIds, setSelectedIds] = useState(initialSelectedEnvironmentIds);
   const selected = environments.filter(
@@ -329,7 +330,7 @@ export function UsagePriceOverrides({
                       }}
                     >
                       <span className="flex min-w-0 items-center gap-3">
-                        <span className="min-w-0 flex-1 truncate">{environment.label}</span>
+                        <span className="min-w-0 flex-1 truncate">{m(environment.label)}</span>
                         {environment.unavailable ? (
                           <span className="text-xs text-muted-foreground">
                             {environment.unavailable}
@@ -372,7 +373,7 @@ export function UsagePriceOverrides({
                         <T>Map to</T>
                       </TableHead>
                       {USAGE_PRICE_FIELDS.map((field) => (
-                        <TableHead key={field.key}>{field.label}</TableHead>
+                        <TableHead key={field.key}>{m(field.label)}</TableHead>
                       ))}
                       <TableHead>
                         <Button
@@ -586,7 +587,7 @@ export function UsagePriceOverrides({
                 const result = attempt.results.get(destination.environmentId);
                 return (
                   <div key={destination.environmentId} className="flex justify-between gap-3">
-                    <span className="truncate text-muted-foreground">{destination.label}</span>
+                    <span className="truncate text-muted-foreground">{m(destination.label)}</span>
                     <span
                       className={
                         result?.status === "failed"

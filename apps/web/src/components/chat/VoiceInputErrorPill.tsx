@@ -1,4 +1,4 @@
-import { useGT } from "gt-react";
+import { msg, useGT, useMessages } from "gt-react";
 import { MICROPHONE_PERMISSION_ERROR } from "@t3tools/client-runtime/voice-input";
 import { useNavigate } from "@tanstack/react-router";
 import { CircleAlertIcon, XIcon } from "lucide-react";
@@ -41,16 +41,17 @@ export function VoiceInputErrorPill(props: {
   onRetry(): void;
   onDismiss(): void;
 }) {
+  const m = useMessages();
   const gt = useGT();
   const navigate = useNavigate();
   const message = props.error ?? "Voice input failed";
   const openSettings = props.errorAction === "settings";
   const compact = props.size === "compact";
   const action = openSettings
-    ? { label: "Open voice settings", text: "Settings" }
+    ? { label: msg("Open voice settings"), text: "Settings" }
     : props.error && RETRYABLE_TRANSCRIPTIONS.has(props.error)
-      ? { label: "Retry transcription", text: "Retry" }
-      : { label: "Record again", text: "Record again" };
+      ? { label: msg("Retry transcription"), text: "Retry" }
+      : { label: msg("Record again"), text: "Record again" };
   return (
     <VoiceInputPill tone="error" size={props.size}>
       <Tooltip>
@@ -97,7 +98,7 @@ export function VoiceInputErrorPill(props: {
           type="button"
           size={compact ? "xs" : "sm-pill"}
           variant="outline"
-          aria-label={action.label}
+          aria-label={m(action.label)}
           disabled={props.disabled}
           onPointerDown={(event) => event.preventDefault()}
           onClick={() => {

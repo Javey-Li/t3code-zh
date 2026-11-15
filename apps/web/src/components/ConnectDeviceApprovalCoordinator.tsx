@@ -1,3 +1,4 @@
+import { useMessages } from "gt-react";
 import { useNavigate } from "@tanstack/react-router";
 import {
   type AtomCommandResult,
@@ -19,6 +20,7 @@ import { stackedThreadToast } from "./ui/toastHelpers";
 
 /** Asks whoever can approve to look at T3 Connect devices waiting on an environment. */
 export function ConnectDeviceApprovalCoordinator() {
+  const m = useMessages();
   const { environments } = useEnvironments();
   return environments.map((environment) =>
     environment.connection.phase === "connected" &&
@@ -26,7 +28,7 @@ export function ConnectDeviceApprovalCoordinator() {
       <EnvironmentConnectDeviceRequests
         key={environment.environmentId}
         environmentId={environment.environmentId}
-        environmentLabel={environment.label}
+        environmentLabel={m(environment.label)}
       />
     ) : null,
   );

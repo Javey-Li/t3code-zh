@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, msg } from "gt-react";
 import { filePreviewDelimiter } from "@t3tools/shared/delimitedPreview";
 import type { AssetResource, EnvironmentId, ScopedThreadRef } from "@t3tools/contracts";
 import { formatAttachmentSize } from "@t3tools/client-runtime/state/attachments";
@@ -443,7 +443,7 @@ export function AttachmentFilePreview(props: {
                 toastManager.add({
                   type: "error",
                   title: "Could not copy file",
-                  description: "Wait for the file to finish loading before copying.",
+                  description: msg("Wait for the file to finish loading before copying."),
                 });
                 return;
               }

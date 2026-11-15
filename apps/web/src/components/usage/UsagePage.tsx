@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import { ChatGptUsageButton } from "../settings/ChatGptUsageButton";
 import { usesChatGptSharing } from "@t3tools/shared/usageLimits";
 import { RefreshIcon } from "~/components/ui/refresh-icon";
@@ -176,6 +176,7 @@ function UsageModelDialogHost({
 }
 
 export function UsagePage() {
+  const m = useMessages();
   const gt = useGT();
   const [preferences, setPreferences] = useState(readUsagePagePreferences);
   const keybindings = useAtomValue(primaryServerKeybindingsAtom);
@@ -409,7 +410,7 @@ export function UsagePage() {
           >
             {WINDOW_OPTIONS.map((option) => (
               <Toggle key={option.days} value={String(option.days)} title={shortcutTitle(option)}>
-                {option.label}
+                {m(option.label)}
               </Toggle>
             ))}
           </ToggleGroup>
@@ -425,7 +426,7 @@ export function UsagePage() {
         >
           {METRIC_OPTIONS.map((option) => (
             <Toggle key={option.value} value={option.value} title={shortcutTitle(option)}>
-              {option.label}
+              {m(option.label)}
             </Toggle>
           ))}
         </ToggleGroup>
@@ -460,7 +461,7 @@ export function UsagePage() {
                   value={String(option.days)}
                   title={shortcutTitle(option)}
                 >
-                  {option.label}
+                  {m(option.label)}
                 </SelectItem>
               ))}
             </SelectPopup>
@@ -485,7 +486,7 @@ export function UsagePage() {
           <SelectPopup align="end" alignItemWithTrigger={false}>
             {METRIC_OPTIONS.map((option) => (
               <SelectItem key={option.value} value={option.value} title={shortcutTitle(option)}>
-                {option.label}
+                {m(option.label)}
               </SelectItem>
             ))}
           </SelectPopup>
@@ -613,6 +614,7 @@ function UsageOverview({
   readonly showChatGptSharing: boolean;
   readonly onSelectModel: (key: string) => void;
 }) {
+  const m = useMessages();
   const gt = useGT();
   const [breakdown, setBreakdown] = useState<"model" | "time">("model");
   const shownHourly = shownWindow.resolution === "hour";
@@ -727,7 +729,7 @@ function UsageOverview({
                     />
                     <ProviderMark provider={provider} className="size-4" />
                     <span className="flex min-w-0 items-baseline gap-1.5">
-                      <span className="truncate">{PROVIDER_PRESENTATION[provider].label}</span>
+                      <span className="truncate">{m(PROVIDER_PRESENTATION[provider].label)}</span>
                       <span
                         className={cn(
                           "shrink-0 whitespace-nowrap text-2xs text-muted-foreground tabular-nums",
@@ -867,12 +869,12 @@ function UsageOverview({
           >
             {(
               [
-                { value: "model", label: "Model" },
+                { value: "model", label: msg("Model") },
                 { value: "time", label: shownHourly ? "Hour" : "Day" },
               ] as const
             ).map((option) => (
               <Toggle key={option.value} value={option.value}>
-                {option.label}
+                {m(option.label)}
               </Toggle>
             ))}
           </ToggleGroup>
@@ -978,7 +980,7 @@ function UsageOverview({
                   <th className="py-2 pl-2 font-normal">{shownHourly ? "Hour" : "Day"}</th>
                   {activeProviders.map((provider) => (
                     <th key={provider} className="py-2 pl-4 text-right font-normal">
-                      {PROVIDER_PRESENTATION[provider].label}
+                      {m(PROVIDER_PRESENTATION[provider].label)}
                     </th>
                   ))}
                   <th className="py-2 pl-4 text-right font-normal">
@@ -1056,11 +1058,12 @@ function ProviderMark({
   readonly provider: UsageProviderKind;
   readonly className: string;
 }) {
+  const m = useMessages();
   const presentation = PROVIDER_PRESENTATION[provider];
   return (
     <ProviderInstanceIcon
       driverKind={presentation.driverKind}
-      displayName={presentation.label}
+      displayName={m(presentation.label)}
       iconClassName={className}
     />
   );
@@ -1100,6 +1103,7 @@ function UsageCoverageNotice({
   readonly duplicateSources: readonly string[];
   readonly contractMismatches: MergedUsage["contractMismatches"];
 }) {
+  const m = useMessages();
   const failed = environments.filter((environment) => environment.error !== null);
   const mismatchByEnvironment = new Map(
     contractMismatches.map((mismatch) => [mismatch.environmentId, mismatch]),
@@ -1115,8 +1119,8 @@ function UsageCoverageNotice({
   return (
     <div className="flex flex-col gap-1 border-t border-border px-2 py-2 text-xs text-muted-foreground">
       {failed.map((environment) => (
-        <span key={environment.label}>
-          {environment.label}: {environment.error}
+        <span key={m(environment.label)}>
+          {m(environment.label)}: {environment.error}
         </span>
       ))}
       {incompatible.map(({ environment, mismatch }) => (
@@ -1157,6 +1161,7 @@ function UsageEnvironmentFilter({
   readonly contractMismatches: MergedUsage["contractMismatches"];
   readonly onOpenModelPrices: () => void;
 }) {
+  const m = useMessages();
   const gt = useGT();
   const allSelected = selectedEnvironmentIds === null;
   const label = allSelected
@@ -1231,7 +1236,7 @@ function UsageEnvironmentFilter({
               }}
             >
               <span className="flex min-w-0 items-center gap-3">
-                <span className="min-w-0 flex-1 truncate">{environment.label}</span>
+                <span className="min-w-0 flex-1 truncate">{m(environment.label)}</span>
                 {showUsageStatus ? (
                   <span
                     className={cn(
@@ -1280,6 +1285,7 @@ function UsageProviderFilter({
   readonly hiddenProviders: ReadonlySet<UsageProviderKind>;
   readonly onChange: (hiddenProviders: readonly UsageProviderKind[]) => void;
 }) {
+  const m = useMessages();
   const visible = PROVIDER_ORDER.filter((provider) => !hiddenProviders.has(provider));
   const label =
     visible.length === PROVIDER_ORDER.length
@@ -1323,7 +1329,7 @@ function UsageProviderFilter({
           >
             <span className="flex min-w-0 items-center gap-2">
               <ProviderMark provider={provider} className="size-3.5" />
-              <span className="truncate">{PROVIDER_PRESENTATION[provider].label}</span>
+              <span className="truncate">{m(PROVIDER_PRESENTATION[provider].label)}</span>
             </span>
           </MenuCheckboxItem>
         ))}

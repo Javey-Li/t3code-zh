@@ -1,3 +1,4 @@
+import { useMessages } from "gt-react";
 import { useAtomCommand } from "~/state/use-atom-command";
 import type { EnvironmentId, PullRequestLabelCandidate, PullRequestRef } from "@t3tools/contracts";
 import { CheckIcon, TagIcon } from "lucide-react";
@@ -30,6 +31,7 @@ export function PullRequestLabelPicker({
   reference: PullRequestRef;
   allowed: boolean;
 }) {
+  const m = useMessages();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [pending, setPending] = useState<string | null>(null);
@@ -103,7 +105,7 @@ export function PullRequestLabelPicker({
             <span className="min-w-0 flex-1 truncate">
               {candidate.name}
               {candidate.description ? (
-                <span className="text-muted-foreground"> · {candidate.description}</span>
+                <span className="text-muted-foreground"> · {m(candidate.description)}</span>
               ) : null}
             </span>
             {candidate.isApplied ? (

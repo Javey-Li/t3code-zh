@@ -1,3 +1,4 @@
+import { useMessages } from "gt-react";
 import {
   SecretReference,
   type EnvironmentId,
@@ -56,10 +57,11 @@ function SourceLabel(props: {
   readonly icon: ComponentType<{ readonly className?: string }>;
   readonly label: string;
 }) {
+  const m = useMessages();
   return (
     <span className="flex min-w-0 items-center gap-1.5">
       <props.icon className="size-3.5 shrink-0" />
-      <span className="truncate">{props.label}</span>
+      <span className="truncate">{m(props.label)}</span>
     </span>
   );
 }
@@ -72,6 +74,7 @@ export function SecretSourceSelect(props: {
   readonly disabled?: boolean;
   readonly onValueChange: (provider: SecretProviderId | null) => void;
 }) {
+  const m = useMessages();
   const { value, sources } = props;
   const known = value === null || sources.some((source) => source.id === value);
   const title =
@@ -102,7 +105,7 @@ export function SecretSourceSelect(props: {
         </SelectItem>
         {sources.map((source) => (
           <SelectItem key={source.id} value={source.id}>
-            <SourceLabel icon={OnePasswordIcon} label={source.label} />
+            <SourceLabel icon={OnePasswordIcon} label={m(source.label)} />
           </SelectItem>
         ))}
         {known ? null : (

@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT } from "gt-react";
 import { DownloadIcon } from "lucide-react";
 import { useSyncExternalStore } from "react";
 import type { RelayClientInstallProgressStage } from "@t3tools/contracts";
@@ -24,13 +24,13 @@ const installSteps: ReadonlyArray<{
   readonly stage: RelayClientInstallProgressStage;
   readonly label: string;
 }> = [
-  { stage: "checking", label: "Checking current installation" },
-  { stage: "waiting_for_lock", label: "Waiting for installer" },
-  { stage: "downloading", label: "Downloading relay client" },
-  { stage: "verifying", label: "Verifying download" },
-  { stage: "installing", label: "Installing relay client" },
-  { stage: "validating", label: "Validating executable" },
-  { stage: "activating", label: "Activating installation" },
+  { stage: "checking", label: msg("Checking current installation") },
+  { stage: "waiting_for_lock", label: msg("Waiting for installer") },
+  { stage: "downloading", label: msg("Downloading relay client") },
+  { stage: "verifying", label: msg("Verifying download") },
+  { stage: "installing", label: msg("Installing relay client") },
+  { stage: "validating", label: msg("Validating executable") },
+  { stage: "activating", label: msg("Activating installation") },
 ];
 
 export function RelayClientInstallDialog() {

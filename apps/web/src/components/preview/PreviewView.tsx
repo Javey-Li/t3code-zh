@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, msg, useMessages } from "gt-react";
 import { useAtomValue } from "@effect/atom-react";
 import { scopedThreadKey } from "@t3tools/client-runtime/environment";
 import { settlePromise } from "@t3tools/client-runtime/state/runtime";
@@ -167,6 +167,7 @@ export function PreviewView({
   visible,
   onSendAnnotation,
 }: Props) {
+  const m = useMessages();
   const urlInputRef = useRef<HTMLInputElement | null>(null);
   const [find, setFind] = useState<{ tabId: string; requestId: number } | null>(null);
   const [pickActive, setPickActive] = useState(false);
@@ -569,7 +570,7 @@ export function PreviewView({
                 stackedThreadToast({
                   type: "error",
                   title: "Unable to copy recording path",
-                  description: "Clipboard API unavailable.",
+                  description: msg("Clipboard API unavailable."),
                   actionProps: revealAction,
                 }),
               );
@@ -862,7 +863,7 @@ export function PreviewView({
           stackedThreadToast({
             type: "error",
             title: "Could not capture the picked element",
-            description: "The annotation was kept without the screenshot.",
+            description: msg("The annotation was kept without the screenshot."),
           }),
         );
       }
@@ -1161,7 +1162,7 @@ export function PreviewView({
             <PreviewUnreachable
               url={navStatus.url}
               code={navStatus.code}
-              description={navStatus.description}
+              description={m(navStatus.description)}
               onReload={handleRefresh}
               {...(moveTarget === "server"
                 ? { move: { label: moveLabel, onMove: () => void handleMoveTab() } }

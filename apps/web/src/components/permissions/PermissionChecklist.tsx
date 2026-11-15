@@ -1,3 +1,4 @@
+import { useMessages } from "gt-react";
 import { CircleCheckIcon } from "lucide-react";
 import type { ComponentProps, ReactNode } from "react";
 import { Button } from "../ui/button";
@@ -18,6 +19,7 @@ export function PermissionChecklist({
   permissions: readonly PermissionItem[];
   busy?: boolean;
 }) {
+  const m = useMessages();
   return (
     <div className="space-y-2">
       {permissions.map((permission) => (
@@ -25,7 +27,7 @@ export function PermissionChecklist({
           {permission.icon}
           <div className="min-w-0 flex-1">
             <p className="font-medium">{permission.title}</p>
-            <p className="text-xs text-muted-foreground">{permission.description}</p>
+            <p className="text-xs text-muted-foreground">{m(permission.description)}</p>
           </div>
           {permission.granted ? (
             <span role="status" className="flex items-center gap-1 text-xs text-success">

@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, useGT, useMessages } from "gt-react";
 import { discardComposerDraft } from "../../lib/discardComposerDraft";
 import { assistantCitationsToPlainText } from "@t3tools/shared/assistantCitations";
 import { replaceComposerContextReferences } from "@t3tools/shared/composerContextReferences";
@@ -34,6 +34,7 @@ const SidebarDraftRow = memo(function SidebarDraftRow(props: {
   onDiscard: (draftId: DraftId) => void;
   onContextMenu: (draftId: DraftId, position: { x: number; y: number }) => void;
 }) {
+  const m = useMessages();
   const gt = useGT();
   const { composer, draftId, onContextMenu, onDiscard, onNavigate } = props;
   const promptPreview =
@@ -90,7 +91,7 @@ const SidebarDraftRow = memo(function SidebarDraftRow(props: {
         role="button"
         tabIndex={0}
         data-sidebar-row={`draft:${draftId}`}
-        aria-label={accessibility.label}
+        aria-label={m(accessibility.label)}
         aria-current={accessibility.current}
         data-testid="sidebar-draft-row"
         className={cn(

@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, useMessages } from "gt-react";
 import { useState } from "react";
 
 import { Button } from "~/components/ui/button";
@@ -53,6 +53,7 @@ export function PreviewFileNotShown({
 }
 
 export function PreviewUnreachable({ url, code, description, onReload, move }: Props) {
+  const m = useMessages();
   const [showDetails, setShowDetails] = useState(false);
   const host = safeHost(url) ?? url;
   const friendly = describePreviewError(description);
@@ -109,7 +110,7 @@ export function PreviewUnreachable({ url, code, description, onReload, move }: P
           <div className="flex-1" />
           {move ? (
             <Button type="button" variant="outline" size="sm" onClick={move.onMove}>
-              {move.label}
+              {m(move.label)}
             </Button>
           ) : null}
           <Button type="button" size="sm" onClick={onReload}>

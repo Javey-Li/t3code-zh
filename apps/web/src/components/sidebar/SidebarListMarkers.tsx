@@ -1,3 +1,4 @@
+import { useMessages } from "gt-react";
 import { CollapsibleSectionHeader } from "../ui/collapsible-section-header";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
@@ -51,6 +52,7 @@ export function SidebarSectionPlaceholder(props: {
   showHint: boolean;
   isDropTarget: boolean;
 }) {
+  const m = useMessages();
   return (
     <SortableSidebarMarker
       marker={props.marker}
@@ -68,7 +70,7 @@ export function SidebarSectionPlaceholder(props: {
             props.isDropTarget && "border-primary/40 bg-primary/5 text-primary",
           )}
         >
-          {props.label}
+          {m(props.label)}
         </div>
       ) : null}
     </SortableSidebarMarker>
@@ -81,6 +83,7 @@ export function SidebarDragBoundary(props: {
   visible: boolean;
   isDropTarget: boolean;
 }) {
+  const m = useMessages();
   return (
     <SortableSidebarMarker
       marker={props.marker}
@@ -95,7 +98,7 @@ export function SidebarDragBoundary(props: {
               props.isDropTarget ? "text-primary" : "text-sidebar-foreground/80",
             )}
           >
-            {props.label}
+            {m(props.label)}
           </span>
           <span
             aria-hidden
@@ -120,6 +123,7 @@ export function SidebarSectionHeader(props: {
   isDropTarget?: boolean;
   toggle: { expanded: boolean; onToggle: () => void };
 }) {
+  const m = useMessages();
   const shelf =
     props.marker === "working-header"
       ? "working"
@@ -140,7 +144,7 @@ export function SidebarSectionHeader(props: {
         data-testid={`sidebar-${shelf}-shelf-toggle`}
         accessory={<span className="font-normal tabular-nums">{props.count}</span>}
       >
-        {props.label}
+        {m(props.label)}
       </CollapsibleSectionHeader>
     </SortableSidebarMarker>
   );

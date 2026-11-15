@@ -1,3 +1,4 @@
+import { msg } from "gt-react";
 import { scopeProjectRef, scopeThreadRef } from "@t3tools/client-runtime/environment";
 import {
   isAtomCommandInterrupted,
@@ -142,7 +143,7 @@ export function DesktopWebLinkCoordinator() {
     toastManager.add({
       type: "success",
       title: "Backend added",
-      description: "The environment is saved and will reconnect on app startup.",
+      description: msg("The environment is saved and will reconnect on app startup."),
     });
   };
 

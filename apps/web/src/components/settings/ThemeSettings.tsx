@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import {
   CheckIcon,
   CopyIcon,
@@ -129,6 +129,7 @@ function ThemeLibraryCard({
     onSelectAndUse: (themeIndex: number, mode: ThemeAppearance) => void;
   };
 }) {
+  const m = useMessages();
   const gt = useGT();
   const cardModes = theme.previews.map((preview) => preview.mode);
   const [radialModeOpen, setRadialModeOpen] = useState<ThemeAppearance | null>(null);
@@ -230,7 +231,7 @@ function ThemeLibraryCard({
                           className="pointer-events-none absolute bottom-0 left-1/2 inline-flex max-w-24 -translate-x-1/2 items-center gap-1 text-2xs font-medium text-foreground"
                           style={{ marginLeft: rootOffsetX }}
                         >
-                          <span className="truncate">{selected.option.label}</span>
+                          <span className="truncate">{m(selected.option.label)}</span>
                           {options.length > 1 ? (
                             <span className="shrink-0 rounded-full bg-muted px-1 text-3xs text-muted-foreground">
                               +{options.length - 1}
@@ -245,7 +246,7 @@ function ThemeLibraryCard({
                               const optionIsActive = option.activeModes.includes(mode);
                               return (
                                 <ThemeVariantTooltip
-                                  key={option.label}
+                                  key={m(option.label)}
                                   label={`Use ${option.label} for ${mode} mode`}
                                 >
                                   <button
@@ -288,7 +289,7 @@ function ThemeLibraryCard({
                 </div>
               ) : (
                 <ThemePreviewCircles
-                  label={theme.label}
+                  label={m(theme.label)}
                   activeModes={activeModes}
                   onSelectMode={onUseMode}
                   previews={theme.previews}
@@ -527,6 +528,7 @@ export function ThemeLibrary({
   themeHalves: ThemeHalves | null;
   setThemeHalf: (appearance: ThemeAppearance, themeId: string | null) => boolean;
 }) {
+  const m = useMessages();
   const gt = useGT();
   const openThemeEditor = useThemeEditorStore((store) => store.openThemeEditor);
   const environmentThemes = useEnvironmentThemeDefinitions();
@@ -548,7 +550,7 @@ export function ThemeLibrary({
       stackedThreadToast({
         type: "error",
         title: "Couldn’t save theme selection",
-        description: "Try again.",
+        description: msg("Try again."),
       }),
     );
   };
@@ -558,7 +560,7 @@ export function ThemeLibrary({
       stackedThreadToast({
         type: "error",
         title: "Couldn’t remove theme",
-        description: "Try again.",
+        description: msg("Try again."),
       }),
     );
   };
@@ -900,7 +902,7 @@ export function ThemeLibrary({
             stackedThreadToast({
               type: "success",
               title: `${importedTheme.label} added`,
-              description: "It’s now active.",
+              description: msg("It’s now active."),
             }),
           );
           return true;
@@ -965,7 +967,7 @@ export function ThemeLibrary({
                       ))}
                     </span>
                     <p className="max-w-full truncate text-center text-base font-medium text-foreground sm:text-sm">
-                      {customTheme.label}
+                      {m(customTheme.label)}
                     </p>
                   </label>
                 );

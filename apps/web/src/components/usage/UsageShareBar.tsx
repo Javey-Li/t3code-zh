@@ -1,3 +1,4 @@
+import { useMessages } from "gt-react";
 import { formatPercent } from "@t3tools/shared/usageFormat";
 import type { ReactNode } from "react";
 
@@ -20,6 +21,7 @@ export function UsageShareBar({
   readonly format: (value: number) => string;
   readonly aside?: ReactNode;
 }) {
+  const m = useMessages();
   const visible = segments.filter((segment) => segment.value > 0);
   const total = visible.reduce((sum, segment) => sum + segment.value, 0);
   if (total <= 0) return null;
@@ -36,7 +38,7 @@ export function UsageShareBar({
         className="flex h-2 gap-0.5"
       >
         {visible.map((segment) => (
-          <Tooltip key={segment.label}>
+          <Tooltip key={m(segment.label)}>
             <TooltipTrigger
               render={
                 <div
@@ -46,20 +48,20 @@ export function UsageShareBar({
               }
             />
             <TooltipPopup>
-              {segment.label} · {format(segment.value)} · {formatPercent(segment.value / total)}
+              {m(segment.label)} · {format(segment.value)} · {formatPercent(segment.value / total)}
             </TooltipPopup>
           </Tooltip>
         ))}
       </div>
       <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs">
         {visible.map((segment) => (
-          <span key={segment.label} className="flex items-center gap-1.5">
+          <span key={m(segment.label)} className="flex items-center gap-1.5">
             <span
               aria-hidden
               className="size-2 rounded-xs"
               style={{ backgroundColor: segment.color }}
             />
-            <span className="text-muted-foreground">{segment.label}</span>
+            <span className="text-muted-foreground">{m(segment.label)}</span>
             <span className="text-foreground tabular-nums">{format(segment.value)}</span>
           </span>
         ))}

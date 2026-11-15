@@ -1,3 +1,4 @@
+import { useMessages } from "gt-react";
 import type { DeviceServiceState, EnvironmentId } from "@t3tools/contracts";
 import { useState } from "react";
 import { Button } from "~/components/ui/button";
@@ -11,6 +12,7 @@ export function DeviceHostUpdates({
   state: DeviceServiceState;
   environmentId: EnvironmentId;
 }) {
+  const m = useMessages();
   const retry = useAtomCommand(deviceEnvironment.list);
   const [pending, setPending] = useState<string | null>(null);
   if (state.hostStatus === "disabled") return null;
@@ -27,7 +29,7 @@ export function DeviceHostUpdates({
             className="flex items-start gap-3 rounded-md border border-border/60 px-3 py-2 text-xs"
           >
             <div className="min-w-0 flex-1">
-              <p className="font-medium">{host.label}</p>
+              <p className="font-medium">{m(host.label)}</p>
               <p className="whitespace-pre-wrap break-words text-muted-foreground">
                 {status.detail ??
                   (failed

@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, useGT, useMessages } from "gt-react";
 import type { VoiceInputState } from "@t3tools/client-runtime/voice-input";
 import { CheckIcon, MicIcon, XIcon } from "lucide-react";
 import { useEffect, useState, type PointerEvent, type ReactElement } from "react";
@@ -78,11 +78,12 @@ function ShortcutTooltip(props: {
   shortcut?: string | null | undefined;
   children: ReactElement;
 }) {
+  const m = useMessages();
   return (
     <Tooltip>
       <TooltipTrigger render={props.children} />
       <TooltipPopup side="top">
-        {props.label}
+        {m(props.label)}
         {props.shortcut ? ` (${props.shortcut})` : ""}
       </TooltipPopup>
     </Tooltip>

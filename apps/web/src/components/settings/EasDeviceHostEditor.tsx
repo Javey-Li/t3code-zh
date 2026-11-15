@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, useGT, useMessages } from "gt-react";
 import { useAtomValue } from "@effect/atom-react";
 import { useId, useRef, useState } from "react";
 import * as Cause from "effect/Cause";
@@ -57,6 +57,7 @@ export function EasDeviceHostEditor(props: {
   onSave: (host: EasDeviceHostConfig) => void;
   onClose: () => void;
 }) {
+  const m = useMessages();
   const gt = useGT();
   const check = useAtomCommand(deviceEnvironment.easAccount, { reportFailure: false });
   const [draft, setDraft] = useState(props.host);
@@ -192,7 +193,7 @@ export function EasDeviceHostEditor(props: {
               <Input
                 autoFocus
                 required
-                value={draft.label}
+                value={m(draft.label)}
                 disabled={props.busy}
                 onChange={(event) => {
                   const label = event.target.value;

@@ -1,3 +1,4 @@
+import { msg } from "gt-react";
 import { useAtomValue } from "@effect/atom-react";
 import type { PullRequestAction, PullRequestSummary } from "@t3tools/contracts";
 import { createContext, use, type ReactNode } from "react";
@@ -164,8 +165,8 @@ function SpeedModeGroup({
 }
 
 const ACTIONS = {
-  close: { label: "Close", Icon: PullRequestGlyph.closed },
-  merge: { label: "Merge", Icon: PullRequestGlyph.merged },
-  ready: { label: "Ready for review", Icon: PullRequestGlyph.pullRequest },
-  reopen: { label: "Reopen", Icon: PullRequestGlyph.reopen },
+  close: { label: msg("Close"), Icon: PullRequestGlyph.closed },
+  merge: { label: msg("Merge"), Icon: PullRequestGlyph.merged },
+  ready: { label: msg("Ready for review"), Icon: PullRequestGlyph.pullRequest },
+  reopen: { label: msg("Reopen"), Icon: PullRequestGlyph.reopen },
 } as const;

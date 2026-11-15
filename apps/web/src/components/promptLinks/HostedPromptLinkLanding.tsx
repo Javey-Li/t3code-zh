@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT } from "gt-react";
 import {
   type LinkedPrompt,
   parseNewThreadLink,
@@ -32,7 +32,7 @@ interface LinkSummary {
 
 const PROMPT_HEADER = {
   title: "Open this prompt",
-  description: "It opens as a draft. Nothing runs until you press Send.",
+  description: msg("It opens as a draft. Nothing runs until you press Send."),
 };
 
 function summarize(
@@ -48,7 +48,9 @@ function summarize(
         prompt.value === null
           ? {
               title: "Open this thread",
-              description: "It opens in T3 Code if you're connected to the machine it runs on.",
+              description: msg(
+                "It opens in T3 Code if you're connected to the machine it runs on.",
+              ),
               prompt: null,
               details: [],
             }

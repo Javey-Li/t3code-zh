@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, useGT, useMessages } from "gt-react";
 import { pipe } from "effect/Function";
 import { ACP_REGISTRY_MAX_AGENTS, AuthProvidersManageScope } from "@t3tools/contracts";
 import { readEnvironmentScope, useEnvironmentScope } from "../../state/session";
@@ -266,6 +266,7 @@ function AcpRegistryAgentRow({
   readonly isPreparing: boolean;
   readonly onAdd: (agent: AcpRegistrySearchAgent) => void;
 }) {
+  const m = useMessages();
   const progressLabel = agent.distribution === "binary" ? "Downloading" : "Preparing";
   const aboutUrl = agent.website || agent.repository;
   return (
@@ -284,7 +285,9 @@ function AcpRegistryAgentRow({
               <h4 className="min-w-0 truncate text-sm font-medium text-foreground">{agent.name}</h4>
             </div>
             {agent.description ? (
-              <p className="mt-0.5 truncate text-xs text-muted-foreground">{agent.description}</p>
+              <p className="mt-0.5 truncate text-xs text-muted-foreground">
+                {m(agent.description)}
+              </p>
             ) : null}
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import { resolveEnvironmentMachineKind } from "@t3tools/contracts";
 
 import {
@@ -14,10 +14,10 @@ import { FoldedSettingsSection } from "./FoldedSettingsSection";
 import { searchableSetting } from "./settingsSearch";
 
 const preferences = [
-  { value: 100, label: "Prefer" },
-  { value: 50, label: "Normal" },
-  { value: 25, label: "Less often" },
-  { value: 0, label: "Manual only" },
+  { value: 100, label: msg("Prefer") },
+  { value: 50, label: msg("Normal") },
+  { value: 25, label: msg("Less often") },
+  { value: 0, label: msg("Manual only") },
 ] as const;
 
 type LoadPreference = (typeof preferences)[number]["value"];
@@ -50,6 +50,7 @@ export function LoadBalancingSettings({
 }: {
   environments: ReadonlyArray<EnvironmentPresentation>;
 }) {
+  const m = useMessages();
   const gt = useGT();
   const settings = useClientSettings((current) => ({
     loadBalancingEnabled: current.loadBalancingEnabled,
@@ -88,7 +89,7 @@ export function LoadBalancingSettings({
         <EnvironmentRow
           key={environment.environmentId}
           kind={resolveEnvironmentMachineKind(environment.serverConfig)}
-          label={environment.label}
+          label={m(environment.label)}
           subtitle={<EnvironmentTransportLabel environment={environment} />}
         >
           <Select

@@ -1,3 +1,4 @@
+import { msg } from "gt-react";
 import { appAtomRegistry, subscribeAtomChanges } from "../rpc/atomRegistry";
 import { primaryEnvironmentIdAtom } from "../state/primaryEnvironment";
 import { primaryServerConfigAtom, primaryServerConfigEventAtom } from "../state/server";
@@ -16,7 +17,7 @@ export function startKeybindingsUpdateToasts(): () => void {
       toastManager.add({
         type: "success",
         title: "Keybindings updated",
-        description: "Keybindings configuration reloaded successfully.",
+        description: msg("Keybindings configuration reloaded successfully."),
       });
       return;
     }
