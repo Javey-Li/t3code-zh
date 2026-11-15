@@ -1128,18 +1128,15 @@ export function EnvironmentProviderSettings({
             <span className="inline-flex items-center gap-1.5">
               {searchableSetting("provider-health-check-interval").title}
               <PolicyTooltip>
-                This interval is configured here, then the shared Background activity policy decides
-                whether provider probes may run when the timer fires. Custom intervals appear as
-                Advanced in Maintenance settings.
+                {gt(
+                  "This interval is configured here, then the shared Background activity policy decides whether provider probes may run when the timer fires. Custom intervals appear as Advanced in Maintenance settings.",
+                )}
               </PolicyTooltip>
             </span>
           }
           description={
             <T>
-              <T>
-                Refresh provider status, versions, and models in the background. Set to 0 to
-                disable.
-              </T>
+              Refresh provider status, versions, and models in the background. Set to 0 to disable.
             </T>
           }
           resetAction={

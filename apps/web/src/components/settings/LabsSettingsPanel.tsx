@@ -72,9 +72,7 @@ function BoringSidebarMultilineRow() {
       className="px-0 py-2 sm:px-0"
       description={
         <T>
-          <T>
-            Show folder threads on two lines: the title, then the branch, pull request, and agent.
-          </T>
+          Show folder threads on two lines: the title, then the branch, pull request, and agent.
         </T>
       }
       control={

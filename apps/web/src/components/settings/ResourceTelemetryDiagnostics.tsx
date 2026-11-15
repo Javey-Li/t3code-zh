@@ -1062,8 +1062,10 @@ function ResourceTelemetryDiagnosticsBody({
                 <T>T3 system footprint</T>
               </div>
               <p className="mt-1 max-w-xl text-xs leading-relaxed text-muted-foreground">
-                Live native counters for the server, providers, terminals, desktop processes, and
-                the monitor itself.
+                <T>
+                  Live native counters for the server, providers, terminals, desktop processes, and
+                  the monitor itself.
+                </T>
               </p>
             </div>
             <div className="flex items-center gap-2 text-3xs text-muted-foreground/65">
@@ -1226,8 +1228,10 @@ function ResourceTelemetryDiagnosticsBody({
                   <T>Desktop host signals not connected</T>
                 </div>
                 <p className="mt-1.5 max-w-sm text-2xs leading-relaxed text-muted-foreground/70">
-                  Power, idle, lock, and thermal state are supplied by the desktop host. Process
-                  telemetry remains fully active in this browser session.
+                  <T>
+                    Power, idle, lock, and thermal state are supplied by the desktop host. Process
+                    telemetry remains fully active in this browser session.
+                  </T>
                 </p>
               </div>
             )}
@@ -1353,9 +1357,11 @@ function ResourceTelemetryDiagnosticsBody({
       >
         <div className="overflow-hidden rounded-[inherit]">
           <div className="bg-muted/15 px-4 py-3 text-2xs leading-relaxed text-muted-foreground sm:px-5">
-            Native counters identify which process is reading or writing. These application-level
-            counters identify known T3 operations so process spikes can be correlated with specific
-            persistence and logging paths.
+            <T>
+              Native counters identify which process is reading or writing. These application-level
+              counters identify known T3 operations so process spikes can be correlated with
+              specific persistence and logging paths.
+            </T>
           </div>
           <AttributionTable entries={snapshot?.attribution.entries ?? []} />
         </div>

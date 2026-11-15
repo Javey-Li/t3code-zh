@@ -116,8 +116,10 @@ function GuestShareDialog({
             <T>Share with guest</T>
           </DialogTitle>
           <DialogDescription>
-            The guest sees the thread as you do, including command output and the agent&apos;s
-            reasoning. Each message they send waits for you.
+            <T>
+              The guest sees the thread as you do, including command output and the agent&apos;s
+              reasoning. Each message they send waits for you.
+            </T>
           </DialogDescription>
         </DialogHeader>
         <DialogPanel>

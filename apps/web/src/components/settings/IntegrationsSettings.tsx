@@ -374,9 +374,7 @@ function BrowserViewportSetting({ disabled }: { readonly disabled: boolean }) {
       {...searchableSetting("browser-default-viewport")}
       description={
         <T>
-          <T>
-            Tab size for you and agents. Fill fits the panel; other sizes show the device toolbar.
-          </T>
+          Tab size for you and agents. Fill fits the panel; other sizes show the device toolbar.
         </T>
       }
       resetAction={
@@ -1597,10 +1595,7 @@ function BrowserProfilesSetting({ disabled }: { readonly disabled: boolean }) {
             </AlertDialogTitle>
             <AlertDialogDescription>
               <T>
-                <T>
-                  You are signed out of its sites. Server browser tabs open in this profile close
-                  now.
-                </T>
+                You are signed out of its sites. Server browser tabs open in this profile close now.
               </T>
             </AlertDialogDescription>
           </AlertDialogHeader>

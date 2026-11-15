@@ -118,9 +118,7 @@ export function ProjectActionsSettings() {
         title={<T>Actions</T>}
         description={
           <T>
-            <T>
-              Commands that run in this project's checkout or its worktree, with optional shortcuts.
-            </T>
+            Commands that run in this project's checkout or its worktree, with optional shortcuts.
           </T>
         }
         onResetOverride={() => void persist(() => null)}

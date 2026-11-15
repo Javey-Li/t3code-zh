@@ -212,10 +212,7 @@ function ProviderSetupActions({
             {!installed && !provider.setup?.canInstall ? (
               <p className="text-muted-foreground">
                 <T>
-                  <T>
-                    Automatic installation unavailable. Set a binary path or use another
-                    environment.
-                  </T>
+                  Automatic installation unavailable. Set a binary path or use another environment.
                 </T>
               </p>
             ) : null}

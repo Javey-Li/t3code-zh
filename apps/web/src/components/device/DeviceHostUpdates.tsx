@@ -1,4 +1,4 @@
-import { useMessages } from "gt-react";
+import { T, useMessages } from "gt-react";
 import type { DeviceServiceState, EnvironmentId } from "@t3tools/contracts";
 import { useState } from "react";
 import { Button } from "~/components/ui/button";
@@ -40,8 +40,10 @@ export function DeviceHostUpdates({
               </p>
               {failed ? (
                 <p className="mt-1 text-muted-foreground">
-                  Check the host connection and network access, then retry. Your device settings are
-                  saved.
+                  <T>
+                    Check the host connection and network access, then retry. Your device settings
+                    are saved.
+                  </T>
                 </p>
               ) : null}
             </div>

@@ -1388,9 +1388,7 @@ function ConnectionsSettingsContent({
                 ) : (
                   <p className="px-4 py-3 text-xs text-muted-foreground">
                     <T>
-                      <T>
-                        This connection can create access links but cannot view authorized clients.
-                      </T>
+                      This connection can create access links but cannot view authorized clients.
                     </T>
                   </p>
                 )}

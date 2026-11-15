@@ -1346,10 +1346,7 @@ function PullRequestCodeTab({
               </TooltipTrigger>
               <TooltipPopup side="bottom">
                 <T>
-                  <T>
-                    A comment is anchored to the whole change, so switch to All commits to write
-                    one.
-                  </T>
+                  A comment is anchored to the whole change, so switch to All commits to write one.
                 </T>
               </TooltipPopup>
             </Tooltip>

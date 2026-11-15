@@ -373,8 +373,9 @@ export function BackgroundActivitySettingsRow() {
         <span className="inline-flex items-center gap-1.5">
           {searchableSetting("background-activity").title}
           <PolicyTooltip>
-            This shared policy gates background work such as Git refreshes and provider health
-            probes after their individual intervals elapse.
+            {gt(
+              "This shared policy gates background work such as Git refreshes and provider health probes after their individual intervals elapse.",
+            )}
           </PolicyTooltip>
         </span>
       }

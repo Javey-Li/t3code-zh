@@ -617,9 +617,7 @@ function ScheduledTaskEnvironmentList({
           title={<T>Task unavailable</T>}
           description={
             <T>
-              <T>
-                This task was deleted or belongs to a different project. Check your project filter.
-              </T>
+              This task was deleted or belongs to a different project. Check your project filter.
             </T>
           }
           role="status"

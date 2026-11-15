@@ -522,10 +522,7 @@ export function SourceControlSettingsPanel() {
         >
           <p className="px-4 py-3 text-sm text-muted-foreground">
             <T>
-              <T>
-                Connect an environment to inspect its version control tools and hosting
-                integrations.
-              </T>
+              Connect an environment to inspect its version control tools and hosting integrations.
             </T>
           </p>
         </SettingsSection>

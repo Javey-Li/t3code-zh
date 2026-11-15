@@ -283,8 +283,10 @@ function LinkEnvironmentAction({ environmentId }: { readonly environmentId: Envi
             <T>Link an environment</T>
           </DialogTitle>
           <DialogDescription>
-            Agents here can then launch, message and wait on threads there. It appears under
-            Authorized clients in that environment's Sharing & access, where it can be revoked.
+            <T>
+              Agents here can then launch, message and wait on threads there. It appears under
+              Authorized clients in that environment's Sharing & access, where it can be revoked.
+            </T>
           </DialogDescription>
         </DialogHeader>
         <DialogPanel>
