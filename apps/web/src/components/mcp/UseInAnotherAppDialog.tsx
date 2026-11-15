@@ -403,7 +403,7 @@ function GateScreen({
       );
     case "disconnected":
       return gate.relay === null ? (
-        <GateMessage title={`Connect to ${name} first.`} />
+        <GateMessage title={gt("Connect to {name} first.", { name })} />
       ) : (
         <GateMessage
           title={
@@ -416,17 +416,20 @@ function GateScreen({
         </GateMessage>
       );
     case "update":
-      return <GateMessage title={`Update T3 Code on ${name}`} />;
+      return <GateMessage title={gt("Update T3 Code on {name}", { name })} />;
     case "no-relay-read":
       return (
         <GateMessage
-          title={`Can't check T3 Connect on ${name}`}
+          title={gt("Can't check T3 Connect on {name}", { name })}
           lines={[`This device needs the View relay permission on ${name}.`]}
         />
       );
     case "error":
       return (
-        <GateMessage title={`Can't check T3 Connect on ${name}`} lines={[gate.message]}>
+        <GateMessage
+          title={gt("Can't check T3 Connect on {name}", { name })}
+          lines={[gate.message]}
+        >
           {checkAgain}
         </GateMessage>
       );
@@ -447,7 +450,7 @@ function GateScreen({
       }
       return (
         <GateMessage
-          title={`Turn on T3 Connect for ${name}`}
+          title={gt("Turn on T3 Connect for {name}", { name })}
           lines={[
             `${name} gets a public https address, with no router setup.`,
             "Only apps you approve can use it. You can turn it off in Settings.",

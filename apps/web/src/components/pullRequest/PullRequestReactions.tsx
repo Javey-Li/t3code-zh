@@ -95,7 +95,10 @@ export function PullRequestReactionBar({
               <button
                 type="button"
                 aria-pressed={reaction.viewerHasReacted}
-                aria-label={`${pullRequestReactionName(reaction.content)}, ${reaction.count}`}
+                aria-label={gt("{reaction}, {count}", {
+                  reaction: pullRequestReactionName(reaction.content),
+                  count: reaction.count,
+                })}
                 disabled={!canReact}
                 className={cn(
                   PILL_CLASS,

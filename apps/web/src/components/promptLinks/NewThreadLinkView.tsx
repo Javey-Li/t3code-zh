@@ -373,7 +373,7 @@ export function NewThreadLinkView({ link }: { readonly link: NewThreadLink }) {
       const name = `${state.repository.owner}/${state.repository.name}`;
       return (
         <LinkPage
-          title={`You don't have ${name}`}
+          title={gt("You don't have {name}", { name })}
           description={msg("Clone it to work on it here, or start without a project.")}
         >
           <Button size="sm" onClick={() => void cloneRepository(state.repository)}>
@@ -400,6 +400,7 @@ function PullRequestLinkCheckout({
   readonly link: Extract<NewThreadLink, { kind: "pull-request" }>;
   readonly project: EnvironmentProject;
 }) {
+  const gt = useGT();
   const { handoff, startHandoff } = usePullRequestHandoffs({
     environmentId: project.environmentId,
     detail: {
@@ -418,7 +419,7 @@ function PullRequestLinkCheckout({
   const { owner, name, number } = link.pullRequest;
   return (
     <LinkPage
-      title={`Check out ${owner}/${name}#${number}?`}
+      title={gt("Check out {ref}?", { ref: `${owner}/${name}#${number}` })}
       description={msg(
         "This puts the pull request's code in a new worktree and runs your project's setup script on it.",
       )}

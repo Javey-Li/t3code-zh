@@ -143,7 +143,7 @@ export function ColorSaturationValuePlane({
             max={100}
             step="any"
             value={value[axis] * 100}
-            aria-label={`${label} ${axisLabel.toLowerCase()}`}
+            aria-label={gt("{label} {axis}", { label, axis: axisLabel.toLowerCase() })}
             aria-describedby={instructionsId}
             aria-valuetext={`${Math.round(value[axis] * 100)}%`}
             className="peer sr-only"

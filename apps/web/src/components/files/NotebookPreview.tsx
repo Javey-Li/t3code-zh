@@ -158,7 +158,7 @@ export default function NotebookPreview(props: {
                   ) : output.kind === "image" ? (
                     <img
                       src={output.text}
-                      alt={`Cell ${index + 1} output`}
+                      alt={gt("Cell {index} output", { index: index + 1 })}
                       loading="lazy"
                       className="max-h-96 max-w-full p-4 object-contain"
                     />

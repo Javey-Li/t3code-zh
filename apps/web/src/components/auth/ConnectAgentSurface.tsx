@@ -263,7 +263,7 @@ export function McpConsent({
   return (
     <StandalonePage>
       <ConnectAgentHeading
-        title={`Connect ${details.clientName}`}
+        title={gt("Connect {name}", { name: details.clientName })}
         description={
           <>
             This agent wants to use the threads in every project on{" "}

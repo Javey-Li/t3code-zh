@@ -70,7 +70,9 @@ export function IntervalSecondsField({
       <NumberFieldGroup>
         <NumberFieldDecrement aria-label={gt("Decrease {label}", { label })} />
         <NumberFieldInput
-          aria-label={`${label.charAt(0).toUpperCase()}${label.slice(1)} in seconds`}
+          aria-label={gt("{label} in seconds", {
+            label: `${label.charAt(0).toUpperCase()}${label.slice(1)}`,
+          })}
         />
         <NumberFieldIncrement aria-label={gt("Increase {label}", { label })} />
       </NumberFieldGroup>

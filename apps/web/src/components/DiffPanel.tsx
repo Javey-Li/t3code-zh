@@ -1025,7 +1025,10 @@ export default function DiffPanel({
         {canSelectBranchBase && (
           <div
             className="flex min-w-0 max-w-full items-center gap-2 overflow-hidden text-xs text-muted-foreground"
-            aria-label={`Comparing ${comparisonHeadRef} against ${comparisonBaseRef}`}
+            aria-label={gt("Comparing {head} against {base}", {
+              head: comparisonHeadRef,
+              base: comparisonBaseRef,
+            })}
           >
             <Tooltip>
               <TooltipTrigger

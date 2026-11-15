@@ -971,7 +971,7 @@ export function PullRequestSummaryTab({
               completionScope={completionScope}
               threadRef={threadRef}
               label={`${capitalizeTerm(terminology.singular)} description`}
-              placeholder={`Describe this ${terminology.singular}`}
+              placeholder={gt("Describe this {name}", { name: terminology.singular })}
               saving={descriptionSaving}
               onSave={(body) => void saveBody(body)}
               onCancel={() => setBodyScope(null)}
@@ -1066,7 +1066,7 @@ export function PullRequestSummaryTab({
       </Section>
 
       <Section
-        title={`Comments (${detail.commentCount})`}
+        title={gt("Comments ({count})", { count: detail.commentCount })}
         actions={
           <div className="flex shrink-0 items-center gap-1">
             <Menu>

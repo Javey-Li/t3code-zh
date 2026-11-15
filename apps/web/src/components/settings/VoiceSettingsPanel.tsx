@@ -1479,7 +1479,10 @@ export function VoiceSettingsPanel() {
                         <SelectItem
                           key={value}
                           value={value}
-                          aria-label={`${CLOUD_SPEECH_LABELS[provider]} via ${environment.label}`}
+                          aria-label={gt("{provider} via {environment}", {
+                            provider: CLOUD_SPEECH_LABELS[provider],
+                            environment: environment.label,
+                          })}
                         >
                           <span className="flex items-center gap-2">
                             <CloudSpeechLogo provider={provider} />

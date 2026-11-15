@@ -261,7 +261,10 @@ export function QueuedRunsControl({
           return (
             <li
               key={item.key}
-              aria-label={`Queued message ${position + 1} of ${items.length}, not sent`}
+              aria-label={gt("Queued message {position} of {total}, not sent", {
+                position: position + 1,
+                total: items.length,
+              })}
               aria-posinset={position + 1}
               aria-setsize={items.length}
               aria-current={isEditing ? "true" : undefined}

@@ -100,7 +100,10 @@ export function DatabaseStorageNotice({
         ) : (
           <SettingsRow
             key={environmentId}
-            title={`${formatGiB(status.reclaimableBytes)} on ${label}`}
+            title={gt("{amount} on {label}", {
+              amount: formatGiB(status.reclaimableBytes),
+              label,
+            })}
             description={<code className="select-text break-all">{status.compactCommand}</code>}
             control={
               <div className="flex flex-wrap items-center gap-1.5">

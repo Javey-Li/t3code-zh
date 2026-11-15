@@ -363,7 +363,7 @@ export default function BinaryViewer(props: {
       ) : rows ? (
         <div className="scrollbar-gutter-both min-h-0 flex-1 overflow-auto">
           <table
-            aria-label={`${props.name}: ${rows.table}`}
+            aria-label={gt("{name}: {table}", { name: props.name, table: rows.table })}
             className="min-w-full border-separate border-spacing-0 text-xs"
           >
             <thead className="sticky top-0 bg-background">

@@ -184,7 +184,7 @@ function SortableRouteRow({
         ref={setActivatorNodeRef}
         {...attributes}
         {...listeners}
-        aria-label={`Reorder ${label}, position ${position}`}
+        aria-label={gt("Reorder {label}, position {position}", { label, position })}
         className="flex size-6 shrink-0 cursor-grab touch-none items-center justify-center rounded text-muted-foreground/70 outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring active:cursor-grabbing"
       >
         <GripVerticalIcon className="size-3.5" />

@@ -3168,7 +3168,9 @@ export default function Sidebar({ routeReveal }: { routeReveal: SidebarRouteReve
                                     variant="ghost-muted"
                                     tabIndex={-1}
                                     aria-hidden="true"
-                                    title={`Project settings for ${project.displayName}`}
+                                    title={gt("Project settings for {name}", {
+                                      name: project.displayName,
+                                    })}
                                     onPointerDown={(event) => event.stopPropagation()}
                                     onClick={(event) => {
                                       void handleProjectSettings(event, project);

@@ -494,7 +494,10 @@ export function UsagePriceOverrides({
                                     <Input
                                       size="compact"
                                       inputMode="decimal"
-                                      aria-label={`${field.label} price for ${row.model || "new model"}`}
+                                      aria-label={gt("{label} price for {model}", {
+                                        label: field.label,
+                                        model: row.model || "new model",
+                                      })}
                                       value={value}
                                       placeholder={
                                         row.isNew
