@@ -2890,5 +2890,395 @@
   "ffc4349140138783": "T3 Code 将重启本地后端，并且不再使用 Tailscale Serve。",
   "ffd49822d34cbd30": "允许维护者编辑",
   "ffe1f2305d0a274d": "正在加载文件…",
-  "ffedb03b620f97a9": "未发送的草稿"
+  "ffedb03b620f97a9": "未发送的草稿",
+  "10e7eda01c119acc": {
+    "dataFormat": "ICU",
+    "source": "Path copied",
+    "translation": "路径已复制"
+  },
+  "890241f6fe076db8": {
+    "dataFormat": "ICU",
+    "source": "Failed to copy path",
+    "translation": "复制路径失败"
+  },
+  "e54d23792ff6e3d7": {
+    "dataFormat": "ICU",
+    "source": "Branch copied",
+    "translation": "已复制分支"
+  },
+  "ac47f86df1c31a4a": {
+    "dataFormat": "ICU",
+    "source": "Failed to copy branch",
+    "translation": "复制分支失败"
+  },
+  "0721a0b5c3e1a329": {
+    "dataFormat": "ICU",
+    "source": "Thread ID copied",
+    "translation": "已复制会话 ID"
+  },
+  "4e6305459e784fea": {
+    "dataFormat": "ICU",
+    "source": "Failed to copy thread ID",
+    "translation": "复制会话 ID 失败"
+  },
+  "5a79b7c910831c76": {
+    "dataFormat": "ICU",
+    "source": "Thread title cannot be empty",
+    "translation": "会话标题不能为空"
+  },
+  "5c14b37b13312503": {
+    "dataFormat": "ICU",
+    "source": "Failed to rename thread",
+    "translation": "重命名会话失败"
+  },
+  "fc97f746bdabe59f": {
+    "dataFormat": "ICU",
+    "source": "Failed to settle thread",
+    "translation": "收起会话失败"
+  },
+  "eaf2e877bdb844c0": {
+    "dataFormat": "ICU",
+    "source": "Failed to un-settle thread",
+    "translation": "取消收起会话失败"
+  },
+  "6f09f810d979df20": {
+    "dataFormat": "ICU",
+    "source": "Failed to wake thread",
+    "translation": "唤醒会话失败"
+  },
+  "e26ae432b56a2577": {
+    "dataFormat": "ICU",
+    "source": "Failed to pin thread",
+    "translation": "置顶会话失败"
+  },
+  "b08fe4c9d5c1ef5f": {
+    "dataFormat": "ICU",
+    "source": "Failed to unpin thread",
+    "translation": "取消置顶会话失败"
+  },
+  "195a5029df504a1e": {
+    "dataFormat": "ICU",
+    "source": "Failed to snooze thread",
+    "translation": "设置会话稍后提醒失败"
+  },
+  "2528011846908083": {
+    "dataFormat": "ICU",
+    "source": "Failed to delete threads",
+    "translation": "删除会话失败"
+  },
+  "55d6dea5414babc3": {
+    "dataFormat": "ICU",
+    "source": "Could not create thread",
+    "translation": "无法创建会话"
+  },
+  "ad170edd1d29d3f0": {
+    "dataFormat": "ICU",
+    "source": "Project created",
+    "translation": "项目已创建"
+  },
+  "722b23aee8640b09": {
+    "dataFormat": "ICU",
+    "source": "Could not turn thread into a project",
+    "translation": "无法将会话转换为项目"
+  },
+  "c9fdafde8e1fd711": {
+    "dataFormat": "ICU",
+    "source": "Failed to update auto-settle",
+    "translation": "更新自动收起设置失败"
+  },
+  "9cf56ac40f1133c0": {
+    "dataFormat": "ICU",
+    "source": "Path unavailable",
+    "translation": "路径不可用"
+  },
+  "0fd1c746a0e38003": {
+    "dataFormat": "ICU",
+    "source": "Failed to delete thread",
+    "translation": "删除会话失败"
+  },
+  "cfc4f3582964bf84": {
+    "dataFormat": "ICU",
+    "source": "Still compressing a pasted image.",
+    "translation": "仍在压缩粘贴的图片。"
+  },
+  "4bc6e68c58cbb173": {
+    "dataFormat": "ICU",
+    "source": "Still bringing attached context into this message.",
+    "translation": "仍在把附加的上下文放入这条消息。"
+  },
+  "3e5d938882e3ed35": {
+    "dataFormat": "ICU",
+    "source": "Unable to add folder",
+    "translation": "无法添加文件夹"
+  },
+  "46e6f74332612245": {
+    "dataFormat": "ICU",
+    "source": "Folders can only be referenced on a server running on this computer",
+    "translation": "只有在这台电脑上运行的服务器才能引用文件夹。"
+  },
+  "7841f029ad83593d": {
+    "dataFormat": "ICU",
+    "source": "Unable to add to chat",
+    "translation": "无法添加到聊天"
+  },
+  "5872be514a0e59b6": {
+    "dataFormat": "ICU",
+    "source": "Unable to read the dropped thread",
+    "translation": "无法读取拖入的会话"
+  },
+  "6b45252b76f5ca2e": {
+    "dataFormat": "ICU",
+    "source": "Unable to add thread",
+    "translation": "无法添加会话"
+  },
+  "28bb7ce40dfd349a": {
+    "dataFormat": "ICU",
+    "source": "Terminal output can't be added to a question answer.",
+    "translation": "终端输出不能添加到问题的回答里。"
+  },
+  "801cb8edea94b8f6": {
+    "dataFormat": "ICU",
+    "source": "Answer or dismiss the question first, then add it to chat.",
+    "translation": "先回答或关闭这个问题，再把它添加到对话。"
+  },
+  "5b860292a027036f": {
+    "dataFormat": "JSX",
+    "source": "Allowed",
+    "translation": "已允许"
+  },
+  "c23c1f8ee3808edb": {
+    "dataFormat": "JSX",
+    "source": "Allow",
+    "translation": "允许"
+  },
+  "e7c78c337f470f5a": {
+    "dataFormat": "ICU",
+    "source": "Unable to open browser",
+    "translation": "无法打开浏览器"
+  },
+  "47c47bbab985e718": {
+    "dataFormat": "ICU",
+    "source": "Could not open this address",
+    "translation": "无法打开这个地址"
+  },
+  "f5617f202bc0367f": {
+    "dataFormat": "ICU",
+    "source": "Unable to change the browser tab",
+    "translation": "无法更改浏览器标签页"
+  },
+  "3f30c50739e120e9": {
+    "dataFormat": "ICU",
+    "source": "Find on page isn't available for this page",
+    "translation": "这个页面不能在页面内查找"
+  },
+  "4bfd0547f8b625bf": {
+    "dataFormat": "ICU",
+    "source": "Unable to move the browser tab",
+    "translation": "无法移动浏览器标签页"
+  },
+  "a3aa54c6c5bd04e0": {
+    "dataFormat": "ICU",
+    "source": "Unable to update popped-out preview",
+    "translation": "无法更新弹出的预览"
+  },
+  "7588b19c1e03be40": {
+    "dataFormat": "ICU",
+    "source": "Unable to copy recording path",
+    "translation": "无法复制录制文件路径"
+  },
+  "f1307c250974b2ba": {
+    "dataFormat": "ICU",
+    "source": "Recording saved",
+    "translation": "录制已保存"
+  },
+  "7dfffc5a635f6c7f": {
+    "dataFormat": "ICU",
+    "source": "Unable to stop recording",
+    "translation": "无法停止录制"
+  },
+  "849af2fa824fea55": {
+    "dataFormat": "ICU",
+    "source": "Unable to start recording",
+    "translation": "无法开始录制"
+  },
+  "a271b4b0bc0bba8e": {
+    "dataFormat": "ICU",
+    "source": "Screenshot saved",
+    "translation": "截图已保存"
+  },
+  "d96a16d699f1a6df": {
+    "dataFormat": "ICU",
+    "source": "Unable to capture screenshot",
+    "translation": "无法截取屏幕截图"
+  },
+  "b18dda39d9585f3e": {
+    "dataFormat": "ICU",
+    "source": "Could not capture the picked element",
+    "translation": "无法截取所选元素"
+  },
+  "96ef3535e6352a4a": {
+    "dataFormat": "ICU",
+    "source": "Branch deleted",
+    "translation": "分支已删除"
+  },
+  "5cbb340581a8d515": {
+    "dataFormat": "ICU",
+    "source": "Could not post the comment",
+    "translation": "无法发布评论"
+  },
+  "e8f045adbbaf328e": {
+    "dataFormat": "ICU",
+    "source": "Added to the composer",
+    "translation": "已添加到输入框"
+  },
+  "0148bc0d85adc872": {
+    "dataFormat": "ICU",
+    "source": "Could not open a thread",
+    "translation": "无法打开会话"
+  },
+  "702cfd0c7fc3da87": {
+    "dataFormat": "ICU",
+    "source": "Asked in a thread",
+    "translation": "已在会话中提问"
+  },
+  "f5fd3733da6e3556": {
+    "dataFormat": "ICU",
+    "source": "Could not open a thread for the checkout",
+    "translation": "无法为检出打开会话"
+  },
+  "853a77d42f86c918": {
+    "dataFormat": "ICU",
+    "source": "Checked out, but the thread stayed where it was",
+    "translation": "已检出，但会话仍在原位置"
+  },
+  "6af44ad0dda1af38": {
+    "dataFormat": "ICU",
+    "source": "Checkout ready",
+    "translation": "检出已就绪"
+  },
+  "a3f747337cd6b976": {
+    "dataFormat": "ICU",
+    "source": "Install the extension",
+    "translation": "安装扩展"
+  },
+  "a64fb25a0dca8b9e": {
+    "dataFormat": "ICU",
+    "source": "Extension installed",
+    "translation": "扩展已安装"
+  },
+  "6224c735e72641ce": {
+    "dataFormat": "ICU",
+    "source": "Update the extension",
+    "translation": "更新扩展"
+  },
+  "68dc148ee629e72c": {
+    "dataFormat": "ICU",
+    "source": "Allow GNOME extensions",
+    "translation": "允许 GNOME 扩展"
+  },
+  "8e2a1daf5ae4e253": {
+    "dataFormat": "ICU",
+    "source": "Enable the extension",
+    "translation": "启用扩展"
+  },
+  "c650f0ca645ce2fd": {
+    "dataFormat": "ICU",
+    "source": "Capture is ready",
+    "translation": "捕获已就绪"
+  },
+  "1deaba200c76a0f5": {
+    "dataFormat": "ICU",
+    "source": "Automatic capture isn't available",
+    "translation": "无法自动捕获"
+  },
+  "c7151ea6cfcea431": {
+    "dataFormat": "ICU",
+    "source": "Couldn't set up the extension",
+    "translation": "无法设置扩展"
+  },
+  "c8cce66adf416be2": {
+    "dataFormat": "ICU",
+    "source": "Let's try that again",
+    "translation": "我们再试一次"
+  },
+  "3317366cc6a44aab": {
+    "dataFormat": "ICU",
+    "source": "Check capture access",
+    "translation": "检查捕获权限"
+  },
+  "d409712e53d30dad": {
+    "dataFormat": "ICU",
+    "source": "Let's fix capture access",
+    "translation": "我们来修复捕获权限"
+  },
+  "99f4c9b7ff5452c5": {
+    "dataFormat": "ICU",
+    "source": "Update the capture helper",
+    "translation": "更新捕获辅助程序"
+  },
+  "fad42c95421b9215": {
+    "dataFormat": "ICU",
+    "source": "Allow snapshots",
+    "translation": "允许快照"
+  },
+  "5c6afb84c90d6b73": {
+    "dataFormat": "ICU",
+    "source": "Choose a window each time",
+    "translation": "每次选择窗口"
+  },
+  "e817b0aa6b6898e7": {
+    "dataFormat": "ICU",
+    "source": "Your desktop may ask for permission when you first capture.",
+    "translation": "你的桌面可能会在首次捕获时请求权限。"
+  },
+  "a3d05d98ed0cd5a4": {
+    "dataFormat": "ICU",
+    "source": "Allow each permission, then continue.",
+    "translation": "依次允许每项权限，然后继续。"
+  },
+  "9e678fc4a38c5e55": {
+    "dataFormat": "ICU",
+    "source": "Allow access when prompted to start capturing windows.",
+    "translation": "出现提示时请允许访问，以开始捕获窗口。"
+  },
+  "a5a9ebd48c818edd": {
+    "dataFormat": "ICU",
+    "source": "Choose your shortcut",
+    "translation": "选择你的快捷键"
+  },
+  "06876b4a29c38f16": {
+    "dataFormat": "ICU",
+    "source": "Click the shortcut, then press the keys you want.",
+    "translation": "点击快捷键，然后按下你想要的按键。"
+  },
+  "28d9893fae086b73": {
+    "dataFormat": "ICU",
+    "source": "Choose your keys, then approve the permission prompt if asked.",
+    "translation": "选择按键，如果出现权限提示请批准。"
+  },
+  "f0d425b07fcbc3ea": {
+    "dataFormat": "ICU",
+    "source": "Use both Shift keys, or record a different shortcut.",
+    "translation": "使用左右两个 Shift 键，或录制其他快捷键。"
+  },
+  "d540b70f53f1d607": {
+    "dataFormat": "ICU",
+    "source": "Set up snapshots for {desktop}",
+    "translation": "为 {desktop} 设置快照"
+  },
+  "64581b55ed1d7bd0": {
+    "dataFormat": "ICU",
+    "source": "Set up snapshots",
+    "translation": "设置快照"
+  },
+  "c07fc2cd79fb94c4": {
+    "dataFormat": "ICU",
+    "source": "Screen Recording",
+    "translation": "屏幕录制"
+  },
+  "1a728506f5a719a7": {
+    "dataFormat": "ICU",
+    "source": "Loading thread context…",
+    "translation": "正在加载会话上下文…"
+  }
 }

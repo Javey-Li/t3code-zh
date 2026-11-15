@@ -1,4 +1,4 @@
-import { T, msg } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import { PermissionChecklist, PermissionContinueButton } from "../permissions/PermissionChecklist";
 import { usePermissionStatus } from "../permissions/usePermissionStatus";
 import {
@@ -29,37 +29,37 @@ const SETUP_STEPS = [
 
 const GNOME_ACCESS_COPY = {
   "not-installed": {
-    title: "Install the extension",
+    title: msg("Install the extension"),
     description: msg(
       "The T3 Code GNOME extension lets you capture other windows and bring them into your draft. Sign out once after installing.",
     ),
   },
   "restart-required": {
-    title: "Extension installed",
+    title: msg("Extension installed"),
     description: msg("Save your work, then sign out and back in. Your setup will be waiting here."),
   },
   "update-required": {
-    title: "Update the extension",
+    title: msg("Update the extension"),
     description: msg("Install the update, then sign out and back in."),
   },
   "extensions-disabled": {
-    title: "Allow GNOME extensions",
+    title: msg("Allow GNOME extensions"),
     description: msg("Open GNOME Extensions and turn on extensions, then check again."),
   },
   disabled: {
-    title: "Enable the extension",
+    title: msg("Enable the extension"),
     description: msg("Enable T3 Code SnapShots to start capturing windows."),
   },
   enabled: {
-    title: "Capture is ready",
+    title: msg("Capture is ready"),
     description: msg("Next, choose your shortcut."),
   },
   unsupported: {
-    title: "Automatic capture isn't available",
+    title: msg("Automatic capture isn't available"),
     description: msg("Use Take snapshot from the command palette to choose a window."),
   },
   error: {
-    title: "Couldn't set up the extension",
+    title: msg("Couldn't set up the extension"),
     description: msg("Check T3 Code SnapShots in GNOME Extensions, then try again."),
   },
 };
@@ -99,6 +99,8 @@ export function SnapShotSetupDialog({
   onClose: (completed: boolean) => Promise<void>;
   onLeaveStep: () => void;
 }) {
+  const m = useMessages();
+  const gt = useGT();
   const [step, setStep] = useState(() => captureSetupInitialStep(state, initialStep));
   const [checking, setChecking] = useState(false);
   const [checked, setChecked] = useState(false);
@@ -146,68 +148,70 @@ export function SnapShotSetupDialog({
   const accessCopy =
     state.message && !macPermissions
       ? {
-          title: "Let's try that again",
+          title: msg("Let's try that again"),
           description: msg("Couldn't check snapshots. Try again to continue."),
         }
       : backend === "gnome" && extension
         ? extension.status === "enabled" && !accessReady
           ? {
-              title: "Check capture access",
+              title: msg("Check capture access"),
               description: msg("The extension isn't ready yet. Try again in a moment."),
             }
           : GNOME_ACCESS_COPY[extension.status]
         : helperBackend
           ? helper?.status === "ready"
             ? {
-                title: "Capture is ready",
+                title: msg("Capture is ready"),
                 description: msg("Next, choose your shortcut."),
               }
             : helper?.status === "error"
               ? {
-                  title: "Let's fix capture access",
+                  title: msg("Let's fix capture access"),
                   description: msg("Try reinstalling the capture helper, then check again."),
                 }
               : {
                   title:
                     helper?.status === "update-required"
-                      ? "Update the capture helper"
-                      : "Allow snapshots",
+                      ? msg("Update the capture helper")
+                      : msg("Allow snapshots"),
                   description: msg(
                     "T3 Code's capture helper lets you capture other apps and return to your draft. It's included with T3 Code.",
                   ),
                 }
           : backend === "niri"
             ? {
-                title: "Capture is ready",
+                title: msg("Capture is ready"),
                 description: msg("Next, choose your shortcut."),
               }
             : backend === "picker"
               ? {
-                  title: "Choose a window each time",
+                  title: msg("Choose a window each time"),
                   description: msg(
                     "Your desktop doesn't support automatic capture. You'll choose the window to capture instead.",
                   ),
                 }
               : {
-                  title: "Allow snapshots",
+                  title: msg("Allow snapshots"),
                   description:
                     backend === "portal"
-                      ? "Your desktop may ask for permission when you first capture."
+                      ? msg("Your desktop may ask for permission when you first capture.")
                       : macPermissions
                         ? macPermissionsReady
-                          ? "Test a snapshot of the current window. If macOS asks to bypass its window picker, choose Allow. The test image is discarded."
-                          : "Allow each permission, then continue."
-                        : "Allow access when prompted to start capturing windows.",
+                          ? msg(
+                              "Test a snapshot of the current window. If macOS asks to bypass its window picker, choose Allow. The test image is discarded.",
+                            )
+                          : msg("Allow each permission, then continue.")
+                        : msg("Allow access when prompted to start capturing windows."),
                 };
-  const title = step === "access" ? accessCopy.title : "Choose your shortcut";
+  const title = step === "access" ? accessCopy.title : msg("Choose your shortcut");
   const description =
     step === "access"
       ? accessCopy.description
       : configShortcut
-        ? "Click the shortcut, then press the keys you want."
+        ? msg("Click the shortcut, then press the keys you want.")
         : state.mode === "portal"
-          ? "Choose your keys, then approve the permission prompt if asked."
-          : "Use both Shift keys, or record a different shortcut.";
+          ? msg("Choose your keys, then approve the permission prompt if asked.")
+          : msg("Use both Shift keys, or record a different shortcut.");
   const stepIndex = SETUP_STEPS.findIndex(({ id }) => id === step);
   const details = [
     ...new Set(
@@ -235,9 +239,13 @@ export function SnapShotSetupDialog({
       }}
     >
       <WizardPopup showCloseButton={!busy}>
-        <WizardHeader title={desktop ? `Set up snapshots for ${desktop}` : "Set up snapshots"}>
+        <WizardHeader
+          title={
+            desktop ? gt("Set up snapshots for {desktop}", { desktop }) : gt("Set up snapshots")
+          }
+        >
           <WizardSteps
-            steps={SETUP_STEPS.map((item) => item.label)}
+            steps={SETUP_STEPS.map((item) => m(item.label))}
             currentStep={stepIndex}
             isStepDisabled={(index) => busy || index > stepIndex}
             onStepChange={(index) => {
@@ -249,8 +257,8 @@ export function SnapShotSetupDialog({
         <WizardPanel>
           <div className="space-y-4 text-sm">
             <div className="space-y-2" aria-live="polite">
-              <h3 className="flex items-center gap-2 font-medium">{title}</h3>
-              <DialogDescription>{description}</DialogDescription>
+              <h3 className="flex items-center gap-2 font-medium">{m(title)}</h3>
+              <DialogDescription>{m(description)}</DialogDescription>
             </div>
             {step === "access" ? (
               <>
@@ -270,7 +278,7 @@ export function SnapShotSetupDialog({
                       {
                         id: "screenRecording",
                         icon: <MacScreenRecordingIcon className="size-8 shrink-0 drop-shadow-sm" />,
-                        title: "Screen Recording",
+                        title: msg("Screen Recording"),
                         description: msg("Capture the window you're using."),
                         granted: macPermissions.screenRecording,
                         onAllow: () => void onAction("allow-screen-recording"),
