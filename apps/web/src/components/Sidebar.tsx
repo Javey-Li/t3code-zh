@@ -1,6 +1,10 @@
 import { T, msg, useGT, useMessages } from "gt-react";
 import { attachSidebarTree } from "../lib/sidebarTree";
-import { type EnvironmentId, type ScopedProjectRef } from "@t3tools/contracts";
+import {
+  type ContextMenuItem,
+  type EnvironmentId,
+  type ScopedProjectRef,
+} from "@t3tools/contracts";
 import type { EnvironmentServerConfig } from "@t3tools/client-runtime/connection";
 import {
   dropThreadContext,
@@ -900,6 +904,19 @@ function readRouteThreadKey(router: AnyRouter): string | null {
   return ref === null ? null : scopedThreadKey(ref);
 }
 
+function translateContextMenuItem<T extends string>(
+  item: ContextMenuItem<T>,
+  translate: (label: string) => string,
+): ContextMenuItem<T> {
+  return {
+    ...item,
+    label: translate(item.label),
+    ...(item.children
+      ? { children: item.children.map((child) => translateContextMenuItem(child, translate)) }
+      : {}),
+  };
+}
+
 export default function Sidebar({ routeReveal }: { routeReveal: SidebarRouteReveal }) {
   const m = useMessages();
   const gt = useGT();
@@ -1284,16 +1301,16 @@ export default function Sidebar({ routeReveal }: { routeReveal: SidebarRouteReve
         const clicked = await settlePromise(() =>
           api.contextMenu.show(
             [
-              { id: "new-thread", label: msg("New thread") },
-              { id: "copy-path", label: msg("Copy path") },
+              { id: "new-thread", label: m(msg("New thread")) },
+              { id: "copy-path", label: m(msg("Copy path")) },
               ...(canPinProject(group)
                 ? [
                     group.pinned
-                      ? { id: "unpin", label: msg("Unpin project"), icon: "pin-off" }
-                      : { id: "pin", label: msg("Pin project"), icon: "pin" },
+                      ? { id: "unpin", label: m(msg("Unpin project")), icon: "pin-off" }
+                      : { id: "pin", label: m(msg("Pin project")), icon: "pin" },
                   ]
                 : []),
-              { id: "project-settings", label: msg("Project settings"), icon: "settings" },
+              { id: "project-settings", label: m(msg("Project settings")), icon: "settings" },
             ],
             position,
           ),
@@ -2338,12 +2355,15 @@ export default function Sidebar({ routeReveal }: { routeReveal: SidebarRouteReve
       const titleRegenerationMenuItem = buildBulkTitleRegenerationContextMenuItem({
         supportedCount: titleRegenerationThreads.length,
         actionableCount: regeneratableTitleThreads.length,
+        labelRegenerating: (count) => gt("Regenerating\u2026 ({count})", { count }),
+        labelRegenerate: (count) => gt("Regenerate titles ({count})", { count }),
       });
       const pinnedSelectedThreads = selectedThreads.filter(
         (thread) => serverConfigs.has(thread.environmentId) && thread.pinnedAt != null,
       );
       const unpinMenuItem = buildBulkUnpinContextMenuItem({
         pinnedCount: pinnedSelectedThreads.length,
+        label: (count) => gt("Unpin ({count})", { count }),
       });
       // Presets sync across environments, so the first selected thread's stand for all.
       const menuOpenedAt = new Date();
@@ -2360,14 +2380,14 @@ export default function Sidebar({ routeReveal }: { routeReveal: SidebarRouteReve
               : []),
             {
               id: "settle",
-              label: `Settle (${count})`,
+              label: gt("Settle ({count})", { count }),
               disabled: settlingThreads.length === 0 || !canOperateThreads(settlingThreads),
             },
             ...(canSnoozeSelection
               ? [
                   {
                     id: "snooze",
-                    label: `Snooze (${count})`,
+                    label: gt("Snooze ({count})", { count }),
                     disabled: !canOperateThreads(selectedThreads),
                     children: [
                       ...snoozePresets.map((preset) => ({
@@ -2378,7 +2398,7 @@ export default function Sidebar({ routeReveal }: { routeReveal: SidebarRouteReve
                       })),
                       {
                         id: "snooze:custom",
-                        label: msg("Custom…"),
+                        label: m(msg("Custom…")),
                         separatorBefore: snoozePresets.length > 0,
                         disabled: !canOperateThreads(selectedThreads),
                       },
@@ -2396,10 +2416,10 @@ export default function Sidebar({ routeReveal }: { routeReveal: SidebarRouteReve
                   },
                 ]
               : []),
-            { id: "mark-unread", label: `Mark unread (${count})` },
+            { id: "mark-unread", label: gt("Mark unread ({count})", { count }) },
             {
               id: "delete",
-              label: `Delete (${count})`,
+              label: gt("Delete ({count})", { count }),
               destructive: true,
               disabled: !canOperateThreads(selectedThreads),
             },
@@ -2578,7 +2598,7 @@ export default function Sidebar({ routeReveal }: { routeReveal: SidebarRouteReve
               hasPath: Boolean(workspacePath),
               hasBranch: Boolean(session.branch),
               hasProject: projectGroup != null,
-            }),
+            }).map((item) => translateContextMenuItem(item, m)),
             position,
           ),
         );
@@ -2649,6 +2669,8 @@ export default function Sidebar({ routeReveal }: { routeReveal: SidebarRouteReve
         const clicked = await settlePromise(() =>
           api.contextMenu.show(
             buildThreadActionMenuItems({
+              labelNewThreadOnBranch: (branch) => gt("New thread on {branch}", { branch }),
+              labelFilterByProject: (project) => gt("Filter by {project}", { project }),
               canOperate: readEnvironmentScope(
                 threadRef.environmentId,
                 AuthOrchestrationOperateScope,
@@ -2681,7 +2703,7 @@ export default function Sidebar({ routeReveal }: { routeReveal: SidebarRouteReve
                 titleRegeneration: configLoaded,
               },
               snoozePresets,
-            }),
+            }).map((item) => translateContextMenuItem(item, m)),
             position,
           ),
         );

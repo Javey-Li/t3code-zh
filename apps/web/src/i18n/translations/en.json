@@ -1043,7 +1043,11 @@
   "5adbfd44f824ee4e": "Reach this machine via",
   "5aea5a9ed41a1959": "Add a project, then capture the window again.",
   "5aef5d56a7fbb46d": "CPU Time",
-  "5b0d7be35b711cff": "Custom…",
+  "5b0d7be35b711cff": {
+    "dataFormat": "ICU",
+    "source": "Custom…",
+    "translation": "Custom…"
+  },
   "5b2152f9b4c82ea6": "Previous question",
   "5b2287f7b10cfa2f": "Offline",
   "5b408d7cfb469147": "{label} token",
@@ -3280,5 +3284,470 @@
     "dataFormat": "ICU",
     "source": "Loading thread context…",
     "translation": "Loading thread context…"
+  },
+  "6fc712c4f5a55ee2": {
+    "dataFormat": "ICU",
+    "source": "Could not snooze thread",
+    "translation": "Could not snooze thread"
+  },
+  "b2332fb96c0a55fb": {
+    "dataFormat": "ICU",
+    "source": "That snooze time has passed. Choose another time.",
+    "translation": "That snooze time has passed. Choose another time."
+  },
+  "e7a50ab49cdfd076": {
+    "dataFormat": "ICU",
+    "source": "Regenerating… ({count})",
+    "translation": "Regenerating… ({count})"
+  },
+  "6523a0ca24b57fde": {
+    "dataFormat": "ICU",
+    "source": "Regenerate titles ({count})",
+    "translation": "Regenerate titles ({count})"
+  },
+  "96adc8bf3106015d": {
+    "dataFormat": "ICU",
+    "source": "Unpin ({count})",
+    "translation": "Unpin ({count})"
+  },
+  "8af746628aa06e30": {
+    "dataFormat": "ICU",
+    "source": "Settle ({count})",
+    "translation": "Settle ({count})"
+  },
+  "c12debf08e59743e": {
+    "dataFormat": "ICU",
+    "source": "Snooze ({count})",
+    "translation": "Snooze ({count})"
+  },
+  "28763a5059843c9e": {
+    "dataFormat": "ICU",
+    "source": "Mark unread ({count})",
+    "translation": "Mark unread ({count})"
+  },
+  "2fe0da9dd046d7e4": {
+    "dataFormat": "ICU",
+    "source": "Delete ({count})",
+    "translation": "Delete ({count})"
+  },
+  "182ddc0acf67e55e": {
+    "dataFormat": "ICU",
+    "source": "New thread on {branch}",
+    "translation": "New thread on {branch}"
+  },
+  "666f3ac177c116b6": {
+    "dataFormat": "ICU",
+    "source": "Filter by {project}",
+    "translation": "Filter by {project}"
+  },
+  "6cb3c5e8506f5c33": {
+    "dataFormat": "ICU",
+    "source": "Environment and worktree",
+    "translation": "Environment and worktree"
+  },
+  "40ba99d405583425": {
+    "dataFormat": "ICU",
+    "source": "Branch and pull request",
+    "translation": "Branch and pull request"
+  },
+  "dc28386e0a961d4d": {
+    "dataFormat": "ICU",
+    "source": "Side chats",
+    "translation": "Side chats"
+  },
+  "911a6569f6186971": {
+    "dataFormat": "ICU",
+    "source": "Annotation attached to draft",
+    "translation": "Annotation attached to draft"
+  },
+  "c7f1a1feb620ef35": {
+    "dataFormat": "ICU",
+    "source": "Sending is unavailable right now. Finish the current action, then send.",
+    "translation": "Sending is unavailable right now. Finish the current action, then send."
+  },
+  "ec460eacd0e94528": {
+    "dataFormat": "ICU",
+    "source": "Still sending your previous message.",
+    "translation": "Still sending your previous message."
+  },
+  "4b28cffa64ecad9c": {
+    "dataFormat": "ICU",
+    "source": "Send again once it goes through or fails.",
+    "translation": "Send again once it goes through or fails."
+  },
+  "6d00220bfee72afd": {
+    "dataFormat": "ICU",
+    "source": "Not connected: message not sent",
+    "translation": "Not connected: message not sent"
+  },
+  "f62c43120e8c60e7": {
+    "dataFormat": "ICU",
+    "source": "Reconnecting to the environment. Try again once it is connected.",
+    "translation": "Reconnecting to the environment. Try again once it is connected."
+  },
+  "74e7e5c0536cda02": {
+    "dataFormat": "ICU",
+    "source": "Side chat not started",
+    "translation": "Side chat not started"
+  },
+  "be6231ac5b08f35e": {
+    "dataFormat": "ICU",
+    "source": "Side chats take text only",
+    "translation": "Side chats take text only"
+  },
+  "faf9ee0a28119e10": {
+    "dataFormat": "ICU",
+    "source": "Remove the attachments and context, then send it again.",
+    "translation": "Remove the attachments and context, then send it again."
+  },
+  "736caccf2954a7f5": {
+    "dataFormat": "ICU",
+    "source": "Choose models and a base branch",
+    "translation": "Choose models and a base branch"
+  },
+  "87d59d5dbb3eaf83": {
+    "dataFormat": "ICU",
+    "source": "Attached thread is on another machine",
+    "translation": "Attached thread is on another machine"
+  },
+  "170ab9bcffd26887": {
+    "dataFormat": "ICU",
+    "source": "Start a Codex thread first",
+    "translation": "Start a Codex thread first"
+  },
+  "c9852e2500018a3c": {
+    "dataFormat": "ICU",
+    "source": "Send a message before you submit feedback.",
+    "translation": "Send a message before you submit feedback."
+  },
+  "837c3082352db701": {
+    "dataFormat": "ICU",
+    "source": "Choose a project first",
+    "translation": "Choose a project first"
+  },
+  "afd7fcc36ec8ad4c": {
+    "dataFormat": "ICU",
+    "source": "This draft no longer points to an available project.",
+    "translation": "This draft no longer points to an available project."
+  },
+  "02934daf8913625f": {
+    "dataFormat": "ICU",
+    "source": "Send again when it's ready.",
+    "translation": "Send again when it's ready."
+  },
+  "5cfc9eaa3322ecfa": {
+    "dataFormat": "ICU",
+    "source": "Could not open a fresh composer",
+    "translation": "Could not open a fresh composer"
+  },
+  "e420bda4ea45e916": {
+    "dataFormat": "ICU",
+    "source": "Started in background",
+    "translation": "Started in background"
+  },
+  "8ba77560c80560c6": {
+    "dataFormat": "ICU",
+    "source": "Your new draft was kept. Copy the failed message to send it again.",
+    "translation": "Your new draft was kept. Copy the failed message to send it again."
+  },
+  "93e1adec217df51c": {
+    "dataFormat": "ICU",
+    "source": "Stashed files belong to another environment",
+    "translation": "Stashed files belong to another environment"
+  },
+  "76397941c373a853": {
+    "dataFormat": "ICU",
+    "source": "Restore this prompt in the environment that received its files.",
+    "translation": "Restore this prompt in the environment that received its files."
+  },
+  "8c8ed1f4569eb83a": {
+    "dataFormat": "ICU",
+    "source": "Restored prompt may reappear in the stash",
+    "translation": "Restored prompt may reappear in the stash"
+  },
+  "1e3ede33afee71ba": {
+    "dataFormat": "ICU",
+    "source": "Some attachments were not restored",
+    "translation": "Some attachments were not restored"
+  },
+  "98c76143d9aae871": {
+    "dataFormat": "ICU",
+    "source": "Stash entry may come back",
+    "translation": "Stash entry may come back"
+  },
+  "fb34cb404c4930dc": {
+    "dataFormat": "ICU",
+    "source": "Stash again once its chip resolves.",
+    "translation": "Stash again once its chip resolves."
+  },
+  "f6b1ef37f7587664": {
+    "dataFormat": "ICU",
+    "source": "Attach dropped files again or remove them before stashing",
+    "translation": "Attach dropped files again or remove them before stashing"
+  },
+  "120167bbfb6d5939": {
+    "dataFormat": "ICU",
+    "source": "Wait for file uploads before stashing this prompt",
+    "translation": "Wait for file uploads before stashing this prompt"
+  },
+  "afdf475db3ca2af7": {
+    "dataFormat": "ICU",
+    "source": "Could not stash this prompt",
+    "translation": "Could not stash this prompt"
+  },
+  "41ba6c0b5c5e8b22": {
+    "dataFormat": "ICU",
+    "source": "Stashed prompt will not survive a reload",
+    "translation": "Stashed prompt will not survive a reload"
+  },
+  "f421c24666cd8c71": {
+    "dataFormat": "ICU",
+    "source": "Oldest stashed prompt discarded",
+    "translation": "Oldest stashed prompt discarded"
+  },
+  "c3a8f9b1b2e7d588": {
+    "dataFormat": "ICU",
+    "source": "Stashed images were not saved",
+    "translation": "Stashed images were not saved"
+  },
+  "9e36559d0fa0cca8": {
+    "dataFormat": "ICU",
+    "source": "Stashed images did not attach",
+    "translation": "Stashed images did not attach"
+  },
+  "a88429af39610df1": {
+    "dataFormat": "ICU",
+    "source": "Reviewing",
+    "translation": "Reviewing"
+  },
+  "e369d7ce5ff36689": {
+    "dataFormat": "ICU",
+    "source": "Authored",
+    "translation": "Authored"
+  },
+  "7ab39987db037952": {
+    "dataFormat": "ICU",
+    "source": "Merge readiness",
+    "translation": "Merge readiness"
+  },
+  "5e5377fbe7ce361c": {
+    "dataFormat": "ICU",
+    "source": "Blocked on me",
+    "translation": "Blocked on me"
+  },
+  "844f6c8d82ecce5d": {
+    "dataFormat": "ICU",
+    "source": "Recently updated",
+    "translation": "Recently updated"
+  },
+  "79b522da0ba8e5c9": {
+    "dataFormat": "ICU",
+    "source": "Newest shown",
+    "translation": "Newest shown"
+  },
+  "fca1f8a8819e4328": {
+    "dataFormat": "ICU",
+    "source": "Oldest shown",
+    "translation": "Oldest shown"
+  },
+  "2daace42ae37b352": {
+    "dataFormat": "ICU",
+    "source": "Largest shown",
+    "translation": "Largest shown"
+  },
+  "971ae070928e8ab1": {
+    "dataFormat": "ICU",
+    "source": "Smallest shown",
+    "translation": "Smallest shown"
+  },
+  "2712861b163ad61a": {
+    "dataFormat": "ICU",
+    "source": "Managed by {name}.",
+    "translation": "Managed by {name}."
+  },
+  "e955c6551fab2adb": {
+    "dataFormat": "ICU",
+    "source": "This connection lacks permission to change settings on {target}.",
+    "translation": "This connection lacks permission to change settings on {target}."
+  },
+  "c4c3c478764d5cbf": {
+    "dataFormat": "ICU",
+    "source": "the selected environment",
+    "translation": "the selected environment"
+  },
+  "a7a2082255873aa6": {
+    "dataFormat": "ICU",
+    "source": "the primary environment",
+    "translation": "the primary environment"
+  },
+  "685224e7178f4db7": {
+    "dataFormat": "ICU",
+    "source": "Reconnect the selected environment to change this setting.",
+    "translation": "Reconnect the selected environment to change this setting."
+  },
+  "cf4b285ffd971f80": {
+    "dataFormat": "ICU",
+    "source": "Environment-wide setting. Select an environment to change it.",
+    "translation": "Environment-wide setting. Select an environment to change it."
+  },
+  "4b7fb18d7c25eb9f": {
+    "dataFormat": "ICU",
+    "source": "Path",
+    "translation": "Path"
+  },
+  "70c699d18aaa4c6c": {
+    "dataFormat": "ICU",
+    "source": "Branch",
+    "translation": "Branch"
+  },
+  "f51626441b9dfc39": {
+    "dataFormat": "ICU",
+    "source": "Pin thread",
+    "translation": "Pin thread"
+  },
+  "0d36d1316d4fc58a": {
+    "dataFormat": "ICU",
+    "source": "Wake thread",
+    "translation": "Wake thread"
+  },
+  "d1259290b8c63577": {
+    "dataFormat": "ICU",
+    "source": "Rename thread",
+    "translation": "Rename thread"
+  },
+  "de30fdae5b3fea98": {
+    "dataFormat": "ICU",
+    "source": "Regenerate title",
+    "translation": "Regenerate title"
+  },
+  "dffd2e20f7ff5aa1": {
+    "dataFormat": "ICU",
+    "source": "Mark unread",
+    "translation": "Mark unread"
+  },
+  "3364346f40934e88": {
+    "dataFormat": "ICU",
+    "source": "Show all projects",
+    "translation": "Show all projects"
+  },
+  "1385e2d8bd696370": {
+    "dataFormat": "ICU",
+    "source": "Turn into project",
+    "translation": "Turn into project"
+  },
+  "fcf482cda9bf739f": {
+    "dataFormat": "ICU",
+    "source": "Auto-settle behavior",
+    "translation": "Auto-settle behavior"
+  },
+  "39eb35d54cacd314": {
+    "dataFormat": "ICU",
+    "source": "Follow settings",
+    "translation": "Follow settings"
+  },
+  "d15f079ebaf277ae": {
+    "dataFormat": "ICU",
+    "source": "Never",
+    "translation": "Never"
+  },
+  "db0b0f5af59690af": {
+    "dataFormat": "ICU",
+    "source": "Thread",
+    "translation": "Thread"
+  },
+  "f053d7461b8ecce5": {
+    "dataFormat": "ICU",
+    "source": "Thread ID",
+    "translation": "Thread ID"
+  },
+  "70399412ec5a7026": {
+    "dataFormat": "ICU",
+    "source": "Archive thread",
+    "translation": "Archive thread"
+  },
+  "8d51135cc55089f9": {
+    "dataFormat": "ICU",
+    "source": "Model preferences not saved",
+    "translation": "Model preferences not saved"
+  },
+  "c7193961d383be05": {
+    "dataFormat": "ICU",
+    "source": "Could not load saved model preferences. Try again.",
+    "translation": "Could not load saved model preferences. Try again."
+  },
+  "c413230012a3ab05": {
+    "dataFormat": "ICU",
+    "source": "Favorites not saved",
+    "translation": "Favorites not saved"
+  },
+  "5dc9ac6d5a1f2424": {
+    "dataFormat": "ICU",
+    "source": "Setting not saved",
+    "translation": "Setting not saved"
+  },
+  "0bed322f6071f4da": {
+    "dataFormat": "ICU",
+    "source": "An error occurred.",
+    "translation": "An error occurred."
+  },
+  "ce5c66ae967fd7c8": {
+    "dataFormat": "ICU",
+    "source": "Thread actions unavailable",
+    "translation": "Thread actions unavailable"
+  },
+  "d4f0043ab9348e2c": {
+    "dataFormat": "ICU",
+    "source": "This thread has not loaded yet.",
+    "translation": "This thread has not loaded yet."
+  },
+  "d07ed4990bbb5323": {
+    "dataFormat": "ICU",
+    "source": "Thread action unavailable",
+    "translation": "Thread action unavailable"
+  },
+  "2d3ad1215c5d8a52": {
+    "dataFormat": "ICU",
+    "source": "This connection cannot change threads.",
+    "translation": "This connection cannot change threads."
+  },
+  "6c13d520b6601f65": {
+    "dataFormat": "ICU",
+    "source": "Archive thread \"{title}\"?",
+    "translation": "Archive thread \"{title}\"?"
+  },
+  "83e50f9b118a7a0a": {
+    "dataFormat": "ICU",
+    "source": "Thread archived, but navigation failed",
+    "translation": "Thread archived, but navigation failed"
+  },
+  "da43691fb8ad8006": {
+    "dataFormat": "ICU",
+    "source": "Failed to archive thread",
+    "translation": "Failed to archive thread"
+  },
+  "2d1c111e1b4ae0b0": {
+    "dataFormat": "ICU",
+    "source": "Delete thread \"{title}\"?",
+    "translation": "Delete thread \"{title}\"?"
+  },
+  "c568ab8dad798ec5": {
+    "dataFormat": "ICU",
+    "source": "This permanently clears conversation history for this thread.",
+    "translation": "This permanently clears conversation history for this thread."
+  },
+  "6dd1f458bcd6a2ea": {
+    "dataFormat": "ICU",
+    "source": "Regenerating…",
+    "translation": "Regenerating…"
+  },
+  "2cb5b3102250d8de": {
+    "dataFormat": "ICU",
+    "source": "Regenerating\\u2026 ({count})",
+    "translation": "Regenerating\\u2026 ({count})"
+  },
+  "276c7fa42a15a542": {
+    "dataFormat": "ICU",
+    "source": "Update older servers to save this setting.",
+    "translation": "Update older servers to save this setting."
   }
 }

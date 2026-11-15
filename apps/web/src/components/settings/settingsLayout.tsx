@@ -342,6 +342,7 @@ export function SettingsRow({
   children?: ReactNode;
 }) {
   const m = useMessages();
+  const gt = useGT();
   const renderedTitle = typeof title === "string" ? m(title) : title;
   const renderedDescription = typeof description === "string" ? m(description) : description;
   const targetRef = useSettingsSearchTarget<HTMLDivElement>(rowProps.id);
@@ -439,24 +440,24 @@ export function SettingsRow({
     managed !== undefined && control
       ? inertControl(managed)
       : managedBy !== undefined && control
-        ? inertControl(`Managed by ${managedBy}.`)
+        ? inertControl(gt("Managed by {name}.", { name: managedBy }))
         : unavailable && control
           ? inertControl(
               !canWriteSettings
-                ? `This connection lacks permission to change settings on ${
-                    context
+                ? gt("This connection lacks permission to change settings on {target}.", {
+                    target: context
                       ? context.connectedEnvironments
-                          .filter((target) => !writableIds.has(target.environmentId))
-                          .map((target) => target.label)
-                          .join(", ") || "the selected environment"
-                      : (primaryEnvironment?.label ?? "the primary environment")
-                  }.`
+                          .filter((item) => !writableIds.has(item.environmentId))
+                          .map((item) => item.label)
+                          .join(", ") || gt("the selected environment")
+                      : (primaryEnvironment?.label ?? gt("the primary environment")),
+                  })
                 : context
-                  ? "Reconnect the selected environment to change this setting."
-                  : PRIMARY_SETTINGS_UNAVAILABLE_MESSAGE,
+                  ? gt("Reconnect the selected environment to change this setting.")
+                  : m(PRIMARY_SETTINGS_UNAVAILABLE_MESSAGE),
             )
           : environmentWide && control
-            ? inertControl("Environment-wide setting. Select an environment to change it.")
+            ? inertControl(gt("Environment-wide setting. Select an environment to change it."))
             : control;
   const customized =
     context !== null &&

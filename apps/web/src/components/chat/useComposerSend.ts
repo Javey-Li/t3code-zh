@@ -1,3 +1,4 @@
+import { useGT } from "gt-react";
 import { isClearComposerCommand, parseSideChatCommand } from "@t3tools/shared/composerTrigger";
 import { armFreshSession, disarmFreshSession, readFreshSessionArm } from "./freshSessionArms";
 import {
@@ -265,6 +266,7 @@ interface ComposerSendInput {
  * when it fails.
  */
 export function useComposerSend(input: ComposerSendInput) {
+  const gt = useGT();
   const {
     environmentId,
     routeThreadKey,
@@ -427,8 +429,10 @@ export function useComposerSend(input: ComposerSendInput) {
       toastManager.add(
         stackedThreadToast({
           type: "info",
-          title: "Annotation attached to draft",
-          description: "Sending is unavailable right now. Finish the current action, then send.",
+          title: gt("Annotation attached to draft"),
+          description: gt(
+            "Sending is unavailable right now. Finish the current action, then send.",
+          ),
         }),
       );
     };
@@ -451,8 +455,8 @@ export function useComposerSend(input: ComposerSendInput) {
         toastManager.add(
           stackedThreadToast({
             type: "info",
-            title: "Still sending your previous message.",
-            description: "Send again once it goes through or fails.",
+            title: gt("Still sending your previous message."),
+            description: gt("Send again once it goes through or fails."),
           }),
         );
       }
@@ -479,8 +483,8 @@ export function useComposerSend(input: ComposerSendInput) {
       toastManager.add({
         ...stackedThreadToast({
           type: "warning",
-          title: "Not connected: message not sent",
-          description: "Reconnecting to the environment. Try again once it is connected.",
+          title: gt("Not connected: message not sent"),
+          description: gt("Reconnecting to the environment. Try again once it is connected."),
         }),
         id: `chat-send-environment-unavailable:${toastSlot}`,
       });
@@ -491,7 +495,7 @@ export function useComposerSend(input: ComposerSendInput) {
       toastManager.add(
         stackedThreadToast({
           type: "warning",
-          title: "Side chat not started",
+          title: gt("Side chat not started"),
           description: sideChatDisabledReason,
         }),
       );
@@ -511,8 +515,8 @@ export function useComposerSend(input: ComposerSendInput) {
         toastManager.add(
           stackedThreadToast({
             type: "warning",
-            title: "Side chats take text only",
-            description: "Remove the attachments and context, then send it again.",
+            title: gt("Side chats take text only"),
+            description: gt("Remove the attachments and context, then send it again."),
           }),
         );
         return;
@@ -567,7 +571,7 @@ export function useComposerSend(input: ComposerSendInput) {
       toastManager.add(
         stackedThreadToast({
           type: "warning",
-          title: "Choose models and a base branch",
+          title: gt("Choose models and a base branch"),
           description:
             "Multiple models need a new thread in a Git project. Each gets its own worktree.",
         }),
@@ -623,7 +627,7 @@ export function useComposerSend(input: ComposerSendInput) {
       toastManager.add(
         stackedThreadToast({
           type: "warning",
-          title: "Attached thread is on another machine",
+          title: gt("Attached thread is on another machine"),
           description: `This machine's agent can't read "${strandedThread.title}". Remove it, or switch back to ${owner} to send.`,
         }),
       );
@@ -679,8 +683,8 @@ export function useComposerSend(input: ComposerSendInput) {
         toastManager.add(
           stackedThreadToast({
             type: "warning",
-            title: "Start a Codex thread first",
-            description: "Send a message before you submit feedback.",
+            title: gt("Start a Codex thread first"),
+            description: gt("Send a message before you submit feedback."),
           }),
         );
         return;
@@ -758,8 +762,8 @@ export function useComposerSend(input: ComposerSendInput) {
       toastManager.add(
         stackedThreadToast({
           type: "warning",
-          title: "Choose a project first",
-          description: "This draft no longer points to an available project.",
+          title: gt("Choose a project first"),
+          description: gt("This draft no longer points to an available project."),
         }),
       );
       return;
@@ -1076,7 +1080,7 @@ export function useComposerSend(input: ComposerSendInput) {
           toastManager.add({
             type: "info",
             title: notice,
-            description: "Send again when it's ready.",
+            description: gt("Send again when it's ready."),
           });
         }
         return;
@@ -1323,7 +1327,7 @@ export function useComposerSend(input: ComposerSendInput) {
           toastManager.add(
             stackedThreadToast({
               type: "warning",
-              title: "Could not open a fresh composer",
+              title: gt("Could not open a fresh composer"),
               description: error instanceof Error ? error.message : undefined,
             }),
           );
@@ -1359,7 +1363,7 @@ export function useComposerSend(input: ComposerSendInput) {
           if (backgroundDraftOpened) {
             toastManager.add({
               type: "success",
-              title: "Started in background",
+              title: gt("Started in background"),
               timeout: 5_000,
               actionProps: {
                 children: "Open",
@@ -1414,7 +1418,7 @@ export function useComposerSend(input: ComposerSendInput) {
               title: isAtomCommandInterrupted(failure)
                 ? "Message may not have been sent"
                 : "Message not sent",
-              description: "Your new draft was kept. Copy the failed message to send it again.",
+              description: gt("Your new draft was kept. Copy the failed message to send it again."),
               // The toast holds the only copy of the failed text, so it stays until dismissed.
               timeout: 0,
               data: { hideCopyButton: true },

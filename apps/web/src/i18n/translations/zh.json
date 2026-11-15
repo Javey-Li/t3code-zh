@@ -131,7 +131,11 @@
   "0b5792b85faa1fe9": "版本",
   "0b5ab0399461fdbd": "使用现有项",
   "0b614aa32a9ea38f": "{count} 个权限范围",
-  "0b75d1fefd7710fe": "取消收起会话",
+  "0b75d1fefd7710fe": {
+    "dataFormat": "ICU",
+    "source": "Un-settle thread",
+    "translation": "取消收起会话"
+  },
   "0b7916462bfe5c18": "更改比较目标。当前为 {ref}",
   "0b924aecde88652f": "文字大小",
   "0ba14e4e920cfa00": "或下载桌面应用",
@@ -158,7 +162,11 @@
   "0d5b3b39f92c04e4": "移除提供商",
   "0d612431666169dd": "检出",
   "0d67a123a8dd869d": "复制诊断信息",
-  "0d8761c57796fb94": "在会话中查找",
+  "0d8761c57796fb94": {
+    "dataFormat": "ICU",
+    "source": "Find in thread",
+    "translation": "在会话中查找"
+  },
   "0dacfa40a5cba9c0": "出错了。",
   "0db294703dcc1a7f": "高亮表面",
   "0dbbfbf72cc3aea4": "移除 Pull Request 已合并、且提交已包含在默认分支中的工作树。",
@@ -262,7 +270,11 @@
   "16c7399e366bb4fa": "回复",
   "16d2a6c525346777": "检出 {ref}？",
   "16dc67f5429d8bae": "后台工作",
-  "16fb3b76d0abbb2e": "上下文窗口",
+  "16fb3b76d0abbb2e": {
+    "dataFormat": "ICU",
+    "source": "Context window",
+    "translation": "上下文窗口"
+  },
   "16ffdd2f02752973": "切换 {label} 详情",
   "170455e28b72bdb0": "在活动会话中保持编辑器上下文可见",
   "1707f09c4660a178": "按仓库分组",
@@ -346,7 +358,11 @@
   "1cd485b25a8d5909": "标准",
   "1d048c131b08af68": "立即运行 {name}",
   "1d0a5964f4ad6dad": "使用 {collection}，{name} 变体",
-  "1d17dc60c59e0524": "取消置顶项目",
+  "1d17dc60c59e0524": {
+    "dataFormat": "ICU",
+    "source": "Unpin project",
+    "translation": "取消置顶项目"
+  },
   "1d1e9cda847bd398": "该中心的管理密钥会从此服务器删除。它的账号将从「限额」视图中消失，中心本身不受影响。用 URL 和密钥重新添加即可恢复。",
   "1d2f547f7a5d9c8a": "仅桌面端",
   "1d33877ef8ea3559": "重试加载 API 密钥",
@@ -460,7 +476,11 @@
   "2494b63226027067": "留空以自动生成",
   "249cfb7532e0b380": "登录方式",
   "24a2a6b8b02892ba": "{title}，查看详情",
-  "24adf508b4c5d6b5": "项目设置",
+  "24adf508b4c5d6b5": {
+    "dataFormat": "ICU",
+    "source": "Project settings",
+    "translation": "项目设置"
+  },
   "24c98c5086b8e76e": "全部不选",
   "24eb8e635fa1cf62": "回收已释放的数据库空间",
   "24eea689f67a94a3": "工作流已开始",
@@ -601,7 +621,11 @@
   "2f77cc3105ddd7f8": "提供商",
   "2f7b5572591cd41e": "清除缓存",
   "2f890e1e55af5ae5": "内存",
-  "2f8f985531c0c748": "已合并",
+  "2f8f985531c0c748": {
+    "dataFormat": "ICU",
+    "source": "Merged",
+    "translation": "已合并"
+  },
   "2f96360836544ae6": "用量周期",
   "2f96ca67420e3662": "搜索 ACP 注册表",
   "2fa87a620c5db1e0": "关联 Pull Request",
@@ -767,7 +791,11 @@
   "3f01a81eaf73280c": "移除检出 {path}",
   "3f041c62f192d517": "更正提示词",
   "3f0b0768119d4f11": "审查指南指令",
-  "3f0d3c192663b1fe": "丢弃草稿",
+  "3f0d3c192663b1fe": {
+    "dataFormat": "ICU",
+    "source": "Discard draft",
+    "translation": "丢弃草稿"
+  },
   "3f383e72dcd7d5a8": "红与绿（默认）",
   "3f400d1470c76ff8": "按下快捷键",
   "3f581e98c86df72a": "不使用项目新建会话",
@@ -855,7 +883,11 @@
   "47af83539d47157b": "删除活动或已归档会话时移除未使用的工作树。存在本地更改的工作树会保留。",
   "47bae54b5f532ff3": "上一个媒体",
   "47d3ba1a39016131": "访问权限授予",
-  "47d5db2958bd01c9": "取消置顶会话",
+  "47d5db2958bd01c9": {
+    "dataFormat": "ICU",
+    "source": "Unpin thread",
+    "translation": "取消置顶会话"
+  },
   "47f1726bf106d2c8": "编辑排队消息",
   "480646ceb98c7163": "关闭",
   "4807b397d91d19a8": "正在打开链接...",
@@ -919,7 +951,11 @@
   "4d4af8e90edf6d3d": "浏览器录制帧率",
   "4d5e1036410e2a18": "编辑 {command} 的快捷键：{shortcut}",
   "4d8e89a3fb2d89e5": "分支命名指令",
-  "4d9a7f5bf6e64c38": "复制",
+  "4d9a7f5bf6e64c38": {
+    "dataFormat": "ICU",
+    "source": "Copy",
+    "translation": "复制"
+  },
   "4df7e2ef5ba0996e": "按状态筛选",
   "4e3d361728cb9b37": "只读",
   "4e518c48e00f45a9": "与时间进度一致",
@@ -944,7 +980,11 @@
   "50c877d9fa8db3ec": "复制登录链接",
   "50ee53f6920ebe57": "预览受限。请保存或在其他应用中打开以阅读完整文档。",
   "50fdb607048e425a": "正在等待托管平台状态",
-  "511aca627fadc47d": "Git 操作",
+  "511aca627fadc47d": {
+    "dataFormat": "ICU",
+    "source": "Git actions",
+    "translation": "Git 操作"
+  },
   "512f8a349811f09b": "添加主题",
   "51475abff036b3e4": "选项标签",
   "51497bd401292062": "长按",
@@ -995,7 +1035,11 @@
   "559c94e83ecc754a": "清除智能体令牌",
   "55b936e3014e16c8": "打开差异",
   "55c59743f7fdd7fa": "粘贴一次性令牌或配对密钥",
-  "56198134d0174861": "收起会话",
+  "56198134d0174861": {
+    "dataFormat": "ICU",
+    "source": "Settle thread",
+    "translation": "收起会话"
+  },
   "561c7b30cbf698ec": "上次选择",
   "561fce7a4cf23b3f": "适应图片",
   "562e6d8722eaec1e": "无法自动安装。请设置二进制路径，或改用其他环境。",
@@ -1043,7 +1087,11 @@
   "5adbfd44f824ee4e": "通过以下方式访问这台机器",
   "5aea5a9ed41a1959": "请先添加一个项目，然后重新捕获窗口。",
   "5aef5d56a7fbb46d": "CPU 时间",
-  "5b0d7be35b711cff": "自定义…",
+  "5b0d7be35b711cff": {
+    "dataFormat": "ICU",
+    "source": "Custom…",
+    "translation": "自定义…"
+  },
   "5b2152f9b4c82ea6": "上一个问题",
   "5b2287f7b10cfa2f": "离线",
   "5b408d7cfb469147": "{label}令牌",
@@ -1072,9 +1120,17 @@
   "5cc8043691cb9666": "减弱动态效果",
   "5cc9980a293fe634": "正在加载投递记录…",
   "5cdbac5a24a5c12c": "前进",
-  "5cfaaa20c460c328": "置顶项目",
+  "5cfaaa20c460c328": {
+    "dataFormat": "ICU",
+    "source": "Pin project",
+    "translation": "置顶项目"
+  },
   "5d1aeb5e8d393b15": "将 {label} 用于{mode}模式",
-  "5d4558578f4dadd6": "复制路径",
+  "5d4558578f4dadd6": {
+    "dataFormat": "ICU",
+    "source": "Copy path",
+    "translation": "复制路径"
+  },
   "5d508801d618140d": "删除实例 {id}",
   "5d515c509cf779de": "恢复 3D 视图",
   "5d6fa21b6ed066a0": "转录硬件和模型卸载",
@@ -1192,7 +1248,11 @@
   "66647e8c8123a51f": "查看政策",
   "6675de66f9b3f71d": "自定义指令",
   "669dda5fe6ab9e42": "搜索被忽略的文件",
-  "66b6769d2ae085a0": "项目脚本",
+  "66b6769d2ae085a0": {
+    "dataFormat": "ICU",
+    "source": "Project scripts",
+    "translation": "项目脚本"
+  },
   "672cd60933977c0f": "正在测试连接",
   "6741a8be3d68b361": "正在验证可执行文件",
   "6753deea17e91bf5": "ChatGPT 共享用量",
@@ -1203,7 +1263,11 @@
   "67d41d1d04fc3b11": "这个任务已被删除，或属于其他项目。请检查项目筛选。",
   "67e51fb7f3d0c0c0": "搜索文件",
   "67ebcdfd161bea78": "提醒事项",
-  "67f5b13c3c7bcd40": "分享给访客",
+  "67f5b13c3c7bcd40": {
+    "dataFormat": "ICU",
+    "source": "Share with guest",
+    "translation": "分享给访客"
+  },
   "6848f5bbb2bd9eec": "PDF 文档",
   "687f81dd084a5ab0": "无法加载此差异的剩余部分。",
   "68883cb3342998e5": "请重新连接环境后再试。",
@@ -1341,7 +1405,11 @@
   "7514746d2bd43a1c": "会话标题",
   "752bb0ea8b33e33e": "中继客户端安装进度",
   "7543807a82fa9ccd": "选择已有会话，或新建一个会话开始。",
-  "755f85812d568822": "此会话没有可复制的工作位置路径。",
+  "755f85812d568822": {
+    "dataFormat": "ICU",
+    "source": "This thread does not have a workspace path to copy.",
+    "translation": "此会话没有可复制的工作位置路径。"
+  },
   "756a1dc784ba21da": "从 Open VSX 查找开源主题。",
   "75c110e10e572389": "仅受邀者可见",
   "75eb4fd9db07ee00": "本地 ACP 命令",
@@ -1429,7 +1497,11 @@
   "7de9d2f24736adbc": "预览 URL（可选）",
   "7e072f3b5535dc99": "退出全屏",
   "7e09fc7d5ec8c2b1": "平均",
-  "7e37b307eeb4c94e": "新建会话",
+  "7e37b307eeb4c94e": {
+    "dataFormat": "ICU",
+    "source": "New thread",
+    "translation": "新建会话"
+  },
   "7e4d81ca21a72019": "取消置顶确认",
   "7e8c995646a967d3": "直接",
   "7e978fe213907a59": "日历",
@@ -1444,7 +1516,11 @@
   "7f4fe41df4ccfb45": "接收来自以下位置的改动",
   "7f6d34983e89a91c": "删除操作",
   "7f7b6ddab71e1f6a": "Liquid Glass",
-  "7f7f6116f1c8f3a9": "已关闭",
+  "7f7f6116f1c8f3a9": {
+    "dataFormat": "ICU",
+    "source": "Closed",
+    "translation": "已关闭"
+  },
   "7f8696ec0b38b0db": "会话收起时在其工作树中运行",
   "7fa9414ef5e9dd6c": "12 小时制",
   "7fc5b1876ef80061": "重复请求键",
@@ -1725,7 +1801,11 @@
   "981704551d2ae102": "确认批准？",
   "983426d3b3735ae3": "提交信息（可选）",
   "98392ae1bfb83082": "本次会话始终允许",
-  "983bff24bf6468a5": "请从项目中重试，或先打开一个会话。",
+  "983bff24bf6468a5": {
+    "dataFormat": "ICU",
+    "source": "Try again from the project, or open a thread first.",
+    "translation": "请从项目中重试，或先打开一个会话。"
+  },
   "985f51e696efc795": "停止录制",
   "986fcd365e71040f": "请求头",
   "98707f319f98bb28": "暂无评论。",
@@ -2022,7 +2102,11 @@
   "b26cb1e616b7175b": "{reaction}，{count}",
   "b298eb788d3443ee": "Antigravity 设置",
   "b2ae5ae37b088f1b": "没有匹配的模型。",
-  "b2be70822d55f16a": "打开",
+  "b2be70822d55f16a": {
+    "dataFormat": "ICU",
+    "source": "Open",
+    "translation": "打开"
+  },
   "b2c5419d306bbc16": "Conventional Commits",
   "b2ece956b72c4a48": "子模块",
   "b2f7638eb3def111": "如果最终的 localhost 页面没有加载，请在此粘贴它的完整 URL。",
@@ -2216,7 +2300,11 @@
   "c3ac0087cecba637": "{name} 的快捷键",
   "c3b198a93383902e": "{label}的拉取请求路由",
   "c3b322e041dd88da": "创建令牌",
-  "c3b46a31a4d3999b": "在编辑器中打开",
+  "c3b46a31a4d3999b": {
+    "dataFormat": "ICU",
+    "source": "Open in editor",
+    "translation": "在编辑器中打开"
+  },
   "c3c53aa46f7330e5": "此链接已结束",
   "c3c5d36466ad2191": "在预览浏览器中打开文件",
   "c3d6c8494c7d4b8f": "op account list 显示的账户简称、不带 https:// 的登录地址或 ID。",
@@ -2425,7 +2513,11 @@
   "d6845667c3278af2": "未认证",
   "d694484d6fea351e": "展开图表",
   "d6a3ce01f1a7330f": "此应用",
-  "d6ada5ec242e37ff": "用量限制",
+  "d6ada5ec242e37ff": {
+    "dataFormat": "ICU",
+    "source": "Usage limits",
+    "translation": "用量限制"
+  },
   "d6b75f6c2f576a2c": "删除 {title}",
   "d6b814f83ec82892": "{model} 的{label}价格",
   "d6bf7a094437222a": "按 {shortcut} + Enter，这一条就用另一种方式。",
@@ -2462,7 +2554,11 @@
   "da16af47eff38ae9": "Pull Request",
   "da1b3bc9635dcdc8": "操作是项目范围内的命令，可以从顶栏或快捷键运行。",
   "da3fd92498da1086": "从内置模型复制选项",
-  "da49b8271b9dffa0": "删除",
+  "da49b8271b9dffa0": {
+    "dataFormat": "ICU",
+    "source": "Delete",
+    "translation": "删除"
+  },
   "da6138080e9709f7": "工作树位置",
   "daafcd8343c662a4": "已过期",
   "dac46f3c9d007f8b": "单次",
@@ -2605,7 +2701,11 @@
   "e78e2b3c49707388": "未连接",
   "e7aab8ef4517d524": "设备不可用",
   "e7c9c19738ef0177": "{count} 条访客消息正在等待",
-  "e7de5d4c3cc68013": "任务已放入输入框。请检查后发送。",
+  "e7de5d4c3cc68013": {
+    "dataFormat": "ICU",
+    "source": "The task is in the composer. Read it over, then send.",
+    "translation": "任务已放入输入框。请检查后发送。"
+  },
   "e80b0936736a6dd8": "请手动打开「隐私与安全性」→「完全磁盘访问权限」。",
   "e815f49e5abedcfd": "从置顶分区取消置顶线程前询问。",
   "e823121dffeff02d": "打开项目失败",
@@ -2690,7 +2790,11 @@
   "eeca51fe648d9317": "渲染数学公式",
   "eed90253d3241141": "从右侧边缘调整浏览器视口",
   "ef0f4d098690ea95": "重新排序 {label}，当前第 {position} 位",
-  "ef27c4211844aef9": "稍后提醒",
+  "ef27c4211844aef9": {
+    "dataFormat": "ICU",
+    "source": "Snooze",
+    "translation": "稍后提醒"
+  },
   "ef3f464ac2f3789d": "发布智能体活动",
   "ef47822603de6bdb": "压缩空闲会话",
   "ef8d60e92c2f08a2": "正在加载明细",
@@ -3280,5 +3384,470 @@
     "dataFormat": "ICU",
     "source": "Loading thread context…",
     "translation": "正在加载会话上下文…"
+  },
+  "6fc712c4f5a55ee2": {
+    "dataFormat": "ICU",
+    "source": "Could not snooze thread",
+    "translation": "无法稍后提醒会话"
+  },
+  "b2332fb96c0a55fb": {
+    "dataFormat": "ICU",
+    "source": "That snooze time has passed. Choose another time.",
+    "translation": "这个稍后提醒的时间已经过了。请另选一个时间。"
+  },
+  "e7a50ab49cdfd076": {
+    "dataFormat": "ICU",
+    "source": "Regenerating… ({count})",
+    "translation": "重新生成中…（{count}）"
+  },
+  "6523a0ca24b57fde": {
+    "dataFormat": "ICU",
+    "source": "Regenerate titles ({count})",
+    "translation": "重新生成标题（{count}）"
+  },
+  "96adc8bf3106015d": {
+    "dataFormat": "ICU",
+    "source": "Unpin ({count})",
+    "translation": "取消置顶（{count}）"
+  },
+  "8af746628aa06e30": {
+    "dataFormat": "ICU",
+    "source": "Settle ({count})",
+    "translation": "收起（{count}）"
+  },
+  "c12debf08e59743e": {
+    "dataFormat": "ICU",
+    "source": "Snooze ({count})",
+    "translation": "稍后提醒（{count}）"
+  },
+  "28763a5059843c9e": {
+    "dataFormat": "ICU",
+    "source": "Mark unread ({count})",
+    "translation": "标为未读（{count}）"
+  },
+  "2fe0da9dd046d7e4": {
+    "dataFormat": "ICU",
+    "source": "Delete ({count})",
+    "translation": "删除（{count}）"
+  },
+  "182ddc0acf67e55e": {
+    "dataFormat": "ICU",
+    "source": "New thread on {branch}",
+    "translation": "在 {branch} 上新建会话"
+  },
+  "666f3ac177c116b6": {
+    "dataFormat": "ICU",
+    "source": "Filter by {project}",
+    "translation": "按 {project} 筛选"
+  },
+  "6cb3c5e8506f5c33": {
+    "dataFormat": "ICU",
+    "source": "Environment and worktree",
+    "translation": "环境和工作树"
+  },
+  "40ba99d405583425": {
+    "dataFormat": "ICU",
+    "source": "Branch and pull request",
+    "translation": "分支和 Pull Request"
+  },
+  "dc28386e0a961d4d": {
+    "dataFormat": "ICU",
+    "source": "Side chats",
+    "translation": "侧边会话"
+  },
+  "911a6569f6186971": {
+    "dataFormat": "ICU",
+    "source": "Annotation attached to draft",
+    "translation": "批注已附加到草稿"
+  },
+  "c7f1a1feb620ef35": {
+    "dataFormat": "ICU",
+    "source": "Sending is unavailable right now. Finish the current action, then send.",
+    "translation": "暂时无法发送。请先完成当前操作，再发送。"
+  },
+  "ec460eacd0e94528": {
+    "dataFormat": "ICU",
+    "source": "Still sending your previous message.",
+    "translation": "上一条消息还在发送。"
+  },
+  "4b28cffa64ecad9c": {
+    "dataFormat": "ICU",
+    "source": "Send again once it goes through or fails.",
+    "translation": "等它发送成功或失败后再发一次。"
+  },
+  "6d00220bfee72afd": {
+    "dataFormat": "ICU",
+    "source": "Not connected: message not sent",
+    "translation": "未连接：消息未发送"
+  },
+  "f62c43120e8c60e7": {
+    "dataFormat": "ICU",
+    "source": "Reconnecting to the environment. Try again once it is connected.",
+    "translation": "正在重新连接环境。连接成功后请重试。"
+  },
+  "74e7e5c0536cda02": {
+    "dataFormat": "ICU",
+    "source": "Side chat not started",
+    "translation": "侧边聊天未启动"
+  },
+  "be6231ac5b08f35e": {
+    "dataFormat": "ICU",
+    "source": "Side chats take text only",
+    "translation": "侧边聊天只支持文字"
+  },
+  "faf9ee0a28119e10": {
+    "dataFormat": "ICU",
+    "source": "Remove the attachments and context, then send it again.",
+    "translation": "请移除附件和上下文，然后重新发送。"
+  },
+  "736caccf2954a7f5": {
+    "dataFormat": "ICU",
+    "source": "Choose models and a base branch",
+    "translation": "请选择模型和基础分支"
+  },
+  "87d59d5dbb3eaf83": {
+    "dataFormat": "ICU",
+    "source": "Attached thread is on another machine",
+    "translation": "附加的会话在另一台设备上"
+  },
+  "170ab9bcffd26887": {
+    "dataFormat": "ICU",
+    "source": "Start a Codex thread first",
+    "translation": "请先开始一个 Codex 会话"
+  },
+  "c9852e2500018a3c": {
+    "dataFormat": "ICU",
+    "source": "Send a message before you submit feedback.",
+    "translation": "提交反馈之前请先发送一条消息。"
+  },
+  "837c3082352db701": {
+    "dataFormat": "ICU",
+    "source": "Choose a project first",
+    "translation": "请先选择项目"
+  },
+  "afd7fcc36ec8ad4c": {
+    "dataFormat": "ICU",
+    "source": "This draft no longer points to an available project.",
+    "translation": "这个草稿不再对应可用的项目。"
+  },
+  "02934daf8913625f": {
+    "dataFormat": "ICU",
+    "source": "Send again when it's ready.",
+    "translation": "准备好后再发送一次。"
+  },
+  "5cfc9eaa3322ecfa": {
+    "dataFormat": "ICU",
+    "source": "Could not open a fresh composer",
+    "translation": "无法打开新的输入框"
+  },
+  "e420bda4ea45e916": {
+    "dataFormat": "ICU",
+    "source": "Started in background",
+    "translation": "已在后台开始"
+  },
+  "8ba77560c80560c6": {
+    "dataFormat": "ICU",
+    "source": "Your new draft was kept. Copy the failed message to send it again.",
+    "translation": "新草稿已保留。复制失败的消息后再发送。"
+  },
+  "93e1adec217df51c": {
+    "dataFormat": "ICU",
+    "source": "Stashed files belong to another environment",
+    "translation": "暂存的文件属于另一个环境"
+  },
+  "76397941c373a853": {
+    "dataFormat": "ICU",
+    "source": "Restore this prompt in the environment that received its files.",
+    "translation": "请在接收这些文件的环境中恢复这条提示词。"
+  },
+  "8c8ed1f4569eb83a": {
+    "dataFormat": "ICU",
+    "source": "Restored prompt may reappear in the stash",
+    "translation": "已恢复的提示词可能仍留在暂存中"
+  },
+  "1e3ede33afee71ba": {
+    "dataFormat": "ICU",
+    "source": "Some attachments were not restored",
+    "translation": "部分附件未能恢复"
+  },
+  "98c76143d9aae871": {
+    "dataFormat": "ICU",
+    "source": "Stash entry may come back",
+    "translation": "暂存条目可能会再次出现"
+  },
+  "fb34cb404c4930dc": {
+    "dataFormat": "ICU",
+    "source": "Stash again once its chip resolves.",
+    "translation": "标签解析完成后再暂存一次。"
+  },
+  "f6b1ef37f7587664": {
+    "dataFormat": "ICU",
+    "source": "Attach dropped files again or remove them before stashing",
+    "translation": "暂存之前，请重新附加拖入的文件或将其移除"
+  },
+  "120167bbfb6d5939": {
+    "dataFormat": "ICU",
+    "source": "Wait for file uploads before stashing this prompt",
+    "translation": "请等文件上传完成后再暂存这条提示词"
+  },
+  "afdf475db3ca2af7": {
+    "dataFormat": "ICU",
+    "source": "Could not stash this prompt",
+    "translation": "无法暂存这条提示词"
+  },
+  "41ba6c0b5c5e8b22": {
+    "dataFormat": "ICU",
+    "source": "Stashed prompt will not survive a reload",
+    "translation": "暂存的提示词在重新加载后不会保留"
+  },
+  "f421c24666cd8c71": {
+    "dataFormat": "ICU",
+    "source": "Oldest stashed prompt discarded",
+    "translation": "已丢弃最早暂存的提示词"
+  },
+  "c3a8f9b1b2e7d588": {
+    "dataFormat": "ICU",
+    "source": "Stashed images were not saved",
+    "translation": "暂存的图片未能保存"
+  },
+  "9e36559d0fa0cca8": {
+    "dataFormat": "ICU",
+    "source": "Stashed images did not attach",
+    "translation": "暂存的图片没有附加"
+  },
+  "a88429af39610df1": {
+    "dataFormat": "ICU",
+    "source": "Reviewing",
+    "translation": "待我审查"
+  },
+  "e369d7ce5ff36689": {
+    "dataFormat": "ICU",
+    "source": "Authored",
+    "translation": "我创建的"
+  },
+  "7ab39987db037952": {
+    "dataFormat": "ICU",
+    "source": "Merge readiness",
+    "translation": "合并就绪状态"
+  },
+  "5e5377fbe7ce361c": {
+    "dataFormat": "ICU",
+    "source": "Blocked on me",
+    "translation": "等待我处理"
+  },
+  "844f6c8d82ecce5d": {
+    "dataFormat": "ICU",
+    "source": "Recently updated",
+    "translation": "最近更新"
+  },
+  "79b522da0ba8e5c9": {
+    "dataFormat": "ICU",
+    "source": "Newest shown",
+    "translation": "最新创建优先"
+  },
+  "fca1f8a8819e4328": {
+    "dataFormat": "ICU",
+    "source": "Oldest shown",
+    "translation": "最早创建优先"
+  },
+  "2daace42ae37b352": {
+    "dataFormat": "ICU",
+    "source": "Largest shown",
+    "translation": "改动最多优先"
+  },
+  "971ae070928e8ab1": {
+    "dataFormat": "ICU",
+    "source": "Smallest shown",
+    "translation": "改动最少优先"
+  },
+  "2712861b163ad61a": {
+    "dataFormat": "ICU",
+    "source": "Managed by {name}.",
+    "translation": "由 {name} 管理。"
+  },
+  "e955c6551fab2adb": {
+    "dataFormat": "ICU",
+    "source": "This connection lacks permission to change settings on {target}.",
+    "translation": "此连接没有权限更改 {target} 上的设置。"
+  },
+  "c4c3c478764d5cbf": {
+    "dataFormat": "ICU",
+    "source": "the selected environment",
+    "translation": "所选环境"
+  },
+  "a7a2082255873aa6": {
+    "dataFormat": "ICU",
+    "source": "the primary environment",
+    "translation": "主环境"
+  },
+  "685224e7178f4db7": {
+    "dataFormat": "ICU",
+    "source": "Reconnect the selected environment to change this setting.",
+    "translation": "重新连接所选环境后才能更改此设置。"
+  },
+  "cf4b285ffd971f80": {
+    "dataFormat": "ICU",
+    "source": "Environment-wide setting. Select an environment to change it.",
+    "translation": "这是环境级设置。请选择一个环境后再更改。"
+  },
+  "4b7fb18d7c25eb9f": {
+    "dataFormat": "ICU",
+    "source": "Path",
+    "translation": "路径"
+  },
+  "70c699d18aaa4c6c": {
+    "dataFormat": "ICU",
+    "source": "Branch",
+    "translation": "分支"
+  },
+  "f51626441b9dfc39": {
+    "dataFormat": "ICU",
+    "source": "Pin thread",
+    "translation": "置顶会话"
+  },
+  "0d36d1316d4fc58a": {
+    "dataFormat": "ICU",
+    "source": "Wake thread",
+    "translation": "唤醒会话"
+  },
+  "d1259290b8c63577": {
+    "dataFormat": "ICU",
+    "source": "Rename thread",
+    "translation": "重命名会话"
+  },
+  "de30fdae5b3fea98": {
+    "dataFormat": "ICU",
+    "source": "Regenerate title",
+    "translation": "重新生成标题"
+  },
+  "dffd2e20f7ff5aa1": {
+    "dataFormat": "ICU",
+    "source": "Mark unread",
+    "translation": "标为未读"
+  },
+  "3364346f40934e88": {
+    "dataFormat": "ICU",
+    "source": "Show all projects",
+    "translation": "显示所有项目"
+  },
+  "1385e2d8bd696370": {
+    "dataFormat": "ICU",
+    "source": "Turn into project",
+    "translation": "转换为项目"
+  },
+  "fcf482cda9bf739f": {
+    "dataFormat": "ICU",
+    "source": "Auto-settle behavior",
+    "translation": "自动收起行为"
+  },
+  "39eb35d54cacd314": {
+    "dataFormat": "ICU",
+    "source": "Follow settings",
+    "translation": "跟随设置"
+  },
+  "d15f079ebaf277ae": {
+    "dataFormat": "ICU",
+    "source": "Never",
+    "translation": "从不"
+  },
+  "db0b0f5af59690af": {
+    "dataFormat": "ICU",
+    "source": "Thread",
+    "translation": "会话"
+  },
+  "f053d7461b8ecce5": {
+    "dataFormat": "ICU",
+    "source": "Thread ID",
+    "translation": "会话 ID"
+  },
+  "70399412ec5a7026": {
+    "dataFormat": "ICU",
+    "source": "Archive thread",
+    "translation": "归档会话"
+  },
+  "8d51135cc55089f9": {
+    "dataFormat": "ICU",
+    "source": "Model preferences not saved",
+    "translation": "模型偏好设置未保存"
+  },
+  "c7193961d383be05": {
+    "dataFormat": "ICU",
+    "source": "Could not load saved model preferences. Try again.",
+    "translation": "无法加载已保存的模型偏好设置，请重试。"
+  },
+  "c413230012a3ab05": {
+    "dataFormat": "ICU",
+    "source": "Favorites not saved",
+    "translation": "收藏未保存"
+  },
+  "5dc9ac6d5a1f2424": {
+    "dataFormat": "ICU",
+    "source": "Setting not saved",
+    "translation": "设置未保存"
+  },
+  "0bed322f6071f4da": {
+    "dataFormat": "ICU",
+    "source": "An error occurred.",
+    "translation": "发生了错误。"
+  },
+  "ce5c66ae967fd7c8": {
+    "dataFormat": "ICU",
+    "source": "Thread actions unavailable",
+    "translation": "会话操作不可用"
+  },
+  "d4f0043ab9348e2c": {
+    "dataFormat": "ICU",
+    "source": "This thread has not loaded yet.",
+    "translation": "这个会话还没有加载完成。"
+  },
+  "d07ed4990bbb5323": {
+    "dataFormat": "ICU",
+    "source": "Thread action unavailable",
+    "translation": "无法执行会话操作"
+  },
+  "2d3ad1215c5d8a52": {
+    "dataFormat": "ICU",
+    "source": "This connection cannot change threads.",
+    "translation": "此连接无法更改会话。"
+  },
+  "6c13d520b6601f65": {
+    "dataFormat": "ICU",
+    "source": "Archive thread \"{title}\"?",
+    "translation": "归档会话“{title}”？"
+  },
+  "83e50f9b118a7a0a": {
+    "dataFormat": "ICU",
+    "source": "Thread archived, but navigation failed",
+    "translation": "会话已归档，但跳转失败"
+  },
+  "da43691fb8ad8006": {
+    "dataFormat": "ICU",
+    "source": "Failed to archive thread",
+    "translation": "归档会话失败"
+  },
+  "2d1c111e1b4ae0b0": {
+    "dataFormat": "ICU",
+    "source": "Delete thread \"{title}\"?",
+    "translation": "删除会话“{title}”？"
+  },
+  "c568ab8dad798ec5": {
+    "dataFormat": "ICU",
+    "source": "This permanently clears conversation history for this thread.",
+    "translation": "这将永久清除此会话的对话历史。"
+  },
+  "6dd1f458bcd6a2ea": {
+    "dataFormat": "ICU",
+    "source": "Regenerating…",
+    "translation": "正在重新生成…"
+  },
+  "2cb5b3102250d8de": {
+    "dataFormat": "ICU",
+    "source": "Regenerating\\u2026 ({count})",
+    "translation": "正在重新生成…（{count}）"
+  },
+  "276c7fa42a15a542": {
+    "dataFormat": "ICU",
+    "source": "Update older servers to save this setting.",
+    "translation": "更新较旧的服务器后才能保存这项设置。"
   }
 }

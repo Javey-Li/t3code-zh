@@ -634,26 +634,29 @@ export function filterSidebarV2VisibleThreads<
 export function buildBulkTitleRegenerationContextMenuItem(input: {
   supportedCount: number;
   actionableCount: number;
+  labelRegenerating: (count: number) => string;
+  labelRegenerate: (count: number) => string;
 }): ContextMenuItem<"regenerate-title"> | null {
   if (input.supportedCount === 0) return null;
   if (input.actionableCount === 0) {
     return {
       id: "regenerate-title",
-      label: `Regenerating… (${input.supportedCount})`,
+      label: input.labelRegenerating(input.supportedCount),
       disabled: true,
     };
   }
   return {
     id: "regenerate-title",
-    label: `Regenerate titles (${input.actionableCount})`,
+    label: input.labelRegenerate(input.actionableCount),
   };
 }
 
 export function buildBulkUnpinContextMenuItem(input: {
   pinnedCount: number;
+  label: (count: number) => string;
 }): ContextMenuItem<"unpin"> | null {
   if (input.pinnedCount === 0) return null;
-  return { id: "unpin", label: `Unpin (${input.pinnedCount})` };
+  return { id: "unpin", label: input.label(input.pinnedCount) };
 }
 
 export interface ThreadStatusPill {
