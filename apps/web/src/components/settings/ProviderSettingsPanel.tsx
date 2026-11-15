@@ -608,7 +608,7 @@ export function EnvironmentProviderSettings({
         if (result._tag === "Success" && !result.value.accepted) {
           toastManager.add({
             type: "warning",
-            title: "Authentication request expired",
+            title: gt("Authentication request expired"),
             description: msg("Refresh the provider and start the authentication flow again."),
           });
           return;
@@ -617,7 +617,7 @@ export function EnvironmentProviderSettings({
           const error = squashAtomCommandFailure(result);
           toastManager.add({
             type: "error",
-            title: "Could not continue authentication",
+            title: gt("Could not continue authentication"),
             description:
               error instanceof Error ? error.message : "The authentication request expired.",
           });
@@ -815,7 +815,7 @@ export function EnvironmentProviderSettings({
       const error = squashAtomCommandFailure(result);
       toastManager.add({
         type: "error",
-        title: "Could not update provider instance",
+        title: gt("Could not update provider instance"),
         description: error instanceof Error ? error.message : "The settings update failed.",
       });
     }
@@ -859,7 +859,7 @@ export function EnvironmentProviderSettings({
         const error = squashAtomCommandFailure(updateResult);
         toastManager.add({
           type: "error",
-          title: "Could not delete provider instance",
+          title: gt("Could not delete provider instance"),
           description: error instanceof Error ? error.message : "The settings update failed.",
         });
         return;
@@ -879,7 +879,7 @@ export function EnvironmentProviderSettings({
         const error = squashAtomCommandFailure(uninstallResult);
         toastManager.add({
           type: "warning",
-          title: "Provider deleted, but managed files remain",
+          title: gt("Provider deleted, but managed files remain"),
           description: error instanceof Error ? error.message : "Managed binary cleanup failed.",
         });
       }
@@ -902,7 +902,7 @@ export function EnvironmentProviderSettings({
       const error = squashAtomCommandFailure(result);
       toastManager.add({
         type: "error",
-        title: "Could not reset provider instance",
+        title: gt("Could not reset provider instance"),
         description: error instanceof Error ? error.message : "The settings update failed.",
       });
     }

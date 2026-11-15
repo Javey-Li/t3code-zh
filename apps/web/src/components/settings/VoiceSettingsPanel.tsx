@@ -552,7 +552,11 @@ function CleanupModelRow() {
   const setModel = (next: ReturnType<typeof createModelSelection>) => {
     const reason = modelDisabledReason(next.instanceId, next.model);
     if (reason) {
-      toastManager.add({ type: "error", title: "Cleanup model not saved", description: reason });
+      toastManager.add({
+        type: "error",
+        title: gt("Cleanup model not saved"),
+        description: reason,
+      });
       return;
     }
     updateSettings({ speechPostProcessingModelSelection: next });
@@ -633,6 +637,7 @@ function CleanupModelRow() {
 }
 
 function useVoiceModels(prepared: PreparedConnection | null) {
+  const gt = useGT();
   const canManage = useEnvironmentScope(prepared?.environmentId ?? null, AuthSettingsWriteScope);
   const [models, setModels] = useState<readonly EnvironmentSpeechModel[]>([]);
   const [status, setStatus] = useState<EnvironmentSpeechStatus | null>(null);
@@ -672,7 +677,7 @@ function useVoiceModels(prepared: PreparedConnection | null) {
         if (current !== epoch.current || revision !== refreshRevision.current) return;
         toastManager.add({
           type: "error",
-          title: "Could not load transcription models",
+          title: gt("Could not load transcription models"),
           description: error instanceof Error ? error.message : String(error),
         });
       }
@@ -1330,7 +1335,7 @@ export function VoiceSettingsPanel() {
         <SettingsRow
           {...searchableSetting("voice-microphone")}
           title={<T>Microphone</T>}
-          description="Voice input uses the first connected microphone in this list."
+          description={gt("Voice input uses the first connected microphone in this list.")}
           control={
             <Tooltip>
               <TooltipTrigger
@@ -1604,7 +1609,7 @@ export function VoiceSettingsPanel() {
         <SettingsRow
           {...searchableSetting("remove-filler-words")}
           title={<T>Remove filler words</T>}
-          description="Drop “um” and “uh” from transcripts."
+          description={gt("Drop “um” and “uh” from transcripts.")}
           control={
             <Switch
               aria-label={gt("Remove filler words")}
@@ -1634,7 +1639,7 @@ export function VoiceSettingsPanel() {
         <SettingsRow
           {...searchableSetting("speech-dictionary")}
           title={gt("Your dictionary")}
-          description="Names and terms to spell your way, saved on this device."
+          description={gt("Names and terms to spell your way, saved on this device.")}
         >
           <div className="mt-3 pb-2">
             <DictionaryEditor
@@ -1650,7 +1655,9 @@ export function VoiceSettingsPanel() {
       <SettingsSection id={searchableSetting("speech-post-processing").id} title={gt("Cleanup")}>
         <SettingsRow
           title={<T>Clean up transcripts</T>}
-          description="Off by default. Sends the transcript and nearby draft text, never audio, to the cleanup model."
+          description={gt(
+            "Off by default. Sends the transcript and nearby draft text, never audio, to the cleanup model.",
+          )}
           control={
             <Switch
               aria-label={gt("Clean up transcripts")}
@@ -1724,7 +1731,7 @@ export function VoiceSettingsPanel() {
           <SettingsRow
             {...searchableSetting("speech-correction-word")}
             title={<T>Correction cue</T>}
-            description="The phrase you say to fix a mistake, like “scratch that”."
+            description={gt("The phrase you say to fix a mistake, like “scratch that”.")}
             control={
               <Input
                 key={settings.speechCorrectionWord}

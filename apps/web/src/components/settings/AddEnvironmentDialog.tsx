@@ -226,7 +226,7 @@ export function AddEnvironmentDialog({
       toastManager.add(
         stackedThreadToast({
           type: "error",
-          title: "Could not add backend",
+          title: gt("Could not add backend"),
           description: message,
         }),
       );
@@ -246,7 +246,7 @@ export function AddEnvironmentDialog({
         toastManager.add(
           stackedThreadToast({
             type: "error",
-            title: "Could not add backend",
+            title: gt("Could not add backend"),
             description: message,
           }),
         );
@@ -260,12 +260,12 @@ export function AddEnvironmentDialog({
       routeTarget
         ? {
             type: "success",
-            title: "Route added",
+            title: gt("Route added"),
             description: `${routeTarget.label} now has another way to connect.`,
           }
         : {
             type: "success",
-            title: "Backend added",
+            title: gt("Backend added"),
             description: msg("The environment is saved and will reconnect on app startup."),
           },
     );
@@ -460,7 +460,7 @@ export function AddEnvironmentDialog({
     handleOpenChange(false);
     toastManager.add({
       type: "success",
-      title: "Route added",
+      title: gt("Route added"),
       description: `${routeTarget.label} falls back to T3 Connect when its other routes are unreachable.`,
     });
   };
@@ -660,7 +660,7 @@ export function AddEnvironmentDialog({
             <div className="grid gap-3 sm:grid-cols-2">
               {renderConnectionModeCard({
                 mode: "remote",
-                title: "Remote link",
+                title: gt("Remote link"),
                 description: msg("Enter a backend host and pairing code."),
                 icon: <ChevronsLeftRightEllipsisIcon aria-hidden className="size-4" />,
               })}

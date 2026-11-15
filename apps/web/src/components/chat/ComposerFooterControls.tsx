@@ -45,7 +45,10 @@ export const ComposerFooterModeControls = memo(function ComposerFooterModeContro
     supervisedRuntimeModeOption;
   const RuntimeModeIcon = runtimeModeOption.icon;
   // The chip opens the same Permissions toggle used in the model picker and the overflow menu.
-  const permissionsTooltip = `Permissions: ${runtimeModeOption.label}. ${runtimeModeOption.description}`;
+  const permissionsTooltip = gt("Permissions: {label}. {description}", {
+    label: m(runtimeModeOption.label),
+    description: m(runtimeModeOption.description),
+  });
   const permissionsChip = (
     <Menu
       open={open}
@@ -65,7 +68,7 @@ export const ComposerFooterModeControls = memo(function ComposerFooterModeContro
                   size={size}
                   // Mirrors the model trigger's trailing pe-1 so the gaps on both sides of the chip match.
                   className="ps-1.5"
-                  aria-label={gt("Permissions: {label}", { label: runtimeModeOption.label })}
+                  aria-label={gt("Permissions: {label}", { label: m(runtimeModeOption.label) })}
                 />
               }
             />
@@ -170,7 +173,7 @@ export function ComposerPermissionsSection(props: {
       {/* Static per-mode descriptions for screen readers; the preview below is visual only. */}
       {props.runtimeModeOptions.map((option) => (
         <span key={option.mode} id={`${descriptionId}-${option.mode}`} className="sr-only">
-          {option.disabledReason ?? option.description}
+          {option.disabledReason ?? m(option.description)}
         </span>
       ))}
       <div className="grid gap-0.5" aria-hidden="true">
@@ -185,7 +188,7 @@ export function ComposerPermissionsSection(props: {
         </span>
         {/* Two lines reserved so the menu does not shift while you preview modes. */}
         <span className="min-h-8 text-muted-foreground text-xs leading-4">
-          {shown.disabledReason ?? shown.description}
+          {shown.disabledReason ?? m(shown.description)}
         </span>
       </div>
     </div>

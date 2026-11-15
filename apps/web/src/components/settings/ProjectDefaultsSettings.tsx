@@ -373,8 +373,8 @@ export function ProjectDefaultsSettings({ category }: { category: ProjectSetting
                   )}
                   <SelectValue>
                     {mixedPermissions
-                      ? "Mixed"
-                      : runtimeModeConfig[settings.defaultRuntimeMode].label}
+                      ? gt("Mixed")
+                      : m(runtimeModeConfig[settings.defaultRuntimeMode].label)}
                   </SelectValue>
                 </SelectTrigger>
                 <SelectPopup align="end" alignItemWithTrigger={false}>
@@ -400,7 +400,7 @@ export function ProjectDefaultsSettings({ category }: { category: ProjectSetting
                             {m(option.label)}
                           </span>
                           <span className="text-xs leading-4 text-muted-foreground">
-                            {managedReason ?? option.description}
+                            {managedReason ?? m(option.description)}
                           </span>
                         </div>
                       </SelectItem>

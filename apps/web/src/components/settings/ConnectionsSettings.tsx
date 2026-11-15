@@ -495,7 +495,7 @@ function ConnectionsSettingsContent({
       toastManager.add(
         stackedThreadToast({
           type: "error",
-          title: "Could not update network access",
+          title: gt("Could not update network access"),
           description: message,
         }),
       );
@@ -535,7 +535,7 @@ function ConnectionsSettingsContent({
       toastManager.add(
         stackedThreadToast({
           type: "error",
-          title: "Could not set up Tailscale HTTPS",
+          title: gt("Could not set up Tailscale HTTPS"),
           description: message,
         }),
       );
@@ -574,7 +574,7 @@ function ConnectionsSettingsContent({
       toastManager.add(
         stackedThreadToast({
           type: "error",
-          title: "Could not disable Tailscale HTTPS",
+          title: gt("Could not disable Tailscale HTTPS"),
           description: message,
         }),
       );
@@ -602,7 +602,7 @@ function ConnectionsSettingsContent({
       toastManager.add(
         stackedThreadToast({
           type: "error",
-          title: "Could not revoke pairing link",
+          title: gt("Could not revoke pairing link"),
           description: message,
         }),
       );
@@ -628,7 +628,7 @@ function ConnectionsSettingsContent({
       toastManager.add(
         stackedThreadToast({
           type: "error",
-          title: "Could not revoke client access",
+          title: gt("Could not revoke client access"),
           description: message,
         }),
       );
@@ -658,7 +658,7 @@ function ConnectionsSettingsContent({
       toastManager.add(
         stackedThreadToast({
           type: "error",
-          title: "Could not revoke other clients",
+          title: gt("Could not revoke other clients"),
           description: message,
         }),
       );
@@ -699,7 +699,7 @@ function ConnectionsSettingsContent({
       toastManager.add(
         stackedThreadToast({
           type: "error",
-          title: "Could not remove backend",
+          title: gt("Could not remove backend"),
           description: message,
         }),
       );
@@ -845,7 +845,7 @@ function ConnectionsSettingsContent({
       toastManager.add(
         stackedThreadToast({
           type: "error",
-          title: "Could not change WSL backend",
+          title: gt("Could not change WSL backend"),
           description: message,
         }),
       );
