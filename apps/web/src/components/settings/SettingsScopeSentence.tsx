@@ -1,4 +1,4 @@
-import { T, msg, useMessages } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import { resolveEnvironmentMachineKind } from "@t3tools/contracts";
 import { fileBasename } from "@t3tools/shared/path";
 import { useLocation } from "@tanstack/react-router";
@@ -146,11 +146,12 @@ function ScopeMenu({
   searchLabel: string;
   onChange: (next: string) => void;
 }) {
+  const gt = useGT();
   const [query, setQuery] = useState("");
   const Trigger = options.length > 6 ? ComboboxTrigger : MenuTrigger;
   const trigger = (
     <Trigger
-      aria-label={`${ariaLabel}: ${label}`}
+      aria-label={gt("{scope}: {label}", { scope: ariaLabel, label })}
       render={<Button variant="outline" size="sm" />}
       className="min-w-0 max-w-72"
     >

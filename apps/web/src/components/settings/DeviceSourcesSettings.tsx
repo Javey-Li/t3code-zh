@@ -642,6 +642,7 @@ function PlatformIcon(props: {
   row: SourceRow;
   known: ReadonlyArray<SourceEnvironment>;
 }) {
+  const gt = useGT();
   const m = useMessages();
   const availability = (environment: SourceEnvironment) =>
     environment.platforms?.find((candidate) => candidate.platform === props.platform);
@@ -669,7 +670,17 @@ function PlatformIcon(props: {
         render={
           <button
             type="button"
-            aria-label={`${props.row.title}: ${props.label} ${available ? "available" : "not available"}`}
+            aria-label={
+              available
+                ? gt("{source}: {platform} available", {
+                    source: props.row.title,
+                    platform: props.label,
+                  })
+                : gt("{source}: {platform} not available", {
+                    source: props.row.title,
+                    platform: props.label,
+                  })
+            }
             className={cn(
               "relative grid size-6 shrink-0 place-items-center rounded-md outline-hidden hover:bg-accent focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring",
               available ? "text-foreground" : "text-muted-foreground/45",
