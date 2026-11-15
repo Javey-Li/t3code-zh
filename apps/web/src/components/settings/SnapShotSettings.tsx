@@ -396,7 +396,7 @@ export function SnapShotSettings() {
             <>
               <SettingsRow
                 {...searchableSetting("snap-shot-accessibility")}
-                description="Include text and controls when the app makes them available."
+                description={<T>Include text and controls when the app makes them available.</T>}
                 status={snapShotAccessibilityUnavailableMessage(state)}
                 control={
                   <Switch
@@ -474,7 +474,7 @@ export function SnapShotSettings() {
               />
               <SettingsRow
                 {...searchableSetting("snap-shot-sound")}
-                description="Choose the sound played when capture starts."
+                description={<T>Choose the sound played when capture starts.</T>}
                 control={
                   <Menu>
                     <MenuTrigger
@@ -534,7 +534,7 @@ export function SnapShotSettings() {
               />
               <SettingsRow
                 {...searchableSetting("snap-shot-flash")}
-                description="Show a gentle cue on the captured window."
+                description={<T>Show a gentle cue on the captured window.</T>}
                 status={feedbackUnavailable}
                 control={
                   <Switch
@@ -547,7 +547,7 @@ export function SnapShotSettings() {
               />
               <SettingsRow
                 {...searchableSetting("snap-shot-animations")}
-                description="Animate captured windows into your draft."
+                description={<T>Animate captured windows into your draft.</T>}
                 status={feedbackUnavailable}
                 control={
                   <Switch

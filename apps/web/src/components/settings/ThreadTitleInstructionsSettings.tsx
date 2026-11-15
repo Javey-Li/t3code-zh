@@ -1,4 +1,4 @@
-import { useGT } from "gt-react";
+import { T, useGT } from "gt-react";
 import { useRef } from "react";
 
 import { Textarea } from "../ui/textarea";
@@ -25,7 +25,7 @@ export function ThreadTitleInstructionsSettings() {
       serverScoped
       settingKeys={["threadTitleInstructions"]}
       {...searchableSetting("thread-title-instructions")}
-      description="Appended to the prompt for new and regenerated thread titles."
+      description={<T>Appended to the prompt for new and regenerated thread titles.</T>}
       resetAction={
         mixed || settings.threadTitleInstructions !== "" ? (
           <SettingResetButton

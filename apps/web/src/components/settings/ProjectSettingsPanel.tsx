@@ -540,7 +540,9 @@ function ProjectDetail({
           ) : null}
           <SettingsRow
             title={<T>Name</T>}
-            description="The shared name for this project group in the sidebar and thread lists."
+            description={
+              <T>The shared name for this project group in the sidebar and thread lists.</T>
+            }
             resetAction={
               canResetScratchTitle ? (
                 <SettingResetButton
@@ -628,7 +630,7 @@ function ProjectDetail({
             <>
               <SettingsRow
                 title={<T>Pin</T>}
-                description="Pinned projects come first in project pickers."
+                description={<T>Pinned projects come first in project pickers.</T>}
                 control={
                   <Switch
                     checked={group.pinned}

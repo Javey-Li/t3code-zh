@@ -38,7 +38,7 @@ export function BranchNamingSettings() {
         serverScoped
         settingKeys={["branchNamingMode"]}
         {...searchableSetting("worktree-branch-naming")}
-        description="Choose how new worktree branches are named from your first message."
+        description={<T>Choose how new worktree branches are named from your first message.</T>}
         status={
           !modeMixed && settings.branchNamingMode === "semantic"
             ? "The model chooses a prefix that describes the work, such as feat/add-search, fix/login-timeout, or refactor/auth."
@@ -83,7 +83,9 @@ export function BranchNamingSettings() {
           serverScoped
           settingKeys={["branchNamePrefix"]}
           title={<T>Branch prefix</T>}
-          description="For example, t3 or t3/ produces t3/add-search. Leave empty for no prefix."
+          description={
+            <T>For example, t3 or t3/ produces t3/add-search. Leave empty for no prefix.</T>
+          }
           resetAction={
             prefixMixed ||
             settings.branchNamePrefix !== DEFAULT_SERVER_SETTINGS.branchNamePrefix ? (
@@ -121,7 +123,12 @@ export function BranchNamingSettings() {
           serverScoped
           settingKeys={["branchNameInstructions"]}
           title={<T>Branch naming instructions</T>}
-          description="Appended to the naming prompt. The model returns the complete branch name; no prefix or suffix is added."
+          description={
+            <T>
+              Appended to the naming prompt. The model returns the complete branch name; no prefix
+              or suffix is added.
+            </T>
+          }
           resetAction={
             instructionsMixed || settings.branchNameInstructions !== "" ? (
               <SettingResetButton

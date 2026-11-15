@@ -444,7 +444,7 @@ export function ProviderEnvironmentSection(props: {
   return (
     <SettingsRow
       title={<T>Variables</T>}
-      description="API keys, base URLs, and other per-instance CLI settings."
+      description={<T>API keys, base URLs, and other per-instance CLI settings.</T>}
       control={
         <Button type="button" size="sm" variant="outline" onClick={addVariable}>
           <PlusIcon className="size-3" />

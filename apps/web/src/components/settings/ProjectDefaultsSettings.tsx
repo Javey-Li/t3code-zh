@@ -254,7 +254,7 @@ export function ProjectDefaultsSettings({ category }: { category: ProjectSetting
       settingKeys={["fallbackModelSelection"]}
       mixed={mixedFallback}
       {...searchableSetting("fallback-model")}
-      description="Used for new threads when the default model's provider is out of usage."
+      description={<T>Used for new threads when the default model's provider is out of usage.</T>}
       resetAction={
         mixedFallback || settings.fallbackModelSelection !== null ? (
           <SettingResetButton
@@ -448,7 +448,13 @@ export function ProjectDefaultsSettings({ category }: { category: ProjectSetting
             settingKeys={["removeAgentCreditsOnMerge"]}
             mixed={mixedAgentCredits}
             {...searchableSetting("remove-agent-credits-on-merge")}
-            description="Remove recognized agent credit lines from merge and squash messages on hosts that support it, keeping human co-authors. Includes auto-merge. Excludes merge queues, stack merges, and existing commits."
+            description={
+              <T>
+                Remove recognized agent credit lines from merge and squash messages on hosts that
+                support it, keeping human co-authors. Includes auto-merge. Excludes merge queues,
+                stack merges, and existing commits.
+              </T>
+            }
             resetAction={
               settings.removeAgentCreditsOnMerge ? (
                 <SettingResetButton

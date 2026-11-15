@@ -675,7 +675,12 @@ export function WorktreeCleanupSection() {
               title={<T>Delete worktrees with deleted threads</T>}
               status={ruleStatus("worktreeOnDelete")}
               managedPaths={lockablePath("worktreeOnDelete")}
-              description="Remove unused worktrees when active or archived threads are deleted. Worktrees with local changes are kept."
+              description={
+                <T>
+                  Remove unused worktrees when active or archived threads are deleted. Worktrees
+                  with local changes are kept.
+                </T>
+              }
               serverScoped={!isProjectScope}
               control={
                 <Switch
@@ -689,7 +694,12 @@ export function WorktreeCleanupSection() {
               title={<T>Delete merged worktrees</T>}
               status={ruleStatus("worktreeOnMerge")}
               managedPaths={lockablePath("worktreeOnMerge")}
-              description="Remove worktrees whose pull request is merged and whose commits are included in the default branch."
+              description={
+                <T>
+                  Remove worktrees whose pull request is merged and whose commits are included in
+                  the default branch.
+                </T>
+              }
               serverScoped={!isProjectScope}
               control={
                 <Switch
@@ -703,7 +713,12 @@ export function WorktreeCleanupSection() {
               title={<T>Delete inactive worktrees</T>}
               status={ruleStatus("worktreeAfterDays")}
               managedPaths={lockablePath("worktreeAfterDays")}
-              description="Remove worktrees after their threads have been inactive for this many days. Branches and thread history are kept."
+              description={
+                <T>
+                  Remove worktrees after their threads have been inactive for this many days.
+                  Branches and thread history are kept.
+                </T>
+              }
               serverScoped={!isProjectScope}
               control={
                 <RetentionControl
@@ -736,7 +751,12 @@ export function WorktreeCleanupSection() {
                     ]
                       .filter(Boolean)
                       .join(". ")}
-                    description="Remove worktrees this many days after their thread settles. Set 0 days to remove them at the next cleanup. Branches and thread history are kept."
+                    description={
+                      <T>
+                        Remove worktrees this many days after their thread settles. Set 0 days to
+                        remove them at the next cleanup. Branches and thread history are kept.
+                      </T>
+                    }
                     serverScoped={!isProjectScope}
                     control={
                       <RetentionControl
@@ -754,7 +774,7 @@ export function WorktreeCleanupSection() {
                 title={<T>Delete unchanged worktrees</T>}
                 status={ruleStatus("worktreeUnchanged")}
                 managedPaths={lockablePath("worktreeUnchanged")}
-                description="Remove worktrees with no commits beyond the default branch."
+                description={<T>Remove worktrees with no commits beyond the default branch.</T>}
                 serverScoped={!isProjectScope}
                 control={
                   <Switch
@@ -883,7 +903,12 @@ export function StorageCleanupSections() {
             title={<T>Delete old browser artifacts</T>}
             status={artifactsStatus}
             managedPaths={["storageCleanup.browserArtifactsAfterDays"]}
-            description="Delete saved browser captures after this many days. Older capture links will no longer open."
+            description={
+              <T>
+                Delete saved browser captures after this many days. Older capture links will no
+                longer open.
+              </T>
+            }
             serverScoped
             control={
               <RetentionControl
@@ -901,7 +926,9 @@ export function StorageCleanupSections() {
             title={<T>Delete old rotated logs</T>}
             status={logsStatus}
             managedPaths={["storageCleanup.logsAfterDays"]}
-            description="Delete inactive rotated log files after this many days. Current logs are kept."
+            description={
+              <T>Delete inactive rotated log files after this many days. Current logs are kept.</T>
+            }
             serverScoped
             control={
               <RetentionControl

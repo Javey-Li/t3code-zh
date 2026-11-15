@@ -122,7 +122,9 @@ function EnvironmentSecretProviders({
         {entries.length === 0 ? (
           <SettingsRow
             title={<T>No secret providers configured.</T>}
-            description="Add a 1Password account, then pick it as the source of a provider variable."
+            description={
+              <T>Add a 1Password account, then pick it as the source of a provider variable.</T>
+            }
           />
         ) : (
           entries.map(([id, config]) => {

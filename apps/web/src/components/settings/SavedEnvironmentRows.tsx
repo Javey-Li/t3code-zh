@@ -710,12 +710,17 @@ function ConfiguredCloudLinkRow({
       ) : linkRevoked ? (
         <SettingsRow
           title={searchableSetting("t3-connect").title}
-          description="This environment was removed from T3 Connect. Run `t3 connect link` on the host to link it again."
+          description={
+            <T>
+              This environment was removed from T3 Connect. Run `t3 connect link` on the host to
+              link it again.
+            </T>
+          }
         />
       ) : isElectron ? (
         <SettingsRow
           title={searchableSetting("t3-connect").title}
-          description="Run `t3 connect link` on the host, then restart T3 Code there."
+          description={<T>Run `t3 connect link` on the host, then restart T3 Code there.</T>}
         />
       ) : null}
       {signedOut && showSwitch ? null : (
@@ -745,7 +750,12 @@ function ConfiguredCloudLinkRow({
       {managedTunnelActive && !signedOut ? (
         <SettingsRow
           title={searchableSetting("hold-webhooks-while-offline").title}
-          description="Keep webhook requests for up to 24 hours while this environment is offline, then deliver them. Off: T3 Connect only forwards requests and stores nothing."
+          description={
+            <T>
+              Keep webhook requests for up to 24 hours while this environment is offline, then
+              deliver them. Off: T3 Connect only forwards requests and stores nothing.
+            </T>
+          }
           managed={connectDenial}
           control={
             <CloudLinkSwitch
@@ -806,7 +816,12 @@ export function CloudLinkRow({
     return (
       <SettingsRow
         title={<T>T3 Connect</T>}
-        description="To edit these settings, pair this connection with both View relay and Manage relay permissions."
+        description={
+          <T>
+            To edit these settings, pair this connection with both View relay and Manage relay
+            permissions.
+          </T>
+        }
       />
     );
   }

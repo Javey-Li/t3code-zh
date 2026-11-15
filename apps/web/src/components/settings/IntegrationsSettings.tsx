@@ -372,7 +372,11 @@ function BrowserViewportSetting({ disabled }: { readonly disabled: boolean }) {
   return (
     <SettingsRow
       {...searchableSetting("browser-default-viewport")}
-      description="Tab size for you and agents. Fill fits the panel; other sizes show the device toolbar."
+      description={
+        <T>
+          Tab size for you and agents. Fill fits the panel; other sizes show the device toolbar.
+        </T>
+      }
       resetAction={
         !disabled && viewport._tag !== DEFAULT_BROWSER_VIEWPORT._tag ? (
           <SettingResetButton
@@ -489,7 +493,7 @@ function BrowserZoomSetting({ disabled }: { readonly disabled: boolean }) {
   return (
     <SettingsRow
       {...searchableSetting("browser-default-zoom")}
-      description="Page zoom applied to new browser tabs."
+      description={<T>Page zoom applied to new browser tabs.</T>}
       resetAction={
         !disabled && zoomFactor !== DEFAULT_PREVIEW_ZOOM_FACTOR ? (
           <SettingResetButton
@@ -537,7 +541,9 @@ function BrowserAppearanceSetting({ disabled }: { readonly disabled: boolean }) 
   return (
     <SettingsRow
       {...searchableSetting("browser-default-appearance")}
-      description="The color scheme pages are told to prefer. System follows your OS setting."
+      description={
+        <T>The color scheme pages are told to prefer. System follows your OS setting.</T>
+      }
       resetAction={
         !disabled && appearance !== DEFAULT_PREVIEW_APPEARANCE ? (
           <SettingResetButton
@@ -585,7 +591,9 @@ function BrowserRecordingInputSettings({ disabled }: { readonly disabled: boolea
     <>
       <SettingsRow
         {...searchableSetting("browser-recording-key-presses")}
-        description="Show pressed keys and shortcuts in new recordings. Password fields are excluded."
+        description={
+          <T>Show pressed keys and shortcuts in new recordings. Password fields are excluded.</T>
+        }
         control={
           <Switch
             disabled={disabled}
@@ -599,7 +607,7 @@ function BrowserRecordingInputSettings({ disabled }: { readonly disabled: boolea
       />
       <SettingsRow
         {...searchableSetting("browser-recording-mouse-presses")}
-        description="Highlight mouse presses and held buttons in new recordings."
+        description={<T>Highlight mouse presses and held buttons in new recordings.</T>}
         control={
           <Switch
             disabled={disabled}
@@ -623,7 +631,7 @@ function BrowserRecordingFrameRateSetting({ disabled }: { readonly disabled: boo
   return (
     <SettingsRow
       {...searchableSetting("browser-recording-frame-rate")}
-      description="Maximum recording rate. 30 fps saves CPU and storage; 60 fps is smoother."
+      description={<T>Maximum recording rate. 30 fps saves CPU and storage; 60 fps is smoother.</T>}
       resetAction={
         !disabled && frameRate !== DEFAULT_BROWSER_RECORDING_FRAME_RATE ? (
           <SettingResetButton
@@ -678,7 +686,12 @@ function BrowserLinkTargetSetting({ disabled }: { readonly disabled: boolean }) 
   return (
     <SettingsRow
       {...searchableSetting("browser-link-target")}
-      description="Where links in the chat and terminal open. Hold ⌘ or Ctrl while clicking a link to open it in your default browser either way."
+      description={
+        <T>
+          Where links in the chat and terminal open. Hold ⌘ or Ctrl while clicking a link to open it
+          in your default browser either way.
+        </T>
+      }
       resetAction={
         !disabled && linkTarget !== DEFAULT_BROWSER_LINK_TARGET ? (
           <SettingResetButton
@@ -733,7 +746,7 @@ function BrowserSearchEngineSetting() {
     <>
       <SettingsRow
         {...searchableSetting("browser-search-engine")}
-        description="What the address bar searches when you type something that isn't a URL."
+        description={<T>What the address bar searches when you type something that isn't a URL.</T>}
         resetAction={
           engine !== DEFAULT_BROWSER_SEARCH_ENGINE || customUrl !== "" ? (
             <SettingResetButton
@@ -773,7 +786,7 @@ function BrowserSearchEngineSetting() {
       {engine === "custom" ? (
         <SettingsRow
           title={<T>Custom search URL</T>}
-          description="Use %s where the search terms go."
+          description={<T>Use %s where the search terms go.</T>}
           status={
             isValidSearchUrlTemplate(customUrl)
               ? undefined
@@ -807,7 +820,12 @@ export function PullRequestLinksOpenInAppSetting() {
   return (
     <SettingsRow
       {...searchableSetting("pull-request-links-open-in-app")}
-      description="Clicking a pull request link opens it in T3 Code. Turn off to open pull request links like any other link, on your git host."
+      description={
+        <T>
+          Clicking a pull request link opens it in T3 Code. Turn off to open pull request links like
+          any other link, on your git host.
+        </T>
+      }
       resetAction={
         openInApp ? null : (
           <SettingResetButton
@@ -1106,7 +1124,12 @@ function BrowserAutoShowFloatingPreviewSetting({ disabled }: { readonly disabled
   return (
     <SettingsRow
       {...searchableSetting("browser-auto-show-floating-preview")}
-      description="Show the floating preview when an agent opens a browser or device unless the agent says otherwise."
+      description={
+        <T>
+          Show the floating preview when an agent opens a browser or device unless the agent says
+          otherwise.
+        </T>
+      }
       resetAction={
         !disabled && autoShow !== DEFAULT_BROWSER_AUTO_SHOW_FLOATING_PREVIEW ? (
           <SettingResetButton
@@ -1326,7 +1349,9 @@ function BrowserProfilesSetting({ disabled }: { readonly disabled: boolean }) {
   return (
     <SettingsRow
       {...searchableSetting("browser-profiles")}
-      description="Profiles separate cookies and logins. Incognito data is cleared when the app closes."
+      description={
+        <T>Profiles separate cookies and logins. Incognito data is cleared when the app closes.</T>
+      }
       control={
         <Menu onOpenChange={(open) => open && loadSources()}>
           <MenuTrigger

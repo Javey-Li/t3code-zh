@@ -1132,7 +1132,11 @@ export function EnvironmentProviderSettings({
               </PolicyTooltip>
             </span>
           }
-          description="Refresh provider status, versions, and models in the background. Set to 0 to disable."
+          description={
+            <T>
+              Refresh provider status, versions, and models in the background. Set to 0 to disable.
+            </T>
+          }
           resetAction={
             providerHealthRefreshIntervalSeconds !== defaultProviderHealthRefreshIntervalSeconds ? (
               <span
@@ -1395,7 +1399,12 @@ function ProviderInstanceRow({
           liveProvider?.setup?.canAuthenticate === false ? (
           <SettingsRow
             title={<T>Cursor account</T>}
-            description="Using CURSOR_API_KEY. Remove it from this provider's environment to use browser sign-in."
+            description={
+              <T>
+                Using CURSOR_API_KEY. Remove it from this provider's environment to use browser
+                sign-in.
+              </T>
+            }
           />
         ) : null
       }

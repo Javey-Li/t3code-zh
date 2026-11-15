@@ -610,14 +610,18 @@ function ScheduledTaskEnvironmentList({
       {taskId && linkedState?.tasks && linkedState.error === null && !linkedTask ? (
         <SettingsRow
           title={<T>Task unavailable</T>}
-          description="This task was deleted or belongs to a different project. Check your project filter."
+          description={
+            <T>
+              This task was deleted or belongs to a different project. Check your project filter.
+            </T>
+          }
           role="status"
         />
       ) : null}
       {populated.length === 0 && loaded.length > 0 ? (
         <SettingsRow
           title={<T>No scheduled tasks</T>}
-          description="No tasks match this environment and project selection."
+          description={<T>No tasks match this environment and project selection.</T>}
         />
       ) : null}
       {Object.entries(summaries).map(([label, entries]) => {
@@ -711,14 +715,19 @@ function ScheduledTaskEnvironmentSection({
           {taskId && !linkedTask ? (
             <SettingsRow
               title={<T>Task unavailable</T>}
-              description="This task was deleted or belongs to a different project. Check your project filter."
+              description={
+                <T>
+                  This task was deleted or belongs to a different project. Check your project
+                  filter.
+                </T>
+              }
               role="status"
             />
           ) : null}
           {tasks.length === 0 ? (
             <SettingsRow
               title={<T>No scheduled tasks</T>}
-              description="No tasks match this environment and project selection."
+              description={<T>No tasks match this environment and project selection.</T>}
             />
           ) : (
             tasks.map((task) => (

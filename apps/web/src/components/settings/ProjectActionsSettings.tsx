@@ -116,7 +116,11 @@ export function ProjectActionsSettings() {
         settingKeys={["defaultProjectScripts"]}
         mixed={mixed}
         title={<T>Actions</T>}
-        description="Commands that run in this project's checkout or its worktree, with optional shortcuts."
+        description={
+          <T>
+            Commands that run in this project's checkout or its worktree, with optional shortcuts.
+          </T>
+        }
         onResetOverride={() => void persist(() => null)}
         control={
           <div className="flex flex-wrap items-center gap-1.5">
@@ -191,7 +195,12 @@ export function ProjectActionsSettings() {
       {t3File.status === "invalid" ? (
         <SettingsRow
           title={<T>t3.json is invalid</T>}
-          description="A t3.json exists in this checkout but fails to parse, so every action and icon it declares is ignored. Check the JSON syntax and icon values."
+          description={
+            <T>
+              A t3.json exists in this checkout but fails to parse, so every action and icon it
+              declares is ignored. Check the JSON syntax and icon values.
+            </T>
+          }
           className="text-warning"
         />
       ) : null}

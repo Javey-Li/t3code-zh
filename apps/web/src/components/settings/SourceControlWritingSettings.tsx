@@ -328,7 +328,12 @@ export function SourceControlWritingSettingsSection() {
         settingKeys={["reviewGuidesEnabled"]}
         mixed={mixedReviewGuidesEnabled}
         {...searchableSetting("review-guides")}
-        description="Add a Guide tab to pull requests. An agent explains the changes and points out decisions that need review."
+        description={
+          <T>
+            Add a Guide tab to pull requests. An agent explains the changes and points out decisions
+            that need review.
+          </T>
+        }
         control={
           <Switch
             mixed={mixedReviewGuidesEnabled}
@@ -345,7 +350,12 @@ export function SourceControlWritingSettingsSection() {
             serverScoped
             settingKeys={["reviewGuideModelSelection"]}
             {...searchableSetting("review-guide-model")}
-            description="Must be a coding agent: it reads the pull request over many steps. Off uses the writer model, or Codex or Claude if that model is a text generator."
+            description={
+              <T>
+                Must be a coding agent: it reads the pull request over many steps. Off uses the
+                writer model, or Codex or Claude if that model is a text generator.
+              </T>
+            }
             control={
               !hasServerTargets ? (
                 <span className="text-sm text-muted-foreground">
@@ -444,7 +454,12 @@ export function SourceControlWritingSettingsSection() {
             serverScoped
             settingKeys={["reviewGuideInstructions"]}
             {...searchableSetting("review-guide-instructions")}
-            description="Your preferences for review guides: what to show first, dwell on, or skip. The guide's format and coverage stay the same."
+            description={
+              <T>
+                Your preferences for review guides: what to show first, dwell on, or skip. The
+                guide's format and coverage stay the same.
+              </T>
+            }
             resetAction={
               mixedReviewGuideInstructions || settings.reviewGuideInstructions !== "" ? (
                 <SettingResetButton
@@ -493,7 +508,7 @@ export function SourceControlWritingSettingsSection() {
           settingKeys={["sourceControlWritingStyle"]}
           mixed={templatesMixed}
           {...searchableSetting("follow-change-request-templates")}
-          description="Use the repository's pull request template when it has one."
+          description={<T>Use the repository's pull request template when it has one.</T>}
           resetAction={
             templatesMixed ||
             style.followChangeRequestTemplates !== defaults.followChangeRequestTemplates ? (
@@ -529,7 +544,12 @@ export function SourceControlWritingSettingsSection() {
           serverScoped
           settingKeys={["sourceControlWriterModelSelection"]}
           {...searchableSetting("source-control-writer-model")}
-          description="Model for commit messages, pull request text, and branch or bookmark names. When disabled, use the text generation model configured for this environment."
+          description={
+            <T>
+              Model for commit messages, pull request text, and branch or bookmark names. When
+              disabled, use the text generation model configured for this environment.
+            </T>
+          }
           control={
             !hasServerTargets ? (
               <span className="text-sm text-muted-foreground">

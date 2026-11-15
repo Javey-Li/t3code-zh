@@ -56,7 +56,7 @@ export function ProviderSetupSection(props: ProviderSetupSectionProps) {
       <SettingsRow
         className="@max-lg/setup:[&>div:first-child]:flex @max-lg/setup:[&>div:first-child]:items-stretch @max-lg/setup:[&>div:first-child]:gap-3"
         title={<T>Environment</T>}
-        description="Device that runs this provider."
+        description={<T>Device that runs this provider.</T>}
         control={
           <div className="flex min-w-0 flex-col gap-2 sm:items-end">
             <span className="text-muted-foreground [overflow-wrap:anywhere]">
@@ -71,11 +71,14 @@ export function ProviderSetupSection(props: ProviderSetupSectionProps) {
         }
       />
       {props.readOnly ? (
-        <SettingsRow title={<T>Setup unavailable</T>} description="Provider setup is read-only." />
+        <SettingsRow
+          title={<T>Setup unavailable</T>}
+          description={<T>Provider setup is read-only.</T>}
+        />
       ) : props.provider?.setup === undefined ? (
         <SettingsRow
           title={<T>Update required</T>}
-          description="Update this environment to manage Antigravity."
+          description={<T>Update this environment to manage Antigravity.</T>}
         />
       ) : (
         <ProviderSetupActions
@@ -198,7 +201,7 @@ function ProviderSetupActions({
       <SettingsRow
         title={<T>Runtime</T>}
         className="@max-lg/setup:[&>div:first-child]:flex @max-lg/setup:[&>div:first-child]:items-stretch @max-lg/setup:[&>div:first-child]:gap-3"
-        description="Install and manage Antigravity."
+        description={<T>Install and manage Antigravity.</T>}
         status={
           <div className="space-y-2">
             {usesCustomBinary ? (

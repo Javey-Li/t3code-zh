@@ -39,7 +39,12 @@ function BoringSidebarRow() {
   return (
     <SettingsRow
       {...searchableSetting("boring-sidebar")}
-      description="Group sidebar threads into project folders. Pinned threads stay on top, and Snoozed and Settled stay below the folders."
+      description={
+        <T>
+          Group sidebar threads into project folders. Pinned threads stay on top, and Snoozed and
+          Settled stay below the folders.
+        </T>
+      }
       control={
         <Switch
           checked={settings.boringSidebarEnabled}
@@ -65,7 +70,11 @@ function BoringSidebarMultilineRow() {
     <SettingsRow
       {...searchableSetting("boring-sidebar-multiline")}
       className="px-0 py-2 sm:px-0"
-      description="Show folder threads on two lines: the title, then the branch, pull request, and agent."
+      description={
+        <T>
+          Show folder threads on two lines: the title, then the branch, pull request, and agent.
+        </T>
+      }
       control={
         <Switch
           checked={settings.boringSidebarMultilineRows}
@@ -88,7 +97,12 @@ function GuestLinksRowWithSignIn() {
   return (
     <SettingsRow
       {...searchableSetting("guest-links")}
-      description="Share a thread with a guest who watches it live in a browser and sends messages you approve. Sign in to T3 Connect to use guest links."
+      description={
+        <T>
+          Share a thread with a guest who watches it live in a browser and sends messages you
+          approve. Sign in to T3 Connect to use guest links.
+        </T>
+      }
       control={
         <Button size="sm" variant="outline" onClick={openAuthPrompt}>
           <T>Sign in</T>

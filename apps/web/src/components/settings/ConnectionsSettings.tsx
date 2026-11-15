@@ -941,7 +941,7 @@ function ConnectionsSettingsContent({
         return (
           <SettingsRow
             {...searchableSetting("wsl-backend")}
-            description="Couldn't load the WSL backend state."
+            description={<T>Couldn't load the WSL backend state.</T>}
             status={<span className="block text-destructive">{desktopWslError}</span>}
             control={
               <Button
@@ -965,7 +965,12 @@ function ConnectionsSettingsContent({
       return (
         <SettingsRow
           {...searchableSetting("wsl-backend")}
-          description="WSL is unavailable, so Windows is running instead. Turn WSL off to clear this preference."
+          description={
+            <T>
+              WSL is unavailable, so Windows is running instead. Turn WSL off to clear this
+              preference.
+            </T>
+          }
           status={
             desktopWslError ? (
               <span className="block text-destructive">{desktopWslError}</span>
@@ -999,7 +1004,12 @@ function ConnectionsSettingsContent({
       <>
         <SettingsRow
           {...searchableSetting("wsl-backend")}
-          description="Run the selected WSL distro alongside Windows. Projects remain on their current filesystem."
+          description={
+            <T>
+              Run the selected WSL distro alongside Windows. Projects remain on their current
+              filesystem.
+            </T>
+          }
           status={
             desktopWslError ? (
               <span className="block text-destructive">{desktopWslError}</span>
@@ -1048,7 +1058,7 @@ function ConnectionsSettingsContent({
         {desktopWslState.enabled ? (
           <SettingsRow
             title={<T>WSL only</T>}
-            description="Run only the WSL backend. T3 Code restarts when this changes."
+            description={<T>Run only the WSL backend. T3 Code restarts when this changes.</T>}
             className="bg-muted/20 pl-7 sm:pl-8"
             control={
               <Switch
@@ -1685,7 +1695,7 @@ function ConnectionsSettingsContent({
         <SettingsSection {...searchableSetting("connections-environment")}>
           <SettingsRow
             title={<T>No environment selected</T>}
-            description="Connect an environment to view its settings and access."
+            description={<T>Connect an environment to view its settings and access.</T>}
           />
         </SettingsSection>
       )}

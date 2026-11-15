@@ -25,7 +25,7 @@ export function MobileAppSettingsRow() {
   return (
     <SettingsRow
       {...searchableSetting("mobile-app")}
-      description="Connect to your server from your phone or tablet."
+      description={<T>Connect to your server from your phone or tablet.</T>}
       control={
         <div className="flex items-center gap-2">
           {stores.map(({ label, store, url, Icon }) => (

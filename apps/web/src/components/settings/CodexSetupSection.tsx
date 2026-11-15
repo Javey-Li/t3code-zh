@@ -205,7 +205,7 @@ export function CodexSetupSection(props: CodexSetupSectionProps) {
           }
         />
       ) : (
-        <SettingsRow title={<T>ChatGPT account</T>} description="Preparing sign-in." />
+        <SettingsRow title={<T>ChatGPT account</T>} description={<T>Preparing sign-in.</T>} />
       )
     ) : (
       <ManagedCodexSetup
@@ -1109,7 +1109,7 @@ export function CodexManagedRuntimeFields({
     <>
       <SettingsRow
         title={<T>Binary path</T>}
-        description="Selected by T3 Code."
+        description={<T>Selected by T3 Code.</T>}
         control={
           <div className="w-full sm:w-80">
             <Input
@@ -1124,7 +1124,7 @@ export function CodexManagedRuntimeFields({
       />
       <SettingsRow
         title={<T>CODEX_HOME path</T>}
-        description="Shared Codex config, sessions, and state."
+        description={<T>Shared Codex config, sessions, and state.</T>}
         control={
           <div className="w-full sm:w-80">
             <Input

@@ -400,7 +400,7 @@ function AboutVersionSection() {
       ) : selectedHostedAppChannel ? (
         <SettingsRow
           {...searchableSetting("update-track")}
-          description="Switches the hosted app release channel."
+          description={<T>Switches the hosted app release channel.</T>}
           control={
             <Select
               value={selectedHostedAppChannel}
@@ -1745,7 +1745,12 @@ function ScopedCompactIdleThreadsRow() {
       settingKeys={["idleCompaction", "compactIdleThreads"]}
       mixed={idleCompaction.mixed}
       {...searchableSetting("compact-idle-threads")}
-      description="When to compact an idle Claude thread over 200,000 tokens: after you return, just before its prompt cache expires, or never. Each Claude provider can override this."
+      description={
+        <T>
+          When to compact an idle Claude thread over 200,000 tokens: after you return, just before
+          its prompt cache expires, or never. Each Claude provider can override this.
+        </T>
+      }
       resetAction={
         globalIdleCompaction(settings) !== globalIdleCompaction(DEFAULT_UNIFIED_SETTINGS) ? (
           <SettingResetButton
@@ -1929,7 +1934,12 @@ export function ThreadsSettingsPanel() {
         <SettingsRow
           serverScoped
           {...searchableSetting("auto-resume-limited-threads")}
-          description="Automatically resume threads when their usage limits reset. You can cancel auto-resume in each thread."
+          description={
+            <T>
+              Automatically resume threads when their usage limits reset. You can cancel auto-resume
+              in each thread.
+            </T>
+          }
           settingKeys={["autoResumeLimitedThreads"]}
           control={
             <ScopedSwitch
@@ -1945,7 +1955,12 @@ export function ThreadsSettingsPanel() {
         <SettingsRow
           serverScoped
           {...searchableSetting("snooze-limited-threads")}
-          description="Snooze threads until their usage limits reset. Enable auto-resume to continue the agent after the reset."
+          description={
+            <T>
+              Snooze threads until their usage limits reset. Enable auto-resume to continue the
+              agent after the reset.
+            </T>
+          }
           settingKeys={["snoozeLimitedThreads"]}
           control={
             <ScopedSwitch
@@ -1966,7 +1981,12 @@ export function ThreadsSettingsPanel() {
             serverScoped
             settingKeys={["sidebarAutoSettleOnMerge"]}
             {...searchableSetting("auto-settle-merged-threads")}
-            description="Settle a thread when its pull request merges. Closed pull requests still settle automatically."
+            description={
+              <T>
+                Settle a thread when its pull request merges. Closed pull requests still settle
+                automatically.
+              </T>
+            }
             resetAction={
               settings.sidebarAutoSettleOnMerge !==
               DEFAULT_UNIFIED_SETTINGS.sidebarAutoSettleOnMerge ? (
@@ -1996,7 +2016,9 @@ export function ThreadsSettingsPanel() {
             serverScoped
             settingKeys={["sidebarAutoSettleAfterDays"]}
             {...searchableSetting("auto-settle-inactive-threads")}
-            description="Sidebar threads with no activity for this long settle automatically."
+            description={
+              <T>Sidebar threads with no activity for this long settle automatically.</T>
+            }
             resetAction={
               settings.sidebarAutoSettleAfterDays !==
               DEFAULT_UNIFIED_SETTINGS.sidebarAutoSettleAfterDays ? (
@@ -2029,7 +2051,7 @@ export function ThreadsSettingsPanel() {
               serverScoped
               settingKeys={["sidebarAutoSettleAfterDays"]}
               title={searchableSetting("days-before-auto-settle").title}
-              description="Any new activity un-settles a thread automatically."
+              description={<T>Any new activity un-settles a thread automatically.</T>}
               control={
                 <AutoSettleDaysInput
                   value={settings.sidebarAutoSettleAfterDays}
@@ -2045,7 +2067,11 @@ export function ThreadsSettingsPanel() {
               serverScoped
               settingKeys={["sidebarAutoSettleKeepPullRequests"]}
               title={<T>Keep threads with a PR</T>}
-              description="Inactivity does not settle threads with a pull request. Merge and close still do."
+              description={
+                <T>
+                  Inactivity does not settle threads with a pull request. Merge and close still do.
+                </T>
+              }
               control={
                 <ScopedSwitch
                   settingKeys={["sidebarAutoSettleKeepPullRequests"]}
@@ -2066,7 +2092,12 @@ export function ThreadsSettingsPanel() {
           serverScoped
           settingKeys={["textGenerationModelSelection"]}
           {...searchableSetting("text-generation-model")}
-          description="For thread titles and other generated text. Source control has its own setting. Text generators from Providers also appear here."
+          description={
+            <T>
+              For thread titles and other generated text. Source control has its own setting. Text
+              generators from Providers also appear here.
+            </T>
+          }
           resetAction={
             hasServerTargets && isTextGenerationModelDirty ? (
               <SettingResetButton
@@ -2243,7 +2274,12 @@ export function MaintenanceSettingsPanel() {
           serverScoped
           settingKeys={["enableProviderUpdateChecks"]}
           {...searchableSetting("provider-update-checks")}
-          description="Check installed provider CLIs for newer available versions and fetch model catalog updates. When off, new models may not appear."
+          description={
+            <T>
+              Check installed provider CLIs for newer available versions and fetch model catalog
+              updates. When off, new models may not appear.
+            </T>
+          }
           resetAction={
             settings.enableProviderUpdateChecks !==
             DEFAULT_UNIFIED_SETTINGS.enableProviderUpdateChecks ? (
@@ -2272,7 +2308,12 @@ export function MaintenanceSettingsPanel() {
           {...searchableSetting("continue-threads-after-server-update")}
           serverScoped
           settingKeys={["continueThreadsAfterServerUpdate"]}
-          description="Automatically resume interrupted threads after an update, crash, or machine restart on the selected environments."
+          description={
+            <T>
+              Automatically resume interrupted threads after an update, crash, or machine restart on
+              the selected environments.
+            </T>
+          }
           status={
             !hasServerTargets
               ? "All selected connected environments must support restart continuation."
@@ -2402,7 +2443,7 @@ export function AboutSettingsPanel() {
             <SettingsRow
               id={searchableSetting("app-version").id}
               title={<AboutVersionTitle />}
-              description="Current version of the application."
+              description={<T>Current version of the application.</T>}
             />
           </>
         )}
@@ -2440,7 +2481,7 @@ export function AboutSettingsPanel() {
         />
         <SettingsRow
           {...searchableSetting("open-source-licenses")}
-          description="Notices for dependencies, assets, and optional tools used by T3 Code."
+          description={<T>Notices for dependencies, assets, and optional tools used by T3 Code.</T>}
           control={
             <Button
               render={<Link to="/settings/open-source-licenses" />}

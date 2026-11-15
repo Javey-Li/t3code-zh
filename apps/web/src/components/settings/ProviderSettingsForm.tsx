@@ -238,7 +238,7 @@ function ProviderCommandArguments({
   return (
     <SettingsRow
       title={<T>Arguments</T>}
-      description="One literal argument per row, in launch order."
+      description={<T>One literal argument per row, in launch order.</T>}
       managed={managedReason}
       control={
         <Button

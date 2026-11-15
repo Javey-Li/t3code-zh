@@ -558,7 +558,12 @@ function CleanupModelRow() {
       settingKeys={["speechPostProcessingModelSelection"]}
       {...searchableSetting("speech-post-processing-model")}
       title={<T>Cleanup model</T>}
-      description="Model for transcript cleanup, such as a cheaper or faster one. When disabled, use the text generation model configured for this environment."
+      description={
+        <T>
+          Model for transcript cleanup, such as a cheaper or faster one. When disabled, use the text
+          generation model configured for this environment.
+        </T>
+      }
       control={
         connectedEnvironments.length === 0 ? (
           <span className="text-sm text-muted-foreground">
@@ -744,7 +749,7 @@ function AdvancedSpeechSettings({
       <SettingsRow
         {...searchableSetting("speech-hardware")}
         title={<T>Hardware</T>}
-        description="Auto uses the environment’s GPU when it has one."
+        description={<T>Auto uses the environment’s GPU when it has one.</T>}
         control={
           <Select
             value={supported.acceleration}
@@ -787,7 +792,7 @@ function AdvancedSpeechSettings({
       />
       <SettingsRow
         title={<T>Unload model</T>}
-        description="Release the model’s memory on the environment after it sits idle."
+        description={<T>Release the model’s memory on the environment after it sits idle.</T>}
         control={
           <Select
             value={supported.modelUnloadTimeout}
@@ -1549,7 +1554,7 @@ export function VoiceSettingsPanel() {
         {model?.supportsTranslation ? (
           <SettingsRow
             title={<T>Translate to English</T>}
-            description="Speak any language and get English text."
+            description={<T>Speak any language and get English text.</T>}
             control={
               <Switch
                 aria-label={gt("Translate to English")}

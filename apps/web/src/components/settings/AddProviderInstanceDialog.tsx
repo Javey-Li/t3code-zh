@@ -692,7 +692,7 @@ export function AddProviderInstanceDialog({
                 />
                 <SettingsRow
                   title={<T>Accent color</T>}
-                  description="Optional marker shown in the picker."
+                  description={<T>Optional marker shown in the picker.</T>}
                   control={
                     <ProviderAccentColorPicker
                       displayName={label || driverOption.label}
