@@ -411,7 +411,6 @@ export function SourceControlSettingsPanel() {
   const environmentId =
     environment?.connection.phase === "connected" ? environment.environmentId : null;
   const aggregate = scope.environmentIds.length !== 1 && connectedEnvironments.length > 1;
-  const environmentSuffix = aggregate && environment ? ` · ${environment.label}` : "";
   const discovery = useEnvironmentQuery(
     environmentId === null
       ? null
@@ -529,7 +528,11 @@ export function SourceControlSettingsPanel() {
       ) : isInitialScanPending ? (
         <>
           <SourceControlSectionSkeleton
-            title={`Version Control${environmentSuffix}`}
+            title={
+              aggregate && environment
+                ? gt("Version Control · {name}", { name: environment.label })
+                : gt("Version Control")
+            }
             headerAction={scanButton}
           />
           <SourceControlSectionSkeleton title={gt("Source control providers")} />
@@ -539,7 +542,11 @@ export function SourceControlSettingsPanel() {
           {hasVersionControlSystems ? (
             <SettingsSection
               id={searchableSetting("source-control").id}
-              title={`Version Control${environmentSuffix}`}
+              title={
+                aggregate && environment
+                  ? gt("Version Control · {name}", { name: environment.label })
+                  : gt("Version Control")
+              }
               headerAction={scanButton}
             >
               {result.versionControlSystems.map((item) => (
@@ -553,8 +560,10 @@ export function SourceControlSettingsPanel() {
               id={hasVersionControlSystems ? undefined : searchableSetting("source-control").id}
               title={
                 hasVersionControlSystems
-                  ? "Source control providers"
-                  : `Source control providers${environmentSuffix}`
+                  ? gt("Source control providers")
+                  : aggregate && environment
+                    ? gt("Source control providers · {name}", { name: environment.label })
+                    : gt("Source control providers")
               }
               headerAction={hasVersionControlSystems ? null : scanButton}
             >

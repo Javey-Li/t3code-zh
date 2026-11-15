@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, useGT } from "gt-react";
 import {
   AuthOrchestrationOperateScope,
   type EnvironmentId,
@@ -73,6 +73,7 @@ export function PullRequestThreadDialog({
   onOpenChange,
   onPrepared,
 }: PullRequestThreadDialogProps) {
+  const gt = useGT();
   const referenceInputRef = useRef<HTMLInputElement>(null);
   const [reference, setReference] = useState(initialReference ?? "");
   const [referenceDirty, setReferenceDirty] = useState(false);
@@ -211,11 +212,16 @@ export function PullRequestThreadDialog({
         <DialogHeader>
           <DialogTitle className="flex items-center">
             <SourceControlIcon className="me-2 size-4" />
-            Checkout {terminology.singular}
+            {gt("Checkout {name}", { name: terminology.singular })}
           </DialogTitle>
           <DialogDescription>
-            Resolve a {sourceControlPresentation.providerName} {terminology.singular}, then create
-            the draft thread in the main repo or in a dedicated worktree.
+            {gt(
+              "Resolve a {provider} {name}, then create the draft thread in the main repo or in a dedicated worktree.",
+              {
+                provider: sourceControlPresentation.providerName,
+                name: terminology.singular,
+              },
+            )}
           </DialogDescription>
         </DialogHeader>
         <DialogPanel>
@@ -225,7 +231,9 @@ export function PullRequestThreadDialog({
             </span>
             <Input
               ref={referenceInputRef}
-              placeholder={`${terminology.shortLabel} URL, checkout command, or #42`}
+              placeholder={gt("{label} URL, checkout command, or #42", {
+                label: terminology.shortLabel,
+              })}
               value={reference}
               onChange={(event) => {
                 setReferenceDirty(true);

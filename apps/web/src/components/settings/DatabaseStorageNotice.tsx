@@ -135,6 +135,7 @@ function ReclaimRow({
   readonly status: DatabaseStorageStatus;
   readonly dismiss: ReactNode;
 }) {
+  const gt = useGT();
   const reclaim = useAtomCommand(serverEnvironment.reclaimDatabaseSpace);
   const [confirming, setConfirming] = useState(false);
   const [requested, setRequested] = useState(false);
@@ -149,8 +150,10 @@ function ReclaimRow({
     if (result._tag === "Success") {
       toastManager.add({
         type: "success",
-        title: `Reclaiming ${amount} on ${label}`,
-        description: `T3 Code there restarts and is back in about ${minutes} min.`,
+        title: gt("Reclaiming {amount} on {label}", { amount, label }),
+        description: gt("T3 Code there restarts and is back in about {minutes} min.", {
+          minutes,
+        }),
       });
       return;
     }
@@ -159,13 +162,13 @@ function ReclaimRow({
     const error = squashAtomCommandFailure(result);
     toastManager.add({
       type: "error",
-      title: `Could not reclaim space on ${label}`,
+      title: gt("Could not reclaim space on {label}", { label }),
       description: error instanceof Error ? error.message : "An error occurred.",
     });
   };
   return (
     <SettingsRow
-      title={`${amount} on ${label}`}
+      title={gt("{amount} on {label}", { amount, label })}
       description={
         status.reclaimFailure === undefined
           ? `Restarts T3 Code there. It will be offline for about ${minutes} min.`

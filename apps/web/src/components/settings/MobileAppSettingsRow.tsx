@@ -1,4 +1,4 @@
-import { T, msg } from "gt-react";
+import { T, msg, useGT } from "gt-react";
 import { AndroidIcon, AppleIcon } from "../Icons";
 import { Button } from "../ui/button";
 import { Popover, PopoverPopup, PopoverTitle, PopoverTrigger } from "../ui/popover";
@@ -22,6 +22,7 @@ const stores = [
 ];
 
 export function MobileAppSettingsRow() {
+  const gt = useGT();
   return (
     <SettingsRow
       {...searchableSetting("mobile-app")}
@@ -46,7 +47,7 @@ export function MobileAppSettingsRow() {
                       size={128}
                       level="M"
                       marginSize={1}
-                      title={`${store} link`}
+                      title={gt("{store} link", { store })}
                     />
                   </div>
                   <Button
