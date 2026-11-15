@@ -161,6 +161,7 @@ export function CloudVoiceConfiguration({
   active: boolean;
   close: () => void;
 }) {
+  const gt = useGT();
   const m = useMessages();
   const id = environment.environmentId;
   const name = CLOUD_SPEECH_LABELS[provider];
@@ -275,7 +276,7 @@ export function CloudVoiceConfiguration({
               key={sourceId}
               id="voice-cloud-key"
               name="reference"
-              aria-label={`${company} API key reference`}
+              aria-label={gt("{company} API key reference", { company })}
               autoFocus={!routed}
               placeholder={source?.referencePlaceholder}
               value={draft}
@@ -288,7 +289,7 @@ export function CloudVoiceConfiguration({
             <SecretInput
               id="voice-cloud-key"
               name="key"
-              aria-label={`${company} API key`}
+              aria-label={gt("{company} API key", { company })}
               autoFocus={!routed}
               placeholder="Enter API key"
               value={draft}

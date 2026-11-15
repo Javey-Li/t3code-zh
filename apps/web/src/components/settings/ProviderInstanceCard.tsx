@@ -477,7 +477,7 @@ export function ProviderEnvironmentSection(props: {
                 disabled={variable.valueRedacted === true}
                 placeholder={gt("VARIABLE_NAME")}
                 spellCheck={false}
-                aria-label={`Environment variable name ${index + 1}`}
+                aria-label={gt("Environment variable name {index}", { index: index + 1 })}
               />
             );
             const removeButton = (
@@ -513,7 +513,9 @@ export function ProviderEnvironmentSection(props: {
                           });
                         }}
                         aria-pressed={variable.sensitive}
-                        aria-label={`Mark environment variable ${variable.name || index + 1} as sensitive`}
+                        aria-label={gt("Mark environment variable {name} as sensitive", {
+                          name: variable.name || index + 1,
+                        })}
                       >
                         {variable.sensitive ? (
                           <LockIcon className="size-3" />
@@ -1125,7 +1127,7 @@ export function ProviderInstanceCard({
             type="button"
             className="pointer-events-auto absolute inset-0 cursor-pointer rounded-md outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
             onClick={onSelect}
-            aria-label={`Select ${displayName}`}
+            aria-label={gt("Select {name}", { name: displayName })}
             aria-pressed={selected}
           />
           {titleIconNode}
@@ -1214,7 +1216,7 @@ export function ProviderInstanceCard({
             variant="ghost-destructive"
             disabled={readOnly}
             onClick={onDelete}
-            aria-label={`Delete instance ${instanceId}`}
+            aria-label={gt("Delete instance {id}", { id: instanceId })}
           >
             <Trash2Icon />
           </Button>

@@ -1,4 +1,4 @@
-import { T, useMessages } from "gt-react";
+import { T, useGT, useMessages } from "gt-react";
 import {
   isSecretReference,
   type EnvironmentId,
@@ -35,6 +35,7 @@ export function SourceControlTokenSettings({
   readonly credentials: SourceControlHostCredentials;
   readonly onSaved: () => void;
 }) {
+  const gt = useGT();
   const m = useMessages();
   const { tokens } = useEnvironmentSettings(environmentId, (settings) =>
     readHostCredentialSettings(settings, definition.kind),
@@ -132,7 +133,7 @@ export function SourceControlTokenSettings({
             <SecretSourceInput
               id={`${definition.kind}-token-${environmentId}`}
               size="sm"
-              aria-label={`${definition.label} token`}
+              aria-label={gt("{label} token", { label: definition.label })}
               environmentId={environmentId}
               configured={isSaved && !isSecretReference(savedToken)}
               value={draft}

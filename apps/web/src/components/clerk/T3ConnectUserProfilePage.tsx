@@ -52,6 +52,7 @@ function T3ConnectEnvironmentRow(props: {
   readonly onConfirmationChange: (open: boolean) => void;
   readonly onDeregister: (environment: RelayClientEnvironmentRecord) => void;
 }) {
+  const gt = useGT();
   const m = useMessages();
   const { environment } = props;
   return (
@@ -80,7 +81,7 @@ function T3ConnectEnvironmentRow(props: {
             <div
               className="rounded-lg border border-input bg-muted/32 px-5 py-4 shadow-xs/5"
               role="group"
-              aria-label={`Confirm deregistration of ${environment.label}`}
+              aria-label={gt("Confirm deregistration of {label}", { label: environment.label })}
             >
               <h4 className="text-sm leading-4.5 font-semibold text-foreground">
                 <T>Deregister server</T>

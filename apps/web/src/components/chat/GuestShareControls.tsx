@@ -230,6 +230,7 @@ export function GuestPendingMessages({
   readonly onImageExpand: (preview: ExpandedImagePreview) => void;
   readonly onFileOpen: (attachment: ChatFileAttachment) => void;
 }) {
+  const gt = useGT();
   const share = useThreadGuestShare(threadRef);
   const canOperate = useEnvironmentScope(threadRef.environmentId, AuthOrchestrationOperateScope);
   const resolveGuestMessage = useOrchestrationCommand(threadEnvironment.resolveGuestMessage, {
@@ -307,7 +308,7 @@ export function GuestPendingMessages({
                   size="xs"
                   variant="ghost-muted"
                   disabled={busy}
-                  aria-label={`Dismiss message from ${guestName}`}
+                  aria-label={gt("Dismiss message from {name}", { name: guestName })}
                   onClick={() => void resolve(message.id, "dismiss")}
                 >
                   <T>Dismiss</T>
@@ -315,7 +316,7 @@ export function GuestPendingMessages({
                 <Button
                   size="xs"
                   disabled={busy}
-                  aria-label={`Send message from ${guestName}`}
+                  aria-label={gt("Send message from {name}", { name: guestName })}
                   onClick={() => void resolve(message.id, "send")}
                 >
                   <T>Send</T>

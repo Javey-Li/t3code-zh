@@ -365,7 +365,7 @@ export function ComposerAttachmentMediaRow({
             <button
               type="button"
               className="flex h-full w-full cursor-zoom-in flex-col items-center justify-center gap-1 px-1 text-white"
-              aria-label={`Play ${file.name}`}
+              aria-label={gt("Play {name}", { name: file.name })}
               onClick={() => {
                 if (file.file !== null) {
                   const preview = buildExpandedImagePreview([file], file.id);
@@ -654,7 +654,9 @@ export function ComposerRestingImagePreviews({
         <button
           type="button"
           className="flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-md border border-border/70 bg-muted/60 font-medium text-secondary-label text-xs tabular-nums outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring focus-visible:ring-offset-1 focus-visible:ring-offset-background"
-          aria-label={`Show ${String(counts.overflowCount)} more image attachments`}
+          aria-label={gt("Show {count} more image attachments", {
+            count: String(counts.overflowCount),
+          })}
           onPointerDown={(event) => event.preventDefault()}
           onClick={onShowMore}
         >

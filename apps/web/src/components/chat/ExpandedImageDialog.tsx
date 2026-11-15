@@ -194,7 +194,7 @@ export const ExpandedImageDialog = memo(function ExpandedImageDialog({
           variant="media-close"
           className="absolute right-0 top-0 z-20"
           onClick={close}
-          aria-label={`Close ${mediaLabel} preview`}
+          aria-label={gt("Close {label} preview", { label: mediaLabel })}
         >
           <XIcon />
         </Button>

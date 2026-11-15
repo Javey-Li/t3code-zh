@@ -93,7 +93,7 @@ export function SecretSourceSelect(props: {
       <SelectTrigger
         size="sm"
         className="w-auto min-w-0 shrink-0"
-        aria-label={`${props.label} source`}
+        aria-label={gt("{label} source", { label: props.label })}
         title={title}
       >
         <SelectValue>
@@ -231,6 +231,7 @@ export function SecretSourceInput({
   children,
   ...rest
 }: SecretSourceInputProps) {
+  const gt = useGT();
   // A provider picked here applies once a reference for it is committed.
   const [pendingProvider, setPendingProvider] = useState<SecretProviderId | null>(null);
   const [rejectedReference, setRejectedReference] = useState<string | null>(null);
@@ -297,7 +298,7 @@ export function SecretSourceInput({
             autoComplete="off"
             placeholder={definition?.referencePlaceholder}
             spellCheck={false}
-            aria-label={`${label} reference`}
+            aria-label={gt("{label} reference", { label })}
             aria-invalid={rejectedReference !== null}
           />
           {environmentId !== undefined &&

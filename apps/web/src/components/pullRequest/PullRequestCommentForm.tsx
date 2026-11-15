@@ -122,7 +122,9 @@ export function PullRequestCommentForm({
         value={body}
         rows={3}
         placeholder={gt("Leave a comment")}
-        aria-label={`Comment on this ${sourceControlClients.get(detail.provider).changeRequest.singular}`}
+        aria-label={gt("Comment on this {name}", {
+          name: sourceControlClients.get(detail.provider).changeRequest.singular,
+        })}
         onValueChange={setBody}
         onKeyDown={(event) => {
           if (event.nativeEvent.isComposing || event.keyCode === 229) return;

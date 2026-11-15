@@ -179,7 +179,9 @@ export function PullRequestDetailGhost({
             size="icon-xs"
             variant="ghost"
             disabled
-            aria-label={`${capitalizeTerm(terminology.singular)} actions loading`}
+            aria-label={gt("{name} actions loading", {
+              name: capitalizeTerm(terminology.singular),
+            })}
           >
             <EllipsisIcon aria-hidden className="size-4" />
           </Button>
@@ -431,10 +433,11 @@ export function PullRequestConversationGhost({
   rows?: number;
   terminology: ChangeRequestTerminology;
 }) {
+  const gt = useGT();
   return (
     <div
       role="status"
-      aria-label={`Loading ${terminology.singular} conversation`}
+      aria-label={gt("Loading {name} conversation", { name: terminology.singular })}
       className="motion-safe:animate-skeleton space-y-4 py-2"
     >
       {Array.from({ length: rows }, (_, index) => (

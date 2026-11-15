@@ -111,7 +111,7 @@ export function LoadBalancingSettings({
             <SelectTrigger
               size="xs"
               className="w-32"
-              aria-label={`${environment.label} load preference`}
+              aria-label={gt("{label} load preference", { label: environment.label })}
             >
               <SelectValue />
             </SelectTrigger>

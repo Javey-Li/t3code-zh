@@ -420,6 +420,7 @@ function DeviceDiscoveryWarning(props: {
   readonly incompletePlatforms: readonly DevicePlatform[];
   readonly onRetry: () => Promise<unknown>;
 }) {
+  const gt = useGT();
   const [open, setOpen] = useState(false);
   const [retrying, setRetrying] = useState(false);
   const [dismissedCause, setDismissedCause] = useState<string | null>(null);
@@ -449,7 +450,7 @@ function DeviceDiscoveryWarning(props: {
             size="micro"
             variant="ghost"
             disabled={retrying}
-            aria-label={`Retry device discovery on ${props.label}`}
+            aria-label={gt("Retry device discovery on {label}", { label: props.label })}
             onClick={() => {
               setRetrying(true);
               void props.onRetry().finally(() => setRetrying(false));
@@ -460,7 +461,7 @@ function DeviceDiscoveryWarning(props: {
         ) : null}
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger
-            aria-label={`Details for ${props.label}`}
+            aria-label={gt("Details for {label}", { label: props.label })}
             render={<Button size="micro" variant="ghost" />}
           >
             <T>Details</T>
@@ -474,7 +475,7 @@ function DeviceDiscoveryWarning(props: {
         <Button
           size="icon-micro"
           variant="ghost"
-          aria-label={`Dismiss device warning for ${props.label}`}
+          aria-label={gt("Dismiss device warning for {label}", { label: props.label })}
           onClick={() => {
             setOpen(false);
             setDismissedCause(cause);

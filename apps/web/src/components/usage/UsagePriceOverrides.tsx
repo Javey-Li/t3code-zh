@@ -464,7 +464,9 @@ export function UsagePriceOverrides({
                                 <Input
                                   size="compact"
                                   value={row.alias ?? aliasCell.value}
-                                  aria-label={`Map ${row.model || "new model"} to model`}
+                                  aria-label={gt("Map {model} to model", {
+                                    model: row.model || "new model",
+                                  })}
                                   list="usage-alias-models"
                                   placeholder={row.isNew ? "Optional" : aliasCell.placeholder}
                                   autoComplete="off"

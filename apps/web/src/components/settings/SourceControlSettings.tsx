@@ -230,6 +230,7 @@ function DiscoveryItemRow({
   };
   readonly children?: ReactNode;
 }) {
+  const gt = useGT();
   const m = useMessages();
   const version = optionLabel(item.version);
   const auth = isProviderDiscoveryItem(item) ? item.auth : null;
@@ -281,7 +282,7 @@ function DiscoveryItemRow({
                 variant="ghost-muted"
                 onClick={() => setIsExpanded((open) => !open)}
                 aria-expanded={isExpanded}
-                aria-label={`Toggle ${item.label} details`}
+                aria-label={gt("Toggle {label} details", { label: item.label })}
               >
                 <ChevronDownIcon
                   className={cn("size-3.5 transition-transform", isExpanded && "rotate-180")}
@@ -296,7 +297,9 @@ function DiscoveryItemRow({
                       checked={offered.checked}
                       disabled={offered.disabled}
                       onCheckedChange={offered.onChange}
-                      aria-label={`Offer ${item.label} when adding or publishing a project`}
+                      aria-label={gt("Offer {label} when adding or publishing a project", {
+                        label: item.label,
+                      })}
                     />
                   }
                 />
@@ -306,7 +309,7 @@ function DiscoveryItemRow({
               <Switch
                 checked={item.status === "available"}
                 disabled
-                aria-label={`${item.label} availability`}
+                aria-label={gt("{label} availability", { label: item.label })}
               />
             ) : null}
           </div>

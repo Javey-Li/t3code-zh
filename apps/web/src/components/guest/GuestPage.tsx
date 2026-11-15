@@ -605,10 +605,11 @@ function UnplacedGuestMessage({
 function GuestModelLabel({ model }: { readonly model: GuestThreadModel }) {
   const label = getTriggerDisplayModelName({ slug: model.name, ...model }, model.driver);
   const fullLabel = getDisplayModelName({ slug: model.name, ...model });
+  const gt = useGT();
   return (
     <ComposerControl
       render={<span />}
-      aria-label={`Model: ${fullLabel}`}
+      aria-label={gt("Model: {label}", { label: fullLabel })}
       className="pointer-events-none min-w-0 shrink"
     >
       {model.driver === null ? null : (

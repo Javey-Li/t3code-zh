@@ -273,7 +273,7 @@ function ProviderCommandArguments({
                       ),
                     )
                   }
-                  aria-label={`Argument ${index + 1}`}
+                  aria-label={gt("Argument {index}", { index: index + 1 })}
                   spellCheck={false}
                 />
                 <Button
