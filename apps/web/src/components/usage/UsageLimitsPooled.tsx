@@ -346,6 +346,7 @@ function SegmentTriggers({
   readonly index: number;
   readonly showAccountName: boolean;
 }) {
+  const gt = useGT();
   const popover = use(SegmentPopoverContext) ?? undefined;
   const payload: SegmentPayload = { account, window, reset, redeem };
   const remaining = remainingPercent(window);
@@ -364,7 +365,23 @@ function SegmentTriggers({
             ref={segmentRef}
             type="button"
             style={{ gridColumn: index, gridRow: 1, ...paceMark?.gappedTrack }}
-            aria-label={`${account.displayName ?? (account.email ? accountInitials(account.email) : account.driver)}: ${remaining}% left${resetsIn ? `, ${resetsIn}` : ""}${timeLeft === null ? "" : `, ${timeLeft}% of the window left`}${credits ? `, ${credits} reset ${credits === 1 ? "credit" : "credits"} banked` : ""}`}
+            aria-label={gt("{account}: {remaining}% left{reset}{window}{bank}", {
+              account:
+                account.displayName ??
+                (account.email ? accountInitials(account.email) : account.driver),
+              remaining,
+              reset: resetsIn ? gt(", {time}", { time: resetsIn }) : "",
+              window:
+                timeLeft === null
+                  ? ""
+                  : gt(", {percent}% of the window left", { percent: timeLeft }),
+              bank:
+                credits === 0
+                  ? ""
+                  : credits === 1
+                    ? gt(", {count} reset credit banked", { count: credits })
+                    : gt(", {count} reset credits banked", { count: credits }),
+            })}
             className="relative h-5 min-w-0 cursor-pointer rounded-md bg-muted text-start outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-[popup-open]:ring-1 data-[popup-open]:ring-inset data-[popup-open]:ring-border @2xl/pool:h-8"
           />
         }
