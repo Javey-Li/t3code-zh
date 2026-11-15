@@ -1,4 +1,4 @@
-import { T, msg, useGT } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import {
   type LinkedPrompt,
   parseNewThreadLink,
@@ -31,7 +31,7 @@ interface LinkSummary {
 }
 
 const PROMPT_HEADER = {
-  title: "Open this prompt",
+  title: msg("Open this prompt"),
   description: msg("It opens as a draft. Nothing runs until you press Send."),
 };
 
@@ -47,14 +47,18 @@ function summarize(
       value:
         prompt.value === null
           ? {
-              title: "Open this thread",
+              title: msg("Open this thread"),
               description: msg(
                 "It opens in T3 Code if you're connected to the machine it runs on.",
               ),
               prompt: null,
               details: [],
             }
-          : { ...PROMPT_HEADER, prompt: prompt.value, details: ["Opens one of your threads."] },
+          : {
+              ...PROMPT_HEADER,
+              prompt: prompt.value,
+              details: [msg("Opens one of your threads.")],
+            },
     };
   }
   const link = parseNewThreadLink(url.search);
@@ -124,6 +128,7 @@ function HostedPromptLinkLanding({
   readonly onChoose: (choice: "app" | "browser", remember: boolean) => void;
 }) {
   const gt = useGT();
+  const m = useMessages();
   const summary = summarize(appPath);
   const [remember, setRemember] = useState(false);
   const deepLink = promptLinkDeepLink(appPath);
@@ -148,7 +153,7 @@ function HostedPromptLinkLanding({
   const { title, description, prompt, details } = summary.value;
   return (
     <StandalonePage>
-      <StandalonePageHeader title={title} description={description} />
+      <StandalonePageHeader title={m(title)} description={m(description)} />
       {prompt !== null && prompt.hiddenCharacters > 0 ? (
         <Alert className="mt-5" variant="error">
           <AlertTitle>
@@ -166,7 +171,9 @@ function HostedPromptLinkLanding({
         </pre>
       ) : null}
       {details.length > 0 ? (
-        <p className="mt-3 text-xs text-muted-foreground">{details.join(" · ")}</p>
+        <p className="mt-3 text-xs text-muted-foreground">
+          {details.map((detail) => m(detail)).join(" · ")}
+        </p>
       ) : null}
       <div className="mt-6 flex flex-wrap gap-2">
         <Button render={<a href={deepLink} />} onClick={() => onChoose("app", remember)}>

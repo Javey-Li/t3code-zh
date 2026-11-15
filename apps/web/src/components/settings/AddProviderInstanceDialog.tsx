@@ -406,7 +406,7 @@ export function AddProviderInstanceDialog({
       setIsSaving(false);
       toastManager.add({
         type: "error",
-        title: "Could not add provider instance",
+        title: gt("Could not add provider instance"),
         description: error instanceof Error ? error.message : "The settings update failed.",
       });
       return;
@@ -420,7 +420,7 @@ export function AddProviderInstanceDialog({
     }
     toastManager.add({
       type: "success",
-      title: "Provider instance added",
+      title: gt("Provider instance added"),
       description: `${driverOption.label} instance '${instanceId}' was added.`,
     });
     onOpenChange(false);

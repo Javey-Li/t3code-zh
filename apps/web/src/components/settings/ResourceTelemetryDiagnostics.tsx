@@ -928,7 +928,7 @@ function ResourceTelemetryDiagnosticsBody({
         clearSignaling();
         toastManager.add({
           type: "error",
-          title: "Could not confirm signal",
+          title: gt("Could not confirm signal"),
           description: error instanceof Error ? error.message : `Failed to send ${signal}.`,
         });
         return;
@@ -1000,7 +1000,7 @@ function ResourceTelemetryDiagnosticsBody({
       .catch((error: unknown) => {
         toastManager.add({
           type: "error",
-          title: "Could not restart resource monitor",
+          title: gt("Could not restart resource monitor"),
           description:
             error instanceof Error ? error.message : "The resource monitor retry failed.",
         });

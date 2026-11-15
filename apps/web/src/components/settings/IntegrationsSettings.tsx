@@ -928,7 +928,7 @@ function DeviceIntegrationControls({
     if (failed.length > 0) {
       toastManager.add({
         type: "error",
-        title: "Device settings not saved on all environments",
+        title: gt("Device settings not saved on all environments"),
         description: `Could not update ${failed.map((environment) => environment.label).join(", ")}.`,
       });
     }
@@ -1637,7 +1637,7 @@ function BrowserProfilesSetting({ disabled }: { readonly disabled: boolean }) {
               .catch(() => {
                 toastManager.add({
                   type: "error",
-                  title: "Could not open System Settings",
+                  title: gt("Could not open System Settings"),
                   description: msg("Open Privacy & Security → Full Disk Access manually."),
                 });
               });

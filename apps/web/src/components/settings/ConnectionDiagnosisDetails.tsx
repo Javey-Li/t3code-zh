@@ -1,4 +1,4 @@
-import { T, useMessages } from "gt-react";
+import { T, useMessages, useGT } from "gt-react";
 import { useAtomValue } from "@effect/atom-react";
 import {
   AVAILABLE_CONNECTION_STATE,
@@ -129,14 +129,15 @@ export function ConnectionDiagnosisPanel({
   readonly onAddRoute: (() => void) | null;
 }) {
   const m = useMessages();
+  const gt = useGT();
   const { copyToClipboard } = useCopyToClipboard({
     target: "connection diagnostics",
-    onCopy: () => toastManager.add({ type: "success", title: "Diagnostics copied" }),
+    onCopy: () => toastManager.add({ type: "success", title: gt("Diagnostics copied") }),
     onError: (error) =>
       toastManager.add(
         stackedThreadToast({
           type: "error",
-          title: "Could not copy diagnostics",
+          title: gt("Could not copy diagnostics"),
           description: error.message,
         }),
       ),

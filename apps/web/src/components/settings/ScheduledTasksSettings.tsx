@@ -792,7 +792,7 @@ function ScheduledTaskRow({
       toastManager.add(
         stackedThreadToast({
           type: "error",
-          title: "Could not update scheduled task",
+          title: gt("Could not update scheduled task"),
           description: String(squashAtomCommandFailure(result)),
         }),
       );
@@ -1129,7 +1129,7 @@ function WebhookEndpointField({
       toastManager.add(
         stackedThreadToast({
           type: "error",
-          title: "Could not rotate webhook URL",
+          title: gt("Could not rotate webhook URL"),
           description: String(squashAtomCommandFailure(result)),
         }),
       );

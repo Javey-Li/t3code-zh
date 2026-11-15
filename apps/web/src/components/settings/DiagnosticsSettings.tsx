@@ -895,7 +895,7 @@ function DiagnosticsSettingsBody() {
         clearSignaling();
         toastManager.add({
           type: "error",
-          title: "Could not confirm signal",
+          title: gt("Could not confirm signal"),
           description: error instanceof Error ? error.message : `Failed to send ${signal}.`,
         });
         return;
@@ -934,7 +934,7 @@ function DiagnosticsSettingsBody() {
       if (isStaleProcessSignalMessage(message)) {
         toastManager.add({
           type: "info",
-          title: "Process already exited",
+          title: gt("Process already exited"),
           description: msg(
             "The process is not a child of the T3 Server. It might already have exited.",
           ),

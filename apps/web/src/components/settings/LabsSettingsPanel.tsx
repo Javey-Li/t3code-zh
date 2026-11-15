@@ -196,7 +196,9 @@ function PromptSuggestionsRow() {
       serverScoped
       {...searchableSetting("prompt-suggestions-beta")}
       settingKeys={["promptSuggestionsEnabled"]}
-      description="Show a predicted next message in the empty composer after a Claude or Codex turn. Tab uses it. Each is an extra cached request on your plan. Needs Codex 0.165+. Claude threads update on restart."
+      description={gt(
+        "Show a predicted next message in the empty composer after a Claude or Codex turn. Tab uses it. Each is an extra cached request on your plan. Needs Codex 0.165+. Claude threads update on restart.",
+      )}
       control={
         <ScopedSwitch
           settingKeys={["promptSuggestionsEnabled"]}
@@ -273,7 +275,9 @@ function FastWorktreeCheckoutRow() {
       serverScoped
       {...searchableSetting("worktree-fast-checkout")}
       settingKeys={["fastWorktreeCheckout"]}
-      description="On a Mac, clone new worktrees from a checkout cached in the T3 home folder instead of writing every file. Uses Git’s normal checkout when it can’t. Turning it off deletes the cache."
+      description={gt(
+        "On a Mac, clone new worktrees from a checkout cached in the T3 home folder instead of writing every file. Uses Git’s normal checkout when it can’t. Turning it off deletes the cache.",
+      )}
       control={
         <ScopedSwitch
           settingKeys={["fastWorktreeCheckout"]}

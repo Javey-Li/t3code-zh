@@ -1,4 +1,4 @@
-import { msg } from "gt-react";
+import { msg, useGT } from "gt-react";
 import { lazy, Suspense, useSyncExternalStore } from "react";
 
 import { useTheme } from "../../hooks/useTheme";
@@ -24,6 +24,7 @@ function useThemeDefinition(id: string | null | undefined) {
 }
 
 export function ThemeEditorHost() {
+  const gt = useGT();
   const session = useThemeEditorStore((store) => store.session);
   const closeThemeEditor = useThemeEditorStore((store) => store.closeThemeEditor);
   const { theme, setTheme, themeHalves, refreshTheme } = useTheme();
@@ -39,7 +40,7 @@ export function ThemeEditorHost() {
         toastManager.add(
           stackedThreadToast({
             type: "error",
-            title: "Could not save your theme",
+            title: gt("Could not save your theme"),
             description: msg("Browser storage is unavailable, so the change was not kept."),
           }),
         );
@@ -75,7 +76,7 @@ export function ThemeEditorHost() {
       toastManager.add(
         stackedThreadToast({
           type: "error",
-          title: "Could not save your theme",
+          title: gt("Could not save your theme"),
           description: msg("Browser storage is unavailable, so the change was not kept."),
         }),
       );

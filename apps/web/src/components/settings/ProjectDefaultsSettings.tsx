@@ -122,7 +122,11 @@ export function ProjectDefaultsSettings({ category }: { category: ProjectSetting
   const setModel = (value: ModelSelection | null) => {
     const reason = value ? modelDisabledReason(value.instanceId, value.model) : null;
     if (reason) {
-      toastManager.add({ type: "error", title: "Default model not saved", description: reason });
+      toastManager.add({
+        type: "error",
+        title: gt("Default model not saved"),
+        description: reason,
+      });
       return;
     }
     updateSettings({ defaultModelSelection: value });
@@ -286,7 +290,7 @@ export function ProjectDefaultsSettings({ category }: { category: ProjectSetting
                 if (reason) {
                   toastManager.add({
                     type: "error",
-                    title: "Fallback model not saved",
+                    title: gt("Fallback model not saved"),
                     description: reason,
                   });
                   return;

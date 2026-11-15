@@ -240,7 +240,7 @@ export function DeviceSourcesSettings(props: {
     } catch (error) {
       toastManager.add({
         type: "error",
-        title: "Device host not saved",
+        title: gt("Device host not saved"),
         description: error instanceof Error ? error.message : String(error),
       });
     }
@@ -364,7 +364,7 @@ export function DeviceSourcesSettings(props: {
   rows.push({
     key: "local",
     shared: false,
-    title: "Local simulators",
+    title: gt("Local simulators"),
     description:
       members.length > 1
         ? "Simulators and emulators installed on each environment's own machine."

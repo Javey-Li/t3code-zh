@@ -103,7 +103,7 @@ export function ProjectFaviconPickerDialog(props: {
                       .catch((error: unknown) => {
                         toastManager.add({
                           type: "error",
-                          title: "Could not open image picker",
+                          title: gt("Could not open image picker"),
                           description:
                             error instanceof Error ? error.message : "An error occurred.",
                         });
@@ -115,7 +115,7 @@ export function ProjectFaviconPickerDialog(props: {
                 </CommandFooterAction>
               ) : null
             }
-            inputProps={{ placeholder: "Search image files…" }}
+            inputProps={{ placeholder: gt("Search image files…") }}
             mode="none"
             onItemHighlighted={(value) => {
               setHighlightedItemValue(typeof value === "string" ? value : null);
