@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT } from "gt-react";
 import { useRef } from "react";
 
 import { Textarea } from "../ui/textarea";
@@ -29,7 +29,7 @@ export function ThreadTitleInstructionsSettings() {
       resetAction={
         mixed || settings.threadTitleInstructions !== "" ? (
           <SettingResetButton
-            label="thread title instructions"
+            label={msg("thread title instructions")}
             onClick={() => updateSettings({ threadTitleInstructions: "" })}
           />
         ) : null

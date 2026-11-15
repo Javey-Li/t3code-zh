@@ -1,5 +1,5 @@
 /* oxlint-disable react/no-array-index-key -- Read-only cells retain their database row and column positions. */
-import { T, useGT } from "gt-react";
+import { T, msg, useGT } from "gt-react";
 import {
   decodeFilePreviewText,
   filePreviewKind,
@@ -249,7 +249,7 @@ export default function BinaryViewer(props: {
               </Select>
             </div>
             <FileSurfaceAction
-              label="Previous rows"
+              label={msg("Previous rows")}
               disabled={busy || page === 0}
               onPress={() => selectPage(page - 1)}
             >
@@ -261,7 +261,7 @@ export default function BinaryViewer(props: {
                 : `${page * SQLITE_PAGE_SIZE + 1}–${Math.min(table.count, (page + 1) * SQLITE_PAGE_SIZE)} of ${table.count.toLocaleString()}`}
             </span>
             <FileSurfaceAction
-              label="Next rows"
+              label={msg("Next rows")}
               disabled={busy || (page + 1) * SQLITE_PAGE_SIZE >= table.count}
               onPress={() => selectPage(page + 1)}
             >

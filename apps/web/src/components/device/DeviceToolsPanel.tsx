@@ -131,7 +131,7 @@ export function DeviceToolsPanel(props: {
         ) : null}
 
         <Section title={gt("App")}>
-          <Row label="Foreground">
+          <Row label={msg("Foreground")}>
             <span className="truncate font-mono text-xs">{foregroundApp?.id ?? "-"}</span>
           </Row>
           {foregroundApp ? (
@@ -169,7 +169,7 @@ export function DeviceToolsPanel(props: {
         </Section>
 
         <Section title={isIos ? "Simulator" : "Emulator"}>
-          <Row label="Appearance">
+          <Row label={msg("Appearance")}>
             <ToggleGroup
               aria-label={gt("Appearance")}
               value={settings?.appearance ? [settings.appearance] : []}
@@ -188,7 +188,7 @@ export function DeviceToolsPanel(props: {
               </Toggle>
             </ToggleGroup>
           </Row>
-          <Row label="Text size">
+          <Row label={msg("Text size")}>
             <ChoiceSelect
               ariaLabel="Text size"
               value={settings?.textSize ?? null}
@@ -199,7 +199,7 @@ export function DeviceToolsPanel(props: {
           </Row>
           {isIos ? (
             <>
-              <Row label="Liquid Glass">
+              <Row label={msg("Liquid Glass")}>
                 <ToggleGroup
                   aria-label={gt("Liquid Glass")}
                   value={settings?.liquidGlass ? [settings.liquidGlass] : []}
@@ -219,7 +219,7 @@ export function DeviceToolsPanel(props: {
                   </Toggle>
                 </ToggleGroup>
               </Row>
-              <Row label="Color filter">
+              <Row label={msg("Color filter")}>
                 <ChoiceSelect
                   ariaLabel="Color filter"
                   value={settings?.colorFilter ?? null}
@@ -230,7 +230,7 @@ export function DeviceToolsPanel(props: {
               </Row>
             </>
           ) : (
-            <Row label="Orientation">
+            <Row label={msg("Orientation")}>
               <ChoiceSelect
                 ariaLabel="Orientation"
                 value={null}
@@ -242,7 +242,7 @@ export function DeviceToolsPanel(props: {
             </Row>
           )}
           <SwitchRow
-            label="Reduce Motion"
+            label={msg("Reduce Motion")}
             checked={settings?.reduceMotion}
             disabled={disabled}
             onChange={(value) => act({ type: "setToggle", setting: "reduceMotion", value })}
@@ -250,13 +250,13 @@ export function DeviceToolsPanel(props: {
           {isIos ? (
             <>
               <SwitchRow
-                label="Increase Contrast"
+                label={msg("Increase Contrast")}
                 checked={settings?.increaseContrast}
                 disabled={disabled}
                 onChange={(value) => act({ type: "setToggle", setting: "increaseContrast", value })}
               />
               <SwitchRow
-                label="Reduce Transparency"
+                label={msg("Reduce Transparency")}
                 checked={settings?.reduceTransparency}
                 disabled={disabled}
                 onChange={(value) =>
@@ -264,13 +264,13 @@ export function DeviceToolsPanel(props: {
                 }
               />
               <SwitchRow
-                label="Show Borders"
+                label={msg("Show Borders")}
                 checked={settings?.showBorders}
                 disabled={disabled}
                 onChange={(value) => act({ type: "setToggle", setting: "showBorders", value })}
               />
               <SwitchRow
-                label="VoiceOver"
+                label={msg("VoiceOver")}
                 checked={settings?.voiceOver}
                 disabled={disabled}
                 onChange={(value) => act({ type: "setToggle", setting: "voiceOver", value })}
@@ -278,7 +278,7 @@ export function DeviceToolsPanel(props: {
             </>
           ) : (
             <SwitchRow
-              label="Network"
+              label={msg("Network")}
               checked={settings?.networkEnabled}
               disabled={disabled}
               onChange={(value) => act({ type: "setToggle", setting: "networkEnabled", value })}
@@ -288,7 +288,7 @@ export function DeviceToolsPanel(props: {
 
         <Section title={gt("Accessibility")}>
           <SwitchRow
-            label="Overlay element frames"
+            label={msg("Overlay element frames")}
             checked={props.axOverlay}
             disabled={props.access === null}
             onChange={(value) => {

@@ -84,10 +84,11 @@ function StatBlock({
   tooltip?: ReactNode;
   tone?: "default" | "warning" | "danger";
 }) {
+  const m = useMessages();
   return (
     <div className="min-w-0 border-border/60 px-4 py-3 sm:px-5">
       <div className="flex min-w-0 items-center gap-1.5 text-2xs font-medium uppercase tracking-widest text-muted-foreground/70">
-        <span className="min-w-0 truncate">{label}</span>
+        <span className="min-w-0 truncate">{m(label)}</span>
         {tooltip ? (
           <Tooltip>
             <TooltipTrigger
@@ -979,7 +980,7 @@ function DiagnosticsSettingsBody() {
       >
         <StatsGrid>
           <StatBlock
-            label="Child Processes"
+            label={msg("Child Processes")}
             value={processData ? formatCount(processData.processCount) : "..."}
           />
           <StatBlock
@@ -988,12 +989,12 @@ function DiagnosticsSettingsBody() {
             tooltip="Total CPU across live child processes of the current server process. The desktop shell and other parent processes are not included."
           />
           <StatBlock
-            label="Memory"
+            label={msg("Memory")}
             value={processData ? formatBytes(processData.totalRssBytes) : "..."}
             tooltip="Total resident memory across live child processes of the current server process. The desktop shell and other parent processes are not included."
           />
           <StatBlock
-            label="Server PID"
+            label={msg("Server PID")}
             value={processData ? String(processData.serverPid) : "..."}
           />
         </StatsGrid>
@@ -1045,17 +1046,17 @@ function DiagnosticsSettingsBody() {
       >
         <StatsGrid>
           <StatBlock
-            label="CPU Time"
+            label={msg("CPU Time")}
             value={resourceData ? formatCpuTime(resourceData.totalCpuSecondsApprox) : "..."}
             tooltip="Approximate active CPU time for the T3 server root process and its descendants during the selected window. It grows only while sampled processes use CPU and older samples leave as the window moves."
           />
           <StatBlock
-            label="Samples"
+            label={msg("Samples")}
             value={resourceData ? formatCount(resourceData.retainedSampleCount) : "..."}
             tooltip="In-memory process samples retained by the server. The server samples only while diagnostics is open, and this resets when the server restarts."
           />
           <StatBlock
-            label="Interval"
+            label={msg("Interval")}
             value={
               resourceData
                 ? resourceData.sampleIntervalMs === 0
@@ -1065,7 +1066,7 @@ function DiagnosticsSettingsBody() {
             }
           />
           <StatBlock
-            label="Processes"
+            label={msg("Processes")}
             value={resourceData ? formatCount(resourceData.topProcesses.length) : "..."}
           />
         </StatsGrid>
@@ -1132,14 +1133,14 @@ function DiagnosticsSettingsBody() {
         }
       >
         <StatsGrid>
-          <StatBlock label="Spans" value={data ? formatCount(data.recordCount) : "..."} />
+          <StatBlock label={msg("Spans")} value={data ? formatCount(data.recordCount) : "..."} />
           <StatBlock
-            label="Failures"
+            label={msg("Failures")}
             value={data ? formatCount(data.failureCount) : "..."}
             tone={data && data.failureCount > 0 ? "danger" : "default"}
           />
           <StatBlock
-            label="Slow Spans"
+            label={msg("Slow Spans")}
             value={data ? formatCount(data.slowSpanCount) : "..."}
             tooltip={
               data
@@ -1149,7 +1150,7 @@ function DiagnosticsSettingsBody() {
             tone={data && data.slowSpanCount > 0 ? "warning" : "default"}
           />
           <StatBlock
-            label="Parse Errors"
+            label={msg("Parse Errors")}
             value={data ? formatCount(data.parseErrorCount) : "..."}
             tone={data && data.parseErrorCount > 0 ? "warning" : "default"}
           />

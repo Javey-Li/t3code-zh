@@ -382,7 +382,7 @@ export function BackgroundActivitySettingsRow() {
       resetAction={
         canResetBackgroundActivity ? (
           <SettingResetButton
-            label="background activity"
+            label={msg("background activity")}
             onClick={() => updateSettings(resetBackgroundActivitySettings())}
           />
         ) : null

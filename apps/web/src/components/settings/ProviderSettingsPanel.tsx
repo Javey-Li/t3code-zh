@@ -1144,7 +1144,7 @@ export function EnvironmentProviderSettings({
                 className={!canWriteSettings ? "opacity-50" : undefined}
               >
                 <SettingResetButton
-                  label="provider health check interval"
+                  label={msg("provider health check interval")}
                   onClick={() =>
                     updateSettings(
                       backgroundActivityOverrideSettings(

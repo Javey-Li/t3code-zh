@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT } from "gt-react";
 import { useComposerMenuState } from "../chat/useComposerMenuState";
 import { useOrchestrationCommand } from "../../state/use-orchestration-command";
 import { AuthOrchestrationOperateScope } from "@t3tools/contracts";
@@ -546,7 +546,7 @@ function ProjectDetail({
             resetAction={
               canResetScratchTitle ? (
                 <SettingResetButton
-                  label="project name"
+                  label={msg("project name")}
                   disabled={!canEditGroup}
                   onClick={() =>
                     void updateAllMembers(
@@ -594,7 +594,7 @@ function ProjectDetail({
             resetAction={
               group.memberProjects.some((member) => !hasDefaultProjectIcon(member)) ? (
                 <SettingResetButton
-                  label="project icon"
+                  label={msg("project icon")}
                   disabled={isSavingFavicon || !canEditGroup}
                   onClick={() => void setProjectIcon(defaultProjectIcon)}
                 />

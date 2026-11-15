@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, msg } from "gt-react";
 import { DownloadIcon, CopyIcon, CheckIcon, Code2Icon, EyeIcon, Table2Icon } from "lucide-react";
 import { useCopyToClipboard } from "~/hooks/useCopyToClipboard";
 import { Spinner } from "~/components/ui/spinner";
@@ -1479,7 +1479,10 @@ export default function FilePreviewPanel({
             </FileSurfaceAction>
           ) : null}
           {canOpenInBrowser ? (
-            <FileSurfaceAction label="Open file in preview browser" onPress={handleOpenInBrowser}>
+            <FileSurfaceAction
+              label={msg("Open file in preview browser")}
+              onPress={handleOpenInBrowser}
+            >
               <Globe2 className="size-3.5" />
             </FileSurfaceAction>
           ) : null}

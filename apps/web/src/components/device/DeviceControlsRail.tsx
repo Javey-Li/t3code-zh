@@ -1,4 +1,4 @@
-import { T, useGT, useMessages } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import type { DeviceHostSummary, DevicePlatform } from "@t3tools/contracts";
 import {
   Camera,
@@ -65,7 +65,7 @@ export function DeviceControlsRail(props: {
       <div className="pointer-events-auto flex shrink-0 flex-col items-center gap-1 overflow-y-auto rounded-full border border-border/50 bg-background/80 p-2 shadow-sm [scrollbar-width:none]">
         <RailButton
           tooltipSide={popupSide}
-          label="Home"
+          label={msg("Home")}
           disabled={inputDisabled}
           onClick={() => handle?.pressButton("home")}
         >
@@ -75,7 +75,7 @@ export function DeviceControlsRail(props: {
           <>
             <RailButton
               tooltipSide={popupSide}
-              label="Back"
+              label={msg("Back")}
               disabled={inputDisabled}
               onClick={() => handle?.pressButton("back")}
             >
@@ -83,7 +83,7 @@ export function DeviceControlsRail(props: {
             </RailButton>
             <RailButton
               tooltipSide={popupSide}
-              label="Recents"
+              label={msg("Recents")}
               disabled={inputDisabled}
               onClick={() => handle?.pressButton("recents")}
             >
@@ -123,7 +123,7 @@ export function DeviceControlsRail(props: {
         ) : props.hostKind === "simlock" ? null : (
           <RailButton
             tooltipSide={popupSide}
-            label="Rotate device"
+            label={msg("Rotate device")}
             disabled={inputDisabled || !!view.keyboard?.attached}
             onClick={() => handle?.rotate()}
           >
@@ -188,7 +188,7 @@ export function DeviceControlsRail(props: {
             </Menu>
             <RailButton
               tooltipSide={popupSide}
-              label="Device tools"
+              label={msg("Device tools")}
               pressed={props.toolsOpen}
               onClick={props.onTools}
             >
@@ -238,7 +238,7 @@ export function DeviceControlsRail(props: {
         <RailDivider />
         <RailButton
           tooltipSide={popupSide}
-          label="3D view"
+          label={msg("3D view")}
           pressed={view.phone}
           disabled={!view.streaming || !!view.phoneUnavailableReason}
           description={view.phoneUnavailableReason ?? undefined}
@@ -248,7 +248,7 @@ export function DeviceControlsRail(props: {
         </RailButton>
         <RailButton
           tooltipSide={popupSide}
-          label="Flat view"
+          label={msg("Flat view")}
           pressed={!view.phone}
           disabled={!view.streaming}
           onClick={view.showFlat}
@@ -266,7 +266,11 @@ export function DeviceControlsRail(props: {
           </RailButton>
         ) : null}
         {view.phone ? (
-          <RailButton tooltipSide={popupSide} label="Restore 3D view" onClick={view.resetView}>
+          <RailButton
+            tooltipSide={popupSide}
+            label={msg("Restore 3D view")}
+            onClick={view.resetView}
+          >
             <Maximize />
           </RailButton>
         ) : null}

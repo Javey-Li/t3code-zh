@@ -1,4 +1,4 @@
-import { T, useGT, useMessages } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import { useAtomValue } from "@effect/atom-react";
 import { connectionStatusTitle } from "@t3tools/client-runtime/connection";
 import { AsyncResult } from "effect/reactivity";
@@ -308,10 +308,11 @@ function Field({
   htmlFor?: string;
   children: ReactNode;
 }) {
+  const m = useMessages();
   return (
     <div className="space-y-1.5">
       <Label className="flex items-baseline justify-between" htmlFor={htmlFor}>
-        <span>{label}</span>
+        <span>{m(label)}</span>
         {hint ? (
           <span className="font-normal text-2xs text-muted-foreground/80">{hint}</span>
         ) : null}
@@ -1283,7 +1284,7 @@ function ScheduledTaskDestination({
           ? "Each run continues this conversation, in its workspace and with its current model."
           : "Each run starts a fresh session in this thread, without earlier runs' context.";
   return (
-    <Field label="Destination" htmlFor="scheduled-task-destination">
+    <Field label={msg("Destination")} htmlFor="scheduled-task-destination">
       {onThreadModeChange ? (
         <Select
           value={threadMode}
@@ -1607,7 +1608,7 @@ function ScheduledTaskEditorForm({
               <T>Reconnect this environment before saving.</T>
             </p>
           ) : null}
-          <Field label="Runs on" htmlFor="scheduled-task-environment">
+          <Field label={msg("Runs on")} htmlFor="scheduled-task-environment">
             <Select
               value={environmentId}
               disabled={task !== null || saving}
@@ -1679,7 +1680,7 @@ function ScheduledTaskEditorForm({
               <T>This scheduled task no longer exists.</T>
             </p>
           ) : null}
-          <Field label="Name" htmlFor="scheduled-task-title">
+          <Field label={msg("Name")} htmlFor="scheduled-task-title">
             <Input
               id="scheduled-task-title"
               placeholder={gt("e.g. Check for Sentry issues")}
@@ -1715,7 +1716,7 @@ function ScheduledTaskEditorForm({
           />
 
           <div className="grid gap-3 sm:grid-cols-2">
-            <Field label="Project" htmlFor="scheduled-task-project">
+            <Field label={msg("Project")} htmlFor="scheduled-task-project">
               <Select
                 value={selectedProjectId}
                 onValueChange={(projectId) =>
@@ -1747,7 +1748,7 @@ function ScheduledTaskEditorForm({
               </Select>
             </Field>
 
-            <Field label="Workspace" htmlFor="scheduled-task-workspace">
+            <Field label={msg("Workspace")} htmlFor="scheduled-task-workspace">
               <Select
                 value={draft.workspaceMode}
                 onValueChange={(value) =>
@@ -1773,7 +1774,7 @@ function ScheduledTaskEditorForm({
           </div>
 
           {draft.workspaceMode === "worktree" ? (
-            <Field label="Base branch" htmlFor="scheduled-task-base-ref">
+            <Field label={msg("Base branch")} htmlFor="scheduled-task-base-ref">
               <WorktreeBaseBranchPicker
                 key={`${environmentId}:${selectedProjectId}`}
                 id="scheduled-task-base-ref"
@@ -1790,7 +1791,7 @@ function ScheduledTaskEditorForm({
             </Field>
           ) : null}
           {draft.workspaceMode === "existing_worktree" ? (
-            <Field label="Checkout path" htmlFor="scheduled-task-checkout">
+            <Field label={msg("Checkout path")} htmlFor="scheduled-task-checkout">
               <Input
                 id="scheduled-task-checkout"
                 value={draft.existingWorktreePath}
@@ -1808,7 +1809,7 @@ function ScheduledTaskEditorForm({
             </Field>
           ) : null}
 
-          <Field label="Prompt" htmlFor="scheduled-task-prompt">
+          <Field label={msg("Prompt")} htmlFor="scheduled-task-prompt">
             <Textarea
               id="scheduled-task-prompt"
               className="max-h-64 overflow-y-auto"
@@ -1820,7 +1821,7 @@ function ScheduledTaskEditorForm({
             />
           </Field>
 
-          <Field label="Model">
+          <Field label={msg("Model")}>
             <div>
               <ProviderModelPicker
                 environmentId={environmentId}
@@ -1927,7 +1928,7 @@ function ScheduledTaskEditorForm({
                   }
                 </p>
                 <Field
-                  label="Skip requests older than"
+                  label={msg("Skip requests older than")}
                   hint="minutes, optional"
                   htmlFor="scheduled-task-max-age"
                 >
@@ -1952,7 +1953,7 @@ function ScheduledTaskEditorForm({
                   onChange={(filters) => setDraft((current) => ({ ...current, filters }))}
                 />
                 <Field
-                  label="Duplicate request key"
+                  label={msg("Duplicate request key")}
                   hint="template, optional"
                   htmlFor="scheduled-task-replay-key"
                 >
@@ -1969,7 +1970,7 @@ function ScheduledTaskEditorForm({
                   <T>Requests with the same key run only once within 7 days.</T>
                 </p>
                 <Field
-                  label="Coalesce key"
+                  label={msg("Coalesce key")}
                   hint="template, optional"
                   htmlFor="scheduled-task-coalesce-key"
                 >
@@ -1983,7 +1984,7 @@ function ScheduledTaskEditorForm({
                   />
                 </Field>
                 <Field
-                  label="Coalesce window"
+                  label={msg("Coalesce window")}
                   hint="seconds, 10–3600"
                   htmlFor="scheduled-task-coalesce-window"
                 >
@@ -2028,7 +2029,7 @@ function ScheduledTaskEditorForm({
                 </div>
                 {draft.signatureEnabled ? (
                   <div className="grid gap-3 sm:grid-cols-2">
-                    <Field label="Header" htmlFor="scheduled-task-signature-header">
+                    <Field label={msg("Header")} htmlFor="scheduled-task-signature-header">
                       <Input
                         id="scheduled-task-signature-header"
                         value={draft.signatureHeader}
@@ -2040,7 +2041,7 @@ function ScheduledTaskEditorForm({
                         }
                       />
                     </Field>
-                    <Field label="Prefix" htmlFor="scheduled-task-signature-prefix">
+                    <Field label={msg("Prefix")} htmlFor="scheduled-task-signature-prefix">
                       <Input
                         id="scheduled-task-signature-prefix"
                         value={draft.signaturePrefix}
@@ -2053,7 +2054,7 @@ function ScheduledTaskEditorForm({
                         }
                       />
                     </Field>
-                    <Field label="Encoding" htmlFor="scheduled-task-signature-encoding">
+                    <Field label={msg("Encoding")} htmlFor="scheduled-task-signature-encoding">
                       <Select
                         value={draft.signatureEncoding}
                         onValueChange={(value) =>
@@ -2072,7 +2073,7 @@ function ScheduledTaskEditorForm({
                         </SelectPopup>
                       </Select>
                     </Field>
-                    <Field label="Secret" htmlFor="scheduled-task-signature-secret">
+                    <Field label={msg("Secret")} htmlFor="scheduled-task-signature-secret">
                       <Input
                         id="scheduled-task-signature-secret"
                         type="password"

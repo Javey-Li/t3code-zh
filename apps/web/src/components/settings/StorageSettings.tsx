@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT } from "gt-react";
 import type {
   StorageCleanupReport,
   StorageCleanupSettings,
@@ -78,7 +78,7 @@ export function WorktreesDirectoryRow() {
       resetAction={
         mixed || settings.worktreesDirectory !== "" ? (
           <SettingResetButton
-            label="worktree location"
+            label={msg("worktree location")}
             onClick={() => updateSettings({ worktreesDirectory: "" })}
           />
         ) : null

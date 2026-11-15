@@ -380,7 +380,7 @@ function BrowserViewportSetting({ disabled }: { readonly disabled: boolean }) {
       resetAction={
         !disabled && viewport._tag !== DEFAULT_BROWSER_VIEWPORT._tag ? (
           <SettingResetButton
-            label="default browser viewport"
+            label={msg("default browser viewport")}
             onClick={() => updateSettings({ browserDefaultViewport: DEFAULT_BROWSER_VIEWPORT })}
           />
         ) : null
@@ -497,7 +497,7 @@ function BrowserZoomSetting({ disabled }: { readonly disabled: boolean }) {
       resetAction={
         !disabled && zoomFactor !== DEFAULT_PREVIEW_ZOOM_FACTOR ? (
           <SettingResetButton
-            label="default browser zoom"
+            label={msg("default browser zoom")}
             onClick={() =>
               updateSettings({ browserDefaultZoomFactor: DEFAULT_PREVIEW_ZOOM_FACTOR })
             }
@@ -547,7 +547,7 @@ function BrowserAppearanceSetting({ disabled }: { readonly disabled: boolean }) 
       resetAction={
         !disabled && appearance !== DEFAULT_PREVIEW_APPEARANCE ? (
           <SettingResetButton
-            label="default browser appearance"
+            label={msg("default browser appearance")}
             onClick={() => updateSettings({ browserDefaultAppearance: DEFAULT_PREVIEW_APPEARANCE })}
           />
         ) : null
@@ -635,7 +635,7 @@ function BrowserRecordingFrameRateSetting({ disabled }: { readonly disabled: boo
       resetAction={
         !disabled && frameRate !== DEFAULT_BROWSER_RECORDING_FRAME_RATE ? (
           <SettingResetButton
-            label="browser recording frame rate"
+            label={msg("browser recording frame rate")}
             onClick={() =>
               updateSettings({ browserRecordingFrameRate: DEFAULT_BROWSER_RECORDING_FRAME_RATE })
             }
@@ -695,7 +695,7 @@ function BrowserLinkTargetSetting({ disabled }: { readonly disabled: boolean }) 
       resetAction={
         !disabled && linkTarget !== DEFAULT_BROWSER_LINK_TARGET ? (
           <SettingResetButton
-            label="link target"
+            label={msg("link target")}
             onClick={() => updateSettings({ browserLinkTarget: DEFAULT_BROWSER_LINK_TARGET })}
           />
         ) : null
@@ -750,7 +750,7 @@ function BrowserSearchEngineSetting() {
         resetAction={
           engine !== DEFAULT_BROWSER_SEARCH_ENGINE || customUrl !== "" ? (
             <SettingResetButton
-              label="search engine"
+              label={msg("search engine")}
               onClick={() =>
                 updateSettings({
                   browserSearchEngine: DEFAULT_BROWSER_SEARCH_ENGINE,
@@ -829,7 +829,7 @@ export function PullRequestLinksOpenInAppSetting() {
       resetAction={
         openInApp ? null : (
           <SettingResetButton
-            label="open pull requests in T3 Code"
+            label={msg("open pull requests in T3 Code")}
             onClick={() => updateSettings({ pullRequestLinksOpenInApp: true })}
           />
         )
@@ -1095,7 +1095,7 @@ function AgentBrowserAccessSetting() {
       resetAction={
         settings.enableAgentBrowserAccess !== DEFAULT_SERVER_SETTINGS.enableAgentBrowserAccess ? (
           <SettingResetButton
-            label="default browser access"
+            label={msg("default browser access")}
             onClick={() =>
               updateSettings({
                 enableAgentBrowserAccess: DEFAULT_SERVER_SETTINGS.enableAgentBrowserAccess,
@@ -1133,7 +1133,7 @@ function BrowserAutoShowFloatingPreviewSetting({ disabled }: { readonly disabled
       resetAction={
         !disabled && autoShow !== DEFAULT_BROWSER_AUTO_SHOW_FLOATING_PREVIEW ? (
           <SettingResetButton
-            label="auto-show floating preview"
+            label={msg("auto-show floating preview")}
             onClick={() =>
               updateSettings({
                 browserAutoShowFloatingPreview: DEFAULT_BROWSER_AUTO_SHOW_FLOATING_PREVIEW,

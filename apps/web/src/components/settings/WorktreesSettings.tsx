@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT } from "gt-react";
 import { DEFAULT_UNIFIED_SETTINGS } from "@t3tools/contracts/settings";
 
 import { AdvancedSettings } from "./AdvancedSettings";
@@ -36,7 +36,7 @@ function StartFromRemoteRow() {
         settings.newWorktreesStartFromOrigin !==
         DEFAULT_UNIFIED_SETTINGS.newWorktreesStartFromOrigin ? (
           <SettingResetButton
-            label="new worktrees start from remote"
+            label={msg("new worktrees start from remote")}
             onClick={() =>
               updateSettings({
                 newWorktreesStartFromOrigin: DEFAULT_UNIFIED_SETTINGS.newWorktreesStartFromOrigin,

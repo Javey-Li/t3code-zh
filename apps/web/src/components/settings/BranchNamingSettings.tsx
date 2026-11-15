@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT } from "gt-react";
 import { useRef } from "react";
 import { BranchNamingMode, DEFAULT_SERVER_SETTINGS } from "@t3tools/contracts";
 
@@ -47,7 +47,7 @@ export function BranchNamingSettings() {
         resetAction={
           settings.branchNamingMode !== DEFAULT_SERVER_SETTINGS.branchNamingMode || modeMixed ? (
             <SettingResetButton
-              label="branch naming"
+              label={msg("branch naming")}
               onClick={() =>
                 updateSettings({ branchNamingMode: DEFAULT_SERVER_SETTINGS.branchNamingMode })
               }
@@ -90,7 +90,7 @@ export function BranchNamingSettings() {
             prefixMixed ||
             settings.branchNamePrefix !== DEFAULT_SERVER_SETTINGS.branchNamePrefix ? (
               <SettingResetButton
-                label="branch prefix"
+                label={msg("branch prefix")}
                 onClick={() =>
                   updateSettings({ branchNamePrefix: DEFAULT_SERVER_SETTINGS.branchNamePrefix })
                 }
@@ -132,7 +132,7 @@ export function BranchNamingSettings() {
           resetAction={
             instructionsMixed || settings.branchNameInstructions !== "" ? (
               <SettingResetButton
-                label="branch naming instructions"
+                label={msg("branch naming instructions")}
                 onClick={() => updateSettings({ branchNameInstructions: "" })}
               />
             ) : null

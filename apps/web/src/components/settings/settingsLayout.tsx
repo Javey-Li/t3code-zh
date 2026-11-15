@@ -1,4 +1,4 @@
-import { useGT } from "gt-react";
+import { useGT, useMessages } from "gt-react";
 import { SettingsGroup } from "./SettingsGroup";
 import { AuthSettingsWriteScope } from "@t3tools/contracts";
 import { usePrimaryEnvironmentId, usePrimaryEnvironment } from "../../state/environments";
@@ -564,6 +564,9 @@ export function SettingResetButton({
   disabled?: boolean;
   onClick: () => void;
 }) {
+  const gt = useGT();
+  const m = useMessages();
+  const resetLabel = m(label);
   return (
     <Tooltip>
       <TooltipTrigger
@@ -571,7 +574,7 @@ export function SettingResetButton({
           <Button
             size="icon-micro"
             variant="ghost-muted"
-            aria-label={`Reset ${label} to default`}
+            aria-label={gt("Reset {label} to default", { label: resetLabel })}
             disabled={disabled}
             onClick={(event) => {
               event.stopPropagation();
@@ -582,7 +585,9 @@ export function SettingResetButton({
           </Button>
         }
       />
-      <TooltipPopup side="top">{tooltip}</TooltipPopup>
+      <TooltipPopup side="top">
+        {tooltip === "Reset to default" ? gt("Reset to default") : tooltip}
+      </TooltipPopup>
     </Tooltip>
   );
 }

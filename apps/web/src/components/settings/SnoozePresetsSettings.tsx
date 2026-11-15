@@ -1,4 +1,4 @@
-import { T, useGT, useMessages } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import { useState } from "react";
 import {
   DEFAULT_SNOOZE_PRESETS,
@@ -196,7 +196,7 @@ export function SnoozePresetsRow() {
       resetAction={
         !mixed && sameSnoozePresets(presets, DEFAULT_SNOOZE_PRESETS) ? null : (
           <SettingResetButton
-            label="snooze options"
+            label={msg("snooze options")}
             onClick={() => {
               const sorted = sortSnoozeRows(
                 DEFAULT_SNOOZE_PRESETS,

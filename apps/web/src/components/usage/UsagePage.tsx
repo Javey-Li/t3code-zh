@@ -797,27 +797,27 @@ function UsageOverview({
         <div className="grid grid-cols-2 gap-x-6 gap-y-4 py-1 md:grid-cols-5">
           <Metric
             loading={loadingPartial}
-            label="Processed tokens"
+            label={msg("Processed tokens")}
             value={formatTokens(merged.totalTokens)}
           />
           <Metric
             loading={loadingPartial}
-            label="Cached input"
+            label={msg("Cached input")}
             value={formatTokens(merged.cachedInputTokens)}
           />
           <Metric
             loading={loadingPartial}
-            label="Uncached input"
+            label={msg("Uncached input")}
             value={formatTokens(merged.uncachedInputTokens)}
           />
           <Metric
             loading={loadingPartial}
-            label="Output"
+            label={msg("Output")}
             value={formatTokens(merged.outputTokens)}
           />
           <Metric
             loading={loadingPartial}
-            label="Cache savings"
+            label={msg("Cache savings")}
             value={formatUsd(merged.costQuality.cacheSavingsUsd)}
           />
         </div>
@@ -829,20 +829,20 @@ function UsageOverview({
         >
           {metric === "tokens" ? (
             <UsageShareBar
-              label="Tokens by type"
+              label={msg("Tokens by type")}
               segments={tokenTypeSegments(merged)}
               format={formatTokens}
             />
           ) : (
             <>
               <UsageShareBar
-                label="Cost by type"
+                label={msg("Cost by type")}
                 segments={costTypeSegments(merged.categoryCost)}
                 format={formatUsd}
               />
               {merged.speedCost.fast + merged.speedCost.ultrafast > 0 ? (
                 <UsageShareBar
-                  label="Cost by speed"
+                  label={msg("Cost by speed")}
                   segments={speedCostSegments(merged.speedCost)}
                   format={formatUsd}
                   aside={<SpeedPremium premiumUsd={merged.speedCost.premium} />}
@@ -1082,9 +1082,10 @@ function Metric({
   readonly value: string;
   readonly loading: boolean;
 }) {
+  const m = useMessages();
   return (
     <div className="flex min-w-0 flex-col gap-0.5">
-      <span className="text-xs text-muted-foreground">{label}</span>
+      <span className="text-xs text-muted-foreground">{m(label)}</span>
       <span
         className={cn("text-base font-medium text-foreground tabular-nums", figureClass(loading))}
       >

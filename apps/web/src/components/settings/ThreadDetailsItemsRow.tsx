@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, msg } from "gt-react";
 import { ChevronDownIcon } from "lucide-react";
 
 import { updateClientSettings, useClientSettings } from "../../hooks/useSettings";
@@ -26,7 +26,7 @@ export function ThreadDetailsItemsRow() {
       resetAction={
         isDefaultThreadDetailsVisibility(visibility) ? null : (
           <SettingResetButton
-            label="thread details"
+            label={msg("thread details")}
             onClick={() => updateClientSettings(RESET_THREAD_DETAILS_ITEMS)}
           />
         )

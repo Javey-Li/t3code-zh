@@ -1,4 +1,4 @@
-import { useMessages } from "gt-react";
+import { msg, useMessages } from "gt-react";
 import {
   CHATGPT_USAGE_URL,
   collectLimitAccounts,
@@ -121,9 +121,10 @@ function AccountName({
 }
 
 function Row({ label, children }: { readonly label: string; readonly children: ReactNode }) {
+  const m = useMessages();
   return (
     <div className="grid grid-cols-[4.5rem_minmax(0,1fr)] gap-x-3">
-      <span className="text-muted-foreground">{label}</span>
+      <span className="text-muted-foreground">{m(label)}</span>
       <span className="min-w-0 text-foreground tabular-nums">{children}</span>
     </div>
   );
@@ -176,22 +177,22 @@ function SegmentPopover({
         ) : null}
       </div>
       <div className="flex flex-col gap-1 border-t border-border/60 pt-2.5">
-        {account.plan ? <Row label="Plan">{account.plan}</Row> : null}
+        {account.plan ? <Row label={msg("Plan")}>{account.plan}</Row> : null}
         {where ? (
           <Row label={account.environments.length > 0 ? "Signed in" : "Via"}>{where}</Row>
         ) : null}
       </div>
       <div className="flex flex-col gap-1 border-t border-border/60 pt-2.5">
-        <Row label="Left">{remaining}%</Row>
+        <Row label={msg("Left")}>{remaining}%</Row>
         {window.resetsAt ? (
-          <Row label="Resets">
+          <Row label={msg("Resets")}>
             {formatUpcomingTimestamp(window.resetsAt, timestampFormat, now)}
             {resetsIn ? ` · ${resetsIn.replace("resets in ", "in ")}` : ""}
           </Row>
         ) : null}
-        {timeLeft !== null ? <Row label="Even pace">{timeLeft}% left by now</Row> : null}
+        {timeLeft !== null ? <Row label={msg("Even pace")}>{timeLeft}% left by now</Row> : null}
         {reset && reset.restoresPercent > 0 ? (
-          <Row label="Restores">+{reset.restoresPercent}% of pool</Row>
+          <Row label={msg("Restores")}>+{reset.restoresPercent}% of pool</Row>
         ) : null}
       </div>
       {choices.length > 0 && redeem ? (

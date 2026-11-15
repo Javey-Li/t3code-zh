@@ -1,5 +1,5 @@
 /* oxlint-disable react/no-unstable-nested-components -- These callbacks return overlays, and are invoked as render functions. */
-import { T } from "gt-react";
+import { T, msg } from "gt-react";
 import { useEffect, useRef, useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import {
@@ -97,7 +97,7 @@ export default function Presentation(props: {
     <div className="flex min-h-0 flex-1 flex-col">
       <div className={FILE_SURFACE_SUBHEADER_CLASS}>
         <FileSurfaceAction
-          label="Previous slide"
+          label={msg("Previous slide")}
           disabled={page === 0}
           onPress={() => select(page - 1)}
         >
@@ -107,7 +107,7 @@ export default function Presentation(props: {
           Slide {page + 1} of {opened.slides.length}
         </span>
         <FileSurfaceAction
-          label="Next slide"
+          label={msg("Next slide")}
           disabled={page + 1 === opened.slides.length}
           onPress={() => select(page + 1)}
         >

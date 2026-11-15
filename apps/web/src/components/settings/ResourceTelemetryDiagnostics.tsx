@@ -231,13 +231,14 @@ function IconStat({
   detail?: string | undefined;
   tone?: "default" | "warning" | "danger";
 }) {
+  const m = useMessages();
   return (
     <div className="group min-w-0 px-4 py-4 sm:px-5">
       <div className="flex items-center gap-2 text-3xs font-semibold uppercase tracking-widest text-muted-foreground/70">
         <span className="text-muted-foreground/55 transition-colors group-hover:text-foreground/65">
           {icon}
         </span>
-        <span className="truncate">{label}</span>
+        <span className="truncate">{m(label)}</span>
       </div>
       <div
         className={cn(
@@ -264,12 +265,13 @@ function AggregateCard({
   accentClass: string;
   aggregate: ResourceTelemetryAggregate;
 }) {
+  const m = useMessages();
   return (
     <div className="relative overflow-hidden border-t border-border/60 px-4 py-4 first:border-t-0 md:border-t-0 md:border-l md:first:border-l-0 sm:px-5">
       <span className={cn("absolute inset-x-5 top-0 h-0.5 rounded-full opacity-75", accentClass)} />
       <div className="flex items-center justify-between gap-3">
         <div className="text-3xs font-semibold uppercase tracking-widest text-muted-foreground/75">
-          {label}
+          {m(label)}
         </div>
         <div className="rounded-md bg-muted/55 px-1.5 py-0.5 font-mono text-3xs tabular-nums text-muted-foreground/70">
           {aggregate.processCount} {aggregate.processCount === 1 ? "process" : "processes"}
@@ -277,19 +279,20 @@ function AggregateCard({
       </div>
       <div className="mt-3.5 grid grid-cols-2 gap-x-4 gap-y-2.5">
         <MetricPair label="CPU" value={`${aggregate.currentCpuPercent.toFixed(1)}%`} />
-        <MetricPair label="Memory" value={formatBytes(aggregate.currentRssBytes)} />
-        <MetricPair label="Read" value={formatRate(aggregate.ioReadBytesPerSecond)} />
-        <MetricPair label="Write" value={formatRate(aggregate.ioWriteBytesPerSecond)} />
+        <MetricPair label={msg("Memory")} value={formatBytes(aggregate.currentRssBytes)} />
+        <MetricPair label={msg("Read")} value={formatRate(aggregate.ioReadBytesPerSecond)} />
+        <MetricPair label={msg("Write")} value={formatRate(aggregate.ioWriteBytesPerSecond)} />
       </div>
     </div>
   );
 }
 
 function MetricPair({ label, value }: { label: string; value: string }) {
+  const m = useMessages();
   return (
     <div className="min-w-0">
       <div className="text-3xs font-semibold uppercase tracking-widest text-muted-foreground/45">
-        {label}
+        {m(label)}
       </div>
       <div className="truncate font-mono text-xs font-medium tabular-nums text-foreground/90">
         {value}
@@ -299,13 +302,14 @@ function MetricPair({ label, value }: { label: string; value: string }) {
 }
 
 function HealthSource({ label, health }: { label: string; health: ResourceTelemetrySourceHealth }) {
+  const m = useMessages();
   const expectedInBrowser =
     health.status === "unavailable" &&
     Option.exists(health.lastError, (error) => error.includes("'web' mode"));
   return (
     <div className="flex items-start justify-between gap-4 border-t border-border/50 py-3 first:border-t-0">
       <div className="min-w-0">
-        <div className="text-sm font-medium text-foreground">{label}</div>
+        <div className="text-sm font-medium text-foreground">{m(label)}</div>
         <div className="mt-1 text-2xs leading-relaxed text-muted-foreground/65">
           {expectedInBrowser
             ? "Available when this page runs inside the desktop app."
@@ -340,9 +344,10 @@ function DetailRow({
   value: ReactNode;
   valueClassName?: string | undefined;
 }) {
+  const m = useMessages();
   return (
     <div className="flex items-center justify-between gap-4 border-t border-border/50 py-2.5 first:border-t-0">
-      <span className="text-2xs text-muted-foreground/75">{label}</span>
+      <span className="text-2xs text-muted-foreground/75">{m(label)}</span>
       <span
         className={cn(
           "min-w-0 truncate text-right font-mono text-2xs tabular-nums text-foreground/85",
@@ -1069,13 +1074,13 @@ function ResourceTelemetryDiagnosticsBody({
           <div className="grid grid-cols-2 divide-x divide-y divide-border/55 md:grid-cols-3">
             <IconStat
               icon={<CpuIcon className="size-3.5" />}
-              label="Current CPU"
+              label={msg("Current CPU")}
               value={allT3 ? `${allT3.currentCpuPercent.toFixed(1)}%` : "..."}
               detail={allT3 ? `${formatCpuTime(allT3.cpuTimeMs)} observed CPU time` : undefined}
             />
             <IconStat
               icon={<MemoryStickIcon className="size-3.5" />}
-              label="Resident memory"
+              label={msg("Resident memory")}
               value={allT3 ? formatBytes(allT3.currentRssBytes) : "..."}
               detail={
                 allT3 ? `${formatBytes(allT3.peakRssBytes)} combined process peaks` : undefined
@@ -1083,7 +1088,7 @@ function ResourceTelemetryDiagnosticsBody({
             />
             <IconStat
               icon={<ActivityIcon className="size-3.5" />}
-              label="Process count"
+              label={msg("Process count")}
               value={allT3 ? String(allT3.processCount) : "..."}
               detail={
                 allT3 ? `${allT3.processStarts} starts · ${allT3.processExits} exits` : undefined
@@ -1091,13 +1096,13 @@ function ResourceTelemetryDiagnosticsBody({
             />
             <IconStat
               icon={<HardDriveIcon className="size-3.5" />}
-              label="Read throughput"
+              label={msg("Read throughput")}
               value={allT3 ? formatRate(allT3.ioReadBytesPerSecond) : "..."}
               detail={allT3 ? `${formatBytes(allT3.ioReadBytes)} observed` : undefined}
             />
             <IconStat
               icon={<DatabaseIcon className="size-3.5" />}
-              label="Write throughput"
+              label={msg("Write throughput")}
               value={allT3 ? formatRate(allT3.ioWriteBytesPerSecond) : "..."}
               detail={allT3 ? `${formatBytes(allT3.ioWriteBytes)} observed` : undefined}
               tone={
@@ -1110,7 +1115,7 @@ function ResourceTelemetryDiagnosticsBody({
             />
             <IconStat
               icon={<GaugeIcon className="size-3.5" />}
-              label="CPU speed limit"
+              label={msg("CPU speed limit")}
               value={
                 snapshot ? (speedLimit === null ? "Unknown" : `${speedLimit.toFixed(0)}%`) : "..."
               }
@@ -1127,17 +1132,17 @@ function ResourceTelemetryDiagnosticsBody({
           {snapshot ? (
             <div className="grid border-t border-border/60 bg-muted/10 md:grid-cols-3">
               <AggregateCard
-                label="Backend + agents"
+                label={msg("Backend + agents")}
                 accentClass="bg-success/80"
                 aggregate={snapshot.groups.backend}
               />
               <AggregateCard
-                label="Desktop"
+                label={msg("Desktop")}
                 accentClass="bg-info/80"
                 aggregate={snapshot.groups.electron}
               />
               <AggregateCard
-                label="Monitor overhead"
+                label={msg("Monitor overhead")}
                 accentClass="bg-warning/80"
                 aggregate={snapshot.groups.monitor}
               />
@@ -1169,21 +1174,21 @@ function ResourceTelemetryDiagnosticsBody({
             {hasHostPowerSignal && snapshot ? (
               <>
                 <DetailRow
-                  label="Power source"
+                  label={msg("Power source")}
                   value={booleanStateLabel(snapshot.power.onBattery, {
                     true: "Battery",
                     false: "External power",
                   })}
                 />
                 <DetailRow
-                  label="Low power mode"
+                  label={msg("Low power mode")}
                   value={booleanStateLabel(snapshot.power.lowPowerMode, {
                     true: "Enabled",
                     false: "Disabled",
                   })}
                 />
                 <DetailRow
-                  label="Idle"
+                  label={msg("Idle")}
                   value={`${booleanStateLabel(snapshot.power.idle, {
                     true: "Idle",
                     false: "Active",
@@ -1194,7 +1199,7 @@ function ResourceTelemetryDiagnosticsBody({
                   }`}
                 />
                 <DetailRow
-                  label="Session"
+                  label={msg("Session")}
                   value={
                     snapshot.power.suspended
                       ? "Suspended"
@@ -1205,7 +1210,7 @@ function ResourceTelemetryDiagnosticsBody({
                   }
                 />
                 <DetailRow
-                  label="Thermal"
+                  label={msg("Thermal")}
                   value={snapshot.power.thermalState}
                   valueClassName={
                     snapshot.power.thermalState === "serious" ||
@@ -1236,18 +1241,24 @@ function ResourceTelemetryDiagnosticsBody({
             </div>
             {snapshot ? (
               <>
-                <HealthSource label="Native process monitor" health={snapshot.health.native} />
-                <HealthSource label="Electron main process" health={snapshot.health.desktop} />
+                <HealthSource
+                  label={msg("Native process monitor")}
+                  health={snapshot.health.native}
+                />
+                <HealthSource
+                  label={msg("Electron main process")}
+                  health={snapshot.health.desktop}
+                />
                 <DetailRow
-                  label="Collection time"
+                  label={msg("Collection time")}
                   value={formatDurationMicros(snapshot.health.collectionDurationMicros)}
                 />
                 <DetailRow
-                  label="Process scan"
+                  label={msg("Process scan")}
                   value={`${snapshot.health.retainedProcessCount}/${snapshot.health.scannedProcessCount} retained`}
                 />
                 <DetailRow
-                  label="Inaccessible"
+                  label={msg("Inaccessible")}
                   value={String(snapshot.health.inaccessibleProcessCount)}
                   valueClassName={
                     snapshot.health.inaccessibleProcessCount > 0
@@ -1256,7 +1267,7 @@ function ResourceTelemetryDiagnosticsBody({
                   }
                 />
                 <DetailRow
-                  label="Sidecar"
+                  label={msg("Sidecar")}
                   value={Option.match(snapshot.health.sidecarVersion, {
                     onNone: () => "Unavailable",
                     onSome: (version) =>
@@ -1266,7 +1277,7 @@ function ResourceTelemetryDiagnosticsBody({
                       })}`,
                   })}
                 />
-                <DetailRow label="Restarts" value={String(snapshot.health.restartCount)} />
+                <DetailRow label={msg("Restarts")} value={String(snapshot.health.restartCount)} />
               </>
             ) : (
               <div className="py-4 text-xs text-muted-foreground">

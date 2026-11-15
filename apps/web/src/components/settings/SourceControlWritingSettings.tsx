@@ -211,7 +211,7 @@ export function SourceControlWritingSettingsSection() {
         resetAction={
           isSourceControlWritingStyleDirty ? (
             <SettingResetButton
-              label="commit and pull request writing"
+              label={msg("commit and pull request writing")}
               onClick={() =>
                 updateSettings({
                   sourceControlWritingStyle: {
@@ -463,7 +463,7 @@ export function SourceControlWritingSettingsSection() {
             resetAction={
               mixedReviewGuideInstructions || settings.reviewGuideInstructions !== "" ? (
                 <SettingResetButton
-                  label="review guide instructions"
+                  label={msg("review guide instructions")}
                   onClick={() => updateSettings({ reviewGuideInstructions: "" })}
                 />
               ) : null
@@ -513,7 +513,7 @@ export function SourceControlWritingSettingsSection() {
             templatesMixed ||
             style.followChangeRequestTemplates !== defaults.followChangeRequestTemplates ? (
               <SettingResetButton
-                label="pull request templates"
+                label={msg("pull request templates")}
                 onClick={() =>
                   updateSettings({
                     sourceControlWritingStyle: {

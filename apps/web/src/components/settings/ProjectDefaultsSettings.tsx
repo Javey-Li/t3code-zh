@@ -1,4 +1,4 @@
-import { T, useGT, useMessages } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import {
   DEFAULT_SERVER_SETTINGS,
   type ModelSelection,
@@ -149,7 +149,7 @@ export function ProjectDefaultsSettings({ category }: { category: ProjectSetting
       }
       resetAction={
         settings.defaultModelSelection !== null ? (
-          <SettingResetButton label="default model" onClick={() => setModel(null)} />
+          <SettingResetButton label={msg("default model")} onClick={() => setModel(null)} />
         ) : null
       }
       control={
@@ -215,7 +215,7 @@ export function ProjectDefaultsSettings({ category }: { category: ProjectSetting
       resetAction={
         !isProjectScope && settings.defaultThreadEnvMode !== null ? (
           <SettingResetButton
-            label="default workspace"
+            label={msg("default workspace")}
             onClick={() => updateSettings({ defaultThreadEnvMode: null })}
           />
         ) : null
@@ -258,7 +258,7 @@ export function ProjectDefaultsSettings({ category }: { category: ProjectSetting
       resetAction={
         mixedFallback || settings.fallbackModelSelection !== null ? (
           <SettingResetButton
-            label="fallback model"
+            label={msg("fallback model")}
             onClick={() => updateSettings({ fallbackModelSelection: null })}
           />
         ) : null
@@ -351,7 +351,7 @@ export function ProjectDefaultsSettings({ category }: { category: ProjectSetting
             resetAction={
               settings.defaultRuntimeMode !== DEFAULT_SERVER_SETTINGS.defaultRuntimeMode ? (
                 <SettingResetButton
-                  label="default permissions"
+                  label={msg("default permissions")}
                   onClick={() =>
                     updateSettings({
                       defaultRuntimeMode: DEFAULT_SERVER_SETTINGS.defaultRuntimeMode,
@@ -428,7 +428,7 @@ export function ProjectDefaultsSettings({ category }: { category: ProjectSetting
             resetAction={
               settings.defaultAutoPull ? (
                 <SettingResetButton
-                  label="default automatic pull"
+                  label={msg("default automatic pull")}
                   tooltip="Reset automatic pull to off"
                   onClick={() => updateSettings({ defaultAutoPull: false })}
                 />
@@ -458,7 +458,7 @@ export function ProjectDefaultsSettings({ category }: { category: ProjectSetting
             resetAction={
               settings.removeAgentCreditsOnMerge ? (
                 <SettingResetButton
-                  label="agent credit removal"
+                  label={msg("agent credit removal")}
                   tooltip="Keep agent credits"
                   onClick={() => updateSettings({ removeAgentCreditsOnMerge: false })}
                 />
@@ -488,7 +488,7 @@ export function ProjectDefaultsSettings({ category }: { category: ProjectSetting
             resetAction={
               settings.pullRequestMergeMethod !== null ? (
                 <SettingResetButton
-                  label="default merge method"
+                  label={msg("default merge method")}
                   tooltip="Reset to last selected"
                   onClick={() => updateSettings({ pullRequestMergeMethod: null })}
                 />
@@ -557,7 +557,7 @@ export function WorktreeSubmodulesRow() {
       resetAction={
         !isProjectScope && settings.worktreeSubmodules !== null ? (
           <SettingResetButton
-            label="worktree submodules"
+            label={msg("worktree submodules")}
             onClick={() => updateSettings({ worktreeSubmodules: null })}
           />
         ) : null
