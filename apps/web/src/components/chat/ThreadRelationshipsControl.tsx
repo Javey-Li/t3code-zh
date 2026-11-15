@@ -316,7 +316,7 @@ function RemoteSubagentRow(props: {
             className={`flex max-w-1/2 shrink-0 gap-1 text-2xs ${failed ? "text-destructive" : "text-muted-foreground"}`}
           >
             <span className="truncate">on {m(remoteChild.label)}</span>
-            <span className="shrink-0">· {threadRelationshipStatusLabel(status)}</span>
+            <span className="shrink-0">· {m(threadRelationshipStatusLabel(status))}</span>
           </span>
         </TooltipTrigger>
         <TooltipPopup side="left">
@@ -432,6 +432,7 @@ export function ThreadRelationshipsPanel(props: {
   readonly showSideChats: boolean;
 }) {
   const gt = useGT();
+  const m = useMessages();
   const ref = scopeThreadRef(props.environmentId, props.threadId);
   const projection = useThreadProjection(ref)?.projection ?? null;
   const providersByEnvironment = useEnvironmentProviders();
@@ -841,7 +842,7 @@ export function ThreadRelationshipsPanel(props: {
                 : `shrink-0 text-2xs ${failed ? "text-destructive" : "text-muted-foreground"} ${trailingVisibilityClass}`
             }
           >
-            {threadRelationshipStatusLabel(rowStatus)}
+            {m(threadRelationshipStatusLabel(rowStatus))}
           </span>
         ) : null}
       </>
@@ -894,7 +895,10 @@ export function ThreadRelationshipsPanel(props: {
                     size="sm"
                     variant="ghost"
                     part="primary"
-                    aria-label={`${threadTitle} ${threadRelationshipStatusLabel(rowStatus)}`}
+                    aria-label={gt("{title} {status}", {
+                      title: threadTitle,
+                      status: m(threadRelationshipStatusLabel(rowStatus)),
+                    })}
                     onClick={() => openThread(threadId)}
                   />
                 }
@@ -936,7 +940,7 @@ export function ThreadRelationshipsPanel(props: {
               </TooltipPopup>
             </Tooltip>
             <span className="shrink-0 border border-transparent ps-1 pe-2.5 text-2xs font-medium text-muted-foreground">
-              {threadRelationshipStatusLabel(rowStatus)}
+              {m(threadRelationshipStatusLabel(rowStatus))}
             </span>
           </div>
         ) : (

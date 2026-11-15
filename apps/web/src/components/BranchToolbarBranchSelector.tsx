@@ -1,4 +1,4 @@
-import { msg } from "gt-react";
+import { msg, useGT } from "gt-react";
 import { ThreadDetailsControl } from "./chat/ThreadDetailsControl";
 import { ComposerContextLabel } from "./ComposerContextLabel";
 import { useRightPanelStore } from "../rightPanelStore";
@@ -115,6 +115,7 @@ export function BranchToolbarBranchSelector({
   onCheckoutPullRequestRequest,
   onComposerFocusRequest,
 }: BranchToolbarBranchSelectorProps) {
+  const gt = useGT();
   const composerFloatingLayerProps = useComposerMenuProps();
   const canWriteSourceControl = useEnvironmentScope(environmentId, AuthSourceControlWriteScope);
   const canOperateThread = useEnvironmentScope(environmentId, AuthOrchestrationOperateScope);
@@ -788,7 +789,7 @@ export function BranchToolbarBranchSelector({
             className="min-w-0 max-w-full active:scale-100"
             disabled={isInitialBranchesLoadPending || isBranchActionPending}
             // NVDA browse mode re-reads a combobox when its attributes change, not when its text does.
-            aria-label={`Branch: ${triggerLabel}`}
+            aria-label={gt("Branch: {name}", { name: triggerLabel })}
           >
             <GitBranchIcon
               className={cn(
