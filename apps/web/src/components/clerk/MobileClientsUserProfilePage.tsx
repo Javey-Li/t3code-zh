@@ -124,7 +124,7 @@ export function MobileClientsUserProfilePage() {
   return (
     <ClerkUserProfilePage
       title={gt("Mobile clients")}
-      description="Mobile devices that get notifications from your environments."
+      description={<T>Mobile devices that get notifications from your environments.</T>}
       action={
         <ClerkUserProfileRefreshButton
           isPending={devicesState.isPending}

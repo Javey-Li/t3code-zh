@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import { scopeProjectRef, scopeThreadRef } from "@t3tools/client-runtime/environment";
 import {
   getAddProjectInitialQuery,
@@ -374,7 +374,7 @@ export function NewThreadLinkView({ link }: { readonly link: NewThreadLink }) {
       return (
         <LinkPage
           title={`You don't have ${name}`}
-          description="Clone it to work on it here, or start without a project."
+          description={msg("Clone it to work on it here, or start without a project.")}
         >
           <Button size="sm" onClick={() => void cloneRepository(state.repository)}>
             Clone {name}
@@ -419,7 +419,9 @@ function PullRequestLinkCheckout({
   return (
     <LinkPage
       title={`Check out ${owner}/${name}#${number}?`}
-      description="This puts the pull request's code in a new worktree and runs your project's setup script on it."
+      description={msg(
+        "This puts the pull request's code in a new worktree and runs your project's setup script on it.",
+      )}
     >
       <Button
         size="sm"
@@ -446,13 +448,14 @@ function LinkPage({
   readonly description?: string;
   readonly children?: ReactNode;
 }) {
+  const m = useMessages();
   return (
     <SidebarInset className="h-dvh min-h-0 overflow-hidden overscroll-y-none">
       {isElectron ? <WorkspacePageHeader electron /> : null}
       <Empty className="flex-1">
         <EmptyHeader className="max-w-md">
-          <EmptyTitle>{title}</EmptyTitle>
-          {description ? <EmptyDescription>{description}</EmptyDescription> : null}
+          <EmptyTitle>{m(title)}</EmptyTitle>
+          {description ? <EmptyDescription>{m(description)}</EmptyDescription> : null}
           {children ? <div className="mt-5 flex justify-center gap-2">{children}</div> : null}
         </EmptyHeader>
       </Empty>

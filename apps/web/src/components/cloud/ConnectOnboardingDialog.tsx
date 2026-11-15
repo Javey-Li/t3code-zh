@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import { useAuth } from "@clerk/react";
 import { useAtomValue } from "@effect/atom-react";
 import {
@@ -372,14 +372,18 @@ function PublishStep({
       <div className="rounded-lg border">
         <OnboardingToggleRow
           title={gt("Publish this environment")}
-          description="Make this environment available to your other devices through T3 Connect."
+          description={msg(
+            "Make this environment available to your other devices through T3 Connect.",
+          )}
           checked={exposeEnvironment}
           disabled={disabled}
           onCheckedChange={onExposeEnvironmentChange}
         />
         <OnboardingToggleRow
           title={gt("Publish agent activity")}
-          description="Send activity from this environment to your mobile clients for push notifications and Live Activities."
+          description={msg(
+            "Send activity from this environment to your mobile clients for push notifications and Live Activities.",
+          )}
           checked={publishAgentActivity}
           disabled={disabled}
           onCheckedChange={onPublishAgentActivityChange}
@@ -430,11 +434,12 @@ function OnboardingToggleRow({
   readonly disabled: boolean;
   readonly onCheckedChange: (enabled: boolean) => void;
 }) {
+  const m = useMessages();
   return (
     <div className="flex items-start justify-between gap-4 border-t border-border/60 px-4 py-3 first:border-t-0">
       <div className="min-w-0">
-        <p className="text-sm font-medium">{title}</p>
-        <p className="mt-1 text-xs text-muted-foreground">{description}</p>
+        <p className="text-sm font-medium">{m(title)}</p>
+        <p className="mt-1 text-xs text-muted-foreground">{m(description)}</p>
       </div>
       <Switch
         aria-label={title}

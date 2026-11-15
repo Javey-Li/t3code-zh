@@ -264,7 +264,12 @@ export function T3ConnectUserProfilePage() {
   return (
     <ClerkUserProfilePage
       title={gt("T3 Connect")}
-      description="Environments registered to your account. Connections on this device are managed in Settings."
+      description={
+        <T>
+          Environments registered to your account. Connections on this device are managed in
+          Settings.
+        </T>
+      }
       action={
         <ClerkUserProfileRefreshButton
           disabled={deregisteringEnvironmentId !== null}
