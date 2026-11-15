@@ -918,9 +918,10 @@ function ProjectsSection({
 }
 
 function PhoneSection({ environmentId }: { readonly environmentId: EnvironmentId }) {
+  const gt = useGT();
   const [open, setOpen] = useState(false);
   return (
-    <WelcomeSection title="Phone">
+    <WelcomeSection title={gt("Phone")}>
       <Collapsible open={open} onOpenChange={setOpen}>
         <div className="flex min-h-10 items-center gap-3 py-1">
           <RowIcon>
@@ -951,7 +952,7 @@ function PhoneSection({ environmentId }: { readonly environmentId: EnvironmentId
                 size={124}
                 level="M"
                 marginSize={2}
-                title="T3 Code app for iPhone and Android"
+                title={gt("T3 Code app for iPhone and Android")}
               />
             </div>
           </div>

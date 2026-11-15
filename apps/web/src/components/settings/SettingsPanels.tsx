@@ -1916,7 +1916,7 @@ export function ThreadsSettingsPanel() {
               settingKeys={["ghqCloneLayout"]}
               checked={settings.ghqCloneLayout}
               onCheckedChange={(checked) => updateSettings({ ghqCloneLayout: Boolean(checked) })}
-              aria-label="Clone into host folders"
+              aria-label={gt("Clone into host folders")}
             />
           }
         />
@@ -2375,7 +2375,7 @@ export function MaintenanceSettingsPanel() {
               onCheckedChange={(checked) =>
                 updateSettings({ keepAwakeWhileAgentsWork: Boolean(checked) })
               }
-              aria-label="Keep awake while agents work"
+              aria-label={gt("Keep awake while agents work")}
             />
           }
         />

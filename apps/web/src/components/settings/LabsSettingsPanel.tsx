@@ -188,6 +188,7 @@ function LinkedEnvironmentsRow() {
 }
 
 function PromptSuggestionsRow() {
+  const gt = useGT();
   const settings = useScopedSettings();
   const updateSettings = useUpdateScopedSettings();
   return (
@@ -203,7 +204,7 @@ function PromptSuggestionsRow() {
           onCheckedChange={(checked) =>
             updateSettings({ promptSuggestionsEnabled: Boolean(checked) })
           }
-          aria-label="Suggest next prompt"
+          aria-label={gt("Suggest next prompt")}
         />
       }
     />
@@ -253,6 +254,7 @@ function SimlockHostsRow() {
 
 /** Shows only when every machine in scope is a Mac, since only macOS servers honor it. */
 function FastWorktreeCheckoutRow() {
+  const gt = useGT();
   const { scope, connectedEnvironments } = useSettingsScope();
   const settings = useScopedSettings();
   const updateSettings = useUpdateScopedSettings();
@@ -277,7 +279,7 @@ function FastWorktreeCheckoutRow() {
           settingKeys={["fastWorktreeCheckout"]}
           checked={settings.fastWorktreeCheckout}
           onCheckedChange={(checked) => updateSettings({ fastWorktreeCheckout: Boolean(checked) })}
-          aria-label="Fast worktree checkout"
+          aria-label={gt("Fast worktree checkout")}
         />
       }
     />

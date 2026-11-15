@@ -106,7 +106,7 @@ export function TextGeneratorsSettings({
       >
         {generators.length === 0 ? (
           <SettingsRow
-            title="No text generators yet"
+            title={gt("No text generators yet")}
             description="Add a model API to write thread titles, commit messages, and other short text without starting a coding agent."
           />
         ) : null}
@@ -266,6 +266,7 @@ function TextGeneratorWizard({
   readonly onSave: (id: ProviderInstanceId, config: TextGeneratorConfig) => void;
   readonly newId: (preset: TextGeneratorPreset) => ProviderInstanceId;
 }) {
+  const gt = useGT();
   const m = useMessages();
   const existing = editing === "new" ? null : editing.config;
   const [step, setStep] = useState(0);
@@ -357,7 +358,7 @@ function TextGeneratorWizard({
                     <span className="text-sm font-medium">Service</span>
                     <div
                       role="radiogroup"
-                      aria-label="Service"
+                      aria-label={gt("Service")}
                       className="grid grid-cols-2 gap-2 sm:grid-cols-4"
                     >
                       {TEXT_GENERATOR_PRESETS.map((candidate) => {
@@ -417,7 +418,7 @@ function TextGeneratorWizard({
                   </Label>
                   <SecretSourceInput
                     id="text-generator-key"
-                    aria-label="API key"
+                    aria-label={gt("API key")}
                     value={keyDraft}
                     configured={storedKey !== ""}
                     sources={secretSources}

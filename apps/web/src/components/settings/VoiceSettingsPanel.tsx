@@ -396,7 +396,7 @@ function DictionaryEditor(props: {
             rows={1}
             maxLength={5_100}
             disabled={disabled}
-            placeholder="Add words, separated by commas"
+            placeholder={gt("Add words, separated by commas")}
             aria-label={gt("Add a word or phrase to the {label}", { label })}
             onChange={(event) => setTermDraft(event.target.value)}
             onKeyDown={(event) => {
@@ -1072,8 +1072,8 @@ function SpeechModelBrowser(props: {
           <div className="w-full min-w-0 flex-1">
             <Input
               size="compact"
-              aria-label="Path to a model file or folder already on this environment"
-              placeholder="Already downloaded elsewhere? Paste the model file or folder path"
+              aria-label={gt("Path to a model file or folder already on this environment")}
+              placeholder={gt("Already downloaded elsewhere? Paste the model file or folder path")}
               value={existingPath}
               onChange={(e) => setExistingPath(e.target.value)}
             />
@@ -1622,7 +1622,7 @@ export function VoiceSettingsPanel() {
       <SettingsSection id="voice-dictionary" title={gt("Dictionary")}>
         <SettingsRow
           {...searchableSetting("speech-dictionary")}
-          title="Your dictionary"
+          title={gt("Your dictionary")}
           description="Names and terms to spell your way, saved on this device."
         >
           <div className="mt-3 pb-2">
@@ -1650,7 +1650,7 @@ export function VoiceSettingsPanel() {
         />
         {cleanupEnabled ? (
           <SettingsRow
-            title="Instructions"
+            title={gt("Instructions")}
             description={
               settings.speechPostProcessingPrompt.mode === "custom"
                 ? "Your own instructions for cleanup."

@@ -154,6 +154,7 @@ export function MarkdownCodeBlock({
   diagram?: boolean;
   children: ReactNode;
 }) {
+  const gt = useGT();
   const { copyToClipboard, isCopied: copied } = useCopyToClipboard({
     timeout: 1200,
     onError: (cause) =>
@@ -224,7 +225,11 @@ export function MarkdownCodeBlock({
       wrapped={wrapped}
       headerProps={THREAD_FIND_IGNORE_PROPS}
       actions={
-        <span className="flex items-center gap-0.5" role="toolbar" aria-label="Code block actions">
+        <span
+          className="flex items-center gap-0.5"
+          role="toolbar"
+          aria-label={gt("Code block actions")}
+        >
           {canWrap ? (
             <Tooltip>
               <TooltipTrigger
@@ -253,7 +258,7 @@ export function MarkdownCodeBlock({
                     variant="ghost-muted"
                     size="icon-xs"
                     onClick={() => onRunShellCommand(command)}
-                    aria-label="Run in terminal"
+                    aria-label={gt("Run in terminal")}
                   />
                 }
               >

@@ -146,7 +146,7 @@ export function AppearanceSettingsPanel() {
 
   return (
     <SettingsPageContainer>
-      <SettingsSection id="appearance" title="Colors & themes" variant="plain" hideTitle>
+      <SettingsSection id="appearance" title={gt("Colors & themes")} variant="plain" hideTitle>
         <div id={searchableSetting("theme").id}>
           <ThemeLibrary
             appearanceMode={appearanceMode}
@@ -164,7 +164,7 @@ export function AppearanceSettingsPanel() {
         </div>
       </SettingsSection>
 
-      <SettingsSection id="appearance-interface" title="Interface">
+      <SettingsSection id="appearance-interface" title={gt("Interface")}>
         <SettingsRow
           {...searchableSetting("setting-appearance-contrast")}
           description="Adjust the contrast of colors and borders across the interface."
@@ -189,7 +189,7 @@ export function AppearanceSettingsPanel() {
                 {settings.appearanceContrast}%
               </output>
               <input
-                aria-label="Contrast"
+                aria-label={gt("Contrast")}
                 className="settings-slider min-w-0 flex-1"
                 id="appearance-contrast"
                 max={MAX_APPEARANCE_CONTRAST}
@@ -235,7 +235,7 @@ export function AppearanceSettingsPanel() {
                 {settings.glassOpacity}%
               </output>
               <input
-                aria-label="Glass opacity"
+                aria-label={gt("Glass opacity")}
                 className="settings-slider min-w-0 flex-1"
                 id="glass-opacity"
                 max={MAX_GLASS_OPACITY}
@@ -377,7 +377,7 @@ export function AppearanceSettingsPanel() {
                     {settings.panelAnimationDurationMs} ms
                   </output>
                   <input
-                    aria-label="Panel animation duration"
+                    aria-label={gt("Panel animation duration")}
                     className="settings-slider min-w-0 flex-1"
                     id="panel-animation-duration"
                     max={MAX_PANEL_ANIMATION_DURATION_MS}
@@ -479,7 +479,7 @@ export function AppearanceSettingsPanel() {
                 onCheckedChange={(checked) =>
                   updateSettings({ persistComposerContextStrip: Boolean(checked) })
                 }
-                aria-label="Keep composer context visible in active threads"
+                aria-label={gt("Keep composer context visible in active threads")}
               />
             }
           />

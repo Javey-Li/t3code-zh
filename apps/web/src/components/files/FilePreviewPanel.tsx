@@ -1,4 +1,4 @@
-import { T, msg } from "gt-react";
+import { T, msg, useGT } from "gt-react";
 import { DownloadIcon, CopyIcon, CheckIcon, Code2Icon, EyeIcon, Table2Icon } from "lucide-react";
 import { useCopyToClipboard } from "~/hooks/useCopyToClipboard";
 import { Spinner } from "~/components/ui/spinner";
@@ -1117,6 +1117,7 @@ export default function FilePreviewPanel({
   selectedFilePending,
   workspaceMutationId,
 }: FilePreviewPanelProps) {
+  const gt = useGT();
   const relativePath =
     attachment === undefined ? resolveFilePreviewPath(requestedPath, cwd) : requestedPath;
   const draft = typeof composerDraftTarget === "string";
@@ -1525,7 +1526,7 @@ export default function FilePreviewPanel({
               tabIndex={-1}
               data-workspace-focus-default
               data-file-content-focus
-              aria-label="File contents"
+              aria-label={gt("File contents")}
               className="sr-only"
               onFocus={() => queueMicrotask(focusEditorFromContent)}
             />

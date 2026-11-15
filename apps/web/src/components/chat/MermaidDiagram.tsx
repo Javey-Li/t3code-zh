@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, useGT } from "gt-react";
 import DOMPurify from "dompurify";
 import type { DiagramType, MathResolver } from "pele/lazy";
 import { use, useState } from "react";
@@ -227,6 +227,7 @@ export function MermaidDiagram({
   source: string;
   onExpand: (imageUrl: string) => void;
 }) {
+  const gt = useGT();
   const [, setAttempt] = useState(0);
   const [renderError, setRenderError] = useState<string | null>(null);
   const trimmedSource = source.trim();
@@ -277,7 +278,7 @@ export function MermaidDiagram({
       {renderError ? <DiagramError message={renderError} source={source} /> : null}
       <button
         type="button"
-        aria-label="Expand diagram"
+        aria-label={gt("Expand diagram")}
         hidden={renderError !== null}
         className="block w-full cursor-zoom-in rounded-md focus-visible:outline-2 focus-visible:outline-ring"
         onClick={(event) => {

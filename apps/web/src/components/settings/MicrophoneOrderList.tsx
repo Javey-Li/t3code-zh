@@ -29,6 +29,7 @@ export function MicrophoneOrderList(props: {
   readonly devices: ReadonlyArray<BrowserMicrophone>;
 }) {
   const { order, devices } = props;
+  const gt = useGT();
   const keys = order.map(microphoneEntryKey);
   const inUse = microphoneEntryKey(preferredMicrophone(order, devices));
   // Device ids stay hidden until microphone permission, so connection is unknown before it.
@@ -52,7 +53,7 @@ export function MicrophoneOrderList(props: {
     >
       <SortableContext items={keys} strategy={verticalListSortingStrategy}>
         <ol
-          aria-label="Microphones, preferred first"
+          aria-label={gt("Microphones, preferred first")}
           className="divide-y divide-border/60 rounded-lg border border-border/60"
         >
           {order.map((entry, index) => {

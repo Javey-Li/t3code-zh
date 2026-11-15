@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, useGT } from "gt-react";
 import type { AuthConnectDevice, EnvironmentId } from "@t3tools/contracts";
 import {
   isAtomCommandInterrupted,
@@ -46,6 +46,7 @@ export function ConnectDeviceApprovalSettings({
   /** Revokes now, or first asks to turn approval on when it is off. */
   readonly requestRevoke: (title: string, revoke: () => Promise<void>) => void;
 }) {
+  const gt = useGT();
   const approve = useAtomCommand(authEnvironment.approveConnectDevice, { reportFailure: false });
   const deny = useAtomCommand(authEnvironment.revokePairingLink, { reportFailure: false });
   const revoke = useAtomCommand(authEnvironment.revokeConnectDevice, { reportFailure: false });
@@ -58,7 +59,7 @@ export function ConnectDeviceApprovalSettings({
   };
 
   return (
-    <SettingsSection id="connect-devices" title="T3 Connect devices">
+    <SettingsSection id="connect-devices" title={gt("T3 Connect devices")}>
       {requests.map((request) => {
         const connectRequest = request.connectDeviceRequest;
         if (!connectRequest) return null;

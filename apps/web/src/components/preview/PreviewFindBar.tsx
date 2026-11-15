@@ -87,7 +87,7 @@ export function PreviewFindBar({ tabId, focusRequestId, onClose }: PreviewFindBa
         variant="popover"
         size="lg"
         role="search"
-        aria-label="Find in page"
+        aria-label={gt("Find in page")}
         className="w-full"
       >
         <InputGroupInput
@@ -95,8 +95,8 @@ export function PreviewFindBar({ tabId, focusRequestId, onClose }: PreviewFindBa
           type="search"
           size="sm"
           value={query}
-          aria-label="Find in page"
-          placeholder="Find in page"
+          aria-label={gt("Find in page")}
+          placeholder={gt("Find in page")}
           maxLength={200}
           spellCheck={false}
           autoComplete="off"

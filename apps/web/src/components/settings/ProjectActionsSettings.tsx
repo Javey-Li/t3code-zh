@@ -181,7 +181,7 @@ export function ProjectActionsSettings() {
       />
       {mixed ? (
         <SettingsRow
-          title="Different actions across checkouts"
+          title={gt("Different actions across checkouts")}
           description="Narrow the selection above to one checkout to edit its list. Adding an action here adds it to every selected checkout."
         />
       ) : (

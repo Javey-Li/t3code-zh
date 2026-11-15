@@ -1,3 +1,4 @@
+import { useGT } from "gt-react";
 import { useSyncLayout } from "@legendapp/list/react";
 import { type OrchestrationV2CheckpointFileTotals, type RunId } from "@t3tools/contracts";
 import { type MouseEvent, type ReactNode, memo, useLayoutEffect, useRef, useState } from "react";
@@ -51,6 +52,7 @@ export const ChangedFilesCard = memo(function ChangedFilesCard(props: {
     onOpenTurnDiff,
     onFileContextMenu,
   } = props;
+  const gt = useGT();
   const syncTimelineLayout = useSyncLayout();
   const hiddenFileCount = totals.count - files.length;
   const hasDirectories = files.some((file) => /[/\\]/.test(file.path));
@@ -115,7 +117,7 @@ export const ChangedFilesCard = memo(function ChangedFilesCard(props: {
                   type="button"
                   size="xs"
                   variant="ghost-muted"
-                  aria-label="Open diff"
+                  aria-label={gt("Open diff")}
                   onClick={() => onOpenTurnDiff(runId, files[0]?.path)}
                 />
               }

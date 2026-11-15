@@ -382,7 +382,7 @@ function ConfigureStep({
               <SelectableTile
                 selected={target.kind === "new"}
                 title={gt("New profile")}
-                subtitle="Created for these cookies"
+                subtitle={gt("Created for these cookies")}
                 onSelect={() => onTargetChange({ kind: "new" })}
               />
             ) : null}
@@ -391,7 +391,7 @@ function ConfigureStep({
                 key={profile.id}
                 selected={target.kind === "existing" && target.profileId === profile.id}
                 title={profile.name}
-                subtitle="Existing profile"
+                subtitle={gt("Existing profile")}
                 onSelect={() => onTargetChange({ kind: "existing", profileId: profile.id })}
               />
             ))}

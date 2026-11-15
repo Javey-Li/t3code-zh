@@ -120,7 +120,7 @@ function ModelPicker({
       >
         <ComboboxInput
           id="voice-cloud-model"
-          aria-label="OpenRouter model"
+          aria-label={gt("OpenRouter model")}
           placeholder={gt("Search transcription models")}
           autoFocus
           size="sm"
@@ -291,7 +291,7 @@ export function CloudVoiceConfiguration({
               name="key"
               aria-label={gt("{company} API key", { company })}
               autoFocus={!routed}
-              placeholder="Enter API key"
+              placeholder={gt("Enter API key")}
               value={draft}
               configured={saved === true}
               disabled={busy}

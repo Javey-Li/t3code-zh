@@ -1,3 +1,4 @@
+import { useGT } from "gt-react";
 import type { ToolCallDiffTarget } from "../../diffPanelStore";
 import type { EnvironmentId, OrchestrationV2ProjectedTurnItem } from "@t3tools/contracts";
 import {
@@ -143,12 +144,13 @@ interface ToolOutputState {
 }
 
 function ToolOutputImages(props: ToolOutputState) {
+  const gt = useGT();
   return props.images.map((resource) => (
     <ChatMarkdownAssetImage
       key={resource.index}
       environmentId={props.environmentId}
       resource={resource}
-      alt="Tool output image"
+      alt={gt("Tool output image")}
       maxHeightRem={16}
       onImageExpand={props.onImageExpand}
     />
