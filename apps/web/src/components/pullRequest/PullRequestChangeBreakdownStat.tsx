@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, msg, useMessages } from "gt-react";
 import { formatDiffCount } from "@t3tools/client-runtime/diff-count";
 import type { EnvironmentId, PullRequestChangeBreakdown, PullRequestRef } from "@t3tools/contracts";
 import { useState } from "react";
@@ -120,7 +120,11 @@ function ChangeBreakdownGrid({
       {total ? (
         <>
           <div className="col-span-3 border-t border-border" />
-          <BreakdownRow label="Total" additions={total.additions} deletions={total.deletions} />
+          <BreakdownRow
+            label={msg("Total")}
+            additions={total.additions}
+            deletions={total.deletions}
+          />
         </>
       ) : null}
     </div>
@@ -128,9 +132,10 @@ function ChangeBreakdownGrid({
 }
 
 function BreakdownRow({ label, additions, deletions }: DiffTotals & { label: string }) {
+  const m = useMessages();
   return (
     <>
-      <span className="font-sans">{label}</span>
+      <span className="font-sans">{m(label)}</span>
       <span className="text-right text-diff-addition-foreground">
         +{formatDiffCount(additions)}
       </span>

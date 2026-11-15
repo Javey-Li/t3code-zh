@@ -1,3 +1,4 @@
+import { msg } from "gt-react";
 import type { EnvironmentServerConfig } from "@t3tools/client-runtime/connection";
 import type { EnvironmentThreadShell } from "@t3tools/client-runtime/state/shell";
 import type { Dispatch } from "react";
@@ -642,8 +643,8 @@ export function useThreadLifecycle(input: ThreadLifecycleInput) {
   ) : activeThreadWokeVisible ? (
     <ThreadStatusLine
       icon={<AlarmClockIcon />}
-      label="Woke from snooze"
-      actionLabel="Dismiss"
+      label={msg("Woke from snooze")}
+      actionLabel={msg("Dismiss")}
       onAction={acknowledgeActiveThreadWokeStable}
     />
   ) : null;

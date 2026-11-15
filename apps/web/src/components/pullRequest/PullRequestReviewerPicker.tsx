@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT } from "gt-react";
 import { useAtomCommand } from "~/state/use-atom-command";
 import type {
   EnvironmentId,
@@ -113,7 +113,7 @@ export function PullRequestReviewerPicker({
   return (
     <PullRequestCandidatePicker
       icon={<UserPlusIcon className="size-3.5" />}
-      label="Request a review"
+      label={msg("Request a review")}
       allowed={allowed}
       disabledReason="Asking someone to review needs write access on this repository"
       open={open}
@@ -130,7 +130,7 @@ export function PullRequestReviewerPicker({
             : null
       }
       candidates={candidates}
-      emptyLabel="Nobody else has access to this repository."
+      emptyLabel={msg("Nobody else has access to this repository.")}
       noMatchLabel="Nobody with access matches that."
       errorLabel="The people with access could not be read."
       truncated={truncation !== null}

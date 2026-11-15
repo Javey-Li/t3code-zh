@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import { useAtomValue } from "@effect/atom-react";
 import { AuthProvidersManageScope, ProviderDriverKind } from "@t3tools/contracts";
 import { readPreparedConnection, useEnvironmentScope } from "../../state/session";
@@ -778,7 +778,7 @@ function ManagedCodexSetup({
   ) : callbackCompletion ? (
     <div className="space-y-3 text-xs leading-relaxed text-muted-foreground">
       <CodexSignInDescription
-        label="Having trouble signing in?"
+        label={msg("Having trouble signing in?")}
         expanded={callbackHelpOpen}
         controls={callbackHelpId}
         onToggle={() => setCallbackHelpOpen((open) => !open)}
@@ -1172,7 +1172,9 @@ function CodexSignInDescription({
   readonly onToggle?: () => void;
 }) {
   const gt = useGT();
-  if (!onToggle) return <div className="leading-relaxed">{label}</div>;
+  const m = useMessages();
+  const text = m(label);
+  if (!onToggle) return <div className="leading-relaxed">{text}</div>;
   return (
     <button
       type="button"
@@ -1182,7 +1184,7 @@ function CodexSignInDescription({
       aria-controls={controls}
       onClick={onToggle}
     >
-      {label}
+      {text}
       <ChevronRightIcon aria-hidden className={`size-3 shrink-0 ${expanded ? "rotate-90" : ""}`} />
     </button>
   );

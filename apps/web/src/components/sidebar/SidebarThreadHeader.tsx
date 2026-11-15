@@ -1,4 +1,4 @@
-import { useGT } from "gt-react";
+import { msg, useGT, useMessages } from "gt-react";
 import { FolderPlusIcon, SearchIcon, SquarePenIcon, XIcon } from "lucide-react";
 import {
   type ComponentProps,
@@ -102,13 +102,13 @@ export function SidebarThreadHeader({
         {hasProjects ? (
           <>
             {projectScope}
-            <SidebarHeaderIconButton label="Add project" onClick={onNewProject}>
+            <SidebarHeaderIconButton label={msg("Add project")} onClick={onNewProject}>
               <FolderPlusIcon />
             </SidebarHeaderIconButton>
           </>
         ) : null}
         <SidebarHeaderIconButton
-          label="New thread"
+          label={msg("New thread")}
           tooltip={
             showNewThreadInProjectHint ? (
               <span className="flex flex-col gap-0.5">
@@ -147,6 +147,8 @@ export function SidebarHeaderIconButton({
   ComponentProps<typeof SidebarMenuButton>,
   "children" | "className" | "tooltip" | "isActive" | "aria-label"
 >) {
+  const m = useMessages();
+  const text = m(label);
   return (
     <Tooltip>
       <TooltipTrigger
@@ -154,7 +156,7 @@ export function SidebarHeaderIconButton({
           <SidebarMenuButton
             size="icon"
             type="button"
-            aria-label={label}
+            aria-label={text}
             {...rest}
             className={cn("relative size-7 shrink-0", className)}
           />
@@ -166,7 +168,7 @@ export function SidebarHeaderIconButton({
           className="pointer-events-none absolute left-1/2 top-1/2 size-[max(100%,3rem)] -translate-1/2 pointer-fine:hidden"
         />
       </TooltipTrigger>
-      <TooltipPopup side="top">{tooltip}</TooltipPopup>
+      <TooltipPopup side="top">{tooltip === label ? text : tooltip}</TooltipPopup>
     </Tooltip>
   );
 }

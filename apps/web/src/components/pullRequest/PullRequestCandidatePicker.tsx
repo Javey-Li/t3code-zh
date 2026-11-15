@@ -1,4 +1,5 @@
 // Menu typeahead consumes search keystrokes; use a combobox.
+import { useMessages } from "gt-react";
 import type { ReactNode } from "react";
 
 import { Button } from "../ui/button";
@@ -58,12 +59,13 @@ export function PullRequestCandidatePicker<T>({
   onSelect: (candidate: T) => void;
   children: (candidate: T) => ReactNode;
 }) {
+  const m = useMessages();
   if (!allowed) {
     return (
       <Tooltip>
         <TooltipTrigger
           render={
-            <Button size="icon-xs" variant="ghost" aria-disabled="true" aria-label={label}>
+            <Button size="icon-xs" variant="ghost" aria-disabled="true" aria-label={m(label)}>
               {icon}
             </Button>
           }
@@ -98,7 +100,7 @@ export function PullRequestCandidatePicker<T>({
     >
       <ComboboxTrigger
         render={
-          <Button size="icon-xs" variant="ghost" aria-label={label}>
+          <Button size="icon-xs" variant="ghost" aria-label={m(label)}>
             {icon}
           </Button>
         }

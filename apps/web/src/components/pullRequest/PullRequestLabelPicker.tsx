@@ -1,4 +1,4 @@
-import { useMessages } from "gt-react";
+import { msg, useMessages } from "gt-react";
 import { useAtomCommand } from "~/state/use-atom-command";
 import type { EnvironmentId, PullRequestLabelCandidate, PullRequestRef } from "@t3tools/contracts";
 import { CheckIcon, TagIcon } from "lucide-react";
@@ -73,7 +73,7 @@ export function PullRequestLabelPicker({
   return (
     <PullRequestCandidatePicker
       icon={<TagIcon className="size-3.5" />}
-      label="Change labels"
+      label={msg("Change labels")}
       allowed={allowed}
       disabledReason="Changing labels needs triage access on this repository"
       open={open}
@@ -84,7 +84,7 @@ export function PullRequestLabelPicker({
       isPending={candidatesQuery.isPending && candidatesQuery.data === null}
       error={candidatesQuery.data === null ? candidatesQuery.error : null}
       candidates={candidates}
-      emptyLabel="This repository has no labels."
+      emptyLabel={msg("This repository has no labels.")}
       noMatchLabel="No label matches that."
       errorLabel="The labels could not be read."
       truncated={candidatesQuery.data?.truncated === true}
