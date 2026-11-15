@@ -1,4 +1,4 @@
-import { T, useGT, useMessages } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import {
   type EnvironmentId,
   isSecretReference,
@@ -107,7 +107,9 @@ export function TextGeneratorsSettings({
         {generators.length === 0 ? (
           <SettingsRow
             title={gt("No text generators yet")}
-            description="Add a model API to write thread titles, commit messages, and other short text without starting a coding agent."
+            description={gt(
+              "Add a model API to write thread titles, commit messages, and other short text without starting a coding agent.",
+            )}
           />
         ) : null}
         {generators.map(([id, config]) => {
@@ -234,16 +236,16 @@ export function TextGeneratorsSettings({
   );
 }
 
-const STEPS = ["Connect", "Use it"] as const;
+const STEPS = [msg("Connect"), msg("Use it")] as const;
 
 /** Text tasks a generator can write, in the order the settings pages show them. */
 const TASKS = [
-  { key: "textGenerationModelSelection", label: "Thread titles and other generated text" },
+  { key: "textGenerationModelSelection", label: msg("Thread titles and other generated text") },
   {
     key: "sourceControlWriterModelSelection",
-    label: "Commit messages, pull requests, and branch names",
+    label: msg("Commit messages, pull requests, and branch names"),
   },
-  { key: "speechPostProcessingModelSelection", label: "Voice transcript cleanup" },
+  { key: "speechPostProcessingModelSelection", label: msg("Voice transcript cleanup") },
 ] as const;
 
 /**
@@ -333,11 +335,17 @@ function TextGeneratorWizard({
     >
       <WizardPopup>
         <WizardHeader
-          title={existing ? `Edit ${textGeneratorDisplayName(existing)}` : "Add a text generator"}
-          description="Writes thread titles, commit messages, and other short text without starting a coding agent. Your API key is stored on this environment."
+          title={
+            existing
+              ? gt("Edit {name}", { name: textGeneratorDisplayName(existing) })
+              : gt("Add a text generator")
+          }
+          description={gt(
+            "Writes thread titles, commit messages, and other short text without starting a coding agent. Your API key is stored on this environment.",
+          )}
         >
           <WizardSteps
-            steps={STEPS}
+            steps={STEPS.map((step) => m(step))}
             currentStep={step}
             isStepDisabled={(index) => index > step}
             onStepChange={setStep}
@@ -458,8 +466,14 @@ function TextGeneratorWizard({
           ) : (
             <div className="grid gap-4">
               <p className="text-sm text-muted-foreground">
-                {name} is connected and lists {modelCount} {modelCount === 1 ? "model" : "models"}.
-                Switch any of these to it, or keep what they use now.
+                {gt(
+                  "{name} is connected and lists {count} {models}. Switch any of these to it, or keep what they use now.",
+                  {
+                    name,
+                    count: modelCount,
+                    models: modelCount === 1 ? gt("model") : gt("models"),
+                  },
+                )}
               </p>
               {/* One grid for all rows, so pickers and Test buttons line up in columns. */}
               <div className="grid grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-x-2 gap-y-4">

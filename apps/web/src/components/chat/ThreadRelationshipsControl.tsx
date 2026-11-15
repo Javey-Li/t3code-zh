@@ -342,6 +342,7 @@ function DelegatedFromRow(props: {
   readonly delegatedFrom: OrchestrationV2DelegatedFrom;
   readonly fallbackLabel: string | undefined;
 }) {
+  const gt = useGT();
   const navigate = useNavigate();
   const router = useRouter();
   const { delegatedFrom } = props;
@@ -367,12 +368,12 @@ function DelegatedFromRow(props: {
     // The read can outlast the user's stay on this thread; a late answer must not pull them back.
     if (router.latestLocation !== location) return;
     if (result._tag === "Failure") {
-      toastManager.add({ type: "error", title: "Could not open the parent thread" });
+      toastManager.add({ type: "error", title: gt("Could not open the parent thread") });
       return;
     }
     // Deleted and unknown threads are absent from the titles.
     if (result.value[delegatedFrom.threadId] === undefined) {
-      toastManager.add({ type: "info", title: "The parent thread was deleted" });
+      toastManager.add({ type: "info", title: gt("The parent thread was deleted") });
       return;
     }
     void navigate({
@@ -662,7 +663,7 @@ export function ThreadRelationshipsPanel(props: {
     if (result._tag === "Failure") {
       mergeErrorToastId.current = toastManager.add({
         type: "error",
-        title: "Could not merge back",
+        title: gt("Could not merge back"),
       });
       return;
     }
@@ -684,7 +685,7 @@ export function ThreadRelationshipsPanel(props: {
     if (result._tag === "Failure") {
       detachErrorToastId.current = toastManager.add({
         type: "error",
-        title: "Could not disconnect agent session",
+        title: gt("Could not disconnect agent session"),
       });
     }
   };
@@ -701,7 +702,7 @@ export function ThreadRelationshipsPanel(props: {
     });
     setStoppingId(null);
     if (result._tag === "Failure") {
-      toastManager.add({ type: "error", title: "Could not stop subagent" });
+      toastManager.add({ type: "error", title: gt("Could not stop subagent") });
     }
   };
 
@@ -714,7 +715,7 @@ export function ThreadRelationshipsPanel(props: {
     });
     setStoppingId(null);
     if (result._tag === "Failure") {
-      toastManager.add({ type: "error", title: "Could not stop workflow" });
+      toastManager.add({ type: "error", title: gt("Could not stop workflow") });
     }
   };
 

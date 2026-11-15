@@ -267,7 +267,7 @@ function InstanceSessionManagement(
       setSessions((current) =>
         current.filter((candidate) => candidate.sessionId !== session.sessionId),
       );
-      toastManager.add({ type: "success", title: "ACP session deleted" });
+      toastManager.add({ type: "success", title: gt("ACP session deleted") });
       return;
     }
     reportFailure("Could not delete ACP session", result);
@@ -319,7 +319,7 @@ function InstanceSessionManagement(
     if (!parsedHeaders.ok) {
       toastManager.add({
         type: "error",
-        title: "Invalid provider headers",
+        title: gt("Invalid provider headers"),
         description: parsedHeaders.error,
       });
       return;
@@ -340,7 +340,7 @@ function InstanceSessionManagement(
     if (generation !== projectGeneration.current) return;
     setSavingProviderId(null);
     if (result._tag === "Success") {
-      toastManager.add({ type: "success", title: "ACP provider configured" });
+      toastManager.add({ type: "success", title: gt("ACP provider configured") });
       await loadProviders(provider.providerId);
       return;
     }
@@ -369,7 +369,7 @@ function InstanceSessionManagement(
     if (generation !== projectGeneration.current) return;
     setSavingProviderId(null);
     if (result._tag === "Success") {
-      toastManager.add({ type: "success", title: "ACP provider disabled" });
+      toastManager.add({ type: "success", title: gt("ACP provider disabled") });
       await loadProviders(provider.providerId);
       return;
     }
@@ -387,7 +387,7 @@ function InstanceSessionManagement(
     if (result._tag === "Success") {
       setSessions([]);
       setNextCursor(null);
-      toastManager.add({ type: "success", title: "Logged out of ACP agent" });
+      toastManager.add({ type: "success", title: gt("Logged out of ACP agent") });
       return;
     }
     reportFailure("Could not log out of ACP agent", result);

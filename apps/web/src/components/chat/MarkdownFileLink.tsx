@@ -92,7 +92,7 @@ export const MarkdownFileLink = memo(function MarkdownFileLink({
         toastManager.add(
           stackedThreadToast({
             type: "error",
-            title: "Unable to open file",
+            title: gt("Unable to open file"),
             description: error instanceof Error ? error.message : "An error occurred.",
           }),
         );
@@ -104,7 +104,7 @@ export const MarkdownFileLink = memo(function MarkdownFileLink({
         toastManager.add(
           stackedThreadToast({
             type: "error",
-            title: "Unable to open file",
+            title: gt("Unable to open file"),
             description: cause instanceof Error ? cause.message : "An error occurred.",
           }),
         );
@@ -142,7 +142,7 @@ export const MarkdownFileLink = memo(function MarkdownFileLink({
         toastManager.add(
           stackedThreadToast({
             type: "error",
-            title: "Unable to open file in browser",
+            title: gt("Unable to open file in browser"),
             description: error instanceof Error ? error.message : "An error occurred.",
           }),
         );
@@ -154,7 +154,7 @@ export const MarkdownFileLink = memo(function MarkdownFileLink({
         toastManager.add(
           stackedThreadToast({
             type: "error",
-            title: "Unable to open file in browser",
+            title: gt("Unable to open file in browser"),
             description: cause instanceof Error ? cause.message : "An error occurred.",
           }),
         );
@@ -180,7 +180,7 @@ export const MarkdownFileLink = memo(function MarkdownFileLink({
         toastManager.add(
           stackedThreadToast({
             type: "error",
-            title: "Unable to reveal file",
+            title: gt("Unable to reveal file"),
             description: error instanceof Error ? error.message : "An error occurred.",
           }),
         );
@@ -192,7 +192,7 @@ export const MarkdownFileLink = memo(function MarkdownFileLink({
         toastManager.add(
           stackedThreadToast({
             type: "error",
-            title: "Unable to reveal file",
+            title: gt("Unable to reveal file"),
             description: cause instanceof Error ? cause.message : "An error occurred.",
           }),
         );

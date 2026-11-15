@@ -137,7 +137,7 @@ export function SavedBackendListRow({
     onCopy: ({ traceId }) => {
       toastManager.add({
         type: "success",
-        title: "Trace ID copied",
+        title: gt("Trace ID copied"),
         description: traceId,
       });
     },
@@ -145,7 +145,7 @@ export function SavedBackendListRow({
       toastManager.add(
         stackedThreadToast({
           type: "error",
-          title: "Could not copy trace ID",
+          title: gt("Could not copy trace ID"),
           description: error.message,
         }),
       );
@@ -159,7 +159,7 @@ export function SavedBackendListRow({
     onCopy: ({ url }) => {
       toastManager.add({
         type: "success",
-        title: "MCP URL copied",
+        title: gt("MCP URL copied"),
         description: `Add it to an agent, e.g. claude mcp add --transport http t3 ${url}`,
       });
     },
@@ -167,7 +167,7 @@ export function SavedBackendListRow({
       toastManager.add(
         stackedThreadToast({
           type: "error",
-          title: "Could not copy MCP URL",
+          title: gt("Could not copy MCP URL"),
           description: error.message,
         }),
       );
@@ -545,6 +545,7 @@ function ConfiguredCloudLinkRow({
   readonly canManageRelay: boolean;
   readonly connectDeviceApproval: ConnectDeviceApprovalControl | null;
 }) {
+  const gt = useGT();
   const updateEnvironmentSettings = useUpdateEnvironmentSettings(environmentId);
   const {
     isSignedIn,
@@ -764,7 +765,7 @@ function ConfiguredCloudLinkRow({
           managed={connectDenial}
           control={
             <CloudLinkSwitch
-              ariaLabel="Hold webhook requests while this environment is offline"
+              ariaLabel={gt("Hold webhook requests while this environment is offline")}
               checked={holdWebhooksWhileOffline}
               disabled={switchDisabled}
               disabledReason={disabledReason}
@@ -776,7 +777,9 @@ function ConfiguredCloudLinkRow({
       {managedTunnelActive && connectDeviceApproval ? (
         <SettingsRow
           title={searchableSetting("connect-device-approval").title}
-          description="Devices that sign in to your T3 Connect account wait until someone already connected here approves them."
+          description={gt(
+            "Devices that sign in to your T3 Connect account wait until someone already connected here approves them.",
+          )}
           managed={connectDenial}
           control={
             <CloudLinkSwitch
