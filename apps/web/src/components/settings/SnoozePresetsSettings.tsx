@@ -236,6 +236,7 @@ function SnoozePresetList(props: {
   onAdd: () => void;
   onSettle: () => void;
 }) {
+  const gt = useGT();
   const m = useMessages();
   const nowMinute = useNowMinute();
   const now = new Date(`${nowMinute}Z`);
@@ -304,7 +305,7 @@ function SnoozePresetList(props: {
               <Button
                 variant="ghost-muted"
                 size="icon-sm"
-                aria-label={`Remove snooze option ${index + 1}`}
+                aria-label={gt("Remove snooze option {index}", { index: index + 1 })}
                 onClick={() => props.onRemove(index)}
               >
                 <XIcon />

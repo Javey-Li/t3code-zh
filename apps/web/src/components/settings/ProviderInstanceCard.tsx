@@ -288,6 +288,7 @@ function ProviderEnvironmentFieldRow(props: {
   readonly secretSources: ReadonlyArray<SecretSource>;
   readonly environmentId?: EnvironmentId | undefined;
 }) {
+  const gt = useGT();
   const m = useMessages();
   const inputId = `${props.idPrefix}-environment-${props.field.name}`;
   const value = props.variable?.valueRedacted ? "" : (props.variable?.value ?? "");
@@ -332,7 +333,7 @@ function ProviderEnvironmentFieldRow(props: {
               size="icon-sm"
               variant="ghost-destructive"
               onClick={() => props.onRemove(props.field)}
-              aria-label={`Clear ${props.field.label}`}
+              aria-label={gt("Clear {label}", { label: props.field.label })}
             >
               <XIcon className="size-3.5" />
             </Button>
@@ -485,7 +486,9 @@ export function ProviderEnvironmentSection(props: {
                 size="icon-micro"
                 variant="ghost-destructive"
                 onClick={() => removeVariable(variable.id)}
-                aria-label={`Remove environment variable ${variable.name || index + 1}`}
+                aria-label={gt("Remove environment variable {name}", {
+                  name: variable.name || index + 1,
+                })}
               >
                 <XIcon className="size-3" />
               </Button>
@@ -1180,7 +1183,7 @@ export function ProviderInstanceCard({
               checked={enabled}
               disabled={readOnly || (projectOverride !== undefined && !canWriteSettings)}
               onCheckedChange={(checked) => updateEnabled(Boolean(checked))}
-              aria-label={`Enable ${displayName}`}
+              aria-label={gt("Enable {name}", { name: displayName })}
             />
           </ManagedControl>
         </span>

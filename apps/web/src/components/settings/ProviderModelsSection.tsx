@@ -480,6 +480,7 @@ const ProviderModelRow = memo(function ProviderModelRow({
   readonly onToggleEdit: (slug: string) => void;
   readonly onRemove: (slug: string) => void;
 }) {
+  const gt = useGT();
   const capLabels = describeModelCapabilities(model, flagMissingReasoning);
   const nameClassName = cn("text-xs", isHidden ? "text-muted-foreground" : "text-foreground/90");
   const pickerTooltip = model.isCustom
@@ -557,7 +558,7 @@ const ProviderModelRow = memo(function ProviderModelRow({
                     variant="ghost-muted"
                     disabled={!canWritePreferences || !canMoveUp}
                     onClick={() => onMove(model.slug, -1)}
-                    aria-label={`Move ${model.name} up`}
+                    aria-label={gt("Move {name} up", { name: model.name })}
                   />
                 }
               >
@@ -575,7 +576,7 @@ const ProviderModelRow = memo(function ProviderModelRow({
                     variant="ghost-muted"
                     disabled={!canWritePreferences || !canMoveDown}
                     onClick={() => onMove(model.slug, 1)}
-                    aria-label={`Move ${model.name} down`}
+                    aria-label={gt("Move {name} down", { name: model.name })}
                   />
                 }
               >
@@ -596,7 +597,7 @@ const ProviderModelRow = memo(function ProviderModelRow({
                     size="icon-micro"
                     variant="ghost-muted"
                     disabled={!canManageCustomModels}
-                    aria-label={`Edit ${model.slug}`}
+                    aria-label={gt("Edit {name}", { name: model.slug })}
                     onClick={() => onToggleEdit(model.slug)}
                   />
                 }
@@ -614,7 +615,7 @@ const ProviderModelRow = memo(function ProviderModelRow({
                     size="icon-micro"
                     variant="ghost-muted"
                     disabled={!canManageCustomModels}
-                    aria-label={`Remove ${model.slug}`}
+                    aria-label={gt("Remove {name}", { name: model.slug })}
                     onClick={() => onRemove(model.slug)}
                   />
                 }

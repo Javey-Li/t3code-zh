@@ -1,4 +1,4 @@
-import { useMessages } from "gt-react";
+import { useGT, useMessages } from "gt-react";
 import { useAtomValue } from "@effect/atom-react";
 import {
   isTerminalSubagentStatus,
@@ -112,6 +112,7 @@ function WorkflowMemberRow(props: {
   readonly driver: ProviderDriverKind | undefined;
   readonly onOpenThread: (threadId: string) => void;
 }) {
+  const gt = useGT();
   const { member } = props;
   const threadId = member.childThreadId;
   const failed = member.status === "failed";
@@ -136,7 +137,7 @@ function WorkflowMemberRow(props: {
             ) : (
               <button
                 type="button"
-                aria-label={`Open ${member.title}`}
+                aria-label={gt("Open {name}", { name: member.title })}
                 aria-description={member.status}
                 onClick={() => props.onOpenThread(threadId)}
                 className={cn(

@@ -213,7 +213,7 @@ export default function ProjectScriptsControl({
                   variant="ghost"
                   size="icon-xs"
                   className="size-6"
-                  aria-label={`Edit ${script.name}`}
+                  aria-label={gt("Edit {name}", { name: script.name })}
                   onPointerDown={(event) => {
                     event.preventDefault();
                     event.stopPropagation();

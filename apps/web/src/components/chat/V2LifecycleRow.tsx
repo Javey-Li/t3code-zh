@@ -1,4 +1,4 @@
-import { T, msg, useMessages } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import { ThreadHoverCardPopup } from "../ThreadHoverCard";
 import { AgentElapsed } from "./AgentElapsed";
 import { projectedSubagentsToRuntime } from "@t3tools/client-runtime/state/subagentRuntime";
@@ -417,6 +417,7 @@ function SubagentTimelineLink(props: {
     readonly timestamp: string;
   };
 }) {
+  const gt = useGT();
   const m = useMessages();
   const agent = useAtomValue(
     environmentThreadDetails.threadAtom(props.parentRef),
@@ -518,7 +519,7 @@ function SubagentTimelineLink(props: {
             <button
               type="button"
               data-v2-item-type="subagent"
-              aria-label={`Open ${props.title}`}
+              aria-label={gt("Open {name}", { name: props.title })}
               aria-description={statusLabel}
               onClick={open}
               className={cn(

@@ -1,4 +1,4 @@
-import { T, msg, useMessages } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import { useState, type ReactNode } from "react";
 import * as Option from "effect/Option";
 import * as Schema from "effect/Schema";
@@ -221,6 +221,7 @@ function ProviderCommandArguments({
 }: Pick<ProviderSettingsFormProps, "value" | "onChange"> & {
   readonly managedReason: string | undefined;
 }) {
+  const gt = useGT();
   const args = configuredCommandArgs(value);
   const [storedDraft, setDraft] = useState(() => seedRowsDraft(args, toCommandArgumentRows));
   const draft = reconcileRowsDraft(storedDraft, args, commandArgumentsEqual, toCommandArgumentRows);
@@ -282,7 +283,7 @@ function ProviderCommandArguments({
                   onClick={() =>
                     updateArguments(rows.filter((current) => current.id !== argument.id))
                   }
-                  aria-label={`Remove argument ${index + 1}`}
+                  aria-label={gt("Remove argument {index}", { index: index + 1 })}
                 >
                   <XIcon />
                 </Button>
@@ -366,6 +367,7 @@ function SecretSettingsControl({
   readonly environmentId: EnvironmentId;
   readonly onChange: ProviderSettingsFormProps["onChange"];
 }) {
+  const gt = useGT();
   const m = useMessages();
   const sources = useSecretSources(environmentId);
   const saved =
@@ -397,7 +399,7 @@ function SecretSettingsControl({
           size="icon-sm"
           variant="ghost-destructive"
           onClick={() => onChange(nextProviderConfigWithFieldValue(value, field, ""))}
-          aria-label={`Clear ${field.label}`}
+          aria-label={gt("Clear {label}", { label: field.label })}
         >
           <XIcon className="size-3.5" />
         </Button>
@@ -521,6 +523,7 @@ function ProviderSettingsFieldRow({
   managedReason,
   environmentId,
 }: ProviderSettingsFieldRowProps) {
+  const gt = useGT();
   const m = useMessages();
   const inputId = `${idPrefix}-${field.key}`;
   const descriptionClassName =
@@ -593,7 +596,7 @@ function ProviderSettingsFieldRow({
               size="icon-sm"
               variant="ghost-destructive"
               onClick={() => onChange(nextProviderConfigWithFieldValue(value, field, ""))}
-              aria-label={`Clear ${field.label}`}
+              aria-label={gt("Clear {label}", { label: field.label })}
             >
               <XIcon className="size-3.5" />
             </Button>

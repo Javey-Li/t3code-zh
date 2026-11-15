@@ -124,6 +124,7 @@ function RetentionControl({
   onChange: (value: number | null, onFailed: () => void) => void;
   minimum?: number;
 }) {
+  const gt = useGT();
   const [draft, setDraft] = useState(value);
   const [savedValue, setSavedValue] = useState(value);
   // Saving an age can start a cleanup sweep, so turning a rule on only opens a draft.
@@ -206,7 +207,7 @@ function RetentionControl({
           }}
         >
           <NumberFieldGroup>
-            <NumberFieldDecrement aria-label={`Decrease ${label}`} />
+            <NumberFieldDecrement aria-label={gt("Decrease {label}", { label })} />
             <NumberFieldInput
               aria-label={`${label} in days`}
               autoFocus={value === null}
@@ -239,7 +240,7 @@ function RetentionControl({
             <span aria-hidden="true" className="self-center pr-2 text-xs">
               days
             </span>
-            <NumberFieldIncrement aria-label={`Increase ${label}`} />
+            <NumberFieldIncrement aria-label={gt("Increase {label}", { label })} />
           </NumberFieldGroup>
         </NumberField>
       ) : (

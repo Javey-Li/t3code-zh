@@ -131,7 +131,7 @@ export function PullRequestDetailGhost({
   return (
     <div
       role="status"
-      aria-label={`Loading ${terminology.singular}`}
+      aria-label={gt("Loading {name}", { name: terminology.singular })}
       className={cn(
         "flex h-full min-h-0 flex-col overflow-hidden bg-background",
         !seed && "motion-safe:animate-skeleton",
@@ -184,7 +184,7 @@ export function PullRequestDetailGhost({
             <Button
               size="icon-xs"
               variant="ghost"
-              aria-label={`Collapse ${terminology.singular} panel`}
+              aria-label={gt("Collapse {name} panel", { name: terminology.singular })}
               onClick={onClose}
             >
               <PanelRightIcon aria-hidden className="size-3.5" />

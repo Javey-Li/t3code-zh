@@ -202,7 +202,7 @@ export function ThreadAutomationsPanel(props: {
                     size="icon-xs"
                     variant="ghost"
                     part="icon"
-                    aria-label={`Edit ${task.title}`}
+                    aria-label={gt("Edit {name}", { name: task.title })}
                     onClick={() =>
                       void navigate({
                         to: "/settings/scheduled-tasks",

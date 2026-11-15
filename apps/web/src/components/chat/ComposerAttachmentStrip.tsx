@@ -307,7 +307,7 @@ export function ComposerAttachmentMediaRow({
                           })
                         }
                         disabled={!canOperateThread}
-                        aria-label={`Retry upload for ${image.name}`}
+                        aria-label={gt("Retry upload for {name}", { name: image.name })}
                       />
                     }
                   >
@@ -327,7 +327,7 @@ export function ComposerAttachmentMediaRow({
                   variant="media-close"
                   size="icon-xs"
                   onClick={() => onRemoveImage(image.id)}
-                  aria-label={`Remove ${image.name}`}
+                  aria-label={gt("Remove {name}", { name: image.name })}
                 >
                   <XIcon />
                 </Button>
@@ -405,7 +405,7 @@ export function ComposerAttachmentMediaRow({
                         })
                       }
                       disabled={!canOperateThread}
-                      aria-label={`Retry upload for ${file.name}`}
+                      aria-label={gt("Retry upload for {name}", { name: file.name })}
                     />
                   }
                 >
@@ -419,7 +419,7 @@ export function ComposerAttachmentMediaRow({
               size="icon-xs"
               className="absolute right-1 top-1"
               onClick={() => onRemoveFile(file.id)}
-              aria-label={`Remove ${file.name}`}
+              aria-label={gt("Remove {name}", { name: file.name })}
             >
               <XIcon />
             </Button>
@@ -454,6 +454,7 @@ export function ComposerAttachmentFileList({
   readonly onPreviewFile: (fileId: string) => void;
   readonly onRemoveFile: (fileId: string) => void;
 }) {
+  const gt = useGT();
   const uploadsByImageId = useAttachmentUploadStore((state) => state.uploadsByImageId);
   return (
     <div className="mb-3 flex flex-col gap-1">
@@ -511,7 +512,7 @@ export function ComposerAttachmentFileList({
                         })
                       }
                       disabled={!canOperateThread}
-                      aria-label={`Retry upload for ${file.name}`}
+                      aria-label={gt("Retry upload for {name}", { name: file.name })}
                     />
                   }
                 >
@@ -524,7 +525,7 @@ export function ComposerAttachmentFileList({
               variant="ghost"
               size="icon-xs"
               onClick={() => onRemoveFile(file.id)}
-              aria-label={`Remove ${file.name}`}
+              aria-label={gt("Remove {name}", { name: file.name })}
             >
               <XIcon />
             </Button>
@@ -675,6 +676,7 @@ export function ComposerQueuedAttachmentRow({
   }>;
   readonly onRemove: (attachmentId: string) => void;
 }) {
+  const gt = useGT();
   return (
     <div className="mb-3 flex flex-wrap gap-2">
       {attachments.map(({ attachment, url }) => (
@@ -694,7 +696,7 @@ export function ComposerQueuedAttachmentRow({
             size="icon-xs"
             className="absolute right-1 top-1"
             onClick={() => onRemove(attachment.id)}
-            aria-label={`Remove ${attachment.name}`}
+            aria-label={gt("Remove {name}", { name: attachment.name })}
           >
             <XIcon />
           </Button>

@@ -1537,7 +1537,7 @@ export function PullRequestDetailPanel({
             <Button
               size="icon-xs"
               variant="ghost"
-              aria-label={`Collapse ${terminology.singular} panel`}
+              aria-label={gt("Collapse {name} panel", { name: terminology.singular })}
               onClick={onClose}
             >
               <PanelRightIcon className="size-3.5" />

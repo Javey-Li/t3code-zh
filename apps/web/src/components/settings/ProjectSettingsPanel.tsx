@@ -437,7 +437,7 @@ function ProjectDetail({
           variant="outline"
           disabled={!editableIds.has(member.environmentId)}
           onClick={() => void removeMembers([member])}
-          aria-label={`Remove checkout ${member.workspaceRoot}`}
+          aria-label={gt("Remove checkout {path}", { path: member.workspaceRoot })}
         >
           <T>Remove</T>
         </Button>

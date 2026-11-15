@@ -342,7 +342,7 @@ function ThemeLibraryCard({
                       <TooltipTrigger
                         render={
                           <Button
-                            aria-label={`Edit ${theme.label}`}
+                            aria-label={gt("Edit {name}", { name: theme.label })}
                             size="icon-xs"
                             variant="ghost"
                             onClick={(event) => {

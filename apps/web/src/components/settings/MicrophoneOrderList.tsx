@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, useGT } from "gt-react";
 import {
   DndContext,
   type DragEndEvent,
@@ -99,6 +99,7 @@ function MicrophoneRow(props: {
   readonly onMove: (steps: number) => void;
   readonly onForget: (() => void) | undefined;
 }) {
+  const gt = useGT();
   const { name } = props;
   const { listeners, setNodeRef, setActivatorNodeRef, transform, transition, isDragging } =
     useSortable({ id: props.id });
@@ -141,7 +142,7 @@ function MicrophoneRow(props: {
           size="icon-xs"
           variant="ghost-muted"
           disabled={props.position === 1}
-          aria-label={`Move ${name} up`}
+          aria-label={gt("Move {name} up", { name })}
           onClick={() => props.onMove(-1)}
         >
           <ArrowUpIcon />
@@ -151,7 +152,7 @@ function MicrophoneRow(props: {
           size="icon-xs"
           variant="ghost-muted"
           disabled={props.position === props.count}
-          aria-label={`Move ${name} down`}
+          aria-label={gt("Move {name} down", { name })}
           onClick={() => props.onMove(1)}
         >
           <ArrowDownIcon />
@@ -161,7 +162,7 @@ function MicrophoneRow(props: {
             type="button"
             size="icon-xs"
             variant="ghost-muted"
-            aria-label={`Forget ${name}`}
+            aria-label={gt("Forget {name}", { name })}
             onClick={props.onForget}
           >
             <XIcon />

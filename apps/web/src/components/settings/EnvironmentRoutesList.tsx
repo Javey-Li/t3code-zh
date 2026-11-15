@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, useGT } from "gt-react";
 import {
   DndContext,
   type DragEndEvent,
@@ -139,6 +139,7 @@ function SortableRouteRow({
   readonly removable: boolean;
   readonly onRemove: () => void;
 }) {
+  const gt = useGT();
   const id = connectionRouteId(route.target);
   const label = connectionRouteLabel(route);
   const address = connectionRouteAddress(route);
@@ -195,7 +196,7 @@ function SortableRouteRow({
                 type="button"
                 variant="ghost-muted"
                 size="icon-xs"
-                aria-label={`Remove ${label} route`}
+                aria-label={gt("Remove {label} route", { label })}
                 onClick={onRemove}
               />
             }
