@@ -69,7 +69,7 @@ export const ProposedPlanCard = memo(function ProposedPlanCard({
       toastManager.add(
         stackedThreadToast({
           type: "error",
-          title: "Could not copy plan",
+          title: gt("Could not copy plan"),
           description: error instanceof Error ? error.message : "An error occurred while copying.",
         }),
       );
@@ -103,7 +103,7 @@ export const ProposedPlanCard = memo(function ProposedPlanCard({
       toastManager.add(
         stackedThreadToast({
           type: "error",
-          title: "Workspace path is unavailable",
+          title: gt("Workspace path is unavailable"),
           description: msg("This thread does not have a workspace path to save into."),
         }),
       );
@@ -120,7 +120,7 @@ export const ProposedPlanCard = memo(function ProposedPlanCard({
     if (!relativePath) {
       toastManager.add({
         type: "warning",
-        title: "Enter a workspace path",
+        title: gt("Enter a workspace path"),
       });
       return;
     }
@@ -141,7 +141,7 @@ export const ProposedPlanCard = memo(function ProposedPlanCard({
         setIsSaveDialogOpen(false);
         toastManager.add({
           type: "success",
-          title: "Plan saved to workspace",
+          title: gt("Plan saved to workspace"),
           description: result.value.relativePath,
         });
         return;
@@ -151,7 +151,7 @@ export const ProposedPlanCard = memo(function ProposedPlanCard({
         toastManager.add(
           stackedThreadToast({
             type: "error",
-            title: "Could not save plan",
+            title: gt("Could not save plan"),
             description: error instanceof Error ? error.message : "An error occurred while saving.",
           }),
         );

@@ -572,7 +572,7 @@ export function ThemeLibrary({
     toastManager.add(
       stackedThreadToast({
         type: "error",
-        title: "Couldn’t save theme selection",
+        title: msg("Couldn’t save theme selection"),
         description: msg("Try again."),
       }),
     );

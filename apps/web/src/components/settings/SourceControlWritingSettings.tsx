@@ -380,7 +380,7 @@ export function SourceControlWritingSettingsSection() {
                         if (reason) {
                           toastManager.add({
                             type: "error",
-                            title: "Review guide model not saved",
+                            title: gt("Review guide model not saved"),
                             description: reason,
                           });
                           return;
@@ -430,7 +430,7 @@ export function SourceControlWritingSettingsSection() {
                       if (reason) {
                         toastManager.add({
                           type: "error",
-                          title: "Review guide model not saved",
+                          title: gt("Review guide model not saved"),
                           description: reason,
                         });
                         return;
@@ -589,7 +589,7 @@ export function SourceControlWritingSettingsSection() {
                       if (reason) {
                         toastManager.add({
                           type: "error",
-                          title: "Source control writer model not saved",
+                          title: gt("Source control writer model not saved"),
                           description: reason,
                         });
                         return;
@@ -635,7 +635,7 @@ export function SourceControlWritingSettingsSection() {
                       if (reason) {
                         toastManager.add({
                           type: "error",
-                          title: "Writer model not saved",
+                          title: gt("Writer model not saved"),
                           description: reason,
                         });
                         return;
