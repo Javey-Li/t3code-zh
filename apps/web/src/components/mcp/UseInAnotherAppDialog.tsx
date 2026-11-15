@@ -571,6 +571,7 @@ function ConnectStep({
   readonly access: AuthMcpClientAccess | null;
 }) {
   const m = useMessages();
+  const gt = useGT();
   const [anotherWay, setAnotherWay] = useState(choice === "other");
   const app = choice === "other" ? null : choice;
   const code =
@@ -603,7 +604,9 @@ function ConnectStep({
             <T>Apps that require their own client ID cannot connect.</T>
           </p>
         ) : app.docs ? (
-          <TextButton onClick={() => openLink(app.docs ?? "")}>{app.name} help</TextButton>
+          <TextButton onClick={() => openLink(app.docs ?? "", gt("Could not open the link"))}>
+            {gt("{name} help", { name: app.name })}
+          </TextButton>
         ) : null}
         {code}
         {app === null ? null : (
@@ -646,13 +649,13 @@ function TextButton({
   );
 }
 
-function openLink(url: string) {
+function openLink(url: string, failureTitle: string) {
   void readLocalApi()
     ?.shell.openExternal(url)
     .catch((error: unknown) =>
       toastManager.add({
         type: "error",
-        title: "Could not open the link",
+        title: failureTitle,
         description: error instanceof Error ? error.message : url,
       }),
     );
@@ -660,6 +663,7 @@ function openLink(url: string) {
 
 function PrimaryAction({ app, mcpUrl }: { readonly app: McpApp; readonly mcpUrl: string }) {
   const m = useMessages();
+  const gt = useGT();
   const action = mcpHandoffAction(app, mcpUrl);
   const note = app.note ? <p className="text-xs text-muted-foreground">{app.note}</p> : null;
   if (action === null) {
@@ -679,11 +683,11 @@ function PrimaryAction({ app, mcpUrl }: { readonly app: McpApp; readonly mcpUrl:
   // The desktop app reports a link nothing opens and falls back; a browser cannot tell, and
   // opens an app link in place (a new tab for it would stay blank), so its toast keeps the web.
   const openApp = () => {
-    if (appLink === null) return openLink(link);
+    if (appLink === null) return openLink(link, gt("Could not open the link"));
     if (!isElectron) return window.location.assign(appLink);
     void readLocalApi()
       ?.shell.openExternal(appLink)
-      .catch(() => openLink(link));
+      .catch(() => openLink(link, gt("Could not open the link")));
   };
   const handOff = async () => {
     if (copy !== null) {
@@ -692,8 +696,8 @@ function PrimaryAction({ app, mcpUrl }: { readonly app: McpApp; readonly mcpUrl:
       if (!copied) {
         toastManager.add({
           type: "error",
-          title: "Could not copy",
-          description: "Use Set up another way.",
+          title: gt("Could not copy"),
+          description: gt("Use Set up another way."),
         });
         return;
       }
@@ -707,7 +711,7 @@ function PrimaryAction({ app, mcpUrl }: { readonly app: McpApp; readonly mcpUrl:
           : {
               actionProps: {
                 children: appLink === null ? `Open ${app.name}` : `Get ${app.name}`,
-                onClick: () => openLink(link),
+                onClick: () => openLink(link, gt("Could not open the link")),
               },
             }),
       });
@@ -844,11 +848,12 @@ function LinkedLine({
 /** Opens Sharing & access on this environment, where its clients and T3 Connect tunnels live. */
 function ManageAccessButton({
   environment,
-  label = "Manage access",
+  label = msg("Manage access"),
 }: {
   readonly environment: EnvironmentPresentation;
   readonly label?: string;
 }) {
+  const m = useMessages();
   const navigate = useNavigate();
   return (
     <Button
@@ -858,7 +863,7 @@ function ManageAccessButton({
         void navigate({ to: "/settings/access", search: { machine: environment.environmentId } });
       }}
     >
-      {label}
+      {m(label)}
     </Button>
   );
 }

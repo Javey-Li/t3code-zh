@@ -1392,7 +1392,7 @@ export function KeybindingsSettingsPanel() {
       }
       const error = squashAtomCommandFailure(result);
       toastManager.add({
-        title: "Unable to open keybindings file",
+        title: gt("Unable to open keybindings file"),
         description:
           error instanceof Error ? error.message : "The keybindings file was not opened.",
         type: "error",
@@ -1430,7 +1430,7 @@ export function KeybindingsSettingsPanel() {
       if (!isAtomCommandInterrupted(failed)) {
         const error = squashAtomCommandFailure(failed);
         toastManager.add({
-          title: "Unable to save keybinding",
+          title: gt("Unable to save keybinding"),
           description: error instanceof Error ? error.message : "The keybinding was not saved.",
           type: "error",
         });
@@ -1461,7 +1461,7 @@ export function KeybindingsSettingsPanel() {
       if (result?._tag === "Failure" && !isAtomCommandInterrupted(result)) {
         const error = squashAtomCommandFailure(result);
         toastManager.add({
-          title: "Unable to remove keybinding",
+          title: gt("Unable to remove keybinding"),
           description: error instanceof Error ? error.message : "The keybinding was not removed.",
           type: "error",
         });

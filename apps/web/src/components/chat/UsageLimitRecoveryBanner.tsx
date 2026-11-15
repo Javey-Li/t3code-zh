@@ -1,4 +1,4 @@
-import { T, msg } from "gt-react";
+import { T, msg, useGT } from "gt-react";
 import {
   type OrchestrationV2LimitRecovery,
   type OrchestrationV2LimitRecoveryUpdate,
@@ -33,6 +33,7 @@ type RecoveryProps = {
   recovery: OrchestrationV2LimitRecovery | null;
   timestampFormat: TimestampFormat;
   onChange: (recovery: OrchestrationV2LimitRecoveryUpdate) => Promise<void>;
+  gt?: (source: string, variables?: Record<string, string | number>) => string;
 };
 
 export function usageLimitRecoveryBannerItem(props: RecoveryProps): ComposerBannerStackItem {
@@ -47,6 +48,15 @@ export function usageLimitRecoveryBannerItem(props: RecoveryProps): ComposerBann
     snoozedUntil,
     timestampFormat,
   } = props;
+  const gt =
+    props.gt ??
+    ((source: string, variables?: Record<string, string | number>) => {
+      if (!variables) return source;
+      return Object.entries(variables).reduce(
+        (text, [key, value]) => text.replaceAll(`{${key}}`, String(value)),
+        source,
+      );
+    });
   // The server refuses recovery changes while a request is pending.
   const canSchedule =
     !settled && !requestPending && resetAt !== null && Date.parse(resetAt) > Date.parse(stoppedAt);
@@ -62,15 +72,17 @@ export function usageLimitRecoveryBannerItem(props: RecoveryProps): ComposerBann
       ? snoozedUntil
       : resetAt;
   const resetDescription = displayAt
-    ? `${resumes ? "Resumes" : "Resets"} ${formatUpcomingTimestamp(displayAt, timestampFormat)}`
-    : "Reset time unavailable; retry manually";
+    ? gt(resumes ? "Resumes {time}" : "Resets {time}", {
+        time: formatUpcomingTimestamp(displayAt, timestampFormat),
+      })
+    : gt("Reset time unavailable; retry manually");
   if (!chatGptLimit) {
     return {
       id: `usage-limit-recovery:${runId}`,
       variant: "warning",
       group: "environment",
       icon: <GaugeIcon />,
-      title: "Usage limit reached",
+      title: gt("Usage limit reached"),
       description: resetDescription,
       actions: recoveryActions,
     };
@@ -81,9 +93,9 @@ export function usageLimitRecoveryBannerItem(props: RecoveryProps): ComposerBann
     variant: "warning",
     group: "environment",
     icon: <OpenAI aria-hidden="true" />,
-    title: "ChatGPT usage limit reached",
+    title: gt("ChatGPT usage limit reached"),
     description: workspaceLimit
-      ? "You've reached your workspace's limit for using your ChatGPT plan in other apps."
+      ? gt("You've reached your workspace's limit for using your ChatGPT plan in other apps.")
       : resetDescription,
     actions: (
       <>
@@ -101,6 +113,7 @@ export function usageLimitRecoveryBannerItem(props: RecoveryProps): ComposerBann
 }
 
 function RecoveryActions({ runId, resetAt, recovery, snoozedUntil, onChange }: RecoveryProps) {
+  const gt = useGT();
   const [pending, setPending] = useState(false);
 
   const scheduled =
@@ -115,7 +128,7 @@ function RecoveryActions({ runId, resetAt, recovery, snoozedUntil, onChange }: R
     if (action === "snooze" && !snoozed && Date.parse(resetAt) <= Date.now()) {
       toastManager.add({
         type: "error",
-        title: "Could not snooze thread",
+        title: gt("Could not snooze thread"),
         description: msg("The reset time has passed. Retry the thread manually."),
       });
       // The deadline timer can lag after a throttled tab or sleep; disable now.

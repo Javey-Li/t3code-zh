@@ -234,13 +234,13 @@ export default function FileBrowserPanel({
             await writeTextToClipboard(mention);
             toastManager.add({
               type: "success",
-              title: "Mention copied",
+              title: gt("Mention copied"),
               description: relativePath,
             });
           } catch (error) {
             toastManager.add({
               type: "error",
-              title: "Failed to copy mention",
+              title: gt("Failed to copy mention"),
               description: error instanceof Error ? error.message : "An error occurred.",
             });
           }
@@ -251,7 +251,7 @@ export default function FileBrowserPanel({
           if (!composer) {
             toastManager.add({
               type: "error",
-              title: "Unable to add to chat",
+              title: gt("Unable to add to chat"),
               description: msg("Open a chat for this project and try again."),
             });
             return;
@@ -260,7 +260,7 @@ export default function FileBrowserPanel({
           if (!inserted) {
             toastManager.add({
               type: "error",
-              title: "Unable to add to chat",
+              title: gt("Unable to add to chat"),
               description: msg("The chat isn't ready to accept input right now."),
             });
           }
