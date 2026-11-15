@@ -611,7 +611,7 @@ function PublishRepositoryDialog(props: PublishRepositoryDialogProps) {
       <WizardPopup>
         <WizardHeader
           title={gt("Publish repository")}
-          description="Pick where to host it, then point us at a repo to push to."
+          description={<T>Pick where to host it, then point us at a repo to push to.</T>}
         >
           <WizardSteps
             steps={publishWizardSteps}

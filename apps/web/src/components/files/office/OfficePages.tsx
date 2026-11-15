@@ -1,4 +1,5 @@
 /* oxlint-disable react/no-array-index-key -- A page keeps its ordinal throughout incremental layout. */
+import { useGT, useMessages } from "gt-react";
 import { observeResize } from "~/lib/observeResize";
 import {
   useEffect,
@@ -142,6 +143,8 @@ function OfficePage(props: {
     overlay,
     footer,
   } = props;
+  const gt = useGT();
+  const m = useMessages();
   const row = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
   const [near, setNear] = useState(false);
@@ -189,7 +192,7 @@ function OfficePage(props: {
           register(el);
         }}
         role="group"
-        aria-label={`${label} ${index + 1}`}
+        aria-label={gt("{label} {index}", { label: m(label), index: index + 1 })}
         className="relative shrink-0 shadow-md"
         style={{
           width: page.width * scale,

@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, useGT, useMessages } from "gt-react";
 import { useState } from "react";
 import {
   AuthSourceControlWriteScope,
@@ -45,6 +45,7 @@ export function PullRequestMarkdownEditor({
   readonly onCancel: () => void;
 }) {
   const gt = useGT();
+  const m = useMessages();
   const canWriteSourceControl = useEnvironmentScope(environmentId, AuthSourceControlWriteScope);
   const [draft, setDraft] = useState(value);
   const [preview, setPreview] = useState(false);
@@ -122,7 +123,7 @@ export function PullRequestMarkdownEditor({
           value={draft}
           rows={6}
           placeholder={placeholder}
-          aria-label={label}
+          aria-label={m(label)}
           onValueChange={setDraft}
         />
       )}

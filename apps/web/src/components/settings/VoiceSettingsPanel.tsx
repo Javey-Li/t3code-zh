@@ -198,7 +198,7 @@ function ModelBadge(props: { icon: ReactNode; label: string; tooltip: string }) 
         {props.icon}
         {m(props.label)}
       </TooltipTrigger>
-      <TooltipPopup side="top">{props.tooltip}</TooltipPopup>
+      <TooltipPopup side="top">{m(props.tooltip)}</TooltipPopup>
     </Tooltip>
   );
 }
@@ -223,22 +223,26 @@ function ModelCard(props: ModelCardProps) {
             {model.recommended ? (
               <ModelBadge
                 icon={<StarIcon className="mr-1 size-3" />}
-                label="Recommended"
-                tooltip="A good default pick for the languages it covers."
+                label={msg("Recommended")}
+                tooltip={msg("A good default pick for the languages it covers.")}
               />
             ) : null}
             {model.supportsStreaming ? (
               <ModelBadge
                 icon={<AudioLinesIcon className="mr-1 size-3" />}
-                label="Live preview"
-                tooltip="Shows words in your draft as you speak, before the recording finishes."
+                label={msg("Live preview")}
+                tooltip={msg(
+                  "Shows words in your draft as you speak, before the recording finishes.",
+                )}
               />
             ) : null}
             {model.supportsTranslation ? (
               <ModelBadge
                 icon={<LanguagesIcon className="mr-1 size-3" />}
-                label="Translate"
-                tooltip="Can write English text from speech in another language. Turn on Translate to English to use it."
+                label={msg("Translate")}
+                tooltip={msg(
+                  "Can write English text from speech in another language. Turn on Translate to English to use it.",
+                )}
               />
             ) : null}
           </div>

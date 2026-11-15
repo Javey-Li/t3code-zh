@@ -429,7 +429,7 @@ export function ProjectDefaultsSettings({ category }: { category: ProjectSetting
               settings.defaultAutoPull ? (
                 <SettingResetButton
                   label={msg("default automatic pull")}
-                  tooltip="Reset automatic pull to off"
+                  tooltip={msg("Reset automatic pull to off")}
                   onClick={() => updateSettings({ defaultAutoPull: false })}
                 />
               ) : null
@@ -459,7 +459,7 @@ export function ProjectDefaultsSettings({ category }: { category: ProjectSetting
               settings.removeAgentCreditsOnMerge ? (
                 <SettingResetButton
                   label={msg("agent credit removal")}
-                  tooltip="Keep agent credits"
+                  tooltip={msg("Keep agent credits")}
                   onClick={() => updateSettings({ removeAgentCreditsOnMerge: false })}
                 />
               ) : null
@@ -489,7 +489,7 @@ export function ProjectDefaultsSettings({ category }: { category: ProjectSetting
               settings.pullRequestMergeMethod !== null ? (
                 <SettingResetButton
                   label={msg("default merge method")}
-                  tooltip="Reset to last selected"
+                  tooltip={msg("Reset to last selected")}
                   onClick={() => updateSettings({ pullRequestMergeMethod: null })}
                 />
               ) : null

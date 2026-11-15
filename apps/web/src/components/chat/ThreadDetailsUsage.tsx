@@ -1,4 +1,4 @@
-import { useGT, useMessages } from "gt-react";
+import { msg, useGT, useMessages } from "gt-react";
 import type {
   ProviderInstanceId,
   ServerProvider,
@@ -70,7 +70,7 @@ export function ThreadDetailsUsage({
       <div className="grid grid-cols-[auto_minmax(3rem,1fr)_auto] gap-x-3 text-xs">
         {notice ? (
           <UsageRow
-            label="Limits"
+            label={msg("Limits")}
             fill={null}
             tone={null}
             value="Unavailable"
@@ -106,7 +106,7 @@ export function ThreadDetailsContext({ usage }: { readonly usage: ContextWindowS
     >
       <div className="grid grid-cols-[auto_minmax(3rem,1fr)_auto] gap-x-3 text-xs">
         <UsageRow
-          label="Context"
+          label={msg("Context")}
           fill={used}
           tone={used === null ? null : used >= 90 ? "error" : used >= 80 ? "warning" : null}
           tick={tick}
@@ -200,18 +200,20 @@ function UsageRow({
   readonly tooltip: ReactNode;
   readonly muted?: boolean;
 }) {
+  const m = useMessages();
+  const text = m(label);
   return (
     <Tooltip>
       <TooltipTrigger
         render={
           <div
             tabIndex={0}
-            aria-label={`${label}: ${ariaValue}`}
+            aria-label={`${text}: ${ariaValue}`}
             className="col-span-3 grid h-6 cursor-default grid-cols-subgrid items-center rounded-lg px-2.5 outline-none hover:bg-black/[0.035] focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring data-popup-open:bg-black/[0.035] dark:hover:bg-white/[0.08] dark:data-popup-open:bg-white/[0.08]"
           />
         }
       >
-        <span className="max-w-28 truncate text-muted-foreground">{label}</span>
+        <span className="max-w-28 truncate text-muted-foreground">{text}</span>
         {fill !== null ? (
           <span className="relative h-[3px] rounded-full bg-muted-foreground/30 dark:bg-muted-foreground/20">
             {fill > 0 ? (

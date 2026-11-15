@@ -117,7 +117,7 @@ export default function Presentation(props: {
       <OfficePages
         pages={opened.slides}
         paint={opened.paint}
-        label="Slide"
+        label={msg("Slide")}
         scrollRef={scroll}
         onPageChange={setPage}
         onError={onError}

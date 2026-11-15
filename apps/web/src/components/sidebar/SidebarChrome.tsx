@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import { ArrowLeftIcon, ArrowRightIcon, ChartNoAxesColumnIcon, SettingsIcon } from "lucide-react";
 import type { ReactNode } from "react";
 import { memo } from "react";
@@ -205,17 +205,19 @@ function SidebarUtilityItem({
   label: string;
   onClick: () => void;
 }) {
+  const m = useMessages();
+  const text = m(label);
   return (
     <SidebarMenuItem className="shrink-0">
       <Tooltip>
         <TooltipTrigger
           render={
-            <SidebarMenuButton aria-label={label} onClick={onClick} size="icon">
+            <SidebarMenuButton aria-label={text} onClick={onClick} size="icon">
               {icon}
             </SidebarMenuButton>
           }
         />
-        <TooltipPopup side="top">{label}</TooltipPopup>
+        <TooltipPopup side="top">{text}</TooltipPopup>
       </Tooltip>
     </SidebarMenuItem>
   );
@@ -273,19 +275,19 @@ const SidebarUtilityMenu = memo(function SidebarUtilityMenu() {
         <>
           <SidebarUtilityItem
             icon={<SettingsIcon />}
-            label="Settings"
+            label={msg("Settings")}
             onClick={handleSettingsClick}
           />
           {pullRequestsSupported ? (
             <SidebarUtilityItem
               icon={<PullRequestGlyph.pullRequest />}
-              label="Pull requests"
+              label={msg("Pull requests")}
               onClick={handlePullRequestsClick}
             />
           ) : null}
           <SidebarUtilityItem
             icon={<ChartNoAxesColumnIcon />}
-            label="Usage"
+            label={msg("Usage")}
             onClick={handleUsageClick}
           />
         </>

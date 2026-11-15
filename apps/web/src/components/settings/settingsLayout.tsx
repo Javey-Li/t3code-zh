@@ -1,4 +1,4 @@
-import { useGT, useMessages } from "gt-react";
+import { msg, useGT, useMessages } from "gt-react";
 import { SettingsGroup } from "./SettingsGroup";
 import { AuthSettingsWriteScope } from "@t3tools/contracts";
 import { usePrimaryEnvironmentId, usePrimaryEnvironment } from "../../state/environments";
@@ -403,7 +403,7 @@ export function SettingsRow({
       source === "project" || source === "mixed" ? (
         <SettingResetButton
           label={typeof title === "string" ? title : "override"}
-          tooltip="Reset to inherited value"
+          tooltip={msg("Reset to inherited value")}
           onClick={() => (onResetOverride ? onResetOverride() : clearOverrides(scopedKeys))}
         />
       ) : null
@@ -555,7 +555,7 @@ export function SettingsRow({
 
 export function SettingResetButton({
   label,
-  tooltip = "Reset to default",
+  tooltip = msg("Reset to default"),
   disabled = false,
   onClick,
 }: {
@@ -585,9 +585,7 @@ export function SettingResetButton({
           </Button>
         }
       />
-      <TooltipPopup side="top">
-        {tooltip === "Reset to default" ? gt("Reset to default") : tooltip}
-      </TooltipPopup>
+      <TooltipPopup side="top">{m(tooltip)}</TooltipPopup>
     </Tooltip>
   );
 }

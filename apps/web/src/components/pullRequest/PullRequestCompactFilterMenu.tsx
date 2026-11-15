@@ -35,11 +35,14 @@ export function PullRequestCompactFilterMenu<Value extends string>({
   const m = useMessages();
   const current = options.find((option) => option.value === value) ?? options[0];
   if (!current) return null;
+  const text = m(label);
+  const currentLabel = m(current.label);
+  const summary = `${text}: ${currentLabel}`;
   return (
     <Menu>
       <MenuTrigger
-        aria-label={triggerLabel || iconOnly ? `${label}: ${current.label}` : label}
-        title={iconOnly ? `${label}: ${current.label}` : undefined}
+        aria-label={triggerLabel || iconOnly ? summary : text}
+        title={iconOnly ? summary : undefined}
         render={
           outlined ? (
             <Button variant="outline" size={iconOnly ? "icon" : "default"} />

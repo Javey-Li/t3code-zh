@@ -1,4 +1,4 @@
-import { T, useGT, useMessages } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import { useAuth } from "@clerk/react";
 import { useAtomValue } from "@effect/atom-react";
 import { offersLinkedEnvironments } from "@t3tools/client-runtime/link-request";
@@ -586,7 +586,7 @@ function ConnectStep({
     return (
       <section className="space-y-4">
         <CopyRow label="URL" value={mcpUrl} />
-        {message ? <CopyRow label="Message" value={message} /> : null}
+        {message ? <CopyRow label={msg("Message")} value={message} /> : null}
         <ol className="list-decimal space-y-1 ps-5 text-sm">
           {(app?.steps ?? OTHER_MCP_APP_STEPS).map((step) => (
             <li key={step}>{step}</li>
@@ -765,7 +765,7 @@ function ApprovalCode({
       {code !== null ? (
         live ? (
           <>
-            <CopyRow label="Code" value={code.credential} />
+            <CopyRow label={msg("Code")} value={code.credential} />
             <p className="text-xs text-muted-foreground">
               Expires {Math.floor(left / 60)}:{String(left % 60).padStart(2, "0")} · one use
             </p>
@@ -780,15 +780,18 @@ function ApprovalCode({
 }
 
 function CopyRow({ label, value }: { readonly label: string; readonly value: string }) {
-  const { copyToClipboard, isCopied } = useCopyToClipboard({ timeout: 1500, target: label });
+  const gt = useGT();
+  const m = useMessages();
+  const text = m(label);
+  const { copyToClipboard, isCopied } = useCopyToClipboard({ timeout: 1500, target: text });
   return (
     <div className="flex min-w-0 items-center gap-2 rounded-lg border border-border bg-muted/50 px-3 py-2">
-      <span className="shrink-0 text-xs text-muted-foreground">{label}</span>
+      <span className="shrink-0 text-xs text-muted-foreground">{text}</span>
       <span className="min-w-0 flex-1 truncate font-mono text-sm">{value}</span>
       <Button
         size="icon-xs"
         variant="ghost"
-        aria-label={`Copy ${label}`}
+        aria-label={gt("Copy {label}", { label: text })}
         onClick={() => copyToClipboard(value, undefined)}
       >
         {isCopied ? <CheckIcon className="size-3.5" /> : <CopyIcon className="size-3.5" />}

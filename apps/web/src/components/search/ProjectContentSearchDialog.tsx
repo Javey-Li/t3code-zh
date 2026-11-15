@@ -1,4 +1,4 @@
-import { T, useGT, useMessages } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import { Spinner } from "~/components/ui/spinner";
 import { AuthFilesystemReadScope, type ProjectContentMatch } from "@t3tools/contracts";
 
@@ -174,7 +174,7 @@ function OpenContentSearchDialog(props: {
           <SearchOptionButton
             active={caseSensitive}
             disabled={!search.canReadFiles}
-            label="Match case"
+            label={msg("Match case")}
             onClick={() => setCaseSensitive((current) => !current)}
           >
             Aa
@@ -182,7 +182,7 @@ function OpenContentSearchDialog(props: {
           <SearchOptionButton
             active={wholeWord}
             disabled={!search.canReadFiles}
-            label="Match whole word"
+            label={msg("Match whole word")}
             onClick={() => setWholeWord((current) => !current)}
           >
             <span className="underline decoration-2 underline-offset-2">ab</span>
@@ -190,7 +190,7 @@ function OpenContentSearchDialog(props: {
           <SearchOptionButton
             active={useRegex}
             disabled={!search.canReadFiles}
-            label="Use regular expression"
+            label={msg("Use regular expression")}
             onClick={() => setUseRegex((current) => !current)}
           >
             .*

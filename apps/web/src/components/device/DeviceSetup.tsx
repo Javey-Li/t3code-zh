@@ -180,7 +180,9 @@ export function DeviceSetup(props: {
     <>
       <WizardHeader
         title={gt("Set up devices")}
-        description="Review what runs on this environment before using simulators and emulators."
+        description={
+          <T>Review what runs on this environment before using simulators and emulators.</T>
+        }
       >
         <WizardSteps
           steps={["Device hub", "Simulators", "Agent access"]}

@@ -729,6 +729,8 @@ function DiagnosticsRefreshButton({
   label: string;
   onClick: () => void;
 }) {
+  const m = useMessages();
+  const text = m(label);
   return (
     <Tooltip>
       <TooltipTrigger
@@ -738,13 +740,13 @@ function DiagnosticsRefreshButton({
             variant="ghost-muted"
             disabled={isPending}
             onClick={onClick}
-            aria-label={label}
+            aria-label={text}
           >
             <RefreshIcon refreshing={isPending} />
           </Button>
         }
       />
-      <TooltipPopup side="top">{label}</TooltipPopup>
+      <TooltipPopup side="top">{text}</TooltipPopup>
     </Tooltip>
   );
 }
@@ -972,7 +974,7 @@ function DiagnosticsSettingsBody() {
             <DiagnosticsLastChecked checkedAt={processData?.readAt ?? null} />
             <DiagnosticsRefreshButton
               isPending={isProcessPending}
-              label="Refresh process diagnostics"
+              label={msg("Refresh process diagnostics")}
               onClick={refreshProcesses}
             />
           </div>
@@ -986,12 +988,22 @@ function DiagnosticsSettingsBody() {
           <StatBlock
             label="CPU"
             value={processData ? `${processData.totalCpuPercent.toFixed(1)}%` : "..."}
-            tooltip="Total CPU across live child processes of the current server process. The desktop shell and other parent processes are not included."
+            tooltip={
+              <T>
+                Total CPU across live child processes of the current server process. The desktop
+                shell and other parent processes are not included.
+              </T>
+            }
           />
           <StatBlock
             label={msg("Memory")}
             value={processData ? formatBytes(processData.totalRssBytes) : "..."}
-            tooltip="Total resident memory across live child processes of the current server process. The desktop shell and other parent processes are not included."
+            tooltip={
+              <T>
+                Total resident memory across live child processes of the current server process. The
+                desktop shell and other parent processes are not included.
+              </T>
+            }
           />
           <StatBlock
             label={msg("Server PID")}
@@ -1038,7 +1050,7 @@ function DiagnosticsSettingsBody() {
             <DiagnosticsLastChecked checkedAt={resourceData?.readAt ?? null} />
             <DiagnosticsRefreshButton
               isPending={isResourcePending}
-              label="Refresh resource history"
+              label={msg("Refresh resource history")}
               onClick={refreshResources}
             />
           </div>
@@ -1048,12 +1060,23 @@ function DiagnosticsSettingsBody() {
           <StatBlock
             label={msg("CPU Time")}
             value={resourceData ? formatCpuTime(resourceData.totalCpuSecondsApprox) : "..."}
-            tooltip="Approximate active CPU time for the T3 server root process and its descendants during the selected window. It grows only while sampled processes use CPU and older samples leave as the window moves."
+            tooltip={
+              <T>
+                Approximate active CPU time for the T3 server root process and its descendants
+                during the selected window. It grows only while sampled processes use CPU and older
+                samples leave as the window moves.
+              </T>
+            }
           />
           <StatBlock
             label={msg("Samples")}
             value={resourceData ? formatCount(resourceData.retainedSampleCount) : "..."}
-            tooltip="In-memory process samples retained by the server. The server samples only while diagnostics is open, and this resets when the server restarts."
+            tooltip={
+              <T>
+                In-memory process samples retained by the server. The server samples only while
+                diagnostics is open, and this resets when the server restarts.
+              </T>
+            }
           />
           <StatBlock
             label={msg("Interval")}
@@ -1126,7 +1149,7 @@ function DiagnosticsSettingsBody() {
             </Tooltip>
             <DiagnosticsRefreshButton
               isPending={isPending}
-              label="Refresh trace diagnostics"
+              label={msg("Refresh trace diagnostics")}
               onClick={refresh}
             />
           </div>
