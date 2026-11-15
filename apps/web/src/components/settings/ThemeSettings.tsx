@@ -247,10 +247,23 @@ function ThemeLibraryCard({
                               return (
                                 <ThemeVariantTooltip
                                   key={m(option.label)}
-                                  label={`Use ${option.label} for ${mode} mode`}
+                                  label={gt("Use {label} for {mode} mode", {
+                                    label: option.label,
+                                    mode,
+                                  })}
                                 >
                                   <button
-                                    aria-label={`Use ${option.label} for ${mode} mode${optionIsActive ? ", currently active" : ""}`}
+                                    aria-label={
+                                      optionIsActive
+                                        ? gt("Use {label} for {mode} mode, currently active", {
+                                            label: option.label,
+                                            mode,
+                                          })
+                                        : gt("Use {label} for {mode} mode", {
+                                            label: option.label,
+                                            mode,
+                                          })
+                                    }
                                     aria-pressed={optionIsActive}
                                     className={cn(
                                       "absolute left-1/2 top-1 z-30 flex size-7 items-center justify-center rounded-full bg-background shadow-sm outline-none transition-[opacity,transform] duration-200 ease-out motion-reduce:transition-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring",
@@ -300,7 +313,17 @@ function ThemeLibraryCard({
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-1.5">
                   <button
-                    aria-label={`Use ${variantNavigation ? `${variantNavigation.collectionLabel}, ${theme.label} variant` : `${theme.label} theme`}${isActive ? ", currently active" : ""}`}
+                    aria-label={(() => {
+                      const useLabel = variantNavigation
+                        ? gt("Use {collection}, {name} variant", {
+                            collection: variantNavigation.collectionLabel,
+                            name: theme.label,
+                          })
+                        : gt("Use {name} theme", { name: theme.label });
+                      return isActive
+                        ? gt("{label}, currently active", { label: useLabel })
+                        : useLabel;
+                    })()}
                     aria-pressed={isActive}
                     className="min-w-0 cursor-pointer truncate rounded-sm text-left text-sm font-medium text-foreground outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
                     type="button"

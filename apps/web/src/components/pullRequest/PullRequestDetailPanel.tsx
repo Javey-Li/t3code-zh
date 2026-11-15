@@ -1605,9 +1605,15 @@ export function PullRequestDetailPanel({
                   <span className="ml-auto inline-flex shrink-0 items-baseline justify-end gap-2 text-2xs">
                     <span
                       className="inline-flex items-baseline gap-1 tabular-nums"
-                      aria-label={`${detail.changedFiles.toLocaleString()} changed ${
-                        detail.changedFiles === 1 ? "file" : "files"
-                      }`}
+                      aria-label={
+                        detail.changedFiles === 1
+                          ? gt("{count} changed file", {
+                              count: detail.changedFiles.toLocaleString(),
+                            })
+                          : gt("{count} changed files", {
+                              count: detail.changedFiles.toLocaleString(),
+                            })
+                      }
                     >
                       <FileDiffIcon aria-hidden className="size-3 self-center" />
                       {detail.changedFiles.toLocaleString()}

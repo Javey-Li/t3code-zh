@@ -971,7 +971,13 @@ function SpeechModelBrowser(props: {
         <Menu>
           <MenuTrigger
             render={<Button variant="outline" />}
-            aria-label={`Sort and filter models: ${sortLabels[sort]}${downloadedOnly ? ", downloaded only" : ""}`}
+            aria-label={
+              downloadedOnly
+                ? gt("Sort and filter models: {sort}, downloaded only", {
+                    sort: sortLabels[sort],
+                  })
+                : gt("Sort and filter models: {sort}", { sort: sortLabels[sort] })
+            }
           >
             <ArrowDownUpIcon />
             <span className="hidden @min-[34rem]/voice-models:inline">{sortLabels[sort]}</span>

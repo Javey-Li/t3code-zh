@@ -393,7 +393,11 @@ export function SavedBackendListRow({
               size="sm"
               checked={enabled}
               disabled={isRemoving || blocked}
-              aria-label={`${enabled ? "Switch off" : "Switch on"} ${environment.label}`}
+              aria-label={
+                enabled
+                  ? gt("Switch off {name}", { name: environment.label })
+                  : gt("Switch on {name}", { name: environment.label })
+              }
               onCheckedChange={(checked) => onSetEnabled(environmentId, checked)}
             />
           }

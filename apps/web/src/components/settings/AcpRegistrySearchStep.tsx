@@ -311,7 +311,15 @@ function AcpRegistryAgentRow({
             </Tooltip>
           ) : null}
           <Button
-            aria-label={`${alreadyAdded ? "Already added" : isPreparing ? progressLabel : "Add"} ${agent.name}`}
+            aria-label={
+              alreadyAdded
+                ? gt("Already added {name}", { name: agent.name })
+                : isPreparing
+                  ? agent.distribution === "binary"
+                    ? gt("Downloading {name}", { name: agent.name })
+                    : gt("Preparing {name}", { name: agent.name })
+                  : gt("Add {name}", { name: agent.name })
+            }
             disabled={!canAdd || alreadyAdded}
             onClick={() => onAdd(agent)}
             size="xs"

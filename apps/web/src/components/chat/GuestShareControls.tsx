@@ -278,7 +278,11 @@ export function GuestPendingMessages({
   return (
     <ol
       className="chat-content-lane flex flex-col gap-4 pb-4"
-      aria-label={`${pending.length} guest message${pending.length === 1 ? "" : "s"} waiting`}
+      aria-label={
+        pending.length === 1
+          ? gt("{count} guest message waiting", { count: pending.length })
+          : gt("{count} guest messages waiting", { count: pending.length })
+      }
       aria-live="polite"
     >
       {pending.map((message) => {

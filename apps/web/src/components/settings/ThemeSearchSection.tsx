@@ -446,7 +446,15 @@ export function ThemeSearchSection({
                       ) : null}
                     </div>
                     <Button
-                      aria-label={`${isInstalling ? progressAction : action} ${extension.name}`}
+                      aria-label={
+                        isInstalling
+                          ? isInstalled
+                            ? gt("Updating {name}", { name: extension.name })
+                            : gt("Installing {name}", { name: extension.name })
+                          : isInstalled
+                            ? gt("Update {name}", { name: extension.name })
+                            : gt("Install {name}", { name: extension.name })
+                      }
                       disabled={installingId !== null}
                       size="xs"
                       variant="outline"
