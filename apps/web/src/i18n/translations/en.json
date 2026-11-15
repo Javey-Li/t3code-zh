@@ -2251,5 +2251,16 @@
   "61c0ffead5474039": "Next stop",
   "8a79c29136eccfc5": "Questions to consider",
   "624dbe5a08e28c6a": "Ask an agent:",
-  "b30e4bab74bac872": "This change has no files to tour."
+  "b30e4bab74bac872": "This change has no files to tour.",
+  "38695f22426981d6": "Preview {path}",
+  "601807baf4e25b94": "Preview {name}",
+  "d56fa7a67d6daa37": "Preview {label}",
+  "d4864819331ed9fc": "Download {label}",
+  "33c7e68fca089036": "Thread, {title}",
+  "016b70d87169f782": "{action}: {name}",
+  "3345a442e4820d05": "Turn on: {name}",
+  "c850164c5af48736": "Set up: {name}",
+  "366037ac0c751278": "{label}: {name}",
+  "b8ec049821ce511c": "Permissions: {label}",
+  "f85aa972c0a40745": "Open {path} in editor"
 }

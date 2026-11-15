@@ -539,7 +539,7 @@ function AgentsSection({
       <Button
         size="xs"
         variant="outline"
-        aria-label={`${actionLabel}: ${name}`}
+        aria-label={gt("{action}: {name}", { action: actionLabel, name })}
         render={
           <Link
             to="/settings/providers"
@@ -555,7 +555,7 @@ function AgentsSection({
         <Button
           size="xs"
           variant="outline"
-          aria-label={`Turn on: ${name}`}
+          aria-label={gt("Turn on: {name}", { name })}
           disabled={!canManageProviders || serverConfig === null}
           onClick={() => void turnOn(provider)}
         >
@@ -571,7 +571,7 @@ function AgentsSection({
         <Button
           size="xs"
           variant="outline"
-          aria-label={`Set up: ${name}`}
+          aria-label={gt("Set up: {name}", { name })}
           aria-expanded={open}
           onClick={() => setCodexSetupId(open ? null : provider.instanceId)}
         >
@@ -1129,12 +1129,13 @@ function TerminalAction({
   readonly disabled: boolean;
   readonly onClick: () => void;
 }) {
+  const gt = useGT();
   const label = signIn ? "Sign in" : "Install";
   return (
     <Button
       size="xs"
       variant="outline"
-      aria-label={`${label}: ${name}`}
+      aria-label={gt("{label}: {name}", { label, name })}
       disabled={disabled}
       onClick={onClick}
     >

@@ -593,7 +593,7 @@ function MiniPlayerShell({
     <div className="pointer-events-none absolute inset-0">
       {frame ? (
         <section
-          aria-label={label}
+          aria-label={gt(label)}
           data-preview-mini-player={sourceKey}
           className="pointer-events-none absolute select-none"
           style={{
