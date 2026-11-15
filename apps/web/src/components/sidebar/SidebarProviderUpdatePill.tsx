@@ -1,4 +1,4 @@
-import { useGT, useMessages } from "gt-react";
+import { T, useGT, useMessages } from "gt-react";
 import { Spinner } from "~/components/ui/spinner";
 import { useNavigate } from "@tanstack/react-router";
 import { useAtomValue } from "@effect/atom-react";
@@ -205,7 +205,9 @@ export function SidebarProviderUpdatePill() {
               </button>
             }
           />
-          <TooltipPopup side="top">Dismiss until provider status changes</TooltipPopup>
+          <TooltipPopup side="top">
+            <T>Dismiss until provider status changes</T>
+          </TooltipPopup>
         </Tooltip>
       )}
     </div>

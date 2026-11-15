@@ -303,7 +303,9 @@ function DiscoveryItemRow({
                     />
                   }
                 />
-                <TooltipPopup side="top">Offer when adding or publishing a project</TooltipPopup>
+                <TooltipPopup side="top">
+                  <T>Offer when adding or publishing a project</T>
+                </TooltipPopup>
               </Tooltip>
             ) : !isVcsNotReady(item) ? (
               <Switch

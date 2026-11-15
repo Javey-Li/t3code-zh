@@ -1,4 +1,4 @@
-import { useGT } from "gt-react";
+import { T, useGT } from "gt-react";
 import type { CSSProperties } from "react";
 import { useState } from "react";
 import {
@@ -283,7 +283,9 @@ export function AppearanceSettingsPanel() {
                   <SelectValue>{CHAT_WIDTH_LABELS[settings.chatWidth]}</SelectValue>
                 </SelectTrigger>
                 <SelectPopup align="end" alignItemWithTrigger={false}>
-                  <SelectItem value="comfortable">Comfortable (default)</SelectItem>
+                  <SelectItem value="comfortable">
+                    <T>Comfortable (default)</T>
+                  </SelectItem>
                   <SelectItem value="wide">Wide</SelectItem>
                   <SelectItem value="full">Full</SelectItem>
                 </SelectPopup>
@@ -322,7 +324,9 @@ export function AppearanceSettingsPanel() {
                   <SelectValue>{EFFORT_DISPLAY_LABELS[settings.effortDisplay]}</SelectValue>
                 </SelectTrigger>
                 <SelectPopup align="end" alignItemWithTrigger={false}>
-                  <SelectItem value="label">Word (default)</SelectItem>
+                  <SelectItem value="label">
+                    <T>Word (default)</T>
+                  </SelectItem>
                   <SelectItem value="bars">Bars</SelectItem>
                 </SelectPopup>
               </Select>

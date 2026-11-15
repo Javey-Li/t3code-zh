@@ -1,4 +1,4 @@
-import { useGT } from "gt-react";
+import { T, useGT } from "gt-react";
 import { useSyncLayout } from "@legendapp/list/react";
 import { type OrchestrationV2CheckpointFileTotals, type RunId } from "@t3tools/contracts";
 import { type MouseEvent, type ReactNode, memo, useLayoutEffect, useRef, useState } from "react";
@@ -125,7 +125,9 @@ export const ChangedFilesCard = memo(function ChangedFilesCard(props: {
               <FileDiffIcon className="size-3" />
               <span className="hidden @[24rem]/changed-files:inline">Open diff</span>
             </TooltipTrigger>
-            <TooltipPopup side="top">Open the full diff</TooltipPopup>
+            <TooltipPopup side="top">
+              <T>Open the full diff</T>
+            </TooltipPopup>
           </Tooltip>
         </div>
       </div>

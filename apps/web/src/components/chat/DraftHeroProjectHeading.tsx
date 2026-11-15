@@ -40,7 +40,9 @@ export function DraftHeroProjectHeading({
           ref={inlineRef}
           className="flex w-max items-baseline gap-2 whitespace-nowrap font-normal text-3xl tracking-tight"
         >
-          <span>What should we build in</span>
+          <span>
+            <T>What should we build in</T>
+          </span>
           <span>
             <span className="font-medium">{projectName}</span>?
           </span>

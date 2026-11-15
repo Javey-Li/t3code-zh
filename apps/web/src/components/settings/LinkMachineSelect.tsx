@@ -18,7 +18,9 @@ import { Select, SelectItem, SelectPopup, SelectTrigger, SelectValue } from "../
 export function LinkAddressWarning({ address }: { readonly address: string }) {
   return (
     <Alert variant="warning">
-      <AlertTitle>Check this address</AlertTitle>
+      <AlertTitle>
+        <T>Check this address</T>
+      </AlertTitle>
       <AlertDescription>
         <T>
           This app cannot confirm it is one of your machines. The pairing code you paste is sent

@@ -896,7 +896,9 @@ export function ServerBrowserSurface(props: {
                 </div>
               </>
             ) : (
-              <p className="text-xs text-muted-foreground">Take control to respond.</p>
+              <p className="text-xs text-muted-foreground">
+                <T>Take control to respond.</T>
+              </p>
             )}
           </div>
         ) : null}

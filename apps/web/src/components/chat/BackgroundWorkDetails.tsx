@@ -35,7 +35,9 @@ export function BackgroundWorkDetails(props: {
       </DialogTrigger>
       <DialogPopup>
         <DialogHeader>
-          <DialogTitle>Background work</DialogTitle>
+          <DialogTitle>
+            <T>Background work</T>
+          </DialogTitle>
         </DialogHeader>
         <DialogPanel>
           <div className="space-y-5">

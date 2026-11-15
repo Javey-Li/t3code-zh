@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import type { CommandOutputView } from "@t3tools/client-runtime/state/command-output";
 import type { EnvironmentId, ThreadId, TurnItemId } from "@t3tools/contracts";
 import { TERMINAL_PALETTES, terminalOutputSpans } from "@t3tools/shared/terminalOutput";
@@ -50,7 +51,12 @@ export function CommandOutputPanel(props: {
 
   if (text.length === 0) {
     if (error) return <div className="text-destructive">Couldn&apos;t load output: {error}</div>;
-    if (data === null) return <div className="text-muted-foreground italic">Loading output…</div>;
+    if (data === null)
+      return (
+        <div className="text-muted-foreground italic">
+          <T>Loading output…</T>
+        </div>
+      );
     return data.running ? null : <div className="text-muted-foreground italic">No output.</div>;
   }
   // Parse after all hooks to preserve the text/theme compiler cache.
@@ -65,7 +71,11 @@ export function CommandOutputPanel(props: {
       }}
       className="max-h-80 overflow-auto text-muted-foreground"
     >
-      {data?.output.truncated ? <div className="italic">Earlier output not shown</div> : null}
+      {data?.output.truncated ? (
+        <div className="italic">
+          <T>Earlier output not shown</T>
+        </div>
+      ) : null}
       {spans.map((span, index) =>
         span.style === null ? (
           span.text

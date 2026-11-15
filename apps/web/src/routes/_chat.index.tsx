@@ -102,7 +102,9 @@ function DraftStartError({ onRetry }: { readonly onRetry: () => void }) {
       {isElectron ? <WorkspacePageHeader electron /> : null}
       <Empty className="flex-1">
         <EmptyHeader className="max-w-md">
-          <EmptyTitle>Couldn’t start a new thread</EmptyTitle>
+          <EmptyTitle>
+            <T>Couldn’t start a new thread</T>
+          </EmptyTitle>
           <EmptyDescription>
             <T>The project is still available. Try opening the draft again.</T>
           </EmptyDescription>

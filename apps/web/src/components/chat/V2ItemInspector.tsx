@@ -161,7 +161,9 @@ function ToolOutput(props: ToolOutputState) {
   return props.output ? (
     <StructuredValue value={props.output} highlightJson />
   ) : props.pending ? (
-    <div className="text-muted-foreground italic">Loading output…</div>
+    <div className="text-muted-foreground italic">
+      <T>Loading output…</T>
+    </div>
   ) : props.error ? (
     <div className="text-destructive">Couldn&apos;t load output: {props.error}</div>
   ) : props.empty && props.images.length === 0 ? (

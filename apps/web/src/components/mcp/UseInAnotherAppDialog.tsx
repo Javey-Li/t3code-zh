@@ -378,7 +378,9 @@ function GateScreen({
       return (
         <p role="status" className="flex items-center gap-2 text-sm text-muted-foreground">
           <Spinner size="sm" tone="muted" />
-          <T>Checking T3 Connect…</T>
+          <T>
+            <T>Checking T3 Connect…</T>
+          </T>
         </p>
       );
     case "sign-in":
@@ -618,7 +620,9 @@ function ConnectStep({
       <PrimaryAction app={app} mcpUrl={mcpUrl} />
       <CopyRow label="URL" value={mcpUrl} />
       {code}
-      <TextButton onClick={() => setAnotherWay(true)}>Set up another way</TextButton>
+      <TextButton onClick={() => setAnotherWay(true)}>
+        <T>Set up another way</T>
+      </TextButton>
       <LinkedLine environment={environment} access={access} />
     </section>
   );
@@ -775,7 +779,9 @@ function ApprovalCode({
             </p>
           </>
         ) : (
-          <p className="text-xs text-muted-foreground">The code expired.</p>
+          <p className="text-xs text-muted-foreground">
+            <T>The code expired.</T>
+          </p>
         )
       ) : null}
       {error ? <p className="text-xs text-destructive-foreground">{error}</p> : null}

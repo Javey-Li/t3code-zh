@@ -213,7 +213,12 @@ export function GuestShareIndicator({ threadRef }: { readonly threadRef: ScopedT
 function GuestShareStatus({ share }: { readonly share: ThreadGuestShare }) {
   const nowMinute = useNowMinute();
   // The share stays on the thread after it expires, until the owner clears it.
-  if (share.expiresAt.slice(0, 16) <= nowMinute) return <span>Guest link expired</span>;
+  if (share.expiresAt.slice(0, 16) <= nowMinute)
+    return (
+      <span>
+        <T>Guest link expired</T>
+      </span>
+    );
   return (
     <span>{share.guestName !== null ? `${share.guestName} is a guest` : "Guest link active"}</span>
   );

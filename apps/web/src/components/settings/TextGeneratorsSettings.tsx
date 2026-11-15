@@ -432,7 +432,9 @@ function TextGeneratorWizard({
                   />
                 </div>
                 <div className="grid gap-1.5">
-                  <Label htmlFor="text-generator-label">Name (optional)</Label>
+                  <Label htmlFor="text-generator-label">
+                    <T>Name (optional)</T>
+                  </Label>
                   <Input
                     id="text-generator-label"
                     placeholder={
@@ -561,7 +563,9 @@ function TextGenerationTaskPicker({
             {selection.model} answered. It works.
           </span>
         ) : own === null ? (
-          <span className="text-xs text-muted-foreground">Follows the text generation model</span>
+          <span className="text-xs text-muted-foreground">
+            <T>Follows the text generation model</T>
+          </span>
         ) : null}
       </div>
       <div className="justify-self-end">

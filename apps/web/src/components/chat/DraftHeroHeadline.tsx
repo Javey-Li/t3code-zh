@@ -425,11 +425,15 @@ export function DraftHeroHeadline({
       ) : (
         <h1 className="w-full text-center font-normal text-2xl text-foreground tracking-tight sm:text-3xl">
           {isScratchDraft ? (
-            <>What should we work on?</>
+            <>
+              <T>What should we work on?</T>
+            </>
           ) : canChooseProject ? (
             <>{projectSelector} to start</>
           ) : (
-            <>Add a project to start</>
+            <>
+              <T>Add a project to start</T>
+            </>
           )}
         </h1>
       )}

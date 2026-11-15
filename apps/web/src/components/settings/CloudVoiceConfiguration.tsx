@@ -126,7 +126,9 @@ function ModelPicker({
           size="sm"
         />
         <ComboboxPopup>
-          <ComboboxEmpty>No transcription model matches.</ComboboxEmpty>
+          <ComboboxEmpty>
+            <T>No transcription model matches.</T>
+          </ComboboxEmpty>
           <ComboboxList className="max-h-64">
             {(model: CloudSpeechModel) => (
               <ComboboxItem key={model.id} value={model}>
@@ -353,7 +355,9 @@ export function CloudVoiceConfiguration({
               saved === undefined ? (
               <p>Update {m(environment.label)} to use OpenRouter dictation.</p>
             ) : saved === undefined ? (
-              <p role="status">Checking for an API key…</p>
+              <p role="status">
+                <T>Checking for an API key…</T>
+              </p>
             ) : routed ? (
               <form
                 id={formId}

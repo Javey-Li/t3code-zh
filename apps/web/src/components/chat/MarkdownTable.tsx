@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { CheckIcon, CopyIcon } from "lucide-react";
 import { useRef, type ComponentProps } from "react";
 
@@ -60,7 +61,9 @@ export function MarkdownTable({ children, ...props }: ComponentProps<"table">) {
             <TooltipPopup side="top">{copyLabel}</TooltipPopup>
           </Tooltip>
           <MenuPopup align="end">
-            <MenuItem onClick={() => handleCopy("markdown")}>Copy as Markdown</MenuItem>
+            <MenuItem onClick={() => handleCopy("markdown")}>
+              <T>Copy as Markdown</T>
+            </MenuItem>
             <MenuItem onClick={() => handleCopy("csv")}>Copy as CSV</MenuItem>
           </MenuPopup>
         </Menu>
