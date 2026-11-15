@@ -239,7 +239,7 @@ const ComposerPendingUserInputCard = memo(function ComposerPendingUserInputCard(
             <ComposerBanner.Dismiss
               render={<span role="button" tabIndex={0} />}
               aria-label={gt("Dismiss question without answering")}
-              title="Dismiss question without answering"
+              title={gt("Dismiss question without answering")}
               disabled={isResponding}
               data-pending-user-input-dismiss
               onClick={(event) => {

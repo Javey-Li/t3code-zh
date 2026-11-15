@@ -109,6 +109,7 @@ function EmptyMobileClients() {
 }
 
 export function MobileClientsUserProfilePage() {
+  const gt = useGT();
   const devicesState = useManagedRelayDevices();
   const devices = devicesState.data ?? [];
   const isInitialLoad =
@@ -117,7 +118,7 @@ export function MobileClientsUserProfilePage() {
 
   return (
     <ClerkUserProfilePage
-      title="Mobile clients"
+      title={gt("Mobile clients")}
       description="Mobile devices that get notifications from your environments."
       action={
         <ClerkUserProfileRefreshButton

@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, useGT } from "gt-react";
 import { useAuth } from "@clerk/react";
 import { useAtomValue } from "@effect/atom-react";
 import { offersLinkedEnvironments } from "@t3tools/client-runtime/link-request";
@@ -362,6 +362,7 @@ function GateScreen({
   readonly environment: EnvironmentPresentation;
   readonly gate: Gate;
 }) {
+  const gt = useGT();
   const name = environment.label;
   const turnOnHere = useT3ConnectTurnOn(environment.environmentId);
   const { openAuthPrompt } = useT3ConnectAuthPrompt();
@@ -382,7 +383,7 @@ function GateScreen({
     case "sign-in":
       return (
         <GateMessage
-          title="Sign in to T3 Connect"
+          title={gt("Sign in to T3 Connect")}
           lines={[
             `Apps like Poke and Claude run in the cloud. They need a public address to reach ${name}.`,
             `T3 Connect gives ${name} that address. Each app still needs your approval.`,

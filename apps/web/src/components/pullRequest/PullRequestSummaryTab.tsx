@@ -956,7 +956,7 @@ export function PullRequestSummaryTab({
 
       <Section
         key={`description:${detail.url}`}
-        title="Description"
+        title={gt("Description")}
         keepMounted
         revealCount={descriptionReveals}
       >
@@ -998,7 +998,7 @@ export function PullRequestSummaryTab({
 
       <Section
         key={`checks:${detail.url}`}
-        title="Checks"
+        title={gt("Checks")}
         defaultOpen={false}
         revealCount={checksReveals}
       >

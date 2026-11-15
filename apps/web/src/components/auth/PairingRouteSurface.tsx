@@ -17,10 +17,11 @@ import { StandalonePage, StandalonePageHeader } from "../ui/standalone-page";
 import { useAtomCommand } from "../../state/use-atom-command";
 
 export function PairingPendingSurface() {
+  const gt = useGT();
   return (
     <StandalonePage>
       <StandalonePageHeader
-        title="Pairing with this environment"
+        title={gt("Pairing with this environment")}
         description="Validating the pairing link and preparing your session."
       />
     </StandalonePage>
@@ -87,7 +88,7 @@ export function PairingRouteSurface({
   return (
     <StandalonePage>
       <StandalonePageHeader
-        title="Pair with this environment"
+        title={gt("Pair with this environment")}
         description={describeAuthGate(auth.bootstrapMethods)}
       />
 

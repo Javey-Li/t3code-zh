@@ -54,19 +54,20 @@ function StartFromRemoteRow() {
 }
 
 export function WorktreesSettingsPanel() {
+  const gt = useGT();
   const { scope } = useSettingsScope();
   const isProjectScope = scope.kind === "project" || scope.kind === "checkout";
 
   return (
     <SettingsPageContainer>
-      <SettingsSection id="worktree-creation" title="Creation">
+      <SettingsSection id="worktree-creation" title={gt("Creation")}>
         {!isProjectScope && <WorktreesDirectoryRow />}
         <StartFromRemoteRow />
         <AdvancedSettings targetIds={[searchableSetting("worktree-submodules").id]}>
           <WorktreeSubmodulesRow />
         </AdvancedSettings>
       </SettingsSection>
-      <SettingsSection id="worktree-branches" title="Branches">
+      <SettingsSection id="worktree-branches" title={gt("Branches")}>
         <BranchNamingSettings />
       </SettingsSection>
       <WorktreeCleanupSection />

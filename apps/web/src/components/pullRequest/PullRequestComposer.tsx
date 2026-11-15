@@ -137,7 +137,7 @@ export function PullRequestComposer({
                 size="icon-xs"
                 variant="ghost"
                 aria-label={gt("Discard pending line comments")}
-                title="Discard pending line comments"
+                title={gt("Discard pending line comments")}
                 disabled={reviewPending}
                 onClick={() => clearComments(reviewKey)}
               >

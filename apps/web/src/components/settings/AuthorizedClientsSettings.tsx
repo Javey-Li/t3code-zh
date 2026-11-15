@@ -379,7 +379,7 @@ const PairingLinkListRow = memo(function PairingLinkListRow({
                       size={132}
                       level="M"
                       marginSize={2}
-                      title="Pairing link. Scan to open on another device"
+                      title={gt("Pairing link. Scan to open on another device")}
                     />
                   </div>
                 ) : null}
@@ -484,7 +484,7 @@ const PairingLinkListRow = memo(function PairingLinkListRow({
                 size={168}
                 level="M"
                 marginSize={1}
-                title="Pairing link. Scan to open on another device"
+                title={gt("Pairing link. Scan to open on another device")}
               />
             </div>
           ) : (

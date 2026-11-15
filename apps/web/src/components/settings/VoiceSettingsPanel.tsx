@@ -1305,7 +1305,7 @@ export function VoiceSettingsPanel() {
         "speech-correction-word": cleanupEnabled ? undefined : "speech-post-processing",
       }}
     >
-      <SettingsSection id="voice-input" title="Input">
+      <SettingsSection id="voice-input" title={gt("Input")}>
         <SettingsRow
           {...searchableSetting("voice-microphone")}
           title={<T>Microphone</T>}
@@ -1372,7 +1372,7 @@ export function VoiceSettingsPanel() {
         />
       </SettingsSection>
 
-      <SettingsSection id="voice-transcription" title="Transcription">
+      <SettingsSection id="voice-transcription" title={gt("Transcription")}>
         <SettingsRow
           {...searchableSetting("voice-transcription-destination")}
           title={<T>Transcribe with</T>}
@@ -1606,7 +1606,7 @@ export function VoiceSettingsPanel() {
         {prepared && <AdvancedSpeechSettings prepared={prepared} catalog={catalog} />}
       </SettingsSection>
 
-      <SettingsSection id="voice-dictionary" title="Dictionary">
+      <SettingsSection id="voice-dictionary" title={gt("Dictionary")}>
         <SettingsRow
           {...searchableSetting("speech-dictionary")}
           title="Your dictionary"
@@ -1623,7 +1623,7 @@ export function VoiceSettingsPanel() {
         <ProjectDictionaryRow />
       </SettingsSection>
 
-      <SettingsSection id={searchableSetting("speech-post-processing").id} title="Cleanup">
+      <SettingsSection id={searchableSetting("speech-post-processing").id} title={gt("Cleanup")}>
         <SettingsRow
           title={<T>Clean up transcripts</T>}
           description="Off by default. Sends the transcript and nearby draft text, never audio, to the cleanup model."

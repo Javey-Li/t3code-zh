@@ -226,7 +226,7 @@ export function McpConsent({
     return (
       <StandalonePage>
         <ConnectAgentHeading
-          title="Checking the sign-in request"
+          title={gt("Checking the sign-in request")}
           description="One moment while this environment verifies the agent's request."
         />
         <Spinner className="mt-6" size="lg" tone="muted" />
@@ -237,7 +237,10 @@ export function McpConsent({
   if (loaded.status === "invalid") {
     return (
       <StandalonePage>
-        <ConnectAgentHeading title="This sign-in cannot continue" description={loaded.message} />
+        <ConnectAgentHeading
+          title={gt("This sign-in cannot continue")}
+          description={loaded.message}
+        />
         <p className="mt-4 text-sm text-muted-foreground">
           <T>Close this page and start the sign-in again from your agent.</T>
         </p>

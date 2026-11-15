@@ -123,14 +123,14 @@ export function DeviceToolsPanel(props: {
         ) : null}
 
         {props.hostDiagnostics ? (
-          <Section title="Host diagnostics">
+          <Section title={gt("Host diagnostics")}>
             <p className="whitespace-pre-line text-xs text-muted-foreground">
               {props.hostDiagnostics}
             </p>
           </Section>
         ) : null}
 
-        <Section title="App">
+        <Section title={gt("App")}>
           <Row label="Foreground">
             <span className="truncate font-mono text-xs">{foregroundApp?.id ?? "-"}</span>
           </Row>
@@ -286,7 +286,7 @@ export function DeviceToolsPanel(props: {
           )}
         </Section>
 
-        <Section title="Accessibility">
+        <Section title={gt("Accessibility")}>
           <SwitchRow
             label="Overlay element frames"
             checked={props.axOverlay}
@@ -316,7 +316,7 @@ export function DeviceToolsPanel(props: {
         />
 
         {isIos ? (
-          <Section title="Push notification">
+          <Section title={gt("Push notification")}>
             <SubmitRow
               placeholder={gt("Alert text")}
               action="Send"
@@ -474,7 +474,7 @@ function LocationSection(props: {
     Math.abs(parsed.latitude) <= 90 &&
     Math.abs(parsed.longitude) <= 180;
   return (
-    <Section title="Location">
+    <Section title={gt("Location")}>
       <div className="flex gap-1.5">
         <Input
           size="compact"
@@ -562,13 +562,14 @@ function PermissionsSection(props: {
     decision: "grant" | "revoke" | "reset",
   ) => Promise<unknown>;
 }) {
+  const gt = useGT();
   const [appId, setAppId] = useState("");
   const [permission, setPermission] = useState<DevicePermission>("camera");
   const resolvedAppId = appId.trim() || props.defaultAppId;
   const decide = (decision: "grant" | "revoke" | "reset") =>
     void props.onDecide(resolvedAppId, permission, decision);
   return (
-    <Section title="Permissions">
+    <Section title={gt("Permissions")}>
       <Input
         size="compact"
         font="mono"

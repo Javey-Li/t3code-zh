@@ -179,7 +179,7 @@ export function DeviceSetup(props: {
   return (
     <>
       <WizardHeader
-        title="Set up devices"
+        title={gt("Set up devices")}
         description="Review what runs on this environment before using simulators and emulators."
       >
         <WizardSteps

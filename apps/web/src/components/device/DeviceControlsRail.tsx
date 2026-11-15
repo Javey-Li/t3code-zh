@@ -148,7 +148,7 @@ export function DeviceControlsRail(props: {
                     size="icon-sm"
                     variant="ghost"
                     aria-label={gt("Device text size")}
-                    title="Device text size"
+                    title={gt("Device text size")}
                     disabled={controls.disabled || !settings?.textSize}
                   />
                 }
@@ -213,7 +213,7 @@ export function DeviceControlsRail(props: {
                 size="icon-sm"
                 variant="ghost"
                 aria-label={gt("More device actions")}
-                title="More device actions"
+                title={gt("More device actions")}
               />
             }
           >

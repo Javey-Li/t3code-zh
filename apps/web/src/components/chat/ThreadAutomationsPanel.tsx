@@ -132,7 +132,7 @@ export function ThreadAutomationsPanel(props: {
   return (
     <ThreadDetailsSection
       headingId="thread-details-automations-heading"
-      title="Automations"
+      title={gt("Automations")}
       data-thread-automations-panel
       actions={
         <Tooltip>
