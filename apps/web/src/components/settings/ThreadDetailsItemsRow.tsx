@@ -1,4 +1,4 @@
-import { T, msg } from "gt-react";
+import { T, msg, useGT } from "gt-react";
 import { ChevronDownIcon } from "lucide-react";
 
 import { updateClientSettings, useClientSettings } from "../../hooks/useSettings";
@@ -15,6 +15,7 @@ import { SettingResetButton, SettingsRow } from "./settingsLayout";
 import { searchableSetting } from "./settingsSearch";
 
 export function ThreadDetailsItemsRow() {
+  const gt = useGT();
   const visibility = useClientSettings(resolveThreadDetailsVisibility);
   const enabled = THREAD_DETAILS_ITEMS.filter((item) => visibility[item.id]).length;
   return (
@@ -39,11 +40,17 @@ export function ThreadDetailsItemsRow() {
                 variant="outline"
                 size="sm"
                 className="w-full justify-between sm:w-40"
-                aria-label={`Thread details: ${enabled} of ${THREAD_DETAILS_ITEMS.length} on`}
+                aria-label={gt("Thread details: {enabled} of {total} on", {
+                  enabled,
+                  total: THREAD_DETAILS_ITEMS.length,
+                })}
               />
             }
           >
-            {enabled} of {THREAD_DETAILS_ITEMS.length} on
+            {gt("{enabled} of {total} on", {
+              enabled,
+              total: THREAD_DETAILS_ITEMS.length,
+            })}
             <ChevronDownIcon aria-hidden />
           </MenuTrigger>
           <MenuPopup align="end">

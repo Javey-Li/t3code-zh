@@ -81,7 +81,11 @@ function AccessScopeSummary({
   readonly scopes: ReadonlyArray<AuthEnvironmentScope>;
   readonly label: string;
 }) {
-  const scopeCountLabel = `${scopes.length} ${scopes.length === 1 ? "scope" : "scopes"}`;
+  const gt = useGT();
+  const scopeCountLabel =
+    scopes.length === 1
+      ? gt("{count} scope", { count: scopes.length })
+      : gt("{count} scopes", { count: scopes.length });
 
   return (
     <Popover>
@@ -92,7 +96,7 @@ function AccessScopeSummary({
         render={
           <button
             type="button"
-            aria-label={`${label}: show ${scopeCountLabel}`}
+            aria-label={gt("{label}: show {scopes}", { label, scopes: scopeCountLabel })}
             className="cursor-help underline decoration-border underline-offset-2 outline-hidden hover:text-foreground focus-visible:text-foreground"
           />
         }

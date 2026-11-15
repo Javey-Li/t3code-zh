@@ -1,4 +1,4 @@
-import { msg } from "gt-react";
+import { msg, useGT } from "gt-react";
 import { settingsScopeEnvironmentLabels } from "./settingsScopeAxis";
 import { Spinner } from "~/components/ui/spinner";
 import { ArchiveIcon, ArchiveX, Trash2Icon } from "lucide-react";
@@ -31,6 +31,7 @@ const ARCHIVE_ACTIONS = [
 type ArchiveAction = (typeof ARCHIVE_ACTIONS)[number]["action"];
 
 export function ArchivedThreadsPanel() {
+  const gt = useGT();
   const { scope, groups: projectGroups, environments } = useSettingsScope();
   const { unarchiveThread, confirmAndDeleteThread } = useThreadActions();
   const pendingActionsRef = useRef(new Set<string>());
@@ -252,7 +253,11 @@ export function ArchivedThreadsPanel() {
                                 type="button"
                                 variant={action === "delete" ? "destructive-outline" : "outline"}
                                 size="icon-sm"
-                                aria-label={`${label} ${thread.title}`}
+                                aria-label={
+                                  action === "delete"
+                                    ? gt("Delete {title}", { title: thread.title })
+                                    : gt("Unarchive {title}", { title: thread.title })
+                                }
                                 disabled={pendingKeys.has(threadKey)}
                                 onClick={() => void handleThreadAction(action, thread)}
                               />
