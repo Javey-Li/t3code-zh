@@ -1084,7 +1084,7 @@ function SpeechModelBrowser(props: {
             variant="outline"
             disabled={controlsDisabled || !existingPath.trim()}
           >
-            Use existing
+            <T>Use existing</T>
           </Button>
         </form>
       ) : null}
@@ -1147,7 +1147,7 @@ function TranscriptionTest(props: {
                   }}
                 >
                   <MicIcon />
-                  Test model
+                  <T>Test model</T>
                 </Button>
               ) : null
             ) : (
@@ -1165,7 +1165,9 @@ function TranscriptionTest(props: {
             <div className="min-w-0 flex-1 py-1.5">
               {speech.preview || transcript !== null ? null : (
                 <p className="text-xs text-muted-foreground">
-                  Say a sentence. Cleanup is skipped, so you see exactly what the model heard.
+                  <T>
+                    Say a sentence. Cleanup is skipped, so you see exactly what the model heard.
+                  </T>
                 </p>
               )}
               {speech.preview || transcript !== null ? (

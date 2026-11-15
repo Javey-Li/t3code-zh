@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { useLayoutEffect, useRef, useState, type ReactNode } from "react";
 
 import { observeResize } from "~/lib/observeResize";
@@ -47,7 +48,7 @@ export function DraftHeroProjectHeading({
       </span>
       <h1 className="flex w-full flex-col items-center justify-center gap-2 text-center font-normal text-2xl text-foreground tracking-tight sm:text-3xl lg:group-data-[inline=true]/draft-hero:flex-row">
         <span className="max-w-full lg:group-data-[inline=true]/draft-hero:shrink-0 [@media(max-height:28rem)]:sr-only">
-          What should we build
+          <T>What should we build</T>
           <span className="lg:group-data-[inline=true]/draft-hero:hidden">?</span>
           <span className="hidden lg:group-data-[inline=true]/draft-hero:inline"> in</span>
         </span>

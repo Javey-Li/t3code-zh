@@ -93,10 +93,10 @@ function RevokeConnectDeviceDialogPopup({
           />
           <span className="min-w-0">
             <span className="block text-sm font-medium text-foreground">
-              Require approval for new devices
+              <T>Require approval for new devices</T>
             </span>
             <span className="block text-xs text-muted-foreground">
-              The device has to be approved here before it can connect again.
+              <T>The device has to be approved here before it can connect again.</T>
             </span>
           </span>
         </label>

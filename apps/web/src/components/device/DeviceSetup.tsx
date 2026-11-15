@@ -257,7 +257,7 @@ export function DeviceSetup(props: {
             </div>
             <AgentDeviceSetupStatus state={props.state} pending={pending === "agent"} />
             <p className="text-xs text-muted-foreground">
-              Leave this off to keep manual device controls without giving agents access.
+              <T>Leave this off to keep manual device controls without giving agents access.</T>
             </p>
           </section>
         ) : null}
@@ -341,7 +341,7 @@ function DevicePlatformSetup(props: {
       <PlatformStatus platform="Android" status={platformSetupStatus(props.state, "android")} />
       <DeviceHostDiagnostics hosts={props.state.hosts} hostStatuses={props.state.hostStatuses} />
       <p className="text-xs text-muted-foreground">
-        You can use either platform. Fixing a missing platform does not block the other one.
+        <T>You can use either platform. Fixing a missing platform does not block the other one.</T>
       </p>
       <Button size="compact" variant="outline" disabled={props.disabled} onClick={props.onCheck}>
         {props.checking ? <Spinner size="xs" /> : null}
@@ -384,7 +384,7 @@ export function AgentDeviceSetupStatus(props: {
     return (
       <p role="status" className="flex items-center gap-2 text-xs text-muted-foreground">
         <Check className="size-3 text-success" />
-        Agent tools are ready.
+        <T>Agent tools are ready.</T>
       </p>
     );
   }

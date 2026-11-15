@@ -232,7 +232,7 @@ function WebhookFiltersField({
           onClick={() => onChange([...filters, emptyWebhookFilterDraft()])}
         >
           <PlusIcon />
-          Add filter
+          <T>Add filter</T>
         </Button>
       </div>
       {filters.map((filter, index) => (
@@ -617,7 +617,9 @@ function ScheduledTaskEnvironmentList({
           title={<T>Task unavailable</T>}
           description={
             <T>
-              This task was deleted or belongs to a different project. Check your project filter.
+              <T>
+                This task was deleted or belongs to a different project. Check your project filter.
+              </T>
             </T>
           }
           role="status"

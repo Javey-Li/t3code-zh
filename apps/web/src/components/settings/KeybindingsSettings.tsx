@@ -1505,7 +1505,7 @@ export function KeybindingsSettingsPanel() {
             onClick={() => setIsAddingBinding(true)}
           >
             <PlusIcon aria-hidden className="size-4" />
-            Add keybinding
+            <T>Add keybinding</T>
           </Button>
           <Tooltip>
             <TooltipTrigger

@@ -245,7 +245,7 @@ export function SourceControlAppSignInSettings({
               }
               onClick={() => copyToClipboard(waiting.userCode, undefined)}
             >
-              Copy code & open GitHub
+              <T>Copy code & open GitHub</T>
               <ExternalLinkIcon aria-hidden className="size-3.5" />
             </Button>
             <p className="flex items-center gap-1.5 text-xs text-muted-foreground">

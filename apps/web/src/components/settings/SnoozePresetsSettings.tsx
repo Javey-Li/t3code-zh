@@ -325,7 +325,7 @@ function SnoozePresetList(props: {
           onClick={props.onAdd}
         >
           <PlusIcon />
-          Add option
+          <T>Add option</T>
         </Button>
         {props.presets.length >= MAX_SNOOZE_PRESETS ? (
           <span className="ps-2 text-xs text-muted-foreground">

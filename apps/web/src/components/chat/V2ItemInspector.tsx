@@ -1,4 +1,4 @@
-import { useGT } from "gt-react";
+import { T, useGT } from "gt-react";
 import type { ToolCallDiffTarget } from "../../diffPanelStore";
 import type { EnvironmentId, OrchestrationV2ProjectedTurnItem } from "@t3tools/contracts";
 import {
@@ -303,7 +303,7 @@ export const V2ItemInspector = memo(function V2ItemInspector(props: V2ItemInspec
                   })
                 }
               >
-                Open diff
+                <T>Open diff</T>
               </Button>
             ) : null}
           </div>

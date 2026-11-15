@@ -347,7 +347,7 @@ export function PullRequestActionsMenu({
             {autoMergeArmed && can("disable-auto-merge") ? (
               <MenuItem disabled={actionPending} onClick={() => void perform("disable-auto-merge")}>
                 <PullRequestGlyph.merged className="size-3.5" />
-                Disable auto-merge
+                <T>Disable auto-merge</T>
               </MenuItem>
             ) : showsAutoMerge ? (
               <MenuItem
@@ -407,7 +407,7 @@ export function PullRequestActionsMenu({
         </MenuItem>
         <MenuItem onClick={() => copyReference(detail.url, `${terminology.shortLabel} link`)}>
           <LinkIcon className="size-3.5" />
-          Copy link
+          <T>Copy link</T>
           <MenuShortcut>
             {shortcutLabelForCommand(keybindings, "thread.copyReference")}
           </MenuShortcut>

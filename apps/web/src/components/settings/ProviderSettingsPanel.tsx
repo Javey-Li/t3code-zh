@@ -1076,7 +1076,7 @@ export function EnvironmentProviderSettings({
                     onClick={() => setIsAddInstanceDialogOpen(true)}
                   >
                     <PlusIcon className="size-4 shrink-0" />
-                    Add provider
+                    <T>Add provider</T>
                   </button>
                 ) : null}
               </div>
@@ -1136,7 +1136,10 @@ export function EnvironmentProviderSettings({
           }
           description={
             <T>
-              Refresh provider status, versions, and models in the background. Set to 0 to disable.
+              <T>
+                Refresh provider status, versions, and models in the background. Set to 0 to
+                disable.
+              </T>
             </T>
           }
           resetAction={

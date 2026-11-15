@@ -657,7 +657,7 @@ export const AuthorizedClientsHeaderAction = memo(function AuthorizedClientsHead
     <div className="flex flex-wrap items-center justify-end gap-2">
       <Button size="xs" variant="outline" onClick={() => openUseInAnotherApp(environmentId)}>
         <PlugIcon className="size-3" />
-        Use in another app (MCP)
+        <T>Use in another app (MCP)</T>
       </Button>
       <Button
         size="xs"
@@ -671,7 +671,7 @@ export const AuthorizedClientsHeaderAction = memo(function AuthorizedClientsHead
         <ManagedControl reason={pairingDenial}>
           <Button size="xs" variant="default" disabled>
             <PlusIcon className="size-3" />
-            Create link
+            <T>Create link</T>
           </Button>
         </ManagedControl>
       ) : null}
@@ -692,7 +692,7 @@ export const AuthorizedClientsHeaderAction = memo(function AuthorizedClientsHead
             render={
               <Button size="xs" variant="default">
                 <PlusIcon className="size-3" />
-                Create link
+                <T>Create link</T>
               </Button>
             }
           />

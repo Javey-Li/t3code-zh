@@ -220,7 +220,7 @@ export function VoiceInputSetup(props: {
               </div>
               {selectedIsUnavailable ? (
                 <p className="text-xs text-destructive">
-                  That microphone is unplugged. Pick another one.
+                  <T>That microphone is unplugged. Pick another one.</T>
                 </p>
               ) : null}
               {microphoneError ? (
@@ -268,13 +268,13 @@ export function VoiceInputSetup(props: {
           <WizardFooter
             leading={
               <Button variant="ghost" onClick={() => openSettings("")}>
-                Voice settings
+                <T>Voice settings</T>
               </Button>
             }
           >
             <Button onClick={props.onStartRecording}>
               <MicIcon />
-              Start dictating
+              <T>Start dictating</T>
             </Button>
           </WizardFooter>
         )}

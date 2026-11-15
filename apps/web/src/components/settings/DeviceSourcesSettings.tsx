@@ -563,7 +563,7 @@ export function DeviceSourcesSettings(props: {
               })
             }
           >
-            EAS Simulator
+            <T>EAS Simulator</T>
           </MenuItem>
         ) : null}
         {props.supportsSimlock && simlockEnabled ? (

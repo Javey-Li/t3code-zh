@@ -376,7 +376,7 @@ export function DevicePanel(props: {
                     size="sm"
                     onClick={() => void list({ environmentId, input: {} })}
                   >
-                    Refresh devices
+                    <T>Refresh devices</T>
                   </Button>
                 ) : null}
               </div>

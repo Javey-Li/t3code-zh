@@ -125,7 +125,7 @@ function CheckoutGroupingSelect({ member }: { member: SidebarProjectGroupMember 
       </SelectTrigger>
       <SelectPopup align="end" alignItemWithTrigger={false}>
         <SelectItem hideIndicator value="inherit">
-          Use global default
+          <T>Use global default</T>
         </SelectItem>
         <SelectItem hideIndicator value="repository">
           {PROJECT_GROUPING_MODE_LABELS.repository}

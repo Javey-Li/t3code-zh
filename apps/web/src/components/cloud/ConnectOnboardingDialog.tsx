@@ -306,7 +306,7 @@ function ConfiguredConnectOnboardingDialog() {
                 checked={dontShowAgain}
                 onCheckedChange={(checked) => setDontShowAgain(checked === true)}
               />
-              Don&apos;t show this again
+              <T>Don&apos;t show this again</T>
             </label>
           }
         >

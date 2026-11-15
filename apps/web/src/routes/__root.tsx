@@ -1,4 +1,4 @@
-import { useGT } from "gt-react";
+import { T, useGT } from "gt-react";
 import { type ServerLifecycleWelcomePayload } from "@t3tools/contracts";
 import { scopedProjectKey, scopeProjectRef } from "@t3tools/client-runtime/environment";
 import {
@@ -254,10 +254,10 @@ function RootRouteErrorView({ error }: ErrorComponentProps) {
             isChunkLoadError(error) ? window.location.reload() : void router.invalidate()
           }
         >
-          Try again
+          <T>Try again</T>
         </Button>
         <Button size="sm" variant="outline" onClick={() => window.location.reload()}>
-          Reload app
+          <T>Reload app</T>
         </Button>
         <CopyErrorButton report={report} />
       </div>

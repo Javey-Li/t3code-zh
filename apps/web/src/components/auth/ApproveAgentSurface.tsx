@@ -183,7 +183,7 @@ export function ApproveAgentSurface() {
                 <a href={`${new URL("/connect-agent", environment.url).toString()}?${search}`} />
               }
             >
-              Use a sign-in code instead
+              <T>Use a sign-in code instead</T>
             </Button>
           ) : null}
           <Button
@@ -192,7 +192,7 @@ export function ApproveAgentSurface() {
             onClick={() => void clerk.signOut({ redirectUrl: window.location.href })}
             type="button"
           >
-            Use another account
+            <T>Use another account</T>
           </Button>
         </div>
       }

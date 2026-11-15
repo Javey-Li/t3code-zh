@@ -346,7 +346,7 @@ export function ReviewThreadCard({
             onClick={() => onAddToChat({ ...thread, comments })}
           >
             <MessageSquarePlusIcon className="size-3" />
-            Add to chat
+            <T>Add to chat</T>
           </Button>
         ) : null}
         {canResolve ? (

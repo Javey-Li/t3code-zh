@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { useAtomValue } from "@effect/atom-react";
 import { scopeThreadRef } from "@t3tools/client-runtime/environment";
 import { squashAtomCommandFailure } from "@t3tools/client-runtime/state/runtime";
@@ -130,7 +131,7 @@ export function DevReplayHost() {
         <DialogPanel>
           {scenarios.length === 0 || project === undefined ? (
             <p className="text-sm text-muted-foreground">
-              Needs a project and the Replay (dev) provider, which dev servers start.
+              <T>Needs a project and the Replay (dev) provider, which dev servers start.</T>
             </p>
           ) : (
             <div className="flex flex-col items-start gap-1">

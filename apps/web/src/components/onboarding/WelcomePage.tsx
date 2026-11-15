@@ -274,7 +274,7 @@ export function WelcomePage({
         <div className="min-h-0 flex-1 overflow-y-auto scrollbar-gutter-both">
           <div className="mx-auto flex min-h-full w-full max-w-3xl flex-col px-6 pt-12 pb-8 sm:pt-20">
             <h1 className="text-2xl font-semibold tracking-tight text-foreground">
-              Welcome to T3 Code
+              <T>Welcome to T3 Code</T>
             </h1>
             <p className="mt-1.5 text-sm text-muted-foreground">
               Setting up <span className="text-foreground">{label}</span>.
@@ -298,7 +298,7 @@ export function WelcomePage({
                 <span />
               ) : (
                 <Button variant="ghost-muted" disabled={isImporting} onClick={start}>
-                  Start without an agent
+                  <T>Start without an agent</T>
                 </Button>
               )}
               <div className="flex items-center gap-3">
@@ -668,7 +668,7 @@ function AgentsSection({
                 <ACPRegistryIcon className="size-4" />
               </RowIcon>
               <span className="min-w-0 flex-1 text-sm text-muted-foreground">
-                More agents in the ACP Registry
+                <T>More agents in the ACP Registry</T>
               </span>
               <Button
                 size="xs"
@@ -881,7 +881,7 @@ function ProjectsSection({
                 disabled={selected.length === 0}
                 onClick={() => setSelectedKeys(new Set())}
               >
-                Select none
+                <T>Select none</T>
               </Button>
             </div>
           </div>
@@ -928,7 +928,7 @@ function PhoneSection({ environmentId }: { readonly environmentId: EnvironmentId
             <SmartphoneIcon className="size-4" />
           </RowIcon>
           <span className="min-w-0 flex-1 text-sm font-medium text-foreground">
-            Use T3 Code on your phone
+            <T>Use T3 Code on your phone</T>
           </span>
           <CollapsibleTrigger render={<Button variant="ghost-muted" size="xs" />}>
             {open ? "Hide" : "Set up"}
@@ -1013,14 +1013,14 @@ function PhoneConnectLink({ environmentId }: { readonly environmentId: Environme
     return (
       <p className="flex gap-1.5 text-sm text-foreground">
         <CheckIcon className="mt-0.5 size-4 shrink-0 text-success-foreground" />
-        Your phone can reach this computer. Sign in to the app with the same account.
+        <T>Your phone can reach this computer. Sign in to the app with the same account.</T>
       </p>
     );
   }
   if (isSignedIn && shared && reachability === undefined) {
     return (
       <p className="text-sm text-foreground">
-        T3 Connect is on for this computer. Sign in to the app with the same account.
+        <T>T3 Connect is on for this computer. Sign in to the app with the same account.</T>
       </p>
     );
   }
@@ -1040,7 +1040,7 @@ function PhoneConnectLink({ environmentId }: { readonly environmentId: Environme
   return (
     <>
       <p className="text-sm text-foreground">
-        Sign in to T3 Connect here, then in the app with the same account.
+        <T>Sign in to T3 Connect here, then in the app with the same account.</T>
       </p>
       {loadFailed ? (
         <Button variant="outline" size="xs" onClick={retryClerkLoad}>

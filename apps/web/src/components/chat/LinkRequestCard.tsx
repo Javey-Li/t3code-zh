@@ -149,7 +149,7 @@ function PendingLinkRequest(props: {
         </div>
       ) : (
         <p className="text-xs text-muted-foreground">
-          Only a session that manages access here can answer this.
+          <T>Only a session that manages access here can answer this.</T>
         </p>
       )}
       <LinkRequestDialog

@@ -382,13 +382,13 @@ export function WorktreeSetupCard({
         {showTerminal ? (
           <Button type="button" size="xs" variant="ghost-muted" onClick={onOpenTerminal}>
             <TerminalIcon aria-hidden />
-            Open terminal
+            <T>Open terminal</T>
           </Button>
         ) : null}
         {onWorkLocally ? (
           <Button type="button" size="xs" variant="ghost-muted" onClick={onWorkLocally}>
             <LaptopIcon aria-hidden />
-            Work locally
+            <T>Work locally</T>
           </Button>
         ) : null}
         {onCancel && running ? (

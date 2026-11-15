@@ -280,7 +280,7 @@ function ExtendedOfficeViewer(props: {
       ) : sheet ? (
         <>
           <FileSurfaceNotice>
-            Cell values only. Charts, images, and formatting are not shown.
+            <T>Cell values only. Charts, images, and formatting are not shown.</T>
             {sheet.truncated
               ? props.kind === "ods"
                 ? " Limited to 500 rows and 50 columns."

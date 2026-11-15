@@ -156,7 +156,7 @@ export function ConnectDeviceApprovalSettings({
       {devices.length === 0 && requests.length === 0 ? (
         <div className={ITEM_ROW_CLASSNAME}>
           <p className="text-xs text-muted-foreground/60">
-            No device has connected through T3 Connect yet.
+            <T>No device has connected through T3 Connect yet.</T>
           </p>
         </div>
       ) : null}

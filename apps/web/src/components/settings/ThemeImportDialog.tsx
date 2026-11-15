@@ -534,7 +534,7 @@ function ThemeImportBody({
               </Button>
               <Button disabled={!json.trim() || isReading} onClick={handleSubmit}>
                 <PlusIcon />
-                Add theme
+                <T>Add theme</T>
               </Button>
             </div>
           </div>

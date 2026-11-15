@@ -1578,7 +1578,9 @@ export function DiffsSettingsPanel() {
           {...setting("diff-layout")}
           description={
             <T>
-              Show diffs stacked or side by side. The toggle in the diff toolbar changes this too.
+              <T>
+                Show diffs stacked or side by side. The toggle in the diff toolbar changes this too.
+              </T>
             </T>
           }
           resetAction={
@@ -2069,7 +2071,10 @@ export function ThreadsSettingsPanel() {
               title={<T>Keep threads with a PR</T>}
               description={
                 <T>
-                  Inactivity does not settle threads with a pull request. Merge and close still do.
+                  <T>
+                    Inactivity does not settle threads with a pull request. Merge and close still
+                    do.
+                  </T>
                 </T>
               }
               control={

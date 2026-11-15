@@ -1,4 +1,4 @@
-import { useMessages } from "gt-react";
+import { T, useMessages } from "gt-react";
 import { collectComposerModelMentions } from "@t3tools/client-runtime/composer-model-mentions";
 import type { EnvironmentId, ScopedThreadRef, ServerProviderSkill } from "@t3tools/contracts";
 import { formatProviderSkillDisplayName } from "@t3tools/shared/inlineSkills";
@@ -138,7 +138,7 @@ export function SkillChipPopover(props: {
         <p>{props.description || "No description is available for this skill."}</p>
         {props.onViewInstructions ? (
           <Button variant="outline" size="sm" onClick={props.onViewInstructions}>
-            View instructions
+            <T>View instructions</T>
           </Button>
         ) : null}
       </div>

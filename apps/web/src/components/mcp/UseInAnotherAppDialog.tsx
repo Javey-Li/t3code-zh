@@ -378,7 +378,7 @@ function GateScreen({
       return (
         <p role="status" className="flex items-center gap-2 text-sm text-muted-foreground">
           <Spinner size="sm" tone="muted" />
-          Checking T3 Connect…
+          <T>Checking T3 Connect…</T>
         </p>
       );
     case "sign-in":
@@ -464,7 +464,7 @@ function GateScreen({
               {tunnelLimit !== null ? (
                 <>
                   <p className="text-sm text-destructive-foreground">
-                    Your T3 Connect account is out of tunnels.
+                    <T>Your T3 Connect account is out of tunnels.</T>
                   </p>
                   <ManageAccessButton environment={environment} label={gt("Manage tunnels")} />
                 </>
@@ -547,7 +547,7 @@ function AppStep({
         onClick={() => onChoose("other")}
         className="w-full rounded-lg border border-border px-3 py-2.5 text-sm font-medium outline-none hover:bg-accent focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring aria-pressed:border-primary aria-pressed:bg-primary/8"
       >
-        Something else…
+        <T>Something else…</T>
       </button>
     </section>
   );
@@ -595,7 +595,7 @@ function ConnectStep({
         </ol>
         {app === null ? (
           <p className="text-xs text-muted-foreground">
-            Apps that require their own client ID cannot connect.
+            <T>Apps that require their own client ID cannot connect.</T>
           </p>
         ) : app.docs ? (
           <TextButton onClick={() => openLink(app.docs ?? "")}>{app.name} help</TextButton>

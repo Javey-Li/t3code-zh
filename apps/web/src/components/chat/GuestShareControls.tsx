@@ -202,7 +202,7 @@ export function GuestShareIndicator({ threadRef }: { readonly threadRef: ScopedT
           setClosing(false);
         }}
       >
-        Stop sharing
+        <T>Stop sharing</T>
       </Button>
     </div>
   );

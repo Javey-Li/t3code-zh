@@ -86,7 +86,7 @@ function T3ConnectSteps() {
         ) : isSignedIn ? (
           <p className="flex items-center gap-1.5 text-muted-foreground">
             <CheckIcon className="size-4" />
-            Signed in
+            <T>Signed in</T>
           </p>
         ) : (
           <Button size="sm" disabled={!isLoaded} onClick={openAuthPrompt}>

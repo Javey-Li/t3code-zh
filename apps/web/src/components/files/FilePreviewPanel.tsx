@@ -1396,7 +1396,7 @@ export default function FilePreviewPanel({
       return (
         <div className="flex min-h-0 flex-1 items-center justify-center gap-2 text-sm text-muted-foreground">
           <Spinner className="size-4" />
-          Checking file access...
+          <T>Checking file access...</T>
         </div>
       );
     }
@@ -1631,7 +1631,7 @@ export default function FilePreviewPanel({
                 </p>
                 {attemptedPath ? (
                   <p className="text-muted-foreground">
-                    Attempted path
+                    <T>Attempted path</T>
                     <code className="block break-all font-mono text-foreground select-all">
                       {attemptedPath}
                     </code>

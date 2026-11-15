@@ -120,7 +120,7 @@ export function EnvironmentRoutesList({
       <div className="-ml-1.5 pt-1">
         <Button size="xs" variant="ghost-muted" onClick={onAddRoute}>
           <PlusIcon className="size-3" />
-          Add route
+          <T>Add route</T>
         </Button>
       </div>
     </div>

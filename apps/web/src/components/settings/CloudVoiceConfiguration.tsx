@@ -345,7 +345,7 @@ export function CloudVoiceConfiguration({
               <p>Connect to {m(environment.label)} with dictation access to continue.</p>
             ) : AsyncResult.isFailure(presence) && saved === undefined ? (
               <Button size="sm" variant="outline" onClick={refresh}>
-                Retry loading API key
+                <T>Retry loading API key</T>
               </Button>
             ) : routed &&
               AsyncResult.isSuccess(presence) &&
@@ -411,7 +411,7 @@ export function CloudVoiceConfiguration({
               <p>Ask an administrator on {m(environment.label)} to add an API key.</p>
             ) : (
               <p className="text-sm text-muted-foreground">
-                This choice applies only to this device. Choose Off to stop sharing.
+                <T>This choice applies only to this device. Choose Off to stop sharing.</T>
               </p>
             )}
           </DialogPanel>
@@ -431,7 +431,7 @@ export function CloudVoiceConfiguration({
                 disabled={busy}
                 onClick={() => setRemove(true)}
               >
-                Remove key…
+                <T>Remove key…</T>
               </Button>
             </div>
           )}
@@ -447,7 +447,7 @@ export function CloudVoiceConfiguration({
                 disabled={busy}
                 onClick={() => void saveKey(null, false)}
               >
-                Remove key
+                <T>Remove key</T>
               </Button>
             ) : routed ? (
               saved !== undefined && (saved || canManage) ? (

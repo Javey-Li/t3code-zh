@@ -118,7 +118,9 @@ export function ProjectActionsSettings() {
         title={<T>Actions</T>}
         description={
           <T>
-            Commands that run in this project's checkout or its worktree, with optional shortcuts.
+            <T>
+              Commands that run in this project's checkout or its worktree, with optional shortcuts.
+            </T>
           </T>
         }
         onResetOverride={() => void persist(() => null)}
@@ -137,7 +139,7 @@ export function ProjectActionsSettings() {
                     />
                   }
                 >
-                  Import scripts
+                  <T>Import scripts</T>
                   <ChevronDownIcon className="size-3.5" />
                 </MenuTrigger>
                 <MenuPopup align="end">
@@ -174,7 +176,7 @@ export function ProjectActionsSettings() {
               onClick={() => setRequest({ scriptId: null, initial: EMPTY_PROJECT_SCRIPT_INPUT })}
             >
               <PlusIcon className="size-3.5" />
-              Add action
+              <T>Add action</T>
             </Button>
           </div>
         }

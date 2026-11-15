@@ -183,7 +183,7 @@ function HostedPromptLinkLanding({
       </div>
       <label className="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
         <Checkbox checked={remember} onCheckedChange={(checked) => setRemember(checked === true)} />
-        Remember my choice
+        <T>Remember my choice</T>
       </label>
     </StandalonePage>
   );

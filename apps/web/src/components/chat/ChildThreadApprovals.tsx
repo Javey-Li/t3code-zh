@@ -6,7 +6,7 @@ import {
   isAtomCommandInterrupted,
   squashAtomCommandFailure,
 } from "@t3tools/client-runtime/state/runtime";
-import { useGT } from "gt-react";
+import { T, useGT } from "gt-react";
 import { useState } from "react";
 import { useEnvironmentScope } from "../../state/session";
 import { childThreadApprovalsAtom, threadEnvironment } from "../../state/threads";
@@ -32,7 +32,7 @@ function ChildApproval({ entry }: { entry: ChildThreadApproval }) {
       {approval.appName ? <p className="mt-2 text-muted-foreground">{approval.appName}</p> : null}
       {approval.responseCapability !== "live" ? (
         <p className="mt-2 text-warning">
-          Provider process is gone. Interrupt or restart the child thread to respond.
+          <T>Provider process is gone. Interrupt or restart the child thread to respond.</T>
         </p>
       ) : null}
       {approval.reason ? <p className="mt-2 text-muted-foreground">{approval.reason}</p> : null}

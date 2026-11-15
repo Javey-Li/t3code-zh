@@ -1,4 +1,4 @@
-import { msg, useGT, useMessages } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import { FolderPlusIcon, SearchIcon, SquarePenIcon, XIcon } from "lucide-react";
 import {
   type ComponentProps,
@@ -114,7 +114,7 @@ export function SidebarThreadHeader({
               <span className="flex flex-col gap-0.5">
                 <span>{newThreadLabel}</span>
                 <span className="text-muted-foreground">
-                  New thread in current project: Shift+click
+                  <T>New thread in current project: Shift+click</T>
                   {newThreadInProjectShortcutLabel ? ` (${newThreadInProjectShortcutLabel})` : ""}
                 </span>
               </span>

@@ -277,7 +277,10 @@ export default function BinaryViewer(props: {
           </div>
           <FileSurfaceNotice>
             <T>
-              Read-only. Up to 50 columns and 1,024 characters per cell. Blob contents are omitted.
+              <T>
+                Read-only. Up to 50 columns and 1,024 characters per cell. Blob contents are
+                omitted.
+              </T>
             </T>
           </FileSurfaceNotice>
         </>

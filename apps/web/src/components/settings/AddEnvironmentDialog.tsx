@@ -427,7 +427,7 @@ export function AddEnvironmentDialog({
       </div>
       <div>
         <span className="mt-1 block text-2xs text-muted-foreground">
-          Paste a full pairing URL here to fill both fields automatically.
+          <T>Paste a full pairing URL here to fill both fields automatically.</T>
         </span>
       </div>
     </div>
@@ -477,7 +477,7 @@ export function AddEnvironmentDialog({
             disabled={isAddingSavedBackend}
             onClick={() => void addRelayRoute()}
           >
-            Add T3 Connect
+            <T>Add T3 Connect</T>
           </Button>
         </div>
       ) : null}
@@ -502,7 +502,7 @@ export function AddEnvironmentDialog({
             htmlFor="saved-backend-ssh-host"
             className="mb-1.5 block text-xs font-medium text-foreground"
           >
-            SSH host or alias
+            <T>SSH host or alias</T>
           </label>
           <Autocomplete
             items={filteredDiscoveredSshHosts}

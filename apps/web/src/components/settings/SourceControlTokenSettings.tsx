@@ -107,7 +107,7 @@ export function SourceControlTokenSettings({
                 />
               }
             >
-              Create a token
+              <T>Create a token</T>
               <ExternalLinkIcon aria-hidden className="size-3" />
             </InlineButton>
           ) : null}

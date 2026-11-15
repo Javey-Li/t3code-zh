@@ -621,7 +621,7 @@ function ProcessTable({
             {visible.length === 0 ? (
               <tr>
                 <td colSpan={11} className="px-4 py-5 text-xs text-muted-foreground sm:px-5">
-                  Waiting for the native process monitor.
+                  <T>Waiting for the native process monitor.</T>
                 </td>
               </tr>
             ) : null}
@@ -739,7 +739,7 @@ function HistoryProcessTable({
             {processes.length === 0 ? (
               <tr>
                 <td colSpan={9} className="px-4 py-5 text-xs text-muted-foreground sm:px-5">
-                  No retained process samples in this window.
+                  <T>No retained process samples in this window.</T>
                 </td>
               </tr>
             ) : null}
@@ -830,7 +830,7 @@ function AttributionTable({ entries }: { entries: ReadonlyArray<ResourceAttribut
           {entries.length === 0 ? (
             <tr>
               <td colSpan={6} className="px-4 py-5 text-xs text-muted-foreground sm:px-5">
-                No instrumented application I/O has been recorded yet.
+                <T>No instrumented application I/O has been recorded yet.</T>
               </td>
             </tr>
           ) : null}
@@ -1059,7 +1059,7 @@ function ResourceTelemetryDiagnosticsBody({
           <div className="flex flex-col gap-3 border-b border-border/60 bg-linear-to-r from-muted/45 via-muted/20 to-transparent px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-5">
             <div>
               <div className="text-3xs font-semibold uppercase tracking-widest text-muted-foreground/70">
-                T3 system footprint
+                <T>T3 system footprint</T>
               </div>
               <p className="mt-1 max-w-xl text-xs leading-relaxed text-muted-foreground">
                 Live native counters for the server, providers, terminals, desktop processes, and
@@ -1158,7 +1158,7 @@ function ResourceTelemetryDiagnosticsBody({
           collectorNeedsRetry ? (
             <Button size="xs" variant="outline" disabled={isRetrying} onClick={retryCollector}>
               <RefreshIcon size="xs" refreshing={isRetrying} />
-              Retry monitor
+              <T>Retry monitor</T>
             </Button>
           ) : null
         }
@@ -1169,7 +1169,7 @@ function ResourceTelemetryDiagnosticsBody({
               <span className="flex size-6 items-center justify-center rounded-md bg-muted/60">
                 <BatteryIcon className="size-3.5" />
               </span>
-              Host state
+              <T>Host state</T>
             </div>
             {hasHostPowerSignal && snapshot ? (
               <>
@@ -1223,7 +1223,7 @@ function ResourceTelemetryDiagnosticsBody({
             ) : (
               <div className="rounded-xl border border-dashed border-border/70 bg-muted/20 px-4 py-5">
                 <div className="text-sm font-medium text-foreground">
-                  Desktop host signals not connected
+                  <T>Desktop host signals not connected</T>
                 </div>
                 <p className="mt-1.5 max-w-sm text-2xs leading-relaxed text-muted-foreground/70">
                   Power, idle, lock, and thermal state are supplied by the desktop host. Process
@@ -1237,7 +1237,7 @@ function ResourceTelemetryDiagnosticsBody({
               <span className="flex size-6 items-center justify-center rounded-md bg-muted/60">
                 <GaugeIcon className="size-3.5" />
               </span>
-              Collection health
+              <T>Collection health</T>
             </div>
             {snapshot ? (
               <>
@@ -1281,7 +1281,7 @@ function ResourceTelemetryDiagnosticsBody({
               </>
             ) : (
               <div className="py-4 text-xs text-muted-foreground">
-                Waiting for collector health.
+                <T>Waiting for collector health.</T>
               </div>
             )}
           </div>

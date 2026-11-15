@@ -329,7 +329,7 @@ function LinkRowImpl({
           >
             <MenuItem onClick={() => void writeTextToClipboard(link.url, "link")}>
               <LinkIcon className="size-3.5" />
-              Copy link
+              <T>Copy link</T>
             </MenuItem>
             <MenuItem onClick={(event) => openPrLink(event, link.url, threadRef)}>
               <ArrowUpRightIcon className="size-3.5" />
@@ -446,7 +446,7 @@ function EnabledThreadPullRequestsPanel({ threadRef }: { threadRef: ScopedThread
         </p>
         <Button size="sm" variant="outline" onClick={openLinkDialog}>
           <PlusIcon className="size-3.5" />
-          Link pull request
+          <T>Link pull request</T>
         </Button>
       </div>
     );

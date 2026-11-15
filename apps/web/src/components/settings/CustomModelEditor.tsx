@@ -277,7 +277,7 @@ export function CustomModelEditor({
             }
           >
             <PlusIcon className="size-3" />
-            Add choice
+            <T>Add choice</T>
           </Button>
         </div>
       ) : null}
@@ -367,7 +367,7 @@ export function CustomModelEditor({
             onClick={() => addDescriptor(emptyEditorDescriptor())}
           >
             <PlusIcon className="size-3" />
-            Custom option
+            <T>Custom option</T>
           </Button>
         </div>
       </div>

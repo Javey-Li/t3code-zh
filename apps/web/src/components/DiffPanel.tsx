@@ -1335,15 +1335,15 @@ export default function DiffPanel({
     <DiffPanelShell mode={mode} header={headerRow}>
       {!activeThread ? (
         <div className="flex flex-1 items-center justify-center px-5 text-center text-xs text-muted-foreground/70">
-          Select a thread to inspect turn diffs.
+          <T>Select a thread to inspect turn diffs.</T>
         </div>
       ) : !isGitRepo && !toolCallSelection ? (
         <div className="flex flex-1 items-center justify-center px-5 text-center text-xs text-muted-foreground/70">
-          Turn diffs are unavailable because this project is not a git repository.
+          <T>Turn diffs are unavailable because this project is not a git repository.</T>
         </div>
       ) : selectedRunId !== null && orderedTurnDiffSummaries.length === 0 ? (
         <div className="flex flex-1 items-center justify-center px-5 text-center text-xs text-muted-foreground/70">
-          No completed turns yet.
+          <T>No completed turns yet.</T>
         </div>
       ) : isGitSelection && !canReadFiles ? (
         fileAccess.isPending ? (
@@ -1365,7 +1365,7 @@ export default function DiffPanel({
             )}
             {isSelectedPatchTruncated && !lazySource && (
               <p className="shrink-0 border-b border-border/70 bg-muted/40 px-3 py-1.5 text-2xs text-muted-foreground">
-                This preview exceeds the size limit. Changes shown are incomplete.
+                <T>This preview exceeds the size limit. Changes shown are incomplete.</T>
                 {isGitSelection && selectedGitSource?.files && !preview?.incomplete
                   ? " Totals include all changes."
                   : ""}
@@ -1385,7 +1385,7 @@ export default function DiffPanel({
             {!renderablePatch && toolCallPreview && toolCallPreview.content.length > 0 ? (
               <div className="min-h-0 flex-1 space-y-3 overflow-auto p-3 text-xs">
                 <p className="text-muted-foreground">
-                  The provider recorded file content without a diff.
+                  <T>The provider recorded file content without a diff.</T>
                 </p>
                 {toolCallPreview.content.map(({ label, text }) => (
                   <div key={label} className="space-y-1">

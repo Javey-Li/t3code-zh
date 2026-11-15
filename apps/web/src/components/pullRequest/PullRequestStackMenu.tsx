@@ -201,7 +201,7 @@ export function PullRequestStackMenu({
                   onClick={() => setConfirmation("update-branch")}
                 >
                   <RefreshCwIcon aria-hidden />
-                  Rebase stack
+                  <T>Rebase stack</T>
                 </MenuItem>
               ) : null}
               {mergeHasClosed || mergeLayers.some((layer) => layer.isDraft) ? (
@@ -227,7 +227,7 @@ export function PullRequestStackMenu({
                   onClick={mergeDisabled ? undefined : () => setConfirmation("merge")}
                 >
                   <PullRequestGlyph.merged aria-hidden className="size-3.5" />
-                  Merge stack
+                  <T>Merge stack</T>
                 </Button>
               </span>
             }

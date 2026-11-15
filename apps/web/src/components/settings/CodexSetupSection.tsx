@@ -750,7 +750,7 @@ function ManagedCodexSetup({
               variant="ghost-muted"
               onClick={() => void ensureLocalApi().shell.openExternal(url)}
             >
-              Try sign-in in your browser
+              <T>Try sign-in in your browser</T>
               <ExternalLinkIcon className="size-3.5" />
             </Button>
           </div>
@@ -1000,7 +1000,7 @@ function ManagedCodexSetup({
                       void run(() => startInstall({ environmentId, input: { instanceId } }))
                     }
                   >
-                    Update Codex
+                    <T>Update Codex</T>
                   </Button>
                 ) : null}
                 <Button

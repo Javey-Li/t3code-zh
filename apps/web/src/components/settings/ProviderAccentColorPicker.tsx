@@ -159,7 +159,7 @@ function ProviderCustomColorPicker(props: {
                   onClick={props.onClear}
                 >
                   <XIcon className="size-3.5" aria-hidden />
-                  Clear color
+                  <T>Clear color</T>
                 </Button>
               }
             />

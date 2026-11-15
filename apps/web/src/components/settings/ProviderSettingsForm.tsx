@@ -249,7 +249,7 @@ function ProviderCommandArguments({
           onClick={() => updateArguments([...rows, makeCommandArgumentDraftRow("")])}
         >
           <PlusIcon />
-          Add argument
+          <T>Add argument</T>
         </Button>
       }
     >

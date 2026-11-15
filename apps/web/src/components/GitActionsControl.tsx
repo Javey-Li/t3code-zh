@@ -2061,7 +2061,7 @@ export default function GitActionsControl({
               onClick={() => continuePendingDefaultBranchAction(true)}
               disabled={!canChangeThreadBranch || featureBranchUnavailableReason !== null}
             >
-              Check out feature branch & continue
+              <T>Check out feature branch & continue</T>
             </Button>
           </DialogFooter>
         </DialogPopup>

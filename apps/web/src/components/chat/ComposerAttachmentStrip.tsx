@@ -278,7 +278,9 @@ export function ComposerAttachmentMediaRow({
                   />
                   <TooltipPopup side="top">
                     <T>
-                      Draft attachment could not be saved locally and may be lost on navigation.
+                      <T>
+                        Draft attachment could not be saved locally and may be lost on navigation.
+                      </T>
                     </T>
                   </TooltipPopup>
                 </Tooltip>

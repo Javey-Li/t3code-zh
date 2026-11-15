@@ -401,7 +401,7 @@ export function SettingInheritance({
                             aria-hidden
                             className="size-3 [[data-panel-open]_&]:rotate-90"
                           />
-                          Overridden by
+                          <T>Overridden by</T>
                         </CollapsibleTrigger>
                       ) : (
                         <span>

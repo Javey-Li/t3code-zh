@@ -314,7 +314,7 @@ export function ResetCreditDialog({
             <T>Cancel</T>
           </AlertDialogClose>
           <Button disabled={disabled} onClick={onConfirm}>
-            Use credit
+            <T>Use credit</T>
           </Button>
         </AlertDialogFooter>
       </AlertDialogPopup>

@@ -450,7 +450,7 @@ export function ProviderEnvironmentSection(props: {
       control={
         <Button type="button" size="sm" variant="outline" onClick={addVariable}>
           <PlusIcon className="size-3" />
-          Add variable
+          <T>Add variable</T>
         </Button>
       }
     >
@@ -586,7 +586,7 @@ export function ProviderEnvironmentSection(props: {
             );
           })}
           <p className="text-xs text-muted-foreground">
-            Sensitive values are stored separately and never returned to the app.
+            <T>Sensitive values are stored separately and never returned to the app.</T>
             {rows.some((row) => row.valueRedacted === true)
               ? " Enter a new value to rename a saved one or make it plain text."
               : null}
@@ -1260,7 +1260,7 @@ export function ProviderInstanceCard({
             disabled={readOnly}
           >
             <ExternalLinkIcon />
-            Continue authentication
+            <T>Continue authentication</T>
           </Button>
         </div>
       ) : null}

@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import { workspaceAreaProps } from "../lib/workspaceFocus";
 import { RefreshIcon } from "~/components/ui/refresh-icon";
 import { scopeProjectRef } from "@t3tools/client-runtime/environment";
@@ -103,12 +104,12 @@ function DraftStartError({ onRetry }: { readonly onRetry: () => void }) {
         <EmptyHeader className="max-w-md">
           <EmptyTitle>Couldn’t start a new thread</EmptyTitle>
           <EmptyDescription>
-            The project is still available. Try opening the draft again.
+            <T>The project is still available. Try opening the draft again.</T>
           </EmptyDescription>
           <div className="mt-5 flex justify-center">
             <Button size="sm" onClick={onRetry}>
               <RefreshIcon size="md" />
-              Try again
+              <T>Try again</T>
             </Button>
           </div>
         </EmptyHeader>

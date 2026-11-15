@@ -633,7 +633,7 @@ function EventLogSection(props: {
   return (
     <Collapsible open={open} onOpenChange={setOpen}>
       <CollapsibleTrigger className="flex w-full items-center gap-1.5 border-b px-3 py-2.5 text-left text-xs font-medium text-muted-foreground">
-        Event log
+        <T>Event log</T>
         <ChevronDown
           className={cn("ml-auto size-3.5 transition-transform", open && "rotate-180")}
         />

@@ -65,7 +65,7 @@ export function ProviderSubagentBar(props: {
         {`${modelDescription} subagent: ${announcement}`}
       </span>
       <span className="shrink-0 text-muted-foreground @max-[640px]/composer-surface:sr-only">
-        Runs on its own
+        <T>Runs on its own</T>
       </span>
       {props.actions}
       {props.onOpenParent ? (

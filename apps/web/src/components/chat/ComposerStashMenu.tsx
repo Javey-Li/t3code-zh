@@ -1,4 +1,4 @@
-import { useGT } from "gt-react";
+import { T, useGT } from "gt-react";
 import { BookmarkIcon, FileIcon, FileTextIcon } from "lucide-react";
 import { memo, useEffect, useEffectEvent, useRef, useState, type RefObject } from "react";
 import { assistantCitationsToPlainText } from "@t3tools/shared/assistantCitations";
@@ -153,7 +153,7 @@ export const ComposerStashMenu = memo(function ComposerStashMenu(props: {
             <ComposerBanner.Row render={<li />}>
               <ComposerBanner.Icon />
               <ComposerBanner.Content className="text-muted-foreground">
-                Nothing stashed yet.
+                <T>Nothing stashed yet.</T>
                 {stashShortcutLabel
                   ? ` Press ${stashShortcutLabel} with a prompt in the composer to stash it.`
                   : null}

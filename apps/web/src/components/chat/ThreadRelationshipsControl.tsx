@@ -1009,7 +1009,7 @@ export function ThreadRelationshipsPanel(props: {
                 <MenuPopup align="end" className="min-w-60 max-w-(--available-width)">
                   <MenuItem onClick={() => void detach()}>
                     <UnplugIcon className="size-3.5" />
-                    Disconnect agent session
+                    <T>Disconnect agent session</T>
                   </MenuItem>
                 </MenuPopup>
               </Menu>

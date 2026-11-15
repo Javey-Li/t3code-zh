@@ -130,7 +130,7 @@ function BreadcrumbMenuContent(props: {
         {entriesQuery.isPending && entriesQuery.data === null ? (
           <MenuItem disabled>
             <Spinner />
-            Loading folder…
+            <T>Loading folder…</T>
           </MenuItem>
         ) : entriesQuery.error && entriesQuery.data === null ? (
           <MenuItem closeOnClick={false} onClick={entriesQuery.refresh}>
@@ -207,7 +207,7 @@ function BreadcrumbMenuContent(props: {
           <MenuSeparator />
           <MenuItem closeOnClick={false} onClick={entriesQuery.refresh}>
             <RefreshIcon refreshing={entriesQuery.isPending} />
-            Refresh failed. Retry
+            <T>Refresh failed. Retry</T>
           </MenuItem>
         </>
       ) : null}

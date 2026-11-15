@@ -860,11 +860,11 @@ export function ThemeLibrary({
             }
           >
             <PaintbrushIcon />
-            Create theme
+            <T>Create theme</T>
           </Button>
           <Button size="xs" variant="outline" onClick={() => onImportOpenChange(true)}>
             <PlusIcon />
-            Add theme
+            <T>Add theme</T>
           </Button>
         </div>
       </div>

@@ -267,7 +267,7 @@ export function GuideStop({
               {onAsk !== null ? (
                 <Button size="sm" variant="ghost-muted" onClick={() => onAsk("")}>
                   <MessageCircleQuestionIcon aria-hidden />
-                  Ask about this stop
+                  <T>Ask about this stop</T>
                 </Button>
               ) : null}
             </div>
@@ -283,7 +283,7 @@ export function GuideStop({
           ) : onFinish !== null ? (
             <Button onClick={onFinish}>
               <MessageSquareIcon aria-hidden />
-              Finish review
+              <T>Finish review</T>
             </Button>
           ) : null}
         </footer>

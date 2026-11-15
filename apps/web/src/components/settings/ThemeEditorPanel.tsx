@@ -1283,7 +1283,7 @@ export function ThemeEditorPanel({
               ) : (
                 <>
                   <PaintbrushIcon />
-                  Create theme
+                  <T>Create theme</T>
                 </>
               )}
             </Button>

@@ -358,7 +358,7 @@ export function ProviderModelsSection({
             onClick={() => setIsAdding(true)}
           >
             <PlusIcon className="size-3" />
-            Add custom model
+            <T>Add custom model</T>
           </Button>
         ) : null}
       </div>

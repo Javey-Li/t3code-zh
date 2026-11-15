@@ -1,4 +1,4 @@
-import { msg, useGT, useMessages } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import {
   CHATGPT_USAGE_URL,
   collectLimitAccounts,
@@ -639,7 +639,7 @@ export function UsageLimitsPooled({
     <div className="flex flex-col gap-8">
       {pools.length === 0 && notices.length === 0 && externalLinks.length === 0 ? (
         <p className="text-sm text-muted-foreground">
-          No provider on the selected environments reports subscription limits.
+          <T>No provider on the selected environments reports subscription limits.</T>
         </p>
       ) : null}
       <SegmentPopoverContext value={segmentPopover}>
@@ -678,7 +678,7 @@ export function UsageLimitsPooled({
               </p>
               {link.url === CHATGPT_USAGE_URL ? (
                 <p className="text-xs text-muted-foreground">
-                  View usage in ChatGPT with your connected account.
+                  <T>View usage in ChatGPT with your connected account.</T>
                 </p>
               ) : link.message ? (
                 <p className="max-w-xl text-xs text-muted-foreground">{link.message}</p>
@@ -690,7 +690,7 @@ export function UsageLimitsPooled({
             size="xs"
             onClick={() => void ensureLocalApi().shell.openExternal(link.url)}
           >
-            Manage usage
+            <T>Manage usage</T>
             <ExternalLinkIcon className="size-3.5" aria-hidden="true" />
           </Button>
         </section>

@@ -84,7 +84,7 @@ export function PullRequestListEmptyState({
         <EmptyContent>
           <Button size="sm" onClick={() => openCommandPalette({ open: "add-project" })}>
             <PlusIcon className="size-3.5" />
-            Add project
+            <T>Add project</T>
           </Button>
         </EmptyContent>
       </Empty>
@@ -118,7 +118,7 @@ export function PullRequestListEmptyState({
         <div className="flex flex-wrap justify-center gap-2">
           <Button size="sm" variant="outline" onClick={onClearQuery}>
             <SearchIcon className="size-3.5" />
-            Clear search
+            <T>Clear search</T>
           </Button>
           <Button size="sm" variant="outline" disabled={refreshing} onClick={onRefresh}>
             <RefreshIcon size="sm" refreshing={refreshing} />

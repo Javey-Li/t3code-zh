@@ -217,7 +217,7 @@ export function SimlockDeviceHostEditor(props: {
               {limit("maxLeaseMinutes", "Lease minutes", 5, 240)}
             </div>
             <p className="text-xs text-muted-foreground">
-              A lease ends after the lease minutes even while in use.
+              <T>A lease ends after the lease minutes even while in use.</T>
               {props.isNew ? null : " Saving restarts this host, which releases its devices."}
             </p>
             {problem === null || !gatewayUrl ? null : (

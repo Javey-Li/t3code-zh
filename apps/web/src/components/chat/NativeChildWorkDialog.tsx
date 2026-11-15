@@ -78,7 +78,7 @@ function NativeChildWorkContent(props: {
           </p>
         ) : children.length === 0 ? (
           <p className="text-sm text-muted-foreground">
-            The provider has no record of which subagents this call started.
+            <T>The provider has no record of which subagents this call started.</T>
           </p>
         ) : (
           children.map((child) => <NativeChild key={child.conversationId} child={child} />)

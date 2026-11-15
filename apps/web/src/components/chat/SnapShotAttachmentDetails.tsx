@@ -1,3 +1,4 @@
+import { T } from "gt-react";
 import type { SnapShotSource } from "@t3tools/contracts";
 import { ImageIcon, TextIcon } from "lucide-react";
 import { Suspense } from "react";
@@ -124,7 +125,7 @@ export function SnapShotContentsButton({
             </div>
           ) : (
             <div className="rounded-md border border-border/70 bg-muted/45 p-2.5 text-muted-foreground text-xs leading-4">
-              The app or capture backend did not provide verified accessibility data.
+              <T>The app or capture backend did not provide verified accessibility data.</T>
             </div>
           )}
         </div>

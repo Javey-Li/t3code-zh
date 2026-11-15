@@ -1,4 +1,4 @@
-import { useGT } from "gt-react";
+import { T, useGT } from "gt-react";
 import { useId, useState, type KeyboardEvent } from "react";
 
 import { Button } from "../ui/button";
@@ -118,7 +118,7 @@ export function ThemeCssEditor({
             setPosition({ line: 1, column: 1 });
           }}
         >
-          Clear CSS
+          <T>Clear CSS</T>
         </Button>
       </div>
     </div>

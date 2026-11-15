@@ -1272,7 +1272,7 @@ function UsageEnvironmentFilter({
         <MenuSeparator />
         <MenuItem onClick={onOpenModelPrices}>
           <SlidersHorizontalIcon aria-hidden />
-          Model prices
+          <T>Model prices</T>
         </MenuItem>
       </MenuPopup>
     </Menu>
@@ -1312,7 +1312,7 @@ function UsageProviderFilter({
           closeOnClick={false}
           onCheckedChange={(checked) => onChange(checked ? [] : PROVIDER_ORDER)}
         >
-          All providers
+          <T>All providers</T>
         </MenuCheckboxItem>
         <MenuSeparator />
         {PROVIDER_ORDER.map((provider) => (

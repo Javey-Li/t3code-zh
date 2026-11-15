@@ -1,4 +1,4 @@
-import { useGT } from "gt-react";
+import { T, useGT } from "gt-react";
 import {
   PanelBottomIcon,
   PanelRightIcon,
@@ -78,7 +78,7 @@ export const PanelLayoutControls = memo(function PanelLayoutControls({
         )}
       </TooltipTrigger>
       <TooltipPopup side="bottom">
-        Toggle thread details
+        <T>Toggle thread details</T>
         {threadPanelShortcutLabel ? ` (${threadPanelShortcutLabel})` : ""}
       </TooltipPopup>
     </Tooltip>

@@ -289,7 +289,9 @@ export function UsagePriceOverrides({
             <T>Custom model prices</T>
           </DialogTitle>
           <DialogDescription>
-            Prices and mappings apply to all past and future usage on the environments you select.
+            <T>
+              Prices and mappings apply to all past and future usage on the environments you select.
+            </T>
           </DialogDescription>
         </DialogHeader>
         <DialogPanel>
@@ -456,7 +458,7 @@ export function UsagePriceOverrides({
                             {row.removed ? (
                               <TableCell colSpan={5}>
                                 <span className="text-muted-foreground">
-                                  Automatic pricing after saving
+                                  <T>Automatic pricing after saving</T>
                                 </span>
                               </TableCell>
                             ) : (

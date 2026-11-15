@@ -542,6 +542,7 @@ function supportsStorageCleanup(
 
 /** Narrows a mixed selection to the machines that support cleanup. */
 function StorageCleanupScopeNotice() {
+  const gt = useGT();
   const { connectedEnvironments } = useSettingsScope();
   return (
     <SettingsScopeNotice
@@ -554,7 +555,9 @@ function StorageCleanupScopeNotice() {
         )
         .map((environment) => environment.environmentId)}
     >
-      Update the selected environments to use storage cleanup, or choose a machine that supports it.
+      {gt(
+        "Update the selected environments to use storage cleanup, or choose a machine that supports it.",
+      )}
     </SettingsScopeNotice>
   );
 }
@@ -605,7 +608,7 @@ export function WorktreeCleanupSection() {
     return (
       <SettingsSection id="storage-worktrees" title={gt("Cleanup")} variant="plain">
         <SettingsScopeNotice inline target="all">
-          Update the selected machines to configure project worktree cleanup.
+          {gt("Update the selected machines to configure project worktree cleanup.")}
         </SettingsScopeNotice>
       </SettingsSection>
     );

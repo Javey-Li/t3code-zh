@@ -99,7 +99,7 @@ export function TextGeneratorsSettings({
           !readOnly ? (
             <Button size="xs" variant="outline" onClick={() => setEditing("new")}>
               <PlusIcon className="size-3" aria-hidden />
-              Add generator
+              <T>Add generator</T>
             </Button>
           ) : null
         }
@@ -155,7 +155,7 @@ export function TextGeneratorsSettings({
                           disabled={!config.enabled}
                           onClick={() => setViewing({ id, config })}
                         >
-                          Show models
+                          <T>Show models</T>
                         </MenuItem>
                         <MenuItem variant="destructive" onClick={() => setRemoving(id)}>
                           <T>Remove</T>

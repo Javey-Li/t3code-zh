@@ -379,7 +379,7 @@ function NameForm({
         <T>Join a shared thread</T>
       </h1>
       <label className="flex flex-col gap-1.5 text-sm" htmlFor="guest-name">
-        Your name
+        <T>Your name</T>
         <Input
           id="guest-name"
           autoFocus
@@ -398,7 +398,7 @@ function NameForm({
         Join
       </Button>
       <p className="text-xs text-muted-foreground">
-        The owner sees your name and approves each message before the agent gets it.
+        <T>The owner sees your name and approves each message before the agent gets it.</T>
       </p>
     </form>
   );
@@ -803,7 +803,7 @@ function GuestComposer({
           </p>
         ) : (
           <p className="min-w-0 flex-1 truncate text-xs text-muted-foreground">
-            The owner approves each message
+            <T>The owner approves each message</T>
           </p>
         )}
         <button

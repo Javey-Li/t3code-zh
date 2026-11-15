@@ -1,4 +1,4 @@
-import { useGT } from "gt-react";
+import { T, useGT } from "gt-react";
 import {
   createPreviewFramePainter,
   createPreviewStreamClient,
@@ -908,7 +908,7 @@ export function ServerBrowserSurface(props: {
           </p>
           <CommandBlock command={hostSetup.command} className="w-full max-w-md text-left" />
           <Button variant="outline" size="sm" onClick={() => setHostSetup(null)}>
-            Try again
+            <T>Try again</T>
           </Button>
         </div>
       ) : null}
@@ -916,7 +916,7 @@ export function ServerBrowserSurface(props: {
         // The page can be invisible beneath an empty or unreachable state; reconnect must remain reachable.
         <div className="visible absolute inset-0 z-20 flex flex-col items-center justify-center gap-2 bg-background p-3 text-center">
           <p role="alert" className="text-xs text-muted-foreground">
-            Browser connection was refused.
+            <T>Browser connection was refused.</T>
           </p>
           <Button
             variant="outline"

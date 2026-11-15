@@ -39,7 +39,7 @@ export function PullRequestDiffUnavailableState({
       <div className="flex flex-wrap justify-center gap-2">
         <Button size="sm" variant="default" onClick={onRetry}>
           <RefreshIcon />
-          Try again
+          <T>Try again</T>
         </Button>
         <Button
           size="sm"

@@ -222,11 +222,11 @@ export function DeviceControlsRail(props: {
           <MenuPopup side={popupSide} align="end">
             <MenuItem onClick={props.onFloat}>
               <PictureInPicture2 />
-              Float device over chat
+              <T>Float device over chat</T>
             </MenuItem>
             <MenuItem onClick={props.onClose}>
               <X />
-              Close device panel
+              <T>Close device panel</T>
             </MenuItem>
             <MenuSeparator />
             <MenuItem variant="destructive" onClick={props.onPowerOff}>
