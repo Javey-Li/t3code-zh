@@ -75,6 +75,7 @@ export function V2LifecycleRow(props: {
   readonly runs: ReadonlyArray<HandoffTimelineRun>;
   readonly onOpenThread: (threadId: ThreadId) => void;
 }) {
+  const gt = useGT();
   const { item } = props;
   if (item.type === "run_interrupt_result") {
     return (
@@ -122,7 +123,7 @@ export function V2LifecycleRow(props: {
           <Button
             size="xs"
             variant="outline"
-            aria-label={`Open ${item.title ?? "created thread"}`}
+            aria-label={gt("Open {name}", { name: item.title ?? "created thread" })}
             onClick={() => props.onOpenThread(item.targetThreadId)}
           >
             <T>Open chat</T>
@@ -137,7 +138,7 @@ export function V2LifecycleRow(props: {
         label={<>Created thread{item.title ? ` · ${item.title}` : ""}</>}
         trailing={
           <InlineButton
-            aria-label={`Open ${item.title ?? "created thread"}`}
+            aria-label={gt("Open {name}", { name: item.title ?? "created thread" })}
             onClick={() => props.onOpenThread(item.targetThreadId)}
           >
             <T>Open chat</T>

@@ -1,4 +1,4 @@
-import { msg, useMessages } from "gt-react";
+import { msg, useGT, useMessages } from "gt-react";
 import {
   CHATGPT_USAGE_URL,
   collectLimitAccounts,
@@ -58,11 +58,12 @@ function accountHue(email: string): number {
 }
 
 function AccountChip({ email }: { readonly email: string }) {
+  const gt = useGT();
   const hue = accountHue(email);
   return (
     <span
       role="img"
-      aria-label={`Account ${accountInitials(email)}`}
+      aria-label={gt("Account {name}", { name: accountInitials(email) })}
       className="inline-flex size-4 shrink-0 items-center justify-center rounded-full text-3xs leading-none font-semibold"
       style={{ backgroundColor: `oklch(0.85 0.08 ${hue})`, color: `oklch(0.35 0.1 ${hue})` }}
     >

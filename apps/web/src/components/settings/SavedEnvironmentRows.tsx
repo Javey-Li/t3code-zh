@@ -1,4 +1,4 @@
-import { T, useMessages } from "gt-react";
+import { T, useGT, useMessages } from "gt-react";
 import { SessionPermissions } from "./SessionPermissions";
 import {
   ChevronRightIcon,
@@ -120,6 +120,7 @@ export function SavedBackendListRow({
   onRemove,
   onAddRoute,
 }: SavedBackendListRowProps) {
+  const gt = useGT();
   const m = useMessages();
   const [routesOpen, setRoutesOpen] = useState(false);
   const [permissionsOpen, setPermissionsOpen] = useState(false);
@@ -409,7 +410,7 @@ export function SavedBackendListRow({
               variant="ghost-muted"
               size="icon-xs"
               disabled={isRemoving}
-              aria-label={`More actions for ${environment.label}`}
+              aria-label={gt("More actions for {name}", { name: environment.label })}
             />
           }
         >

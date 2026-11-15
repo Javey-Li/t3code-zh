@@ -853,7 +853,7 @@ export default function DiffPanel({
           <DropdownMenuTrigger
             render={<Button size="xs" variant="secondary" />}
             className={cn("max-w-full", headerCommitSha !== null && "min-w-0 shrink")}
-            aria-label={`Diff scope: ${selectedScopeLabel}`}
+            aria-label={gt("Diff scope: {scope}", { scope: selectedScopeLabel })}
             data-workspace-focus-default
           >
             <span className="truncate">{selectedScopeLabel}</span>
@@ -979,7 +979,7 @@ export default function DiffPanel({
                                 href={commitUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                aria-label={`Open commit ${commit.sha.slice(0, 7)}`}
+                                aria-label={gt("Open commit {id}", { id: commit.sha.slice(0, 7) })}
                               />
                             }
                             onClick={(event) => openCommitUrl(event, commitUrl)}

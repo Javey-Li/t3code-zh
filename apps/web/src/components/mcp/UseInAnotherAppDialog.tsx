@@ -114,6 +114,7 @@ function Wizard({
   readonly environment: EnvironmentPresentation;
   readonly title: string;
 }) {
+  const gt = useGT();
   const gate = useGate(environment);
   const levels = useGrantableLevels(environment);
   const [step, setStep] = useState<Step>(0);
@@ -149,7 +150,7 @@ function Wizard({
           <section className="space-y-3">
             <h3 className="text-sm font-medium">What can {appName} do?</h3>
             <RadioGroup
-              aria-label={`What can ${appName} do?`}
+              aria-label={gt("What can {name} do?", { name: appName })}
               value={access}
               onValueChange={(value) => setPicked(value as AuthMcpClientAccess)}
             >

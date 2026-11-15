@@ -1209,7 +1209,7 @@ function PullRequestCodeTab({
             <DropdownMenuTrigger
               render={<Button size="xs" variant="secondary" />}
               className="min-w-0 max-w-64"
-              aria-label={`Diff scope: ${scopeLabel}`}
+              aria-label={gt("Diff scope: {scope}", { scope: scopeLabel })}
             >
               <span className="truncate">{scopeLabel}</span>
               <ChevronDownIcon className="size-3.5 shrink-0 opacity-70" />

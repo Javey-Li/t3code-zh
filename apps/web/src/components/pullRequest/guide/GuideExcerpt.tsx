@@ -1,4 +1,4 @@
-import { T, msg } from "gt-react";
+import { T, msg, useGT } from "gt-react";
 import type {
   DiffLineAnnotation,
   FileDiffContentsLoader,
@@ -178,6 +178,7 @@ function ExcerptDiff({
   commenting: ExcerptCommenting | null;
   onOpenFile: (path: string) => void;
 }) {
+  const gt = useGT();
   const resolvedTheme = useRenderedAppearance();
   const loadExcerptFiles = excerptLoader(excerpt, file, slice.rows, loadDiffFiles);
 
@@ -339,7 +340,7 @@ function ExcerptDiff({
             <Button
               size="icon-xs"
               variant="ghost-muted"
-              aria-label={`Open ${excerpt.path} in Code`}
+              aria-label={gt("Open {path} in Code", { path: excerpt.path })}
               onClick={() => onOpenFile(excerpt.path)}
             >
               <ArrowUpRightIcon aria-hidden />

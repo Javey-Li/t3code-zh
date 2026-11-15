@@ -553,7 +553,7 @@ export function ProviderEnvironmentSection(props: {
                     placeholder={gt("value")}
                     configured={variable.valueRedacted === true}
                     spellCheck={false}
-                    aria-label={`Environment variable value ${index + 1}`}
+                    aria-label={gt("Environment variable value {index}", { index: index + 1 })}
                     sources={props.secretSources ?? []}
                     environmentId={props.environmentId}
                     onSecretChange={(secret) => setVariableSecret(variable.id, secret)}
@@ -576,7 +576,7 @@ export function ProviderEnvironmentSection(props: {
                       autoComplete="off"
                       placeholder={gt("value")}
                       spellCheck={false}
-                      aria-label={`Environment variable value ${index + 1}`}
+                      aria-label={gt("Environment variable value {index}", { index: index + 1 })}
                     />,
                   )
                 )}

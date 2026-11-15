@@ -1,4 +1,4 @@
-import { useMessages } from "gt-react";
+import { useGT, useMessages } from "gt-react";
 import type { EnvironmentId, PullRequestContextMetadata } from "@t3tools/contracts";
 import { CircleDashedIcon, FilmIcon, ImageIcon } from "lucide-react";
 import {
@@ -344,13 +344,14 @@ function FileChipContent(props: {
 }
 
 export function UnresolvedChip(props: { label: string; tooltip: string; copyMarkdown?: string }) {
+  const gt = useGT();
   const m = useMessages();
   return (
     <ContextChipShell
       icon={<CircleDashedIcon />}
       label={m(props.label)}
       state="unresolved"
-      aria-label={`Unavailable context, ${props.label}`}
+      aria-label={gt("Unavailable context, {label}", { label: props.label })}
       data-markdown-copy={props.copyMarkdown}
       tooltip={props.tooltip}
     />

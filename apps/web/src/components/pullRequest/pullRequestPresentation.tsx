@@ -1,4 +1,4 @@
-import { msg, useMessages } from "gt-react";
+import { msg, useGT, useMessages } from "gt-react";
 import { Spinner } from "~/components/ui/spinner";
 import type {
   PullRequestActor,
@@ -466,6 +466,7 @@ export function PullRequestActorLabel({
   tooltip?: boolean;
   profileUrl?: string | null;
 }) {
+  const gt = useGT();
   const login = actor?.login ?? "ghost";
   const label = (
     <span className={cn("flex min-w-0 items-baseline", variant === "label" && "gap-1.5")}>
@@ -489,7 +490,7 @@ export function PullRequestActorLabel({
                   href={profileUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={`Open ${login}'s profile`}
+                  aria-label={gt("Open {name} profile", { name: login })}
                 />
               }
             />

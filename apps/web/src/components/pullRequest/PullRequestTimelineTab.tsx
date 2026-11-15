@@ -589,11 +589,12 @@ function CommitEvent({
   event: PullRequestTimelineEvent;
   onOpen: (oid: string) => void;
 }) {
+  const gt = useGT();
   return (
     <button
       type="button"
       className="group relative mb-5 block w-full cursor-pointer rounded-sm pl-12 text-left outline-none [contain-intrinsic-block-size:48px] [content-visibility:auto] focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
-      aria-label={`View commit ${event.id}`}
+      aria-label={gt("View commit {id}", { id: event.id })}
       onClick={() => onOpen(event.id)}
     >
       <ActorTimelineMarker

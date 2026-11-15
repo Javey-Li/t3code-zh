@@ -141,7 +141,7 @@ export function TextGeneratorsSettings({
                           <Button
                             size="icon-sm"
                             variant="ghost-muted"
-                            aria-label={`More actions for ${name}`}
+                            aria-label={gt("More actions for {name}", { name })}
                           />
                         }
                       >

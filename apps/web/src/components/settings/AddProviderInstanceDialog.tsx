@@ -598,7 +598,10 @@ export function AddProviderInstanceDialog({
                   <div className="flex shrink-0 gap-2 text-2xs">
                     {selectedAcp.website ? (
                       <a
-                        aria-label={`Open documentation for ${selectedAcp.name} (${selectedAcp.id})`}
+                        aria-label={gt("Open documentation for {name} ({id})", {
+                          name: selectedAcp.name,
+                          id: selectedAcp.id,
+                        })}
                         className="text-muted-foreground hover:text-foreground"
                         href={selectedAcp.website}
                         rel="noreferrer"
@@ -609,7 +612,10 @@ export function AddProviderInstanceDialog({
                     ) : null}
                     {selectedAcp.repository ? (
                       <a
-                        aria-label={`Open source for ${selectedAcp.name} (${selectedAcp.id})`}
+                        aria-label={gt("Open source for {name} ({id})", {
+                          name: selectedAcp.name,
+                          id: selectedAcp.id,
+                        })}
                         className="text-muted-foreground hover:text-foreground"
                         href={selectedAcp.repository}
                         rel="noreferrer"

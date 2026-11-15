@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, useGT } from "gt-react";
 import {
   workflowMemberModelSelection,
   type SubagentWorkflowGroup,
@@ -67,6 +67,7 @@ function WorkflowMemberRow({
   driver: ProviderDriverKind | undefined;
   onOpen: (threadId: string) => void;
 }) {
+  const gt = useGT();
   const threadId = member.childThreadId;
   const canOpen = threadId !== null;
   return (
@@ -77,7 +78,7 @@ function WorkflowMemberRow({
           render={
             <ThreadDetailsControl
               part="row"
-              aria-label={`Open ${member.title} chat`}
+              aria-label={gt("Open {name} chat", { name: member.title })}
               disabled={!canOpen}
               onClick={() => canOpen && onOpen(threadId)}
             />

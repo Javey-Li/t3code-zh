@@ -294,7 +294,9 @@ export const ChatHeader = memo(function ChatHeader({
                   render={
                     <button
                       type="button"
-                      aria-label={`Open parent thread: ${parentThreadLink.title}`}
+                      aria-label={gt("Open parent thread: {name}", {
+                        name: parentThreadLink.title,
+                      })}
                       onClick={() => onOpenThread(parentThreadLink.threadId)}
                       className="inline-flex min-w-0 max-w-full cursor-pointer items-center rounded-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
                     />

@@ -156,7 +156,10 @@ export function PullRequestDetailGhost({
                 <span className="min-w-0 truncate font-medium">{seed.repository}</span>
                 <InlineButton
                   onClick={() => void readLocalApi()?.shell.openExternal(seed.url)}
-                  aria-label={`Open ${terminology.singular} #${seed.number} on host`}
+                  aria-label={gt("Open {name} #{number} on host", {
+                    name: terminology.singular,
+                    number: seed.number,
+                  })}
                 >
                   <span className={statePresentation?.toneClassName}>#{seed.number}</span>
                   <ExternalLinkIcon aria-hidden className="size-2.5" />
