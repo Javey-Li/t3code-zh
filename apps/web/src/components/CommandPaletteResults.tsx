@@ -1,3 +1,4 @@
+import { useMessages } from "gt-react";
 import { startPaletteThreadDrag } from "./CommandPalette.drag";
 import { useLegendListRef } from "~/hooks/useLegendListRef";
 import { type ResolvedKeybindingsConfig } from "@t3tools/contracts";
@@ -171,10 +172,20 @@ function CommandPaletteTitle({
 }: {
   item: Pick<CommandPaletteActionItem | CommandPaletteSubmenuItem, "title">;
 }) {
-  const { title } = item;
+  const m = useMessages();
+  const title = typeof item.title === "string" ? m(item.title) : item.title;
   return (
     <span className="truncate" dir={typeof title === "string" ? textDirection(title) : undefined}>
       {title}
+    </span>
+  );
+}
+
+function CommandPaletteDescription({ text }: { text: ReactNode }) {
+  const m = useMessages();
+  return (
+    <span className="min-w-0 text-muted-foreground/70 text-xs">
+      {typeof text === "string" ? m(text) : text}
     </span>
   );
 }
@@ -218,9 +229,7 @@ function DisabledCommandPaletteResultRow(props: {
           ) : props.item.matchHint ? (
             <SearchMatchHintLine hint={props.item.matchHint} />
           ) : props.item.description ? (
-            <span className="min-w-0 text-muted-foreground/70 text-xs">
-              {props.item.description}
-            </span>
+            <CommandPaletteDescription text={props.item.description} />
           ) : null}
         </span>
       ) : (
@@ -283,9 +292,7 @@ function CommandPaletteResultRow(props: {
           ) : props.item.matchHint ? (
             <SearchMatchHintLine hint={props.item.matchHint} />
           ) : props.item.description ? (
-            <span className="min-w-0 text-muted-foreground/70 text-xs">
-              {props.item.description}
-            </span>
+            <CommandPaletteDescription text={props.item.description} />
           ) : null}
         </span>
       ) : (

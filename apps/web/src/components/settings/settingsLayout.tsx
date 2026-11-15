@@ -229,7 +229,9 @@ export function SettingsSection({
   variant?: "grouped" | "plain";
   children: ReactNode;
 }) {
+  const m = useMessages();
   const targetRef = useSettingsSearchTarget<HTMLElement>(sectionProps.id);
+  const heading = m(title);
 
   return (
     <section
@@ -239,7 +241,7 @@ export function SettingsSection({
       className={cn(!hideTitle && "space-y-2.5", className)}
     >
       {hideTitle ? (
-        <h2 className="sr-only">{title}</h2>
+        <h2 className="sr-only">{heading}</h2>
       ) : (
         <div
           data-settings-scroll-target
@@ -248,7 +250,7 @@ export function SettingsSection({
           <div className="flex min-w-0 items-center gap-1">
             <h2 className="flex min-h-7 items-center gap-2 text-base font-semibold text-foreground">
               {icon}
-              {title}
+              {heading}
             </h2>
             {titleAction}
           </div>
@@ -339,6 +341,9 @@ export function SettingsRow({
   managed?: string | undefined;
   children?: ReactNode;
 }) {
+  const m = useMessages();
+  const renderedTitle = typeof title === "string" ? m(title) : title;
+  const renderedDescription = typeof description === "string" ? m(description) : description;
   const targetRef = useSettingsSearchTarget<HTMLDivElement>(rowProps.id);
   const primarySettingsAvailable = usePrimarySettingsAvailable();
   const context = useOptionalSettingsScope();
@@ -509,7 +514,7 @@ export function SettingsRow({
       <div className="flex flex-col gap-3 @min-[32rem]/settings-row:grid @min-[32rem]/settings-row:grid-cols-[minmax(0,1fr)_auto] @min-[32rem]/settings-row:items-center @min-[32rem]/settings-row:gap-8">
         <div className="min-w-0 flex-1 space-y-1">
           <div className="flex min-h-5 items-center gap-1.5">
-            <h3 className="text-sm font-medium text-foreground">{title}</h3>
+            <h3 className="text-sm font-medium text-foreground">{renderedTitle}</h3>
             {renderedInheritance ? (
               <span
                 className={cn(
@@ -529,7 +534,7 @@ export function SettingsRow({
           </div>
           {description ? (
             <p className="max-w-2xl text-pretty text-xs leading-normal text-muted-foreground">
-              {description}
+              {renderedDescription}
             </p>
           ) : null}
           {renderedStatus ? (
