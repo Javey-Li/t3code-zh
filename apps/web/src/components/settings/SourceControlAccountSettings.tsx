@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, useGT } from "gt-react";
 import type { EnvironmentId, SourceControlProviderAuth } from "@t3tools/contracts";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useState } from "react";
@@ -50,6 +50,7 @@ export function SourceControlAccountSettings({
   readonly auth: SourceControlProviderAuth;
   readonly onSaved: () => void;
 }) {
+  const gt = useGT();
   const { hosts } = useEnvironmentSettings(environmentId, (settings) =>
     readHostCredentialSettings(settings, definition.kind),
   );
@@ -102,7 +103,11 @@ export function SourceControlAccountSettings({
           size="icon-xs"
           variant="ghost-muted"
           onClick={() => setRevealed((current) => !current)}
-          aria-label={revealed ? `Hide ${label} accounts` : `Reveal ${label} accounts`}
+          aria-label={
+            revealed
+              ? gt("Hide {label} accounts", { label })
+              : gt("Reveal {label} accounts", { label })
+          }
           aria-pressed={revealed}
         >
           {revealed ? <EyeOffIcon /> : <EyeIcon />}
@@ -131,7 +136,7 @@ export function SourceControlAccountSettings({
               <Switch
                 checked={enabled}
                 disabled={saving}
-                aria-label={`Use ${label} on ${group.host}`}
+                aria-label={gt("Use {label} on {host}", { label, host: group.host })}
                 onCheckedChange={(checked) => void save(group.host, { enabled: checked })}
               />
             </div>
@@ -151,7 +156,10 @@ export function SourceControlAccountSettings({
                       });
                     }}
                   >
-                    <SelectTrigger size="sm" aria-label={`${label} account for ${group.host}`}>
+                    <SelectTrigger
+                      size="sm"
+                      aria-label={gt("{label} account for {host}", { label, host: group.host })}
+                    >
                       <SelectValue>
                         {(value: string) =>
                           value === ACTIVE_ACCOUNT ? (

@@ -242,7 +242,11 @@ export function QueuedRunsControl({
 
   return (
     <section
-      aria-label={`${items.length} queued message${items.length === 1 ? "" : "s"}`}
+      aria-label={
+        items.length === 1
+          ? gt("{count} queued message", { count: items.length })
+          : gt("{count} queued messages", { count: items.length })
+      }
       data-thread-queue="true"
       // Anchors the sr-only live region; unanchored, it escapes the timeline scroller and makes the chat column scroll.
       className="relative mx-auto flex w-full max-w-(--chat-content-max-width) flex-col gap-2 pb-4"

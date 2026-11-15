@@ -55,6 +55,7 @@ export function DevicePanel(props: {
   readonly visible: boolean;
   readonly onDismissSetup: () => void;
 }) {
+  const gt = useGT();
   const m = useMessages();
   const { environmentId, threadId } = props.threadRef;
   const { state, loaded, error: stateError, refresh: refreshState } = useDeviceState(environmentId);
@@ -341,7 +342,11 @@ export function DevicePanel(props: {
                                 variant="outline"
                                 size="sm"
                                 disabled={pendingDeviceKey !== null}
-                                aria-label={`${device.booted ? "Open" : "Start"} ${device.name}`}
+                                aria-label={
+                                  device.booted
+                                    ? gt("Open {name}", { name: device.name })
+                                    : gt("Start {name}", { name: device.name })
+                                }
                                 onClick={() => void selectDevice(deviceKey(device))}
                               >
                                 {pendingDeviceKey === deviceKey(device) ? (

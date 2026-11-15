@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, useGT } from "gt-react";
 import { Tooltip, TooltipTrigger, TooltipPopup } from "../ui/tooltip";
 import type {
   EnvironmentId,
@@ -59,6 +59,7 @@ export function PullRequestStackMenu({
   onSelect?: ((reference: PullRequestRef) => void) | undefined;
   onActed: () => void;
 }) {
+  const gt = useGT();
   const [open, setOpen] = useState(false);
   const [confirmation, setConfirmation] = useState<"merge" | "update-branch" | null>(null);
   const [pending, setPending] = useState(false);
@@ -149,7 +150,11 @@ export function PullRequestStackMenu({
                   <Button
                     variant="ghost"
                     size="xs"
-                    aria-label={`Stack ${stack.number}, layer ${position} of ${stack.layers.length}`}
+                    aria-label={gt("Stack {number}, layer {position} of {size}", {
+                      number: stack.number,
+                      position,
+                      size: stack.layers.length,
+                    })}
                   />
                 }
               >

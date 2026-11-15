@@ -378,6 +378,7 @@ function OptionMenuRow(props: {
   /** Holds the column's tab stop when the model has no levels. */
   tabStop: boolean;
 }) {
+  const gt = useGT();
   const m = useMessages();
   const { descriptor, traits } = props;
   const [open, setOpen] = useState(false);
@@ -407,7 +408,7 @@ function OptionMenuRow(props: {
             type="button"
             data-effort-row
             tabIndex={props.tabStop ? 0 : -1}
-            aria-label={`${descriptor.label}: ${current}`}
+            aria-label={gt("{label}: {current}", { label: descriptor.label, current })}
             className={cn(OPTION_ROW, "data-popup-open:bg-foreground/[0.09]")}
             onKeyDown={(event) => {
               if (event.key !== "ArrowRight") return;

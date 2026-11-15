@@ -1,4 +1,4 @@
-import { T, useMessages } from "gt-react";
+import { T, useGT, useMessages } from "gt-react";
 import type { DevicePlatform, EnvironmentId } from "@t3tools/contracts";
 import { useAtomValue } from "@effect/atom-react";
 import { AsyncResult, Atom } from "effect/reactivity";
@@ -97,6 +97,7 @@ export function DeviceStreamView(props: {
   /** The host serves only serve-sim's stream and input socket (Simlock). */
   readonly serveSimOnly?: boolean;
 }) {
+  const gt = useGT();
   const m = useMessages();
   const model = deviceModel(props.platform, props.deviceName ?? "");
   const isDuo = model?.id === "iphone-duo";
@@ -324,7 +325,9 @@ export function DeviceStreamView(props: {
         )}
         tabIndex={0}
         role="application"
-        aria-label={`${props.platform === "ios" ? "iOS Simulator" : "Android Emulator"} screen`}
+        aria-label={
+          props.platform === "ios" ? gt("iOS Simulator screen") : gt("Android Emulator screen")
+        }
         onKeyDown={(event) => {
           if (event.target !== event.currentTarget) return;
           if (event.metaKey && !["r", "R"].includes(event.key)) return;
