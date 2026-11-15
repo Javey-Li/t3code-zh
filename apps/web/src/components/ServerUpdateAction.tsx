@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import { useAtomValue } from "@effect/atom-react";
 import {
   AuthEnvironmentMaintainScope,
@@ -172,13 +172,14 @@ export function useServerUpdate() {
 
 export function ServerUpdatesAction({
   targets,
-  label = "Update all",
+  label = msg("Update all"),
   variant = "outline",
   size = "xs",
   className,
 }: UpdateButtonProps & {
   readonly targets: ReadonlyArray<ServerUpdateTarget>;
 }) {
+  const m = useMessages();
   const update = useServerUpdate();
   const serverConfigs = useServerConfigs();
   const pending = useRef(false);
@@ -220,7 +221,7 @@ export function ServerUpdatesAction({
       disabled={isPending || eligible.length === 0}
       onClick={() => void handleUpdate()}
     >
-      {label}
+      {m(label)}
     </Button>
   );
 }
@@ -294,7 +295,7 @@ export function ServerUpdateAction({
     onError: (error) => {
       toastManager.add({
         type: "error",
-        title: "Could not copy update command",
+        title: gt("Could not copy update command"),
         description: error.message,
       });
     },
@@ -405,7 +406,7 @@ export function OutdatedServerUpdateAction({
   serverLabel,
   fromVersion,
   targetVersion,
-  label = "Update",
+  label = msg("Update"),
 }: {
   readonly environmentId: EnvironmentId;
   readonly serverLabel: string;
@@ -414,6 +415,7 @@ export function OutdatedServerUpdateAction({
   readonly label?: string;
 }) {
   const update = useAtomCommand(updateOutdatedServer, { reportFailure: false });
+  const m = useMessages();
   const handleUpdate = async () => {
     if (pendingUpdateEnvironmentIds.has(environmentId)) return;
     pendingUpdateEnvironmentIds.add(environmentId);
@@ -443,7 +445,7 @@ export function OutdatedServerUpdateAction({
   }
   return (
     <Button size="xs" variant="outline" onClick={() => void handleUpdate()}>
-      {label}
+      {m(label)}
     </Button>
   );
 }

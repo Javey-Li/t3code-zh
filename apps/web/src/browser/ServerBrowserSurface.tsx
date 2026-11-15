@@ -106,13 +106,13 @@ const historyDeltaOf = (button: number): -1 | 1 | null =>
   button === 3 ? -1 : button === 4 ? 1 : null;
 
 /** Browsers may refuse a write that arrives after the key press; a toast button is a fresh gesture. */
-async function copyPageText(text: string) {
+async function copyPageText(text: string, gt: (source: string) => string) {
   try {
     await navigator.clipboard.writeText(text);
   } catch {
     const id = toastManager.add({
       type: "info",
-      title: "The page copied text",
+      title: gt("The page copied text"),
       actionProps: {
         children: "Copy",
         onClick: () => {
@@ -192,7 +192,7 @@ export function ServerBrowserSurface(props: {
     void uploadPreviewStreamFiles(chooser, files).catch((cause: unknown) =>
       toastManager.add({
         type: "error",
-        title: "Could not send the files to the page",
+        title: gt("Could not send the files to the page"),
         description: cause instanceof Error ? cause.message : undefined,
       }),
     );
@@ -400,7 +400,7 @@ export function ServerBrowserSurface(props: {
           const placed = placeAgentCursor(pointer, canvasRef.current, viewportRef.current);
           if (placed) setAgentCursor(placed);
         },
-        onClipboard: (text) => void copyPageText(text),
+        onClipboard: (text) => void copyPageText(text, gt),
         onDownload: offerDownload,
         onPopup: popupOpened,
         onFileChooser: setFileChooser,
@@ -470,6 +470,7 @@ export function ServerBrowserSurface(props: {
     tabId,
     threadId,
     visible,
+    gt,
   ]);
 
   // oxlint-disable-next-line t3code/no-unreasoned-state-sync -- registers a non-passive wheel listener on the canvas so it can stop the panel scrolling

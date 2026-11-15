@@ -524,6 +524,7 @@ function useChatMarkdownState({
   sourceControlMedia = false,
   sourceControlMediaRepository,
 }: ChatMarkdownProps) {
+  const gt = useGT();
   const resolvedTheme = useRenderedAppearance();
   const markdownRef = useRef<HTMLElement>(null);
   const mediaRequestId = useRef(0);
@@ -640,7 +641,7 @@ function useChatMarkdownState({
         toastManager.add(
           stackedThreadToast({
             type: "error",
-            title: "Media unavailable",
+            title: gt("Media unavailable"),
             description,
           }),
         );
@@ -747,7 +748,7 @@ function useChatMarkdownState({
           toastManager.add(
             stackedThreadToast({
               type: "error",
-              title: "Unable to open link in browser",
+              title: gt("Unable to open link in browser"),
               description: error.message,
             }),
           );

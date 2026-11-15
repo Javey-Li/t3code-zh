@@ -3932,5 +3932,22 @@
   "0674544195fcdc39": "The original transcript was added.",
   "4094c385ce0a6493": "Could not start voice input",
   "8fc9dbbfebef2a39": "Voice input is not available",
-  "b48540ebc8788b76": "ChatGPT sign-in couldn't finish"
+  "b48540ebc8788b76": "ChatGPT sign-in couldn't finish",
+  "982f66971bc47617": "The page copied text",
+  "16c1876c1c9e5579": "Could not send the files to the page",
+  "489ad5b6df027e0d": "Media unavailable",
+  "fca9c023f4f870b1": "Unable to open link in browser",
+  "b25472ef70df9b5d": "Update all",
+  "3cb4fcae1546e2eb": "Could not copy update command",
+  "55b562c00e37321b": "Could not force stop the agent",
+  "ede15a83eedec569": "Turn stopped; the agent is still shutting down",
+  "f360accf1ccac178": "Turn stopped; the agent process kept running",
+  "dc429ef6ac7de65e": "Could not save file",
+  "413897ed760fe724": "Could not copy file",
+  "d79d3cfdd7864be5": "Could not save grouping rule",
+  "062d19d24615e108": "Project title cannot be empty",
+  "4e4ab7e39d3cb684": "Approve the app on GitHub to finish signing in.",
+  "154b0a0947b7f831": "A far higher GitHub API rate limit than a personal token or gh login.",
+  "3a732730d719d7be": "Could not create the project",
+  "08f54865b364957d": "Update"
 }

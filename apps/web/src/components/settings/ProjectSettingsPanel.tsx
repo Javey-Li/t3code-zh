@@ -104,7 +104,7 @@ function CheckoutGroupingSelect({ member }: { member: SidebarProjectGroupMember 
           toastManager.add(
             stackedThreadToast({
               type: "error",
-              title: "Could not save grouping rule",
+              title: gt("Could not save grouping rule"),
               description: error instanceof Error ? error.message : "An error occurred.",
             }),
           );
@@ -319,7 +319,7 @@ function ProjectDetail({
   const renameGroup = async (nextTitle: string, wasEdited: boolean) => {
     const title = nextTitle.trim();
     if (!title) {
-      toastManager.add({ type: "warning", title: "Project title cannot be empty" });
+      toastManager.add({ type: "warning", title: gt("Project title cannot be empty") });
       return;
     }
     if (!projectGroupTitleNeedsUpdate(group.memberProjects, title, wasEdited)) return;

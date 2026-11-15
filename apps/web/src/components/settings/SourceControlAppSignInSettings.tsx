@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT, useMessages } from "gt-react";
 import type { EnvironmentId, SourceControlSignInPrompt } from "@t3tools/contracts";
 import {
   readHostCredentialSettings,
@@ -96,6 +96,7 @@ export function SourceControlAppSignInSettings({
   readonly onChanged: () => void;
 }) {
   const gt = useGT();
+  const m = useMessages();
   const host = appSignIn.hosts[0] ?? "";
   const { signIns, tokens } = useEnvironmentSettings(environmentId, (settings) =>
     readHostCredentialSettings(settings, definition.kind),
@@ -181,7 +182,7 @@ export function SourceControlAppSignInSettings({
       </Button>
     );
   } else if (waiting !== null) {
-    subtitle = "Approve the app on GitHub to finish signing in.";
+    subtitle = msg("Approve the app on GitHub to finish signing in.");
     action = (
       <Button
         size="xs"
@@ -195,7 +196,7 @@ export function SourceControlAppSignInSettings({
       </Button>
     );
   } else {
-    subtitle = "A far higher GitHub API rate limit than a personal token or gh login.";
+    subtitle = msg("A far higher GitHub API rate limit than a personal token or gh login.");
     action = (
       <Button
         size="xs"
@@ -219,7 +220,9 @@ export function SourceControlAppSignInSettings({
         <AppMark signedIn={signedIn} />
         <div className="min-w-0 flex-1 space-y-0.5">
           <p className="text-sm font-medium text-foreground">{appSignIn.appName}</p>
-          <div className="text-xs text-muted-foreground">{subtitle}</div>
+          <div className="text-xs text-muted-foreground">
+            {typeof subtitle === "string" ? m(subtitle) : subtitle}
+          </div>
         </div>
         <div className="shrink-0">{action}</div>
       </div>

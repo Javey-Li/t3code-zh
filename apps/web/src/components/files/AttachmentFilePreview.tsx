@@ -1,4 +1,4 @@
-import { T, msg } from "gt-react";
+import { T, msg, useGT } from "gt-react";
 import { filePreviewDelimiter } from "@t3tools/shared/delimitedPreview";
 import type { AssetResource, EnvironmentId, ScopedThreadRef } from "@t3tools/contracts";
 import { formatAttachmentSize } from "@t3tools/client-runtime/state/attachments";
@@ -109,6 +109,7 @@ export function AttachmentFilePreview(props: {
   onRemove?: () => void;
   onClose?: () => void;
 }) {
+  const gt = useGT();
   const kind = filePreviewKind(props);
   const officeKind = officePreviewKind(props);
   const delimiter = filePreviewDelimiter(props);
@@ -267,7 +268,7 @@ export function AttachmentFilePreview(props: {
         const cause = Cause.squash(result.cause);
         toastManager.add({
           type: "error",
-          title: "Could not save file",
+          title: gt("Could not save file"),
           description: cause instanceof Error ? cause.message : "Please try again.",
         });
       }
@@ -442,7 +443,7 @@ export function AttachmentFilePreview(props: {
               if (!copy) {
                 toastManager.add({
                   type: "error",
-                  title: "Could not copy file",
+                  title: gt("Could not copy file"),
                   description: msg("Wait for the file to finish loading before copying."),
                 });
                 return;
@@ -452,7 +453,7 @@ export function AttachmentFilePreview(props: {
                 .catch((cause: unknown) =>
                   toastManager.add({
                     type: "error",
-                    title: "Could not copy file",
+                    title: gt("Could not copy file"),
                     description: cause instanceof Error ? cause.message : "Try again.",
                   }),
                 );

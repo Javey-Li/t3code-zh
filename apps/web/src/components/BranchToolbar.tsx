@@ -1,4 +1,4 @@
-import { T, msg, useMessages } from "gt-react";
+import { T, useMessages, useGT } from "gt-react";
 import { writeTextToClipboard } from "../hooks/useCopyToClipboard";
 import { formatFilePathForClipboard } from "@t3tools/client-runtime/media-actions";
 import { readLocalApi } from "../localApi";
@@ -104,13 +104,17 @@ interface BranchToolbarProps {
   onEnvironmentChange?: (environmentId: EnvironmentId) => void;
 }
 
-function showWorkspaceContextMenu(event: ReactMouseEvent, workspacePath: string) {
+function showWorkspaceContextMenu(
+  event: ReactMouseEvent,
+  workspacePath: string,
+  gt: (source: string) => string,
+) {
   const api = readLocalApi();
   if (!api) return;
   event.preventDefault();
   event.stopPropagation();
   void api.contextMenu
-    .show([{ id: "copy-path", label: msg("Copy full path"), icon: "copy" }], {
+    .show([{ id: "copy-path", label: gt("Copy full path"), icon: "copy" }], {
       x: event.clientX,
       y: event.clientY,
     })
@@ -122,7 +126,7 @@ function showWorkspaceContextMenu(event: ReactMouseEvent, workspacePath: string)
           if (didCopy) {
             toastManager.add({
               type: "success",
-              title: "Path copied",
+              title: gt("Path copied"),
               description: clipboardPath,
             });
           }
@@ -131,7 +135,7 @@ function showWorkspaceContextMenu(event: ReactMouseEvent, workspacePath: string)
           toastManager.add(
             stackedThreadToast({
               type: "error",
-              title: "Failed to copy path",
+              title: gt("Failed to copy path"),
               description: error instanceof Error ? error.message : "An error occurred.",
             }),
           );
@@ -186,6 +190,7 @@ const RunContextSelector = memo(function RunContextSelector({
   onAddToMachine,
 }: RunContextSelectorProps) {
   const m = useMessages();
+  const gt = useGT();
   const composerFloatingLayerProps = useComposerMenuProps();
   const activeEnvironment =
     availableEnvironments?.find((env) => env.environmentId === environmentId) ?? null;
@@ -210,7 +215,7 @@ const RunContextSelector = memo(function RunContextSelector({
       : (activeWorktreePath ?? workspaceRoot);
   const handleContextMenu = (event: ReactMouseEvent) => {
     if (isPanel && workspacePath) {
-      showWorkspaceContextMenu(event, workspacePath);
+      showWorkspaceContextMenu(event, workspacePath, gt);
     }
   };
   const workspaceIcon = (

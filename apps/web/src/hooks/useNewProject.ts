@@ -1,3 +1,4 @@
+import { useGT } from "gt-react";
 import { scopeProjectRef } from "@t3tools/client-runtime/environment";
 import {
   getNewProjectRepository,
@@ -24,6 +25,7 @@ function errorMessage(error: unknown): string {
 }
 
 export function useNewProject() {
+  const gt = useGT();
   const createNew = useAtomCommand(projectEnvironment.createNew, { reportFailure: false });
   const publishRepository = useAtomCommand(sourceControlEnvironment.publishRepository, {
     reportFailure: false,
@@ -81,7 +83,7 @@ export function useNewProject() {
         toastManager.add(
           stackedThreadToast({
             type: "error",
-            title: "Could not create the project",
+            title: gt("Could not create the project"),
             description: errorMessage(squashAtomCommandFailure(result)),
           }),
         );
@@ -115,7 +117,7 @@ export function useNewProject() {
       toastManager.add(
         stackedThreadToast({
           type: "error",
-          title: "Failed to open project",
+          title: gt("Failed to open project"),
           description: `${errorMessage(error)} It will appear in the sidebar once this client catches up.`,
         }),
       );
@@ -126,7 +128,7 @@ export function useNewProject() {
       toastManager.add(
         stackedThreadToast({
           type: "error",
-          title: "Failed to open project",
+          title: gt("Failed to open project"),
           description: errorMessage(error),
         }),
       );
