@@ -1,10 +1,12 @@
-import { T, useGT } from "gt-react";
 import {
   workflowMemberModelSelection,
   type SubagentWorkflowGroup,
   type RuntimeSubagent,
 } from "@t3tools/client-runtime/state/subagentRuntime";
+import type { SideThreadOpenIntent } from "@t3tools/client-runtime/side-thread";
+import { useSideThreadTrigger } from "../../hooks/useSideThreadTrigger";
 import type { ProviderDriverKind, ProviderInstanceId, ServerProvider } from "@t3tools/contracts";
+import { msg, T, useGT, useMessages } from "gt-react";
 import { ChevronDownIcon, SquareIcon } from "lucide-react";
 import { useState, type ReactNode } from "react";
 
@@ -39,6 +41,14 @@ function phaseElapsed(phase: SubagentWorkflowGroup["phases"][number]) {
   };
 }
 
+const PHASE_STATUS_LABEL = {
+  running: msg("running", { $context: "workflow phase status" }),
+  failed: msg("failed", { $context: "workflow phase status" }),
+  stopped: msg("stopped", { $context: "workflow phase status" }),
+  done: msg("done", { $context: "workflow phase status" }),
+  "not started": msg("not started", { $context: "workflow phase status" }),
+} satisfies Record<ReturnType<typeof phaseStatusLabel>, string>;
+
 function phaseStatusLabel(phase: SubagentWorkflowGroup["phases"][number]) {
   if (phase.state === "running") return "running";
   if (phase.members.some((member) => member.status === "failed")) return "failed";
@@ -65,9 +75,10 @@ function WorkflowMemberRow({
   providers: ReadonlyArray<ServerProvider> | undefined;
   providerEntries: ReadonlyArray<ProviderInstanceEntry>;
   driver: ProviderDriverKind | undefined;
-  onOpen: (threadId: string) => void;
+  onOpen: (threadId: string, intent: SideThreadOpenIntent) => void;
 }) {
   const gt = useGT();
+  const trigger = useSideThreadTrigger();
   const threadId = member.childThreadId;
   const canOpen = threadId !== null;
   return (
@@ -78,9 +89,9 @@ function WorkflowMemberRow({
           render={
             <ThreadDetailsControl
               part="row"
-              aria-label={gt("Open {name} chat", { name: member.title })}
+              aria-label={gt("Open {title} chat", { title: member.title })}
               disabled={!canOpen}
-              onClick={() => canOpen && onOpen(threadId)}
+              {...(canOpen ? trigger((intent) => onOpen(threadId, intent)) : {})}
             />
           }
         >
@@ -139,12 +150,13 @@ export function ThreadLineageWorkflowRow({
   readonly providers: ReadonlyArray<ServerProvider> | undefined;
   readonly providerEntries: ReadonlyArray<ProviderInstanceEntry>;
   readonly driver: ProviderDriverKind | undefined;
-  readonly onOpenThread: (threadId: string) => void;
+  readonly onOpenThread: (threadId: string, intent: SideThreadOpenIntent) => void;
   readonly onStop?: (() => void) | undefined;
   readonly stopping: boolean;
   readonly stopDisabled: boolean;
 }) {
   const gt = useGT();
+  const m = useMessages();
   const [expanded, setExpanded] = useState(false);
   const [phaseOpen, setPhaseOpen] = useState<ReadonlyMap<number, boolean>>(() => new Map());
   const label = group.workflow.workflowName ?? group.workflow.title;
@@ -216,11 +228,11 @@ export function ThreadLineageWorkflowRow({
                     open
                       ? gt("Collapse {title} phase, {status}", {
                           title: phase.title,
-                          status,
+                          status: m(PHASE_STATUS_LABEL[status]),
                         })
                       : gt("Expand {title} phase, {status}", {
                           title: phase.title,
-                          status,
+                          status: m(PHASE_STATUS_LABEL[status]),
                         })
                   }
                   onClick={() => setPhaseOpen((phases) => new Map(phases).set(phase.index, !open))}
@@ -228,12 +240,14 @@ export function ThreadLineageWorkflowRow({
                     <>
                       {status === "failed" ? (
                         <SectionHeaderStatus>
-                          <T>Failed</T>
+                          <T context="workflow phase status">Failed</T>
                         </SectionHeaderStatus>
                       ) : null}
                       <span className="shrink-0 text-2xs font-normal tabular-nums">
-                        {phase.settledCount}/{phase.members.length}{" "}
-                        {phase.members.length === 1 ? "agent" : "agents"}
+                        {gt(
+                          "{count, plural, one {{settled}/{count} agent} other {{settled}/{count} agents}}",
+                          { count: phase.members.length, settled: phase.settledCount },
+                        )}
                       </span>
                       <span className="shrink-0 text-2xs font-normal tabular-nums empty:hidden">
                         <AgentElapsed agent={phaseElapsed(phase)} />

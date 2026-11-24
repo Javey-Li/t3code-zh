@@ -1,4 +1,4 @@
-import { T, msg, useGT, useMessages } from "gt-react";
+import { thrownErrorMessage } from "@t3tools/client-runtime/errors";
 import {
   AuthOrchestrationOperateScope,
   AuthSettingsWriteScope,
@@ -20,6 +20,7 @@ import {
   PlayIcon,
   WrenchIcon,
 } from "lucide-react";
+import { msg, T, useGT, useMessages, Var } from "gt-react";
 import React, { type FormEvent, type KeyboardEvent, useEffect, useRef, useState } from "react";
 
 import {
@@ -155,6 +156,7 @@ export function ProjectScriptEditorDialog({
   onDelete: (scriptId: string) => void;
   onClose: () => void;
 }) {
+  const gt = useGT();
   const canEditActions = useEnvironmentScope(environmentId, editScope);
   // Scope errors by request so late saves cannot overwrite a newer request's error.
   const [errorState, setErrorState] = useState<{
@@ -186,6 +188,8 @@ export function ProjectScriptEditorDialog({
     <>
       <Dialog
         open={request !== null}
+        // A stray click outside would discard the unsaved draft; Escape and Cancel still close it.
+        disablePointerDismissal
         onOpenChange={(open) => {
           if (!open) onClose();
         }}
@@ -215,7 +219,11 @@ export function ProjectScriptEditorDialog({
       <AlertDialog open={deleteConfirmOpen && canEditActions} onOpenChange={setDeleteConfirmOpen}>
         <AlertDialogPopup>
           <AlertDialogHeader>
-            <AlertDialogTitle>Delete action "{deleteName}"?</AlertDialogTitle>
+            <AlertDialogTitle>
+              <T>
+                Delete action "<Var>{deleteName}</Var>"?
+              </T>
+            </AlertDialogTitle>
             <AlertDialogDescription>
               <T>This action cannot be undone.</T>
             </AlertDialogDescription>
@@ -230,7 +238,7 @@ export function ProjectScriptEditorDialog({
               onClick={() => {
                 if (!request?.scriptId) return;
                 if (!readEnvironmentScope(environmentId, editScope)) {
-                  setValidationError("This connection cannot change project actions.");
+                  setValidationError(gt("This connection cannot change project actions."));
                   return;
                 }
                 setDeleteConfirmOpen(false);
@@ -271,8 +279,8 @@ function ProjectScriptEditorForm({
   onRequestDelete: (name: string) => void;
   onClose: () => void;
 }) {
-  const m = useMessages();
   const gt = useGT();
+  const m = useMessages();
   const canEditActions = useEnvironmentScope(environmentId, editScope);
   const canWriteSettings = useEnvironmentScope(environmentId, AuthSettingsWriteScope);
   const formId = React.useId();
@@ -328,24 +336,24 @@ function ProjectScriptEditorForm({
     event.preventDefault();
     if (pendingSubmissionRef.current !== null) return;
     if (!readEnvironmentScope(environmentId, editScope)) {
-      setValidationError("This connection cannot change project actions.");
+      setValidationError(gt("This connection cannot change project actions."));
       return;
     }
     const changesKeybinding =
       (keybinding.trim() || null) !== (request.initial.keybinding?.trim() || null);
     const canChangeKeybinding = readEnvironmentScope(environmentId, AuthSettingsWriteScope);
     if (changesKeybinding && !canChangeKeybinding) {
-      setValidationError("This connection cannot change keyboard shortcuts.");
+      setValidationError(gt("This connection cannot change keyboard shortcuts."));
       return;
     }
     const trimmedName = name.trim();
     const trimmedCommand = command.trim();
     if (trimmedName.length === 0) {
-      setValidationError("Name is required.");
+      setValidationError(gt("Name is required."));
       return;
     }
     if (trimmedCommand.length === 0) {
-      setValidationError("Command is required.");
+      setValidationError(gt("Command is required."));
       return;
     }
 
@@ -378,7 +386,7 @@ function ProjectScriptEditorForm({
         autoOpenPreview: trimmedPreviewUrl.length > 0 ? autoOpenPreview : false,
       } satisfies NewProjectScriptInput;
     } catch (error) {
-      setValidationError(error instanceof Error ? error.message : "Failed to save action.");
+      setValidationError(thrownErrorMessage(error, m) ?? gt("Failed to save action."));
       return;
     }
 
@@ -392,7 +400,7 @@ function ProjectScriptEditorForm({
         if (result._tag === "Failure") {
           if (!isAtomCommandInterrupted(result)) {
             const error = squashAtomCommandFailure(result);
-            setValidationError(error instanceof Error ? error.message : "Failed to save action.");
+            setValidationError(thrownErrorMessage(error, m) ?? gt("Failed to save action."));
           }
         } else {
           close();
@@ -400,7 +408,7 @@ function ProjectScriptEditorForm({
       }
     } catch (error) {
       if (pendingSubmissionRef.current === submission) {
-        setValidationError(error instanceof Error ? error.message : "Failed to save action.");
+        setValidationError(thrownErrorMessage(error, m) ?? gt("Failed to save action."));
       }
     }
     if (pendingSubmissionRef.current === submission) {
@@ -412,7 +420,7 @@ function ProjectScriptEditorForm({
   return (
     <>
       <DialogHeader>
-        <DialogTitle>{isEditing ? "Edit Action" : "Add Action"}</DialogTitle>
+        <DialogTitle>{isEditing ? <T>Edit Action</T> : <T>Add Action</T>}</DialogTitle>
         <DialogDescription>
           <T>Actions are project-scoped commands you can run from the top bar or keybindings.</T>
         </DialogDescription>
@@ -467,7 +475,7 @@ function ProjectScriptEditorForm({
                 <Input
                   id="script-name"
                   autoFocus
-                  placeholder={gt("Test")}
+                  placeholder={gt("Test", { $context: "example action name" })}
                   value={name}
                   onChange={(event) => setName(event.target.value)}
                 />
@@ -486,8 +494,10 @@ function ProjectScriptEditorForm({
                 onKeyDown={captureKeybinding}
               />
               <p className="text-xs text-muted-foreground">
-                Press a shortcut. Use <code>Backspace</code> to clear. Shortcuts are
-                environment-wide. Projects using the same action share its shortcut.
+                <T>
+                  Press a shortcut. Use <code>Backspace</code> to clear. Shortcuts are
+                  environment-wide. Projects using the same action share its shortcut.
+                </T>
               </p>
             </div>
             <div className="space-y-1.5">
@@ -496,6 +506,7 @@ function ProjectScriptEditorForm({
               </Label>
               <Textarea
                 id="script-command"
+                // oxlint-disable-next-line t3code/no-untranslated-copy -- example shell command
                 placeholder="bun test"
                 value={command}
                 onChange={(event) => setCommand(event.target.value)}
@@ -583,14 +594,14 @@ function ProjectScriptEditorForm({
             disabled={isSaving || !canEditActions}
             onClick={() => onRequestDelete(name)}
           >
-            <T>Delete</T>
+            <T context="verb, delete the action">Delete</T>
           </Button>
         )}
         <Button type="button" variant="outline" onClick={close}>
           <T>Cancel</T>
         </Button>
         <Button form={formId} type="submit" disabled={isSaving || !canEditActions}>
-          {isSaving ? "Saving…" : isEditing ? "Save changes" : "Save action"}
+          {isSaving ? <T>Saving…</T> : isEditing ? <T>Save changes</T> : <T>Save action</T>}
         </Button>
       </DialogFooter>
     </>

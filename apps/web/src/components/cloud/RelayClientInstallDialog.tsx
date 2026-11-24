@@ -1,4 +1,4 @@
-import { T, msg, useGT } from "gt-react";
+import { T, msg, useGT, useMessages, Var } from "gt-react";
 import { DownloadIcon } from "lucide-react";
 import { useSyncExternalStore } from "react";
 import type { RelayClientInstallProgressStage } from "@t3tools/contracts";
@@ -34,12 +34,13 @@ const installSteps: ReadonlyArray<{
 ];
 
 export function RelayClientInstallDialog() {
-  const gt = useGT();
   const state = useSyncExternalStore(
     subscribeRelayClientInstallDialog,
     readRelayClientInstallDialogState,
     readRelayClientInstallDialogState,
   );
+  const gt = useGT();
+  const m = useMessages();
   const view = state.status === "closing" ? state.view : state;
   const isConfirming = view.status === "confirming";
   const isInstalling = view.status === "installing";
@@ -68,12 +69,14 @@ export function RelayClientInstallDialog() {
             <DownloadIcon aria-hidden className="size-4.5 text-muted-foreground" />
           </div>
           <DialogTitle>
-            {isInstalling ? "Installing relay client" : "Install relay client?"}
+            {isInstalling ? gt("Installing relay client") : gt("Install relay client?")}
           </DialogTitle>
           <DialogDescription>
             {isInstalling
-              ? "T3 Code is preparing this environment for secure access through T3 Connect."
-              : "T3 Code needs the relay client to make this environment available through T3 Connect."}
+              ? gt("T3 Code is preparing this environment for secure access through T3 Connect.")
+              : gt(
+                  "T3 Code needs the relay client to make this environment available through T3 Connect.",
+                )}
           </DialogDescription>
         </DialogHeader>
         <DialogPanel scrollFade={false}>
@@ -81,10 +84,13 @@ export function RelayClientInstallDialog() {
             <div className="space-y-2.5">
               <div className="flex items-center justify-between gap-3 text-sm">
                 <p aria-live="polite" className="font-medium text-foreground">
-                  {activeStep?.label}
+                  {activeStep ? m(activeStep.label) : null}
                 </p>
                 <p className="shrink-0 tabular-nums text-muted-foreground">
-                  {activeStepIndex + 1} of {installSteps.length}
+                  {gt("{step} of {total}", {
+                    step: activeStepIndex + 1,
+                    total: installSteps.length,
+                  })}
                 </p>
               </div>
               <progress
@@ -103,8 +109,10 @@ export function RelayClientInstallDialog() {
                 <T>Managed relay client</T>
               </p>
               <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                T3 Code will download and install version{" "}
-                {view.status === "confirming" ? view.version : ""} locally.
+                <T>
+                  T3 Code will download and install version{" "}
+                  <Var>{view.status === "confirming" ? view.version : ""}</Var> locally.
+                </T>
               </p>
             </div>
           )}

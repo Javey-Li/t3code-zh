@@ -102,12 +102,12 @@ export function WizardSteps({
             aria-current={index === currentStep ? "step" : undefined}
             aria-label={
               index < currentStep && summaries?.[index]
-                ? gt("{step}, step {index}, {summary}", {
+                ? gt("{step}, step {number}, {summary}", {
                     step,
-                    index: index + 1,
+                    number: index + 1,
                     summary: summaries[index],
                   })
-                : gt("{step}, step {index}", { step, index: index + 1 })
+                : gt("{step}, step {number}", { step, number: index + 1 })
             }
             onClick={onStepChange ? () => onStepChange(index) : undefined}
           >

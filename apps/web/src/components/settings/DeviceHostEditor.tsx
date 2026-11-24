@@ -106,12 +106,12 @@ function DeviceHostEditorForm({
       }}
     >
       <DialogHeader>
-        <DialogTitle>{isNew ? "Add device host" : "Edit device host"}</DialogTitle>
+        <DialogTitle>{isNew ? gt("Add device host") : gt("Edit device host")}</DialogTitle>
         <DialogDescription>
           {targets.length === 1
-            ? `Connect from ${targets[0]?.label}.`
-            : `Connect from ${targets.length} selected environments.`}{" "}
-          Hosts on the same machine are skipped.
+            ? gt("Connect from {label}.", { label: targets[0]?.label ?? "" })
+            : gt("Connect from {count} selected environments.", { count: targets.length })}{" "}
+          <T>Hosts on the same machine are skipped.</T>
         </DialogDescription>
       </DialogHeader>
       <DialogPanel>
@@ -128,7 +128,7 @@ function DeviceHostEditorForm({
               const label = event.target.value;
               setDraft((current) => ({ ...current, label }));
             }}
-            placeholder="Mac mini"
+            placeholder={gt("Mac mini")}
           />
         </label>
         <label className="block space-y-1.5 text-sm">
@@ -233,7 +233,7 @@ function DeviceHostEditorForm({
                 if (Option.isSome(input)) void testConnection(input.value);
               }}
             >
-              {checking ? <Spinner size="xs" /> : null} Test connection
+              {checking ? <Spinner size="xs" /> : null} <T>Test connection</T>
             </Button>
           </div>
           {results ? (
@@ -252,19 +252,19 @@ function DeviceHostEditorForm({
                       >
                         {result.status === "pending" ? (
                           <>
-                            <Spinner size="xs" /> Checking…
+                            <Spinner size="xs" /> <T>Checking…</T>
                           </>
                         ) : result.status === "local" ? (
                           <>
-                            <MonitorIcon className="size-3" /> Already available locally
+                            <MonitorIcon className="size-3" /> <T>Already available locally</T>
                           </>
                         ) : result.status === "failed" ? (
                           <>
-                            <XIcon className="size-3" /> Failed
+                            <XIcon className="size-3" /> <T>Failed</T>
                           </>
                         ) : (
                           <>
-                            <CheckIcon className="size-3" /> Connected
+                            <CheckIcon className="size-3" /> <T>Connected</T>
                           </>
                         )}
                       </span>
@@ -296,7 +296,7 @@ function DeviceHostEditorForm({
           <T>Cancel</T>
         </Button>
         <Button type="submit" disabled={busy || checking || !valid || !draft.label.trim()}>
-          {busy ? <Spinner size="xs" /> : null} Save host
+          {busy ? <Spinner size="xs" /> : null} <T>Save host</T>
         </Button>
       </DialogFooter>
     </form>

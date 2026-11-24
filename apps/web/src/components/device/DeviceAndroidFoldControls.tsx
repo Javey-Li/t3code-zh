@@ -1,7 +1,9 @@
-import { T, useGT } from "gt-react";
+import { thrownErrorMessage } from "@t3tools/client-runtime/errors";
+import { m } from "~/i18n/messages";
 import * as Schema from "effect/Schema";
 import type { DeviceHubAccess } from "@t3tools/client-runtime/state/deviceHubAccess";
 import { useAtomMount, useAtomSet, useAtomValue } from "@effect/atom-react";
+import { T, useGT } from "gt-react";
 import { useRef, useState } from "react";
 import { Button } from "~/components/ui/button";
 import { Tooltip, TooltipPopup, TooltipTrigger } from "~/components/ui/tooltip";
@@ -62,10 +64,8 @@ export function DeviceAndroidFoldControls(props: {
         setAngle(foldAngle(fold));
         setError(
           controller.signal.aborted
-            ? "Fold command timed out."
-            : cause instanceof Error
-              ? cause.message
-              : "Could not change fold posture.",
+            ? gt("Fold command timed out.")
+            : (thrownErrorMessage(cause, m) ?? gt("Could not change fold posture.")),
         );
       })
       .finally(() => {

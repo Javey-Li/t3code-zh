@@ -1,5 +1,5 @@
-import { T, msg, useGT, useMessages } from "gt-react";
 import type { DesktopPreviewColorScheme } from "@t3tools/contracts";
+import { msg, T, useGT, useMessages, Var } from "gt-react";
 import { Minus, MoreVertical, Plus as PlusIcon, RotateCcw } from "lucide-react";
 
 import { Button } from "~/components/ui/button";
@@ -24,9 +24,9 @@ const COLOR_SCHEME_OPTIONS: ReadonlyArray<{
   value: DesktopPreviewColorScheme;
   label: string;
 }> = [
-  { value: "system", label: msg("System") },
-  { value: "light", label: msg("Light") },
-  { value: "dark", label: msg("Dark") },
+  { value: "system", label: msg("System", { $context: "color scheme" }) },
+  { value: "light", label: msg("Light", { $context: "color scheme" }) },
+  { value: "dark", label: msg("Dark", { $context: "color scheme" }) },
 ];
 
 export interface PreviewMoreMenuActions {
@@ -76,7 +76,7 @@ const MenuTriggerButton = () => {
         <MoreVertical />
       </TooltipTrigger>
       <TooltipPopup>
-        <T>More</T>
+        <T context="more actions menu">More</T>
       </TooltipPopup>
     </Tooltip>
   );
@@ -94,8 +94,8 @@ export function PreviewMoreMenu({
   findShortcutLabel,
   move,
 }: Props) {
-  const m = useMessages();
   const gt = useGT();
+  const m = useMessages();
   const zoomLabel = `${Math.round(zoomFactor * 100)}%`;
   const disabled = !enabled;
   return (
@@ -119,13 +119,13 @@ export function PreviewMoreMenu({
         {actions.toggleNativePictureInPicture ? (
           <MenuItem onClick={actions.toggleNativePictureInPicture} disabled={disabled}>
             {nativePictureInPicture
-              ? "Close separate preview window"
-              : "Open separate preview window"}
+              ? gt("Close separate preview window")
+              : gt("Open separate preview window")}
           </MenuItem>
         ) : null}
-        {move ? <MenuItem onClick={move.onMove}>{m(move.label)}</MenuItem> : null}
+        {move ? <MenuItem onClick={move.onMove}>{move.label}</MenuItem> : null}
         <MenuItem onClick={onToggleDeviceToolbar} disabled={disabled}>
-          {deviceToolbarVisible ? "Hide device toolbar" : "Show device toolbar"}
+          {deviceToolbarVisible ? gt("Hide device toolbar") : gt("Show device toolbar")}
         </MenuItem>
         <MenuSub>
           <MenuSubTrigger disabled={disabled}>
@@ -194,7 +194,11 @@ export function PreviewMoreMenu({
         <MenuGroup>
           {profileName ? (
             <MenuGroupLabel className="max-w-64">
-              <span className="block truncate">Profile: {profileName}</span>
+              <span className="block truncate">
+                <T>
+                  Profile: <Var>{profileName}</Var>
+                </T>
+              </span>
             </MenuGroupLabel>
           ) : null}
           <MenuItem onClick={actions.clearCookies}>

@@ -1,5 +1,5 @@
-import { T, useGT } from "gt-react";
 import type { PullRequestReviewGuideStop } from "@t3tools/contracts";
+import { T, useGT, useMessages } from "gt-react";
 import { CheckIcon } from "lucide-react";
 
 import { cn } from "~/lib/utils";
@@ -19,6 +19,7 @@ export function GuideRail({
   onSelect: (position: number) => void;
 }) {
   const gt = useGT();
+  const messages = useMessages();
   const reviewed = seen.size;
   const renderStop = (stop: PullRequestReviewGuideStop, index: number) => (
     <li key={index}>
@@ -34,7 +35,7 @@ export function GuideRail({
                 <T>Look closely</T>
               </Badge>
             ) : null}
-            <span>{stopSubline(stop)}</span>
+            <span>{stopSubline(stop, messages)}</span>
           </>
         }
       />
@@ -44,7 +45,10 @@ export function GuideRail({
   return (
     <nav aria-label={gt("Review tour")} className="flex min-h-0 flex-col gap-4">
       <p className="text-xs text-muted-foreground tabular-nums @max-[56rem]/guide:hidden">
-        {reviewed} of {stops.length} read
+        {gt(
+          "{total, plural, one {{reviewed} of {total} read} other {{reviewed} of {total} read}}",
+          { reviewed, total: stops.length },
+        )}
       </p>
       <div className="flex flex-col gap-4">
         <ol className="flex flex-col gap-0.5">{stops.map(renderStop)}</ol>

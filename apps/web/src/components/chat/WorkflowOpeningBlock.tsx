@@ -1,4 +1,6 @@
 import { T, useGT, useMessages } from "gt-react";
+import type { SideThreadOpenIntent } from "@t3tools/client-runtime/side-thread";
+import { useSideThreadTrigger } from "../../hooks/useSideThreadTrigger";
 import { useAtomValue } from "@effect/atom-react";
 import {
   isTerminalSubagentStatus,
@@ -39,13 +41,13 @@ function scriptMarkdown(script: string) {
 export function WorkflowOpeningBlock(props: {
   readonly opening: WorkflowOpening;
   readonly environmentId: EnvironmentId;
-  readonly onOpenThread: (threadId: string) => void;
+  readonly onOpenThread: (threadId: string, intent?: SideThreadOpenIntent) => void;
 }) {
   const gt = useGT();
-  const m = useMessages();
   const { opening } = props;
+  const m = useMessages();
   const providers = useAtomValue(providersIgnoringCheckedAtAtom(props.environmentId));
-  const headline = workflowOpeningHeadline(opening);
+  const headline = workflowOpeningHeadline(opening, m);
   const phases = opening.group?.phases.filter((phase) => phase.members.length > 0) ?? [];
   const memberRow = (member: RuntimeSubagent) =>
     opening.providerInstanceId === null ? null : (
@@ -76,7 +78,7 @@ export function WorkflowOpeningBlock(props: {
           </h3>
           {headline.description ? (
             <p className="text-xs text-muted-foreground" data-thread-find-text="true">
-              {m(headline.description)}
+              {headline.description}
             </p>
           ) : null}
         </div>
@@ -113,9 +115,10 @@ function WorkflowMemberRow(props: {
   readonly providerInstanceId: ProviderInstanceId;
   readonly providers: ReadonlyArray<ServerProvider>;
   readonly driver: ProviderDriverKind | undefined;
-  readonly onOpenThread: (threadId: string) => void;
+  readonly onOpenThread: (threadId: string, intent?: SideThreadOpenIntent) => void;
 }) {
   const gt = useGT();
+  const trigger = useSideThreadTrigger();
   const { member } = props;
   const threadId = member.childThreadId;
   const failed = member.status === "failed";
@@ -140,9 +143,9 @@ function WorkflowMemberRow(props: {
             ) : (
               <button
                 type="button"
-                aria-label={gt("Open {name}", { name: member.title })}
+                aria-label={gt("Open {title}", { title: member.title })}
                 aria-description={member.status}
-                onClick={() => props.onOpenThread(threadId)}
+                {...trigger((intent) => props.onOpenThread(threadId, intent))}
                 className={cn(
                   className,
                   "cursor-pointer transition-colors hover:bg-accent/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring/70",
@@ -208,6 +211,7 @@ function WorkflowMemberRow(props: {
 }
 
 function WorkflowScript(props: { readonly script: string }) {
+  const gt = useGT();
   const [expanded, setExpanded] = useState(false);
   const revealRef = findRevealRef(() => setExpanded(true));
   const { ref: contentRef, tallEnough: canFold } = useTallEnoughToFold();
@@ -239,7 +243,7 @@ function WorkflowScript(props: { readonly script: string }) {
             data-scroll-anchor-ignore
             onClick={() => setExpanded((value) => !value)}
           >
-            {expanded ? "Show less" : "Show full script"}
+            {expanded ? gt("Show less") : gt("Show full script")}
           </Button>
         </div>
       ) : null}

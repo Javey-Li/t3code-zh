@@ -172,6 +172,7 @@ function NoticeCard({
   readonly item: ComposerBannerStackItem;
   readonly detached?: boolean;
 }) {
+  const gt = useGT();
   return (
     <ComposerBanner.Root
       role={item.variant === "error" || item.variant === "warning" ? "alert" : undefined}
@@ -184,12 +185,12 @@ function NoticeCard({
         <ComposerBanner.Icon className="h-(--composer-banner-icon-column) self-start">
           {item.icon}
         </ComposerBanner.Icon>
-        <ComposerBanner.Content className="whitespace-nowrap">
+        <ComposerBanner.Content className="items-baseline whitespace-nowrap">
           <NoticeText
             detailsLabel={
               typeof item.title === "string"
-                ? `Show full title: ${item.title}`
-                : "Show title details"
+                ? gt("Show full title: {title}", { title: item.title })
+                : gt("Show title details")
             }
             className="min-w-0 truncate font-medium leading-7 sm:leading-6"
           >
@@ -199,8 +200,8 @@ function NoticeCard({
             <NoticeText
               detailsLabel={
                 typeof item.title === "string"
-                  ? `Show details: ${item.title}`
-                  : "Show notice details"
+                  ? gt("Show details: {title}", { title: item.title })
+                  : gt("Show notice details")
               }
               className="w-0 min-w-0 grow truncate text-muted-foreground @max-[400px]:sr-only"
             >
@@ -213,7 +214,7 @@ function NoticeCard({
             {item.actions}
             {item.onDismiss ? (
               <ComposerBanner.Dismiss
-                aria-label={item.dismissLabel ?? "Dismiss warning"}
+                aria-label={item.dismissLabel ?? gt("Dismiss warning")}
                 onClick={item.onDismiss}
               />
             ) : null}

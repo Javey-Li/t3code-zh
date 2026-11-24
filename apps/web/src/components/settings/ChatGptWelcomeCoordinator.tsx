@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, Var } from "gt-react";
 import { useAtomValue } from "@effect/atom-react";
 import { usesChatGptSharing } from "@t3tools/shared/usageLimits";
 import { useState } from "react";
@@ -75,7 +75,9 @@ export function ChatGptWelcomeCoordinator() {
             </T>
           </DialogDescription>
           <p className="text-xs text-muted-foreground">
-            {next?.providerName} on {next?.environmentLabel}
+            <T>
+              <Var>{next?.providerName}</Var> on <Var>{next?.environmentLabel}</Var>
+            </T>
           </p>
         </DialogHeader>
         <DialogFooter>

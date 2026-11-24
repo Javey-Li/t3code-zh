@@ -1,6 +1,9 @@
-import { T, useGT, useMessages } from "gt-react";
 import { pipe } from "effect/Function";
-import { ACP_REGISTRY_MAX_AGENTS, AuthProvidersManageScope } from "@t3tools/contracts";
+import {
+  ACP_REGISTRY_MAX_AGENTS,
+  ACP_REGISTRY_SEARCH_QUERY_MAX_LENGTH,
+  AuthProvidersManageScope,
+} from "@t3tools/contracts";
 import { readEnvironmentScope, useEnvironmentScope } from "../../state/session";
 import {
   isAtomCommandInterrupted,
@@ -13,9 +16,11 @@ import type {
   ProviderInstanceConfig,
 } from "@t3tools/contracts";
 import { ExternalLinkIcon, SearchIcon } from "lucide-react";
+import { msg, T, useGT, useMessages, Var } from "gt-react";
 import { type FormEvent, useState } from "react";
 
 import { useDeadlinePassed } from "../../hooks/useDeadline";
+import { m } from "../../i18n/messages";
 import { serverEnvironment } from "../../state/server";
 import { useEnvironmentQuery } from "../../state/query";
 import { useAtomCommand } from "../../state/use-atom-command";
@@ -32,7 +37,7 @@ import { providerClients } from "./providerDriverMeta";
 function errorMessage(error: unknown): string {
   return error instanceof Error && error.message.trim()
     ? error.message
-    : "The ACP could not be prepared.";
+    : m(msg("The ACP could not be prepared."));
 }
 
 const ACP_REGISTRY_SEARCH_DEBOUNCE_MS = 300;
@@ -79,6 +84,7 @@ export function useAcpRegistrySearch(environmentId: EnvironmentId, enabled: bool
             : { query: "", limit: ACP_REGISTRY_MAX_AGENTS },
         })
       : null,
+    useMessages(),
   );
   const prepareAgent = useAtomCommand(serverEnvironment.prepareAcpRegistryAgent, {
     reportFailure: false,
@@ -91,7 +97,11 @@ export function useAcpRegistrySearch(environmentId: EnvironmentId, enabled: bool
     prepareError,
     type: (text: string) => {
       setPrepareError(null);
-      setInput({ text, submitted: submittedQuery, typedAt: Date.now() });
+      setInput({
+        text: text.slice(0, ACP_REGISTRY_SEARCH_QUERY_MAX_LENGTH),
+        submitted: submittedQuery,
+        typedAt: Date.now(),
+      });
     },
     submit: () => {
       const trimmed = input.text.trim();
@@ -170,6 +180,7 @@ export function AcpRegistrySearchStep({
           </InputGroupAddon>
           <InputGroupInput
             aria-label={gt("Search ACP Registry")}
+            maxLength={ACP_REGISTRY_SEARCH_QUERY_MAX_LENGTH}
             disabled={preparingId !== null}
             onChange={(event) => registry.type(event.currentTarget.value)}
             placeholder={gt("Search agents…")}
@@ -202,11 +213,14 @@ export function AcpRegistrySearchStep({
 
       <div className="sr-only" role="status">
         {isInitialSearch
-          ? "Searching the ACP Registry."
+          ? gt("Searching the ACP Registry.")
           : isRefreshing
-            ? "Refreshing ACP Registry results."
+            ? gt("Refreshing ACP Registry results.")
             : results
-              ? `${resultCount} compatible ${resultCount === 1 ? "agent" : "agents"} found.`
+              ? gt(
+                  "{count, plural, one {{count} compatible agent found.} other {{count} compatible agents found.}}",
+                  { count: resultCount },
+                )
               : ""}
       </div>
 
@@ -267,8 +281,7 @@ function AcpRegistryAgentRow({
   readonly onAdd: (agent: AcpRegistrySearchAgent) => void;
 }) {
   const gt = useGT();
-  const m = useMessages();
-  const progressLabel = agent.distribution === "binary" ? "Downloading" : "Preparing";
+  const progressLabel = agent.distribution === "binary" ? gt("Downloading") : gt("Preparing");
   const aboutUrl = agent.website || agent.repository;
   return (
     <article className="min-w-0 py-2.5">
@@ -286,9 +299,7 @@ function AcpRegistryAgentRow({
               <h4 className="min-w-0 truncate text-sm font-medium text-foreground">{agent.name}</h4>
             </div>
             {agent.description ? (
-              <p className="mt-0.5 truncate text-xs text-muted-foreground">
-                {m(agent.description)}
-              </p>
+              <p className="mt-0.5 truncate text-xs text-muted-foreground">{agent.description}</p>
             ) : null}
           </div>
         </div>
@@ -307,7 +318,11 @@ function AcpRegistryAgentRow({
                   </Button>
                 }
               />
-              <TooltipPopup>About {agent.name}</TooltipPopup>
+              <TooltipPopup>
+                <T>
+                  About <Var>{agent.name}</Var>
+                </T>
+              </TooltipPopup>
             </Tooltip>
           ) : null}
           <Button
@@ -325,7 +340,11 @@ function AcpRegistryAgentRow({
             size="xs"
             variant={isPreparing ? "secondary" : "outline"}
           >
-            {alreadyAdded ? "Added" : isPreparing ? progressLabel : "Add"}
+            {alreadyAdded
+              ? gt("Added")
+              : isPreparing
+                ? progressLabel
+                : gt("Add", { $context: "verb, adds an agent" })}
           </Button>
         </div>
       </div>

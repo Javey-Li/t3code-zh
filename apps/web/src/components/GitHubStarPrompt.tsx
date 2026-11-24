@@ -1,3 +1,4 @@
+import { m } from "~/i18n/messages";
 import { msg } from "gt-react";
 import { type EnvironmentId, SourceControlProviderKind } from "@t3tools/contracts";
 import { runAtomCommand } from "@t3tools/client-runtime/state/runtime";
@@ -37,13 +38,13 @@ function showStarPrompt(environmentId: EnvironmentId) {
       .catch(() => undefined);
   };
   const starInPlace = async () => {
-    toastManager.update(id, { actionProps: { children: "Starring…", disabled: true } });
+    toastManager.update(id, { actionProps: { children: m(msg("Starring…")), disabled: true } });
     if (await starRepository(environmentId)) {
       // Thank them in place: a closing and opening toast would slide under the confetti.
       dismiss();
       toastManager.update(id, {
         type: "success",
-        title: "Thanks for the star!",
+        title: m(msg("Thanks for the star!")),
         description: msg("It really helps T3 Code grow."),
         timeout: 5_000,
         actionProps: undefined,
@@ -55,18 +56,20 @@ function showStarPrompt(environmentId: EnvironmentId) {
     // Browsers block new tabs once the click's activation expires; desktop opens through its bridge.
     if (window.desktopBridge || navigator.userActivation?.isActive !== false)
       return openInBrowser();
-    toastManager.update(id, { actionProps: { children: "Open GitHub", onClick: openInBrowser } });
+    toastManager.update(id, {
+      actionProps: { children: m(msg("Open GitHub")), onClick: openInBrowser },
+    });
   };
   const id = toastManager.add({
-    title: "Enjoying T3 Code?",
+    title: m(msg("Enjoying T3 Code?")),
     description: msg("Give us a star on GitHub to let us know!"),
     timeout: 0,
     onClose: dismiss,
-    actionProps: { children: "Star on GitHub", onClick: () => void starInPlace() },
+    actionProps: { children: m(msg("Star on GitHub")), onClick: () => void starInPlace() },
     data: {
       actionLayout: "stacked-end",
       leadingIcon: <StarIcon aria-hidden className="size-4 text-warning-foreground" />,
-      secondaryActionProps: { children: "Dismiss", onClick: close },
+      secondaryActionProps: { children: m(msg("Dismiss")), onClick: close },
       secondaryActionVariant: "ghost",
     },
   });

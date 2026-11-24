@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, useGT } from "gt-react";
 import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
 import { cva, type VariantProps } from "class-variance-authority";
@@ -293,6 +293,7 @@ function Sidebar({
   collapsible?: "offcanvas" | "icon" | "none";
   resizable?: boolean | SidebarResizableOptions;
 }) {
+  const gt = useGT();
   const { isMobile, state, openMobile, setOpenMobile, setMobileSheetMounted } = useSidebar();
   // Not usePanelAnimationSettings: its navigation suppression would snap the sheet shut mid-exit when an item navigates.
   const panelAnimationDurationMs = useClientSettings(
@@ -352,7 +353,7 @@ function Sidebar({
             }
           >
             <SheetHeader className="sr-only">
-              <SheetTitle>{props["aria-label"] ?? "Sidebar"}</SheetTitle>
+              <SheetTitle>{props["aria-label"] ?? gt("Sidebar")}</SheetTitle>
               <SheetDescription>
                 <T>Displays the mobile sidebar.</T>
               </SheetDescription>

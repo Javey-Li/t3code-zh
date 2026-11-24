@@ -1,5 +1,5 @@
-import { T } from "gt-react";
 import type { EnvironmentId, UnifiedSettings } from "@t3tools/contracts";
+import { T, useGT, Var } from "gt-react";
 import { PlusIcon } from "lucide-react";
 import { useState } from "react";
 
@@ -15,8 +15,10 @@ import {
 } from "../ui/alert-dialog";
 import { Button } from "../ui/button";
 import { AddUsageLimitSourceDialog } from "./AddUsageLimitSourceDialog";
-import { searchableSetting } from "./settingsSearch";
+import { useSearchableSetting } from "./settingsSearch";
 import { SettingsRow, SettingsSection } from "./settingsLayout";
+
+const CLI_PROXY_NAME = "CLI Proxy";
 
 export function UsageProviderSettings({
   environmentId,
@@ -29,6 +31,8 @@ export function UsageProviderSettings({
   readonly sources: UnifiedSettings["usageLimitSources"];
   readonly readOnly: boolean;
 }) {
+  const gt = useGT();
+  const searchableSetting = useSearchableSetting();
   const updateSettings = useUpdateEnvironmentSettings(environmentId);
   const [adding, setAdding] = useState(false);
   const entries = Object.entries(sources);
@@ -41,13 +45,13 @@ export function UsageProviderSettings({
           !readOnly ? (
             <Button size="xs" variant="outline" onClick={() => setAdding(true)}>
               <PlusIcon className="size-3" aria-hidden />
-              Add hub
+              <T>Add hub</T>
             </Button>
           ) : null
         }
       >
         {entries.length === 0 ? (
-          <SettingsRow title={<T>No hubs configured.</T>} />
+          <SettingsRow title={gt("No hubs configured.")} />
         ) : (
           entries.map(([id, source]) => {
             const label = source.label?.trim() || source.url;
@@ -57,7 +61,9 @@ export function UsageProviderSettings({
                 title={label}
                 description={
                   <span className="break-all">
-                    CLI Proxy{source.enabled ? "" : " · Disabled"}
+                    {source.enabled
+                      ? CLI_PROXY_NAME
+                      : gt("{name} · Disabled", { name: CLI_PROXY_NAME })}
                     {label !== source.url ? ` · ${source.url}` : ""}
                   </span>
                 }
@@ -103,7 +109,11 @@ function RemoveUsageProviderButton({
       <AlertDialog open={open} onOpenChange={setOpen}>
         <AlertDialogPopup>
           <AlertDialogHeader>
-            <AlertDialogTitle>Remove {label}?</AlertDialogTitle>
+            <AlertDialogTitle>
+              <T>
+                Remove <Var>{label}</Var>?
+              </T>
+            </AlertDialogTitle>
             <AlertDialogDescription>
               <T>
                 The hub's management key is deleted from this server. Its accounts leave the Limits

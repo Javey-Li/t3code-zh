@@ -21,8 +21,8 @@ export function T3ConnectSidebarAvatar() {
 }
 
 function ConfiguredT3ConnectSidebarAvatar() {
-  const m = useMessages();
   const { isLoaded, isSignedIn } = useAuth();
+  const m = useMessages();
 
   if (!isLoaded || !isSignedIn) return null;
 

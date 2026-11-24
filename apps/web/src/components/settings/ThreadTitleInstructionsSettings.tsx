@@ -1,10 +1,10 @@
-import { T, msg, useGT } from "gt-react";
+import { useGT } from "gt-react";
 import { useRef } from "react";
 
 import { Textarea } from "../ui/textarea";
 import { SettingsRow, SettingResetButton } from "./settingsLayout";
 import { useSettingsScope } from "./SettingsScopeContext";
-import { searchableSetting } from "./settingsSearch";
+import { useSearchableSetting } from "./settingsSearch";
 import {
   useScopedSettings,
   useScopedSettingsMixed,
@@ -13,6 +13,7 @@ import {
 
 export function ThreadTitleInstructionsSettings() {
   const gt = useGT();
+  const searchableSetting = useSearchableSetting();
   const settings = useScopedSettings();
   const { targets } = useSettingsScope();
   const scopeKey = targets.map((target) => `${target.environmentId}:${target.projectId}`).join(",");
@@ -25,11 +26,11 @@ export function ThreadTitleInstructionsSettings() {
       serverScoped
       settingKeys={["threadTitleInstructions"]}
       {...searchableSetting("thread-title-instructions")}
-      description={<T>Appended to the prompt for new and regenerated thread titles.</T>}
+      description={gt("Appended to the prompt for new and regenerated thread titles.")}
       resetAction={
         mixed || settings.threadTitleInstructions !== "" ? (
           <SettingResetButton
-            label={msg("thread title instructions")}
+            ariaLabel={gt("Reset thread title instructions to default")}
             onClick={() => updateSettings({ threadTitleInstructions: "" })}
           />
         ) : null
@@ -46,8 +47,8 @@ export function ThreadTitleInstructionsSettings() {
           defaultValue={mixed ? "" : settings.threadTitleInstructions}
           placeholder={
             mixed
-              ? "Mixed. Enter instructions to apply to all selected targets."
-              : "Keep titles to a few words. Lead with the main subject."
+              ? gt("Mixed. Enter instructions to apply to all selected targets.")
+              : gt("Keep titles to a few words. Lead with the main subject.")
           }
           onBlur={(event) => {
             const value = event.target.value.trim();

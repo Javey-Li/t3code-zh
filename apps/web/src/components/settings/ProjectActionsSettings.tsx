@@ -1,4 +1,5 @@
-import { T, useGT } from "gt-react";
+import { thrownErrorMessage } from "@t3tools/client-runtime/errors";
+import { m } from "~/i18n/messages";
 import { useScopedSettingsWriteAllowed } from "./useScopedSettings";
 import { AuthSettingsWriteScope } from "@t3tools/contracts";
 import { EnvironmentId, type T3ProjectFileScript } from "@t3tools/contracts";
@@ -8,6 +9,7 @@ import {
 } from "@t3tools/client-runtime/state/runtime";
 import { DEFAULT_RESOLVED_KEYBINDINGS } from "@t3tools/shared/keybindings";
 import { ChevronDownIcon, PlusIcon } from "lucide-react";
+import { T, useGT } from "gt-react";
 import { useState } from "react";
 import { useT3ProjectFileState } from "../../hooks/useT3ProjectFileScripts";
 import { useEnvironments } from "../../state/environments";
@@ -104,7 +106,10 @@ export function ProjectActionsSettings() {
       setRequest({
         scriptId: null,
         initial: payload,
-        error: error instanceof Error ? error.message : "Failed to import action.",
+        error:
+          error instanceof Error
+            ? (thrownErrorMessage(error, m) ?? error.message)
+            : gt("Failed to import action."),
       });
     }
   };
@@ -115,12 +120,10 @@ export function ProjectActionsSettings() {
         serverScoped
         settingKeys={["defaultProjectScripts"]}
         mixed={mixed}
-        title={<T>Actions</T>}
-        description={
-          <T>
-            Commands that run in this project's checkout or its worktree, with optional shortcuts.
-          </T>
-        }
+        title={gt("Actions")}
+        description={gt(
+          "Commands that run in this project's checkout or its worktree, with optional shortcuts.",
+        )}
         onResetOverride={() => void persist(() => null)}
         control={
           <div className="flex flex-wrap items-center gap-1.5">
@@ -182,7 +185,9 @@ export function ProjectActionsSettings() {
       {mixed ? (
         <SettingsRow
           title={gt("Different actions across checkouts")}
-          description="Narrow the selection above to one checkout to edit its list. Adding an action here adds it to every selected checkout."
+          description={gt(
+            "Narrow the selection above to one checkout to edit its list. Adding an action here adds it to every selected checkout.",
+          )}
         />
       ) : (
         <ProjectActionsList
@@ -194,13 +199,10 @@ export function ProjectActionsSettings() {
       )}
       {t3File.status === "invalid" ? (
         <SettingsRow
-          title={<T>t3.json is invalid</T>}
-          description={
-            <T>
-              A t3.json exists in this checkout but fails to parse, so every action and icon it
-              declares is ignored. Check the JSON syntax and icon values.
-            </T>
-          }
+          title={gt("t3.json is invalid")}
+          description={gt(
+            "A t3.json exists in this checkout but fails to parse, so every action and icon it declares is ignored. Check the JSON syntax and icon values.",
+          )}
           className="text-warning"
         />
       ) : null}

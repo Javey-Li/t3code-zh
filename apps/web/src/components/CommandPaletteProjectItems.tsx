@@ -1,6 +1,7 @@
-import { T, msg, useMessages } from "gt-react";
 import type { EnvironmentId, EnvironmentMachineKind } from "@t3tools/contracts";
+import { T, useGT } from "gt-react";
 
+import { m, type MessageResolver } from "../i18n/messages";
 import type { SidebarProjectSnapshot } from "../sidebarProjectGrouping";
 import type { Project } from "../types";
 import {
@@ -20,12 +21,6 @@ export interface CommandPaletteProjectLocation {
   readonly machine: EnvironmentMachineKind;
 }
 
-const UNKNOWN_PROJECT_LOCATION: CommandPaletteProjectLocation = {
-  kind: "remote",
-  label: msg("Remote"),
-  machine: "server",
-};
-
 interface ProjectItemsInput {
   readonly projects: ReadonlyArray<CommandPaletteProject>;
   readonly projectGroupByTargetKey: ReadonlyMap<string, SidebarProjectSnapshot>;
@@ -39,7 +34,7 @@ function projectFaviconIcon(project: Project) {
 }
 
 /** Projects as root search results; a grouped project matches on every member. */
-export function buildProjectSearchItems(input: ProjectItemsInput) {
+export function buildProjectSearchItems(input: ProjectItemsInput, resolve: MessageResolver = m) {
   const membersOf = (project: CommandPaletteProject) =>
     input.projectGroupByTargetKey.get(`${project.environmentId}:${project.id}`)?.memberProjects ?? [
       project,
@@ -48,16 +43,22 @@ export function buildProjectSearchItems(input: ProjectItemsInput) {
     projects: input.projects,
     valuePrefix: "project",
     searchTerms: (project) =>
-      buildCommandPaletteProjectMetadata({
-        projects: membersOf(project),
-        locationByEnvironmentId: input.locationByEnvironmentId,
-      }).searchTerms,
+      buildCommandPaletteProjectMetadata(
+        {
+          projects: membersOf(project),
+          locationByEnvironmentId: input.locationByEnvironmentId,
+        },
+        resolve,
+      ).searchTerms,
     renderDescription: (project) => {
       const members = membersOf(project);
-      const metadata = buildCommandPaletteProjectMetadata({
-        projects: members,
-        locationByEnvironmentId: input.locationByEnvironmentId,
-      });
+      const metadata = buildCommandPaletteProjectMetadata(
+        {
+          projects: members,
+          locationByEnvironmentId: input.locationByEnvironmentId,
+        },
+        resolve,
+      );
       return members.length > 1 ? (
         <span className="truncate">{metadata.environmentLabels.join(" · ")}</span>
       ) : (
@@ -106,14 +107,18 @@ function ProjectLocationDescription(props: {
   readonly workspaceRoot: string;
   readonly current?: boolean;
 }) {
-  const m = useMessages();
-  const location = props.location ?? UNKNOWN_PROJECT_LOCATION;
+  const gt = useGT();
+  const location: CommandPaletteProjectLocation = props.location ?? {
+    kind: "remote",
+    label: gt("Remote", { $context: "machine location" }),
+    machine: "server",
+  };
   return (
     <span className="flex min-w-0 items-center gap-1">
       {props.current ? (
         <>
           <span className="shrink-0">
-            <T>Current</T>
+            <T context="this project is the current one">Current</T>
           </span>
           <CommandPaletteMetaDot />
         </>
@@ -126,7 +131,7 @@ function ProjectLocationDescription(props: {
             className={COMMAND_PALETTE_META_ICON_CLASS}
           />
         ) : null}
-        <span className="truncate">{m(location.label)}</span>
+        <span className="truncate">{location.label}</span>
       </span>
       <CommandPaletteMetaDot />
       <span className="min-w-0 flex-1 truncate">{props.workspaceRoot}</span>

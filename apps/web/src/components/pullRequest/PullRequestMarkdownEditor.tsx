@@ -1,4 +1,4 @@
-import { T, useGT, useMessages } from "gt-react";
+import { T, useGT } from "gt-react";
 import { useState } from "react";
 import {
   AuthSourceControlWriteScope,
@@ -45,7 +45,6 @@ export function PullRequestMarkdownEditor({
   readonly onCancel: () => void;
 }) {
   const gt = useGT();
-  const m = useMessages();
   const canWriteSourceControl = useEnvironmentScope(environmentId, AuthSourceControlWriteScope);
   const [draft, setDraft] = useState(value);
   const [preview, setPreview] = useState(false);
@@ -94,10 +93,10 @@ export function PullRequestMarkdownEditor({
         }}
       >
         <Toggle value="write">
-          <T>Write</T>
+          <T context="verb, markdown editor mode">Write</T>
         </Toggle>
         <Toggle value="preview">
-          <T>Preview</T>
+          <T context="markdown editor mode">Preview</T>
         </Toggle>
       </ToggleGroup>
       {preview ? (
@@ -123,7 +122,7 @@ export function PullRequestMarkdownEditor({
           value={draft}
           rows={6}
           placeholder={placeholder}
-          aria-label={m(label)}
+          aria-label={label}
           onValueChange={setDraft}
         />
       )}
@@ -145,7 +144,7 @@ export function PullRequestMarkdownEditor({
             onSave(draft);
           }}
         >
-          {saving ? "Saving..." : "Save"}
+          {saving ? gt("Saving...") : gt("Save")}
         </Button>
       </div>
     </div>

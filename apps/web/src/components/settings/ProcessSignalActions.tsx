@@ -1,8 +1,10 @@
-import { T, useGT } from "gt-react";
 import type { ServerProcessSignal } from "@t3tools/contracts";
+import { T, useGT, Var } from "gt-react";
 
 import { InlineButton } from "../ui/button";
 import { Tooltip, TooltipPopup, TooltipTrigger } from "../ui/tooltip";
+
+const SIGNAL_SHORT_NAMES = { SIGINT: "INT", SIGKILL: "KILL" } as const;
 
 export function ProcessSignalActions({
   disabled,
@@ -19,16 +21,18 @@ export function ProcessSignalActions({
           render={
             <InlineButton
               disabled={disabled}
-              aria-label={gt("Send SIGINT")}
+              aria-label={gt("Send {signal}", { signal: "SIGINT" })}
               tone="muted"
               onClick={() => onSignal("SIGINT")}
             >
-              INT
+              {SIGNAL_SHORT_NAMES.SIGINT}
             </InlineButton>
           }
         />
         <TooltipPopup side="top">
-          <T>Send SIGINT</T>
+          <T>
+            Send <Var>{"SIGINT"}</Var>
+          </T>
         </TooltipPopup>
       </Tooltip>
       <Tooltip>
@@ -36,16 +40,18 @@ export function ProcessSignalActions({
           render={
             <InlineButton
               disabled={disabled}
-              aria-label={gt("Send SIGKILL")}
+              aria-label={gt("Send {signal}", { signal: "SIGKILL" })}
               tone="destructive"
               onClick={() => onSignal("SIGKILL")}
             >
-              KILL
+              {SIGNAL_SHORT_NAMES.SIGKILL}
             </InlineButton>
           }
         />
         <TooltipPopup side="top">
-          <T>Send SIGKILL</T>
+          <T>
+            Send <Var>{"SIGKILL"}</Var>
+          </T>
         </TooltipPopup>
       </Tooltip>
     </div>

@@ -1,4 +1,3 @@
-import { T, useGT, useMessages } from "gt-react";
 import { ThreadDetailsControl } from "./ThreadDetailsControl";
 import {
   AuthOrchestrationOperateScope,
@@ -7,12 +6,14 @@ import {
   type EnvironmentId,
   type ResolvedKeybindingsConfig,
 } from "@t3tools/contracts";
+import { T, useGT, useMessages, Var } from "gt-react";
 import { memo, use, useRef } from "react";
 import { BackgroundThreadContext } from "./backgroundThread";
 import { shortcutLabelForCommand } from "../../keybindings";
 import { OPEN_FAVORITE_EDITOR_ATTRIBUTE } from "./OpenInPickerShortcut";
 import { usePreferredEditor } from "../../editorPreferences";
 import { editorLabelForPlatform } from "../../editorLabels";
+import type { MessageResolver } from "../../i18n/messages";
 import {
   openRemoteEditorUrl,
   useRemoteCapableEditors,
@@ -83,7 +84,11 @@ type OpenInOption = {
   kind: "brand" | "generic";
 };
 
-const resolveOpenInOptions = (platform: string, availableEditors: ReadonlyArray<EditorId>) => {
+const resolveOpenInOptions = (
+  platform: string,
+  availableEditors: ReadonlyArray<EditorId>,
+  resolve: MessageResolver,
+) => {
   const baseOptions: ReadonlyArray<Omit<OpenInOption, "label">> = [
     {
       Icon: CursorIcon,
@@ -198,7 +203,10 @@ const resolveOpenInOptions = (platform: string, availableEditors: ReadonlyArray<
   const availableEditorSet = new Set(availableEditors);
   return baseOptions
     .filter((option) => availableEditorSet.has(option.value))
-    .map((option) => ({ ...option, label: editorLabelForPlatform(option.value, platform) }));
+    .map((option) => ({
+      ...option,
+      label: editorLabelForPlatform(option.value, platform, resolve),
+    }));
 };
 
 function getOpenInIconClass(kind: OpenInOption["kind"]) {
@@ -228,8 +236,8 @@ export const OpenInPicker = memo(function OpenInPicker({
   displayMode?: "toolbar" | "panel";
   revealFileManager?: boolean;
 }) {
-  const m = useMessages();
   const gt = useGT();
+  const messages = useMessages();
   const isPanel = displayMode === "panel";
   const ActionGroup = isPanel ? "div" : Group;
   const panelAnchorRef = useRef<HTMLDivElement | null>(null);
@@ -241,7 +249,7 @@ export const OpenInPicker = memo(function OpenInPicker({
   const [menuOpen, setMenuOpen] = useComposerMenuState(isHostEditorDenied);
   const remoteCapableEditors = useRemoteCapableEditors();
   const [remoteHintSeen, markRemoteHintSeen] = useRemoteOpenHint();
-  const environmentLabel = useEnvironment(environmentId)?.label ?? "this machine";
+  const environmentLabel = useEnvironment(environmentId)?.label ?? null;
   // Remote editors run on the viewing machine; only desktop can probe that PATH.
   const effectiveEditors = remote.mode === "local-exec" ? availableEditors : remoteCapableEditors;
   const [preferredEditor, setPreferredEditor] = usePreferredEditor(effectiveEditors);
@@ -286,15 +294,23 @@ export const OpenInPicker = memo(function OpenInPicker({
   );
 
   const backgroundThread = use(BackgroundThreadContext);
-  const options = resolveOpenInOptions(navigator.platform, effectiveEditors);
+  const options = resolveOpenInOptions(navigator.platform, effectiveEditors, messages);
   const primaryOption = options.find(({ value }) => value === preferredEditor) ?? null;
-  const primaryLabel = isPanel ? `Open in ${primaryOption?.label ?? "editor"}` : "Open";
+  const primaryLabel = isPanel
+    ? primaryOption
+      ? gt("Open in {editor}", { editor: primaryOption.label })
+      : gt("Open in editor")
+    : gt("Open", { $context: "verb, opens the project in the preferred editor" });
 
   const unavailableReason =
     remote.mode === "remote-unavailable"
-      ? `No SSH route to ${environmentLabel}`
+      ? environmentLabel !== null
+        ? gt("No SSH route to {environment}", { environment: environmentLabel })
+        : gt("No SSH route to this machine")
       : remote.mode === "remote-links" && options.length === 0
-        ? `Open from a computer to edit on ${environmentLabel}`
+        ? environmentLabel !== null
+          ? gt("Open from a computer to edit on {environment}", { environment: environmentLabel })
+          : gt("Open from a computer to edit on this machine")
         : null;
 
   const editorItems = (
@@ -332,7 +348,11 @@ export const OpenInPicker = memo(function OpenInPicker({
           ))}
           {remote.mode === "remote-links" && !remoteHintSeen && (
             <MenuItem density={presentation === "menu" ? "touch" : "default"} disabled>
-              Opens over SSH. Needs your key on {environmentLabel}
+              {environmentLabel !== null
+                ? gt("Opens over SSH. Needs your key on {environment}", {
+                    environment: environmentLabel,
+                  })
+                : gt("Opens over SSH. Needs your key on this machine")}
             </MenuItem>
           )}
         </>
@@ -350,7 +370,11 @@ export const OpenInPicker = memo(function OpenInPicker({
             onClick={() => openInEditor(preferredEditor)}
           >
             <primaryOption.Icon className={cn("size-4", getOpenInIconClass(primaryOption.kind))} />
-            <MenuItemLabel>Open in {m(primaryOption.label)}</MenuItemLabel>
+            <MenuItemLabel>
+              <T>
+                Open in <Var>{primaryOption.label}</Var>
+              </T>
+            </MenuItemLabel>
             {openFavoriteEditorShortcutLabel && (
               <MenuShortcut>{openFavoriteEditorShortcutLabel}</MenuShortcut>
             )}
@@ -369,7 +393,7 @@ export const OpenInPicker = memo(function OpenInPicker({
     );
   }
 
-  const primaryControlLabel = compact ? "Open file in preferred editor" : primaryLabel;
+  const primaryControlLabel = compact ? gt("Open file in preferred editor") : primaryLabel;
   const primaryControl = (
     <ThreadDetailsControl
       aria-label={primaryControlLabel}
@@ -385,7 +409,7 @@ export const OpenInPicker = memo(function OpenInPicker({
         if (!preferredEditor) return;
         const label = editorLabelForPlatform(preferredEditor, navigator.platform);
         void openInEditor(preferredEditor).then((opened) => {
-          if (opened) announce(`Opened in ${label}`);
+          if (opened) announce(gt("Opened in {editor}", { editor: label }));
         });
       }}
     >

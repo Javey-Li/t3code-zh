@@ -22,12 +22,16 @@ export function InstallT3Commands({
         <T>Windows (PowerShell)</T>
       </p>
       <CommandBlock command="irm https://t3.codes/install.ps1 | iex" />
-      <p className="text-xs text-muted-foreground">Then</p>
+      <p className="text-xs text-muted-foreground">
+        <T>Then</T>
+      </p>
       <CommandBlock command={command} />
       <p className="text-xs text-muted-foreground">
-        Skip the install if you already have <code className="font-mono">t3</code>. If{" "}
-        <code className="font-mono">t3</code> is not found after installing, add the folder the
-        installer names to your PATH.
+        <T>
+          Skip the install if you already have <code className="font-mono">t3</code>. If{" "}
+          <code className="font-mono">t3</code> is not found after installing, add the folder the
+          installer names to your PATH.
+        </T>
       </p>
     </div>
   );

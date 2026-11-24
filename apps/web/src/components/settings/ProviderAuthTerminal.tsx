@@ -37,6 +37,8 @@ export default function ProviderAuthTerminal({
       theme: terminalThemeFromApp(element),
       font: { size: 13 },
       onData: (data) => respond({ type: "terminal", data }),
+      onBinary: (data) => respond({ type: "terminal", data, binary: true }),
+      onReply: (data) => respond({ type: "terminal", data }),
       onResize: (cols, rows) => respond({ type: "terminal", data: "", size: { cols, rows } }),
       onSelectionChange: () => {},
       beforeKey: (event) => event.key !== "Tab",
@@ -44,7 +46,7 @@ export default function ProviderAuthTerminal({
         if (/^https?:\/\//i.test(url))
           void ensureLocalApi()
             .shell.openExternal(url)
-            .catch(() => setError("Could not open the provider link."));
+            .catch(() => setError(gt("Could not open the provider link.")));
       },
     })
       .then((terminal) => {
@@ -56,7 +58,7 @@ export default function ProviderAuthTerminal({
         written.current = 0;
         setSurface(terminal);
       })
-      .catch(() => setError("Could not load the sign-in terminal. Cancel and retry sign-in."));
+      .catch(() => setError(gt("Could not load the sign-in terminal. Cancel and retry sign-in.")));
     return () => {
       disposed = true;
       created?.dispose();

@@ -1,10 +1,11 @@
-import { T, useGT } from "gt-react";
 import { PermissionChecklist, PermissionContinueButton } from "../permissions/PermissionChecklist";
 import { usePermissionStatus } from "../permissions/usePermissionStatus";
-import type { BrowserImportSource } from "@t3tools/contracts";
-import { BROWSER_IMPORT_FAILURE_COPY } from "@t3tools/contracts";
+import { browserImportFailureMessage } from "@t3tools/client-runtime/contract-labels";
+import type { BROWSER_IMPORT_FAILURE_COPY, BrowserImportSource } from "@t3tools/contracts";
 import { ArrowDownIcon, ArrowRightIcon, CheckIcon, HardDriveIcon } from "lucide-react";
 import { useRef, useState } from "react";
+import { msg, T, useGT, useMessages, Var } from "gt-react";
+import type { MessageResolver } from "~/i18n/messages";
 
 import { cn, randomUUID } from "~/lib/utils";
 
@@ -67,6 +68,7 @@ export function BrowserImportWizard({
   onCheckFullDiskAccess,
   onClose,
 }: BrowserImportWizardProps) {
+  const gt = useGT();
   const [source, setSource] = useState(initialSource);
   const [step, setStep] = useState<WizardStep>(() => initialWizardStep(initialSource));
   const [sourceProfileDirectory, setSourceProfileDirectory] = useState(
@@ -84,7 +86,9 @@ export function BrowserImportWizard({
     if (importInFlight.current) return;
     const chosen = resolveWizardTarget(target, newProfileId.current, targetProfiles);
     if (chosen === undefined) {
-      setTargetError("That profile is no longer available. Choose where to import these cookies.");
+      setTargetError(
+        gt("That profile is no longer available. Choose where to import these cookies."),
+      );
       setStep({ step: "configure" });
       return;
     }
@@ -194,9 +198,16 @@ function QuitStep({
   return (
     <>
       <DialogHeader>
-        <DialogTitle>Quit {source.name} to import</DialogTitle>
+        <DialogTitle>
+          <T>
+            Quit <Var>{source.name}</Var> to import
+          </T>
+        </DialogTitle>
         <DialogDescription>
-          {source.name} is open, so its cookies can&rsquo;t be read yet. Quit it, then continue.
+          <T>
+            <Var>{source.name}</Var> is open, so its cookies can&rsquo;t be read yet. Quit it, then
+            continue.
+          </T>
         </DialogDescription>
       </DialogHeader>
       <DialogFooter>
@@ -204,21 +215,22 @@ function QuitStep({
           <T>Cancel</T>
         </Button>
         <DialogAction onClick={onRechecked}>
-          <T>I’ve quit it</T>
+          <T>I&rsquo;ve quit it</T>
         </DialogAction>
       </DialogFooter>
     </>
   );
 }
 
-function cookieCountLabel(count: number | undefined): string | undefined {
+function cookieCountLabel(count: number | undefined, resolve: MessageResolver): string | undefined {
   if (count === undefined) return undefined;
-  if (count === 0) return "no cookies";
-  return `${count.toLocaleString()} ${count === 1 ? "cookie" : "cookies"}`;
-}
-
-function cookieResultCount(count: number): string {
-  return `${count.toLocaleString()} ${count === 1 ? "cookie" : "cookies"}`;
+  if (count === 0) return resolve(msg("no cookies"));
+  return resolve(
+    msg("{count, plural, one {{formatted} cookie} other {{formatted} cookies}}", {
+      count,
+      formatted: count.toLocaleString(),
+    }),
+  );
 }
 
 type ConfigureStepProps = {
@@ -250,6 +262,7 @@ function FullDiskAccessStep({
   readonly onGranted: () => void;
   readonly stillRequired: boolean;
 }) {
+  const gt = useGT();
   const [opening, setOpening] = useState(false);
   const [openingError, setOpeningError] = useState<string | null>(null);
   const permission = usePermissionStatus(async () => ({ fullDiskAccess: await onCheck() }), {
@@ -261,17 +274,23 @@ function FullDiskAccessStep({
     setOpeningError(null);
     void Promise.resolve()
       .then(onOpenSettings)
-      .catch(() => setOpeningError("Could not open System Settings. Try Allow again."))
+      .catch(() => setOpeningError(gt("Could not open System Settings. Try Allow again.")))
       .finally(() => setOpening(false));
   };
   return (
     <>
       <DialogHeader>
-        <DialogTitle>Let T3 Code read {source.name}&rsquo;s cookies</DialogTitle>
+        <DialogTitle>
+          <T>
+            Let T3 Code read <Var>{source.name}</Var>&rsquo;s cookies
+          </T>
+        </DialogTitle>
         <DialogDescription>
-          To import cookies from {source.name}, T3 Code needs Full Disk Access. Turn it on in System
-          Settings, then come back to finish the import. You can revoke it again once the import is
-          done.
+          <T>
+            To import cookies from <Var>{source.name}</Var>, T3 Code needs Full Disk Access. Turn it
+            on in System Settings, then come back to finish the import. You can revoke it again once
+            the import is done.
+          </T>
         </DialogDescription>
       </DialogHeader>
       <DialogPanel>
@@ -286,8 +305,10 @@ function FullDiskAccessStep({
                   aria-hidden="true"
                 />
               ),
-              title: "Full Disk Access",
-              description: `Read ${source.name}'s cookies for this import.`,
+              title: gt("Full Disk Access"),
+              description: gt("Read {browser}''s cookies for this import.", {
+                browser: source.name,
+              }),
               granted: permission.status.fullDiskAccess,
               onAllow: () => void allow(),
             },
@@ -301,8 +322,12 @@ function FullDiskAccessStep({
         {!permission.isReady(["fullDiskAccess"]) ? (
           <p className="mt-3 text-xs text-muted-foreground">
             {stillRequired
-              ? "Access is still required. Quit and reopen T3 Code if you just allowed it, then retry the import."
-              : "If access doesn't update after you allow it, quit and reopen T3 Code, then retry the import."}
+              ? gt(
+                  "Access is still required. Quit and reopen T3 Code if you just allowed it, then retry the import.",
+                )
+              : gt(
+                  "If access doesn't update after you allow it, quit and reopen T3 Code, then retry the import.",
+                )}
           </p>
         ) : null}
       </DialogPanel>
@@ -335,6 +360,7 @@ function ConfigureStep({
   onImport,
 }: ConfigureStepProps) {
   const gt = useGT();
+  const m = useMessages();
   const targetMissing =
     target.kind === "existing" &&
     !targetProfiles.some((profile) => profile.id === target.profileId);
@@ -342,30 +368,36 @@ function ConfigureStep({
   const targetFeedback =
     targetError ??
     (targetMissing
-      ? "That profile is no longer available. Choose where to import these cookies."
+      ? gt("That profile is no longer available. Choose where to import these cookies.")
       : targetUncreatable
-        ? "You've reached the profile limit. Choose an existing profile to import into."
+        ? gt("You've reached the profile limit. Choose an existing profile to import into.")
         : undefined);
   return (
     <>
       <DialogHeader>
-        <DialogTitle>Import from {source.name}</DialogTitle>
+        <DialogTitle>
+          <T>
+            Import from <Var>{source.name}</Var>
+          </T>
+        </DialogTitle>
         <DialogDescription>
-          Choose which cookies to import for {destinationEnvironmentName}.
+          <T>
+            Choose which cookies to import for <Var>{destinationEnvironmentName}</Var>.
+          </T>
         </DialogDescription>
       </DialogHeader>
       <DialogPanel>
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
           <section className="flex-1 space-y-2">
             <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-              <T>From</T>
+              {gt("From", { $context: "source browser profile" })}
             </p>
             {source.profiles.map((profile) => (
               <SelectableTile
                 key={profile.directory}
                 selected={sourceProfileDirectory === profile.directory}
                 title={profile.name}
-                subtitle={cookieCountLabel(profile.cookieCount)}
+                subtitle={cookieCountLabel(profile.cookieCount, m)}
                 onSelect={() => onSourceProfileChange(profile.directory)}
               />
             ))}
@@ -376,7 +408,7 @@ function ConfigureStep({
           </div>
           <section className="flex-1 space-y-2">
             <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-              <T>Into</T>
+              {gt("Into", { $context: "destination profile" })}
             </p>
             {canCreateProfile ? (
               <SelectableTile
@@ -411,7 +443,7 @@ function ConfigureStep({
           disabled={sourceProfileDirectory === "" || targetMissing || targetUncreatable}
           onClick={onImport}
         >
-          <T>Import</T>
+          {gt("Import", { $context: "verb" })}
         </Button>
       </DialogFooter>
     </>
@@ -491,21 +523,26 @@ function CheckingStep({
   readonly sourceName: string;
   readonly check: "browser" | "fullDiskAccess";
 }) {
+  const gt = useGT();
   return (
     <>
       <DialogHeader>
-        <DialogTitle>Checking {sourceName}</DialogTitle>
+        <DialogTitle>
+          <T>
+            Checking <Var>{sourceName}</Var>
+          </T>
+        </DialogTitle>
         <DialogDescription>
           {check === "fullDiskAccess"
-            ? "Checking Full Disk Access."
-            : "Checking whether the browser has closed."}
+            ? gt("Checking Full Disk Access.")
+            : gt("Checking whether the browser has closed.")}
         </DialogDescription>
       </DialogHeader>
       <DialogPanel>
         <div className="flex items-center gap-3 py-2">
           <Spinner size="md" tone="muted" />
           <span className="text-sm text-muted-foreground">
-            {check === "fullDiskAccess" ? "Checking access…" : "Checking…"}
+            {check === "fullDiskAccess" ? gt("Checking access…") : gt("Checking…")}
           </span>
         </div>
       </DialogPanel>
@@ -528,30 +565,49 @@ function DoneStep({
   readonly destinationEnvironmentName: string;
   readonly onClose: () => void;
 }) {
+  const gt = useGT();
+  const m = useMessages();
+  const environment = destinationEnvironmentName;
   return (
     <>
       <DialogHeader>
         <DialogTitle>
           {imported > 0
-            ? `Imported ${cookieResultCount(imported)}`
+            ? gt(
+                "{count, plural, one {Imported {formatted} cookie} other {Imported {formatted} cookies}}",
+                { count: imported, formatted: imported.toLocaleString() },
+              )
             : skipped > 0
-              ? `Skipped ${cookieResultCount(skipped)}`
-              : "No cookies found"}
+              ? gt(
+                  "{count, plural, one {Skipped {formatted} cookie} other {Skipped {formatted} cookies}}",
+                  { count: skipped, formatted: skipped.toLocaleString() },
+                )
+              : gt("No cookies found")}
         </DialogTitle>
         <DialogDescription>
           {imported > 0
-            ? `Added to ${targetName} for ${destinationEnvironmentName}.${skipped > 0 ? ` ${cookieResultCount(skipped)} skipped.` : ""}`
+            ? skipped > 0
+              ? gt(
+                  "{count, plural, one {Added to {target} for {environment}. {formatted} cookie skipped.} other {Added to {target} for {environment}. {formatted} cookies skipped.}}",
+                  {
+                    count: skipped,
+                    formatted: skipped.toLocaleString(),
+                    target: targetName,
+                    environment,
+                  },
+                )
+              : gt("Added to {target} for {environment}.", { target: targetName, environment })
             : skipped > 0
-              ? `No cookies were imported for ${destinationEnvironmentName}.`
-              : `There were no cookies to import for ${destinationEnvironmentName}.`}
+              ? gt("No cookies were imported for {environment}.", { environment })
+              : gt("There were no cookies to import for {environment}.", { environment })}
         </DialogDescription>
       </DialogHeader>
       {skippedDomains.length > 0 ? (
         <DialogPanel>
           <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-            <T>Skipped</T>
+            {gt("Skipped", { $context: "heading, cookie domains that were skipped" })}
           </p>
-          <p className="mt-1 text-sm text-foreground">{formatSkippedDomains(skippedDomains)}</p>
+          <p className="mt-1 text-sm text-foreground">{formatSkippedDomains(skippedDomains, m)}</p>
         </DialogPanel>
       ) : null}
       <DialogFooter>
@@ -576,11 +632,18 @@ function BlockedStep({
   readonly onClose: () => void;
   readonly onRetry: (() => void) | undefined;
 }) {
+  const messages = useMessages();
   return (
     <>
       <DialogHeader>
-        <DialogTitle>Couldn&rsquo;t import from {source.name}</DialogTitle>
-        <DialogDescription>{message ?? BROWSER_IMPORT_FAILURE_COPY[reason]}</DialogDescription>
+        <DialogTitle>
+          <T>
+            Couldn&rsquo;t import from <Var>{source.name}</Var>
+          </T>
+        </DialogTitle>
+        <DialogDescription>
+          {message ?? browserImportFailureMessage(reason, messages)}
+        </DialogDescription>
       </DialogHeader>
       <DialogFooter>
         <Button variant="outline" onClick={onClose}>

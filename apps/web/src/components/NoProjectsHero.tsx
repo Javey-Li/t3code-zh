@@ -1,5 +1,5 @@
-import { T } from "gt-react";
 import { workspaceAreaProps } from "../lib/workspaceFocus";
+import { T, useGT } from "gt-react";
 import { MessageSquareDashedIcon, PlusIcon } from "lucide-react";
 
 import { openCommandPalette } from "../commandPaletteBus";
@@ -12,7 +12,8 @@ import { SidebarInset } from "./ui/sidebar";
 import { WorkspacePageHeader } from "./WorkspacePageHeader";
 
 export function NoProjectsHero() {
-  const contentArea = workspaceAreaProps("home", 1, "Home");
+  const gt = useGT();
+  const contentArea = workspaceAreaProps("home", 1, gt("Home"));
   const primaryEnvironmentId = usePrimaryEnvironmentId();
   const { scratchEnvironmentId, startScratchThread } = useScratchProject();
   const scratchTargetEnvironmentId = scratchEnvironmentId(primaryEnvironmentId);
@@ -30,14 +31,12 @@ export function NoProjectsHero() {
           <div className="w-full max-w-lg px-8 py-12">
             <EmptyHeader className="max-w-none">
               <EmptyTitle>
-                <T>
-                  <T>What should we work on?</T>
-                </T>
+                <T>What should we work on?</T>
               </EmptyTitle>
               <EmptyDescription>
                 {scratchTargetEnvironmentId === null
-                  ? "Add a project to start your first thread."
-                  : "Add a project, or start without one."}
+                  ? gt("Add a project to start your first thread.")
+                  : gt("Add a project, or start without one.")}
               </EmptyDescription>
               <div className="mt-6 flex justify-center gap-2">
                 <Button size="sm" onClick={() => openCommandPalette({ open: "add-project" })}>

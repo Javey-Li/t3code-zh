@@ -1,4 +1,4 @@
-import { useGT } from "gt-react";
+import { T, useGT, Var } from "gt-react";
 import { ExternalLinkIcon, PaperclipIcon } from "lucide-react";
 import { markdownImageSourceFragment } from "@t3tools/client-runtime/markdown-images";
 import { sourceControlClients } from "@t3tools/client-runtime/source-control-clients";
@@ -9,7 +9,7 @@ import {
   type ScopedThreadRef,
 } from "@t3tools/contracts";
 import { createContext, useContext } from "react";
-import type { PluggableList } from "unified";
+import type { MarkdownExtensions } from "~/markdown/wordsHast";
 
 import { useAssetUrlRefresh, useAssetUrlState } from "~/assets/assetUrls";
 import { cn } from "~/lib/utils";
@@ -21,12 +21,16 @@ import { splitPullRequestBody, type PullRequestBodySegment } from "./pullRequest
 
 export const PullRequestMarkdownContext = createContext<{
   /** Stable per repository, so comments share one renderer and its parse cache. */
-  remarkPlugins: PluggableList;
+  extensions: MarkdownExtensions;
   lineBreaks: boolean;
   threadRef: ScopedThreadRef | null;
   /** The change request's `owner/name`, which can differ from the checkout the body renders in. */
   repository: string | null;
 } | null>(null);
+
+/** The list page panel that links in thread-less markdown open in; the Issues page provides its own. */
+export const PullRequestMarkdownPanelContext =
+  createContext<ScopedThreadRef>(PULL_REQUESTS_PANEL_REF);
 
 function PullRequestHostVideo({
   environmentId,
@@ -81,6 +85,7 @@ function PullRequestBodySegmentView({
 }) {
   const gt = useGT();
   const context = useContext(PullRequestMarkdownContext);
+  const listPanelRef = useContext(PullRequestMarkdownPanelContext);
   const repository = context?.repository ?? undefined;
   if (segment.kind === "table") {
     return (
@@ -122,9 +127,9 @@ function PullRequestBodySegmentView({
         text={segment.kind === "markdown" ? segment.text : `![](<${segment.url}>)`}
         cwd={cwd}
         threadRef={threadRef}
-        pullRequestPanelRef={threadRef ?? PULL_REQUESTS_PANEL_REF}
+        pullRequestPanelRef={threadRef ?? listPanelRef}
         environmentId={environmentId}
-        {...(context ? { extraRemarkPlugins: context.remarkPlugins } : {})}
+        {...(context ? { extensions: context.extensions } : {})}
         lineBreaks={lineBreaks}
         sourceControlMedia
         sourceControlMediaRepository={repository}
@@ -175,7 +180,10 @@ function PullRequestBodySegmentView({
     >
       <PaperclipIcon aria-hidden className="size-3.5 shrink-0 text-muted-foreground" />
       <span className="min-w-0 flex-1 truncate">
-        Open attachment on {hostMedia?.definition.label ?? new URL(segment.url).hostname}
+        <T>
+          Open attachment on{" "}
+          <Var>{hostMedia?.definition.label ?? new URL(segment.url).hostname}</Var>
+        </T>
       </span>
       <ExternalLinkIcon aria-hidden className="size-3 shrink-0 text-muted-foreground" />
     </a>

@@ -1,8 +1,10 @@
-import { T, msg, useGT, useMessages } from "gt-react";
+import { thrownErrorMessage } from "@t3tools/client-runtime/errors";
+import { m } from "~/i18n/messages";
 import { pipe } from "effect/Function";
 import { ChevronsLeftRightEllipsisIcon, PlusIcon, TerminalIcon } from "lucide-react";
 import { useAtomValue } from "@effect/atom-react";
 import { type KeyboardEvent, type ReactNode, useEffect, useRef, useState } from "react";
+import { T, useGT, useMessages, Var } from "gt-react";
 import {
   type DesktopDiscoveredSshHost,
   type DesktopSshEnvironmentTarget,
@@ -51,6 +53,7 @@ import {
 import { useEnvironmentQuery } from "~/state/query";
 import { desktopSshHostsStateAtom, filterDiscoveredSshHosts } from "~/state/desktopSshHosts";
 import { type EnvironmentPresentation, useRelayEnvironmentDiscovery } from "~/state/environments";
+import type { AddEnvironmentPrefill } from "~/state/linkedThreadView";
 import { useAtomCommand } from "../../state/use-atom-command";
 import { primaryServerKeybindingsAtom } from "~/state/server";
 import {
@@ -66,6 +69,7 @@ import {
   formatDesktopSshConnectionError,
 } from "./ConnectionsSettings.logic";
 
+const SSH_PROTOCOL_NAME = "SSH";
 const EMPTY_DISCOVERED_SSH_HOSTS: ReadonlyArray<DesktopDiscoveredSshHost> = [];
 // known_hosts can list one host on several ports. Its own bracketed form keeps an IPv6
 // host's port separate from the address; no portless known_hosts entry has that form.
@@ -74,20 +78,25 @@ const sshHostSuggestionValue = (target: DesktopDiscoveredSshHost) =>
 
 export function AddEnvironmentDialog({
   open,
+  prefill = null,
   routeTarget,
   error,
   savedEnvironments,
+  initialHost = "",
   onOpenChange,
   onErrorChange,
 }: {
   readonly open: boolean;
+  /** A machine the user chose elsewhere to pair with; they supply only the pairing code. */
+  readonly prefill?: AddEnvironmentPrefill | null;
   readonly routeTarget: EnvironmentPresentation | null;
+  /** An address already known for the machine being added, such as one a link uses. */
+  readonly initialHost?: string;
   readonly error: string | null;
   readonly savedEnvironments: ReadonlyArray<EnvironmentPresentation>;
   readonly onOpenChange: (open: boolean) => void;
   readonly onErrorChange: (error: string | null) => void;
 }) {
-  const m = useMessages();
   const gt = useGT();
   const desktopBridge = window.desktopBridge;
   const keybindings = useAtomValue(primaryServerKeybindingsAtom);
@@ -117,7 +126,7 @@ export function AddEnvironmentDialog({
     return keys;
   })();
   const [savedBackendMode, setSavedBackendMode] = useState<"remote" | "ssh">("remote");
-  const [savedBackendHost, setSavedBackendHost] = useState("");
+  const [savedBackendHost, setSavedBackendHost] = useState(prefill?.host ?? initialHost);
   const [savedBackendPairingCode, setSavedBackendPairingCode] = useState("");
   const [savedBackendSshHost, setSavedBackendSshHost] = useState("");
   const [savedBackendSshUsername, setSavedBackendSshUsername] = useState("");
@@ -129,6 +138,7 @@ export function AddEnvironmentDialog({
   const isSshDiscoveryActive = desktopBridge !== undefined && open && savedBackendMode === "ssh";
   const desktopSshHosts = useEnvironmentQuery(
     isSshDiscoveryActive ? desktopSshHostsStateAtom : null,
+    useMessages(),
   );
   // The discovery atom is kept alive across dialog opens, so re-read SSH config
   // each time the SSH tab is shown; stale hosts stay visible while it refreshes.
@@ -158,7 +168,7 @@ export function AddEnvironmentDialog({
     if (!nextOpen) {
       savedBackendSessionRef.current += 1;
       setSavedBackendMode("remote");
-      setSavedBackendHost("");
+      setSavedBackendHost(initialHost);
       setSavedBackendPairingCode("");
       setSavedBackendSshHost("");
       setSavedBackendSshUsername("");
@@ -186,10 +196,13 @@ export function AddEnvironmentDialog({
     handleOpenChange(false);
     toastManager.add({
       type: "success",
-      title: routeTarget ? "Route added" : "Environment connected",
+      title: routeTarget ? gt("Route added") : gt("Environment connected"),
       description: routeTarget
-        ? `${routeTarget.label} can now be reached over SSH ${target.alias}.`
-        : `${target.alias} is ready over an SSH-managed tunnel.`,
+        ? gt("{environment} can now be reached over SSH {host}.", {
+            environment: routeTarget.label,
+            host: target.alias,
+          })
+        : gt("{host} is ready over an SSH-managed tunnel.", { host: target.alias }),
     });
     setIsAddingSavedBackend(false);
   };
@@ -221,7 +234,10 @@ export function AddEnvironmentDialog({
         pairingCode: savedBackendPairingCode,
       });
     } catch (error) {
-      const message = error instanceof Error ? error.message : "Failed to add backend.";
+      const message =
+        error instanceof Error
+          ? (thrownErrorMessage(error, m) ?? error.message)
+          : gt("Failed to add backend.");
       onErrorChange(message);
       toastManager.add(
         stackedThreadToast({
@@ -234,14 +250,18 @@ export function AddEnvironmentDialog({
       return;
     }
 
+    const expected = routeTarget ?? prefill;
     const result = await connectPairing({
       ...remotePairingInput,
-      ...(routeTarget ? { expectedEnvironmentId: routeTarget.environmentId } : {}),
+      ...(expected ? { expectedEnvironmentId: expected.environmentId } : {}),
     });
     if (result._tag === "Failure") {
       if (!isAtomCommandInterrupted(result)) {
         const error = squashAtomCommandFailure(result);
-        const message = error instanceof Error ? error.message : "Failed to add backend.";
+        const message =
+          error instanceof Error
+            ? (thrownErrorMessage(error, m) ?? error.message)
+            : gt("Failed to add backend.");
         onErrorChange(message);
         toastManager.add(
           stackedThreadToast({
@@ -261,12 +281,14 @@ export function AddEnvironmentDialog({
         ? {
             type: "success",
             title: gt("Route added"),
-            description: `${routeTarget.label} now has another way to connect.`,
+            description: gt("{environment} now has another way to connect.", {
+              environment: routeTarget.label,
+            }),
           }
         : {
             type: "success",
             title: gt("Backend added"),
-            description: msg("The environment is saved and will reconnect on app startup."),
+            description: gt("The environment is saved and will reconnect on app startup."),
           },
     );
     setIsAddingSavedBackend(false);
@@ -372,6 +394,7 @@ export function AddEnvironmentDialog({
         )}
         disabled={isAddingSavedBackend}
         onClick={() => {
+          if (!selected) onErrorChange(null);
           setSavedBackendMode(input.mode);
         }}
       >
@@ -390,7 +413,7 @@ export function AddEnvironmentDialog({
         <span className="min-w-0">
           <span className="block text-sm font-medium text-foreground">{input.title}</span>
           <span className="mt-1 block text-xs leading-relaxed text-muted-foreground">
-            {m(input.description)}
+            {input.description}
           </span>
         </span>
       </button>
@@ -419,7 +442,7 @@ export function AddEnvironmentDialog({
           <Input
             value={savedBackendPairingCode}
             onChange={(event) => setSavedBackendPairingCode(event.target.value)}
-            placeholder="PAIRCODE"
+            placeholder={gt("PAIRCODE")}
             disabled={isAddingSavedBackend}
             spellCheck={false}
           />
@@ -453,7 +476,11 @@ export function AddEnvironmentDialog({
     if (result._tag === "Failure") {
       if (!isAtomCommandInterrupted(result)) {
         const error = squashAtomCommandFailure(result);
-        onErrorChange(error instanceof Error ? error.message : "Could not add the route.");
+        onErrorChange(
+          error instanceof Error
+            ? (thrownErrorMessage(error, m) ?? error.message)
+            : gt("Could not add the route."),
+        );
       }
       return;
     }
@@ -461,7 +488,10 @@ export function AddEnvironmentDialog({
     toastManager.add({
       type: "success",
       title: gt("Route added"),
-      description: `${routeTarget.label} falls back to T3 Connect when its other routes are unreachable.`,
+      description: gt(
+        "{environment} falls back to T3 Connect when its other routes are unreachable.",
+        { environment: routeTarget.label },
+      ),
     });
   };
   const renderRemoteModeBody = () => (
@@ -490,7 +520,11 @@ export function AddEnvironmentDialog({
         onClick={() => void handleAddSavedBackend()}
       >
         <PlusIcon className="size-3.5" />
-        {isAddingSavedBackend ? "Adding…" : routeTarget ? "Add route" : "Add environment"}
+        {isAddingSavedBackend
+          ? gt("Adding…")
+          : routeTarget
+            ? gt("Add route")
+            : gt("Add environment")}
       </Button>
     </div>
   );
@@ -571,7 +605,9 @@ export function AddEnvironmentDialog({
                   </AutocompleteList>
                 ) : (
                   <AutocompleteEmpty className="break-all">
-                    No hosts match "{savedBackendSshHost.trim()}".
+                    <T>
+                      No hosts match "<Var>{savedBackendSshHost.trim()}</Var>".
+                    </T>
                   </AutocompleteEmpty>
                 )}
               </AutocompletePopup>
@@ -580,7 +616,9 @@ export function AddEnvironmentDialog({
         </div>
         <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_7rem]">
           <label className="block">
-            <span className="mb-1.5 block text-xs font-medium text-foreground">Username</span>
+            <span className="mb-1.5 block text-xs font-medium text-foreground">
+              <T>Username</T>
+            </span>
             <Input
               value={savedBackendSshUsername}
               onChange={(event) => setSavedBackendSshUsername(event.target.value)}
@@ -617,7 +655,11 @@ export function AddEnvironmentDialog({
           onClick={() => void handleAddSavedBackend()}
         >
           <PlusIcon className="size-3.5" />
-          {isAddingSavedBackend ? "Adding…" : routeTarget ? "Add route" : "Add environment"}
+          {isAddingSavedBackend
+            ? gt("Adding…")
+            : routeTarget
+              ? gt("Add route")
+              : gt("Add environment")}
         </Button>
       </div>
     </div>
@@ -647,12 +689,23 @@ export function AddEnvironmentDialog({
       <DialogPopup className="max-h-[80dvh] sm:max-w-3xl">
         <DialogHeader>
           <DialogTitle>
-            {routeTarget ? `Add a route to ${routeTarget.label}` : "Add Environment"}
+            {routeTarget
+              ? gt("Add a route to {environment}", { environment: routeTarget.label })
+              : prefill
+                ? gt("Connect to {environment}", { environment: prefill.label })
+                : gt("Add Environment")}
           </DialogTitle>
           <DialogDescription>
             {routeTarget
-              ? "Pair this machine again over another address, such as its Tailscale name. It joins the existing routes instead of adding a second machine."
-              : "Pair another environment to this client."}
+              ? gt(
+                  "Pair this machine again over another address, such as its Tailscale name. It joins the existing routes instead of adding a second machine.",
+                )
+              : prefill
+                ? gt(
+                    "Create a pairing code on {environment}, in its Settings → Sharing & access or with `t3 auth pairing create`, and enter it here.",
+                    { environment: prefill.label },
+                  )
+                : gt("Pair another environment to this client.")}
           </DialogDescription>
         </DialogHeader>
         <DialogPanel>
@@ -661,14 +714,14 @@ export function AddEnvironmentDialog({
               {renderConnectionModeCard({
                 mode: "remote",
                 title: gt("Remote link"),
-                description: msg("Enter a backend host and pairing code."),
+                description: gt("Enter a backend host and pairing code."),
                 icon: <ChevronsLeftRightEllipsisIcon aria-hidden className="size-4" />,
               })}
               {desktopBridge
                 ? renderConnectionModeCard({
                     mode: "ssh",
-                    title: "SSH",
-                    description: msg("Use local SSH config, agent, and tunnels for the backend."),
+                    title: SSH_PROTOCOL_NAME,
+                    description: gt("Use local SSH config, agent, and tunnels for the backend."),
                     icon: <TerminalIcon aria-hidden className="size-4" />,
                   })
                 : null}

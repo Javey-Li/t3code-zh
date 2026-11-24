@@ -1,6 +1,4 @@
-import { T, useGT } from "gt-react";
 import {
-  EnvironmentId,
   GUEST_MESSAGE_MAX_LENGTH,
   GUEST_HISTORY_ROUTE,
   GUEST_NAME_MAX_LENGTH,
@@ -15,16 +13,9 @@ import {
   type ThreadGuestMessage,
   type ThreadGuestMessageStatus,
 } from "@t3tools/contracts";
-import type { LegendListRef } from "@legendapp/list/react";
 import * as Option from "effect/Option";
 import * as Schema from "effect/Schema";
 import { formatAttachmentSize } from "@t3tools/client-runtime/state/attachments";
-import {
-  deriveRunlessWorkStartedAt,
-  deriveThreadActivityRun,
-  deriveThreadStructureRuntime,
-} from "@t3tools/client-runtime/state/thread-execution";
-import { createQuestionHistoryProjector } from "@t3tools/client-runtime/state/thread-requests";
 import { ArrowUpIcon, PaperclipIcon, XIcon } from "lucide-react";
 import {
   useEffect,
@@ -35,25 +26,26 @@ import {
   type FormEvent,
   type KeyboardEvent,
 } from "react";
+import { msg, T, useGT, useMessages } from "gt-react";
 
-import { useIncrementalTimelineEntries } from "~/hooks/useIncrementalTimelineEntries";
+import { m } from "~/i18n/messages";
+
+import { useDeadlinePassed } from "~/hooks/useDeadline";
 import { useNowMinute } from "~/hooks/useNowMinute";
 import { useStableCallback } from "~/hooks/useStableCallback";
 import { useTheme } from "~/hooks/useTheme";
 import { cn } from "~/lib/utils";
-import { deriveActiveWorkStartedAt, derivePhase } from "~/session-logic";
 import { ComposerControl, ComposerControlIcon } from "../chat/ComposerControl";
 import type { ExpandedImagePreview } from "../chat/ExpandedImagePreview";
 import { GuestMessageAttachments } from "../chat/GuestMessageAttachments";
 import { HostImageUrlContext } from "../chat/hostImageUrl";
 import { PierreEntryIcon } from "../chat/PierreEntryIcon";
 import { GuestMessageName, guestBubbleClassName } from "../chat/guestMessageStyle";
-import { MessagesTimeline, type MessagesTimelineHistoryControls } from "../chat/MessagesTimeline";
+import type { MessagesTimelineHistoryControls } from "../chat/MessagesTimeline";
+import { ReadOnlyThreadTimeline } from "../chat/ReadOnlyThreadTimeline";
 import { ProviderInstanceIcon } from "../chat/ProviderInstanceIcon";
 import { getDisplayModelName, getTriggerDisplayModelName } from "../chat/providerIconUtils";
-import { ScrollToEndButton } from "../chat/TimelineOverlays";
 import type { TimelineRow } from "../chat/timelineRowContext";
-import { useTimelineFollow } from "../chat/useTimelineFollow";
 import { GuestHtmlRender } from "./GuestHtmlRender";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -142,7 +134,7 @@ async function fetchGuestHistoryPage(
   shareId: string,
   cursor: string,
 ): Promise<OrchestrationV2ThreadHistoryPage | string> {
-  const failed = "Could not load earlier turns. Try again.";
+  const failed = m(msg("Could not load earlier turns. Try again."));
   try {
     const response = await fetch(
       `${GUEST_HISTORY_ROUTE}?${GUEST_SHARE_PARAM}=${encodeURIComponent(shareId)}&cursor=${encodeURIComponent(cursor)}`,
@@ -156,7 +148,7 @@ async function fetchGuestHistoryPage(
     }
     return Option.getOrElse(decodeHistoryPage(json), () => failed);
   } catch {
-    return "Could not reach the server.";
+    return m(msg("Could not reach the server."));
   }
 }
 
@@ -179,18 +171,18 @@ async function postGuest(
     if (response.ok) return null;
     const json: unknown = await response.json().catch(() => null);
     return Option.match(decodeErrorBody(json), {
-      onNone: () => "Something went wrong. Try again.",
+      onNone: () => m(msg("Something went wrong. Try again.")),
       onSome: ({ message }) => message,
     });
   } catch {
-    return "Could not reach the server.";
+    return m(msg("Could not reach the server."));
   }
 }
 
 const STATUS_LABEL: Record<ThreadGuestMessageStatus, string> = {
-  pending: "Waiting for approval",
-  sent: "Sent",
-  dismissed: "Not sent",
+  pending: msg("Waiting for approval"),
+  sent: msg("Sent", { $context: "message status" }),
+  dismissed: msg("Not sent"),
 };
 
 /** Same column as the owner's timeline, so both views wrap text at the same width. */
@@ -252,7 +244,7 @@ export function GuestPage() {
       ) : (
         <Notice
           title={gt("This link has ended or is not valid")}
-          detail="Ask the owner for a new link. Each link works in one browser."
+          detail={gt("Ask the owner for a new link. Each link works in one browser.")}
         />
       )}
     </div>
@@ -321,7 +313,10 @@ function GuestSession({ shareId }: { readonly shareId: string }) {
 
   if (stream.ended || (rejected && stream.view !== null)) {
     return (
-      <Notice title={gt("This link has ended")} detail="The owner stopped sharing this thread." />
+      <Notice
+        title={gt("This link has ended")}
+        detail={gt("The owner stopped sharing this thread.")}
+      />
     );
   }
   if (stream.view !== null) {
@@ -339,7 +334,7 @@ function GuestSession({ shareId }: { readonly shareId: string }) {
   return (
     <Notice
       title={gt("This link has ended or is not valid")}
-      detail="Ask the owner for a new link. Each link works in one browser."
+      detail={gt("Ask the owner for a new link. Each link works in one browser.")}
     />
   );
 }
@@ -360,6 +355,7 @@ function NameForm({
   readonly credential: string;
   readonly onJoined: () => void;
 }) {
+  const gt = useGT();
   const [name, setName] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -379,7 +375,7 @@ function NameForm({
         <T>Join a shared thread</T>
       </h1>
       <label className="flex flex-col gap-1.5 text-sm" htmlFor="guest-name">
-        <T>Your name</T>
+        {gt("Your name")}
         <Input
           id="guest-name"
           autoFocus
@@ -395,7 +391,7 @@ function NameForm({
         </p>
       ) : null}
       <Button type="submit" disabled={submitting || name.trim() === ""}>
-        Join
+        <T context="verb, join a shared thread">Join</T>
       </Button>
       <p className="text-xs text-muted-foreground">
         <T>The owner sees your name and approves each message before the agent gets it.</T>
@@ -404,17 +400,7 @@ function NameForm({
   );
 }
 
-// The timeline needs an environment id to key its rows. Nothing behind it loads on this page;
-// see isGuestPage.
-const GUEST_ENVIRONMENT_ID = EnvironmentId.make("guest");
-const NO_TURN_DIFFS: ReadonlyArray<never> = [];
-const NO_OPTIMISTIC_MESSAGES: ReadonlyArray<never> = [];
-const ignore = () => {};
-
-/**
- * The owner's timeline, read-only: every action that would reach the owner's machine (fork,
- * revert, diffs, files, other threads, shell) is left out, so its control does not render.
- */
+/** The owner's timeline, read-only, with the guest's own messages and composer below it. */
 function GuestThread({
   view: { shareId, title, expiresAt, messages, model },
   projection,
@@ -426,133 +412,67 @@ function GuestThread({
   readonly awaitingRowIds: GuestStreamState["awaitingRowIds"];
   readonly historyControls: MessagesTimelineHistoryControls | undefined;
 }) {
-  // No ":" so the timeline finds no environment thread behind the key.
-  const threadKey = `guest-${shareId}`;
-  const listRef = useRef<LegendListRef | null>(null);
-  const { resolvedTheme } = useTheme();
-  // The rest is what ChatView derives from the same projection.
-  const [projectQuestionHistory] = useState(() => createQuestionHistoryProjector());
-  const items = projectQuestionHistory(projection);
   // Files load through the guest route.
   const [attachmentUrls] = useState(() => createGuestAttachmentUrls(shareId));
   // Expanded rows read detail and command output through the guest routes.
   const [turnItemSource] = useState(() => guestTurnItemSource(shareId));
-  const attachmentUrlById = attachmentUrls(items);
-  const entries = useIncrementalTimelineEntries(threadKey, {
-    visibleTurnItems: items,
-    optimisticMessages: NO_OPTIMISTIC_MESSAGES,
-    attachmentUrlById,
-    attempts: projection.attempts,
-    nodes: projection.nodes,
-    plans: projection.plans,
-  });
   const openFile = useStableCallback((file: { readonly id: string }) =>
     openInNewTab(guestAttachmentUrl(shareId, file.id)),
   );
   const hostImageUrl = useStableCallback((path: string) => guestMediaUrl(shareId, path));
-  const activityRun = deriveThreadActivityRun(projection);
-  const runtime = deriveThreadStructureRuntime(projection);
-  const runlessWorkStartedAt = deriveRunlessWorkStartedAt(projection);
-  const isWorking = derivePhase(runtime) === "running" || runlessWorkStartedAt !== null;
-  const workStartedAt =
-    deriveActiveWorkStartedAt(activityRun, runtime, null) ?? runlessWorkStartedAt;
-  const runningRunId = runtime?.activeRunId ?? null;
-  const follow = useTimelineFollow({
-    legendListRef: listRef,
-    composerTimelineInset: 0,
-    routeThreadKey: threadKey,
-    activeThreadKey: threadKey,
-    // Not a server thread: new turns follow the end instead of anchoring near the top.
-    isServerThread: false,
-    serverProjection: null,
-    threadStatus: "live",
-    activeActivityRun: activityRun,
-    activeRunningTurnId: runningRunId,
-    timelineEntries: entries,
-    timelineAnchorMessageId: null,
-    setTimelineAnchor: ignore,
-  });
   const renderHtmlRender = useStableCallback(
     (row: Extract<TimelineRow, { kind: "html-render" }>) => (
       <GuestHtmlRender itemId={row.id} reference={row.htmlRender} shareId={shareId} />
     ),
   );
-  const unplaced = unplacedGuestMessages(messages, items, awaitingRowIds);
   return (
     <>
       <header className="flex shrink-0 items-center gap-3 border-b border-border px-4 py-2.5">
         <h1 className="min-w-0 flex-1 truncate text-sm font-medium">{title}</h1>
         <ExpiryLabel expiresAt={expiresAt} />
       </header>
-      <div className="relative min-h-0 flex-1">
-        <HostImageUrlContext value={hostImageUrl}>
-          <MessagesTimeline
-            listRef={listRef}
-            timelineEntries={entries}
-            isWorking={isWorking}
-            activeTurnStartedAt={workStartedAt}
-            latestRun={activityRun}
-            runningRunId={runningRunId}
-            turnDiffSummaries={NO_TURN_DIFFS}
-            runs={projection.runs}
-            routeThreadKey={threadKey}
-            onOpenThread={ignore}
-            supportsConversationRollback={false}
-            onRevertToTurnCount={ignore}
-            isRevertingCheckpoint={false}
-            onImageExpand={openExpandedImage}
-            onFileOpen={openFile}
-            onFileDownload={openFile}
-            renderHtmlRender={renderHtmlRender}
-            turnItemSource={turnItemSource}
-            historyControls={historyControls}
-            activeThreadEnvironmentId={GUEST_ENVIRONMENT_ID}
-            markdownCwd={undefined}
-            resolvedTheme={resolvedTheme}
-            timestampFormat="locale"
-            workspaceRoot={undefined}
-            anchorMessageId={null}
-            onAnchorReady={ignore}
-            onAnchorSizeChanged={ignore}
-            contentInsetEndAdjustment={0}
-            emptyPlaceholderInset={0}
-            liveFollowEnabled={follow.timelineLiveFollowEnabled}
-            onIsAtEndChange={follow.onIsAtEndChangeStable}
-            onViewportAttach={follow.attachTimelineViewport}
-            onFooterGrow={follow.onTimelineFooterGrowStable}
-            footer={
-              unplaced.length === 0 ? null : (
-                <ol className="chat-content-lane flex flex-col gap-4 pb-4">
-                  {unplaced.map((message) => (
-                    <li key={message.id}>
-                      <UnplacedGuestMessage shareId={shareId} message={message} />
-                    </li>
-                  ))}
-                </ol>
-              )
-            }
-          />
-        </HostImageUrlContext>
-        {follow.showScrollToBottom ? (
-          <ScrollToEndButton
-            summary={null}
-            bottom={4}
-            onScrollToEnd={() => follow.scrollToEnd(true)}
-          />
-        ) : null}
-      </div>
-      <div className={cn(LANE, "shrink-0 pb-4")}>
-        <GuestComposer shareId={shareId} model={model} onSent={() => follow.scrollToEnd(true)} />
-      </div>
+      <HostImageUrlContext value={hostImageUrl}>
+        <ReadOnlyThreadTimeline
+          // No ":" so the timeline finds no environment thread behind the key.
+          threadKey={`guest-${shareId}`}
+          projection={projection}
+          historyControls={historyControls}
+          turnItemSource={turnItemSource}
+          attachmentUrls={attachmentUrls}
+          onImageExpand={openExpandedImage}
+          onFileOpen={openFile}
+          renderHtmlRender={renderHtmlRender}
+          renderFooter={(items) => {
+            const unplaced = unplacedGuestMessages(messages, items, awaitingRowIds);
+            return unplaced.length === 0 ? null : (
+              <ol className="chat-content-lane flex flex-col gap-4 pb-4">
+                {unplaced.map((message) => (
+                  <li key={message.id}>
+                    <UnplacedGuestMessage shareId={shareId} message={message} />
+                  </li>
+                ))}
+              </ol>
+            );
+          }}
+        >
+          {({ scrollToEnd }) => (
+            <div className={cn(LANE, "shrink-0 pb-4")}>
+              <GuestComposer shareId={shareId} model={model} onSent={scrollToEnd} />
+            </div>
+          )}
+        </ReadOnlyThreadTimeline>
+      </HostImageUrlContext>
     </>
   );
 }
 
 function ExpiryLabel({ expiresAt }: { readonly expiresAt: string }) {
+  const expired = useDeadlinePassed(Date.parse(expiresAt));
   const nowMinute = useNowMinute();
+  const m = useMessages();
   return (
     <span className="shrink-0 text-xs text-muted-foreground tabular-nums">
-      {formatGuestExpiry(expiresAt, Date.parse(`${nowMinute}Z`))}
+      {expired ? m(msg("Expired")) : formatGuestExpiry(expiresAt, Date.parse(`${nowMinute}Z`), m)}
     </span>
   );
 }
@@ -577,10 +497,12 @@ function UnplacedGuestMessage({
 }) {
   // A dismissed message's files are deleted, so only their names remain.
   const served = message.status !== "dismissed";
+  const gt = useGT();
+  const m = useMessages();
   const url = (attachment: { readonly id: string }) => guestAttachmentUrl(shareId, attachment.id);
   return (
     <div className="flex flex-col items-end gap-1">
-      <GuestMessageName name="You" />
+      <GuestMessageName name={gt("You", { $context: "the guest's own messages" })} />
       <div
         className={cn(
           BUBBLE,
@@ -596,7 +518,7 @@ function UnplacedGuestMessage({
         />
         {message.text ? <span>{message.text}</span> : null}
       </div>
-      <p className="me-1 text-2xs text-muted-foreground">{STATUS_LABEL[message.status]}</p>
+      <p className="me-1 text-2xs text-muted-foreground">{m(STATUS_LABEL[message.status])}</p>
     </div>
   );
 }
@@ -609,7 +531,7 @@ function GuestModelLabel({ model }: { readonly model: GuestThreadModel }) {
   return (
     <ComposerControl
       render={<span />}
-      aria-label={gt("Model: {label}", { label: fullLabel })}
+      aria-label={gt("Model: {model}", { model: fullLabel })}
       className="pointer-events-none min-w-0 shrink"
     >
       {model.driver === null ? null : (
@@ -659,6 +581,7 @@ function GuestComposer({
   readonly onSent: () => void;
 }) {
   const gt = useGT();
+  const m = useMessages();
   const [text, setText] = useState("");
   const [files, setFiles] = useState<ReadonlyArray<StagedFile>>([]);
   const [sending, setSending] = useState(false);
@@ -672,7 +595,10 @@ function GuestComposer({
       ...files,
       ...added.map((file) => ({ key: `staged-${nextFileKey.current++}`, file })),
     ];
-    const problem = guestFilesProblem(next.map((staged) => staged.file));
+    const problem = guestFilesProblem(
+      next.map((staged) => staged.file),
+      m,
+    );
     setError(problem);
     if (problem === null) setFiles(next);
   };
@@ -747,7 +673,7 @@ function GuestComposer({
                   <PierreEntryIcon pathValue={staged.file.name} kind="file" theme={resolvedTheme} />
                   <span className="max-w-40 truncate">{staged.file.name}</span>
                   <span className="shrink-0 text-xs text-muted-foreground">
-                    {formatAttachmentSize(staged.file.size)}
+                    {formatAttachmentSize(staged.file.size, m)}
                   </span>
                 </span>
               )}
@@ -767,8 +693,8 @@ function GuestComposer({
         </ul>
       ) : null}
       <textarea
-        aria-label={gt("Message")}
-        placeholder={gt("Message")}
+        aria-label={gt("Message", { $context: "message input" })}
+        placeholder={gt("Message", { $context: "message input" })}
         rows={2}
         maxLength={GUEST_MESSAGE_MAX_LENGTH}
         value={text}
@@ -808,7 +734,7 @@ function GuestComposer({
         )}
         <button
           type="submit"
-          aria-label={gt("Send")}
+          aria-label={gt("Send", { $context: "verb, sends the message" })}
           disabled={sending || (text.trim() === "" && files.length === 0)}
           className="flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-full bg-message-action text-message-action-foreground shadow-xs hover:bg-message-action-hover focus-visible:outline-2 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-64"
         >

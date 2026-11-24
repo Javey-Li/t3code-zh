@@ -1,4 +1,3 @@
-import { msg, useGT } from "gt-react";
 import {
   AuthOrchestrationOperateScope,
   type EnvironmentId,
@@ -11,6 +10,7 @@ import {
   isAtomCommandInterrupted,
   squashAtomCommandFailure,
 } from "@t3tools/client-runtime/state/runtime";
+import { T, useGT, Var } from "gt-react";
 import { ChevronDownIcon } from "lucide-react";
 import {
   memo,
@@ -22,6 +22,7 @@ import {
 } from "react";
 import { isTrailingDoubleClick } from "../Sidebar.logic";
 import { Badge } from "../ui/badge";
+import { MiddleTruncate } from "../ui/middle-truncate";
 import { Tooltip, TooltipPopup, TooltipTrigger } from "../ui/tooltip";
 import { toastManager } from "../ui/toast";
 import { useThreadActionMenu } from "~/hooks/useThreadActionMenu";
@@ -84,7 +85,7 @@ export const ChatHeader = memo(function ChatHeader({
   onFindInThread,
 }: ChatHeaderProps) {
   const gt = useGT();
-  const activeProjectName = activeProject?.isScratch ? "No project" : activeProject?.title;
+  const activeProjectName = activeProject?.isScratch ? gt("No project") : activeProject?.title;
   const activeProjectCwd = activeProject?.workspaceRoot ?? null;
   const interfaceFont = useClientSettings((settings) => settings.fontFamilySans);
   const breadcrumbContainerRef = useRef<HTMLDivElement>(null);
@@ -180,7 +181,7 @@ export const ChatHeader = memo(function ChatHeader({
       originalTitle: renamingTitle ?? activeThreadTitle,
     });
     if (resolution.action === "reject-empty") {
-      toastManager.add({ type: "warning", title: "Thread title cannot be empty" });
+      toastManager.add({ type: "warning", title: gt("Thread title cannot be empty") });
       return;
     }
     if (resolution.action === "noop") return;
@@ -192,8 +193,8 @@ export const ChatHeader = memo(function ChatHeader({
         const error = squashAtomCommandFailure(result);
         toastManager.add({
           type: "error",
-          title: "Failed to rename thread",
-          description: error instanceof Error ? error.message : "An error occurred.",
+          title: gt("Failed to rename thread"),
+          description: error instanceof Error ? error.message : gt("An error occurred."),
         });
       }
     });
@@ -225,7 +226,7 @@ export const ChatHeader = memo(function ChatHeader({
       const api = readLocalApi();
       if (!api) return;
       void api.contextMenu
-        .show([{ id: "project-settings", label: msg("Project settings"), icon: "settings" }], {
+        .show([{ id: "project-settings", label: gt("Project settings"), icon: "settings" }], {
           x: event.clientX,
           y: event.clientY,
         })
@@ -242,6 +243,7 @@ export const ChatHeader = memo(function ChatHeader({
       renameCommittedRef.current = true;
       commitRename(event.currentTarget.value);
     } else if (event.key === "Escape") {
+      event.preventDefault();
       renameCommittedRef.current = true;
       setRenaming(null);
     }
@@ -256,7 +258,7 @@ export const ChatHeader = memo(function ChatHeader({
       onContextMenu={handleHeaderContextMenu}
     >
       <WorkspaceBreadcrumb
-        ariaLabel="Thread breadcrumb"
+        ariaLabel={gt("Thread breadcrumb")}
         className="flex-1 overflow-clip [overflow-clip-margin:2px]"
       >
         {activeProject ? (
@@ -267,18 +269,25 @@ export const ChatHeader = memo(function ChatHeader({
                   render={
                     <button
                       type="button"
-                      aria-label={gt("New thread in {name}", { name: activeProjectName })}
+                      aria-label={gt("New thread in {project}", { project: activeProjectName })}
                       onClick={onNewThreadInProject}
                       className="inline-flex min-w-0 max-w-full cursor-pointer items-center gap-1.5 rounded-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
                     />
                   }
                 >
                   <ProjectFavicon project={activeProject} className="size-3.5" />
-                  <WorkspaceBreadcrumbText className="max-w-40">
-                    {activeProjectName}
-                  </WorkspaceBreadcrumbText>
+                  <MiddleTruncate
+                    data-slot="workspace-breadcrumb-text"
+                    value={activeProjectName ?? ""}
+                    showTitle={false}
+                    variant="cap-aligned"
+                  />
                 </TooltipTrigger>
-                <TooltipPopup side="top">New thread in {activeProjectName}</TooltipPopup>
+                <TooltipPopup side="top">
+                  <T>
+                    New thread in <Var>{activeProjectName}</Var>
+                  </T>
+                </TooltipPopup>
               </Tooltip>
             </WorkspaceBreadcrumbItem>
             <WorkspaceBreadcrumbSeparator>
@@ -294,8 +303,8 @@ export const ChatHeader = memo(function ChatHeader({
                   render={
                     <button
                       type="button"
-                      aria-label={gt("Open parent thread: {name}", {
-                        name: parentThreadLink.title,
+                      aria-label={gt("Open parent thread: {title}", {
+                        title: parentThreadLink.title,
                       })}
                       onClick={() => onOpenThread(parentThreadLink.threadId)}
                       className="inline-flex min-w-0 max-w-full cursor-pointer items-center rounded-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
@@ -388,10 +397,15 @@ export const ChatHeader = memo(function ChatHeader({
           {renamingTitle === null && activeThreadLinkOrigin ? (
             <Tooltip>
               <TooltipTrigger render={<Badge variant="info" size="sm" />}>
-                From {activeThreadLinkOrigin}
+                <T>
+                  From <Var>{activeThreadLinkOrigin}</Var>
+                </T>
               </TooltipTrigger>
               <TooltipPopup side="top">
-                Started by an agent on {activeThreadLinkOrigin} through a linked environment.
+                <T>
+                  Started by an agent on <Var>{activeThreadLinkOrigin}</Var> through a linked
+                  environment.
+                </T>
               </TooltipPopup>
             </Tooltip>
           ) : null}

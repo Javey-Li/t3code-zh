@@ -1,5 +1,5 @@
-import { T, msg, useGT, useMessages } from "gt-react";
 import type { RelayClientDeviceRecord } from "@t3tools/contracts/relay";
+import { T, useGT, useMessages } from "gt-react";
 import { SmartphoneIcon } from "lucide-react";
 
 import { useManagedRelayDevices } from "../../cloud/managedRelayState";
@@ -27,43 +27,46 @@ function MobileClientStatusBadge({
   readonly enabled: boolean;
   readonly label: string;
 }) {
-  const m = useMessages();
+  const gt = useGT();
   return (
     <Badge variant={enabled ? "success" : "outline"}>
-      {m(label)}: {enabled ? m(msg("On")) : m(msg("Off"))}
+      {enabled
+        ? gt("{label}: On", { label, $context: "a setting is on" })
+        : gt("{label}: Off", { label, $context: "a setting is off" })}
     </Badge>
   );
 }
 
 function MobileClientRow({ device }: { readonly device: RelayClientDeviceRecord }) {
+  const gt = useGT();
   const m = useMessages();
   return (
     <ClerkUserProfileRow icon={<SmartphoneIcon className="size-4" />}>
       <div className="flex flex-col gap-0.5 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
         <div className="min-w-0">
           <h3 className="truncate text-sm leading-4.5 font-medium text-foreground">
-            {m(device.label)}
+            {device.label}
           </h3>
           <p className="text-xs leading-4.5 text-muted-foreground">
             {mobileClientPlatformLabel(device)}
           </p>
         </div>
         <p className="shrink-0 text-2xs leading-4 text-muted-foreground/75">
-          {mobileClientUpdatedAtLabel(device.updatedAt)}
+          {mobileClientUpdatedAtLabel(device.updatedAt, m)}
         </p>
       </div>
       <div className="mt-2 flex flex-wrap gap-1.5">
         <MobileClientStatusBadge
           enabled={device.notifications.enabled}
-          label={msg("Push notifications")}
+          label={gt("Push notifications")}
         />
         <MobileClientStatusBadge
           enabled={device.liveActivities.enabled}
-          label={msg("Live Activities")}
+          label={gt("Live Activities")}
         />
       </div>
       <p className="mt-1.5 text-xs leading-4.5 text-muted-foreground/80">
-        {mobileClientNotificationDetail(device)}
+        {mobileClientNotificationDetail(device, m)}
       </p>
     </ClerkUserProfileRow>
   );
@@ -114,8 +117,8 @@ function EmptyMobileClients() {
 }
 
 export function MobileClientsUserProfilePage() {
-  const gt = useGT();
   const devicesState = useManagedRelayDevices();
+  const gt = useGT();
   const devices = devicesState.data ?? [];
   const isInitialLoad =
     !devicesState.accountId || (devicesState.data === null && !devicesState.error);
@@ -124,7 +127,7 @@ export function MobileClientsUserProfilePage() {
   return (
     <ClerkUserProfilePage
       title={gt("Mobile clients")}
-      description={<T>Mobile devices that get notifications from your environments.</T>}
+      description={gt("Mobile devices that get notifications from your environments.")}
       action={
         <ClerkUserProfileRefreshButton
           isPending={devicesState.isPending}

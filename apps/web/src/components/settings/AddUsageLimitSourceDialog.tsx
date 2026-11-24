@@ -1,6 +1,6 @@
-import { T, useGT } from "gt-react";
 import type { EnvironmentId, SecretReference, UnifiedSettings } from "@t3tools/contracts";
-import { useState } from "react";
+import { T, useGT, Var } from "gt-react";
+import { useId, useState } from "react";
 
 import { useUpdateEnvironmentSettings } from "../../hooks/useSettings";
 import { Button } from "../ui/button";
@@ -33,6 +33,7 @@ export function AddUsageLimitSourceDialog({
   readonly sources: UnifiedSettings["usageLimitSources"];
 }) {
   const gt = useGT();
+  const formId = useId();
   const updateSettings = useUpdateEnvironmentSettings(environmentId);
   const [label, setLabel] = useState("");
   const [url, setUrl] = useState("");
@@ -82,12 +83,15 @@ export function AddUsageLimitSourceDialog({
             <T>Add a CLIProxyAPI hub</T>
           </DialogTitle>
           <DialogDescription>
-            Show the quota of every account the hub pools, next to the providers on{" "}
-            {environmentLabel}. The key stays on that server.
+            <T>
+              Show the quota of every account the hub pools, next to the providers on{" "}
+              <Var>{environmentLabel}</Var>. The key stays on that server.
+            </T>
           </DialogDescription>
         </DialogHeader>
         <DialogPanel>
           <form
+            id={formId}
             className="grid gap-4"
             onSubmit={(event) => {
               event.preventDefault();
@@ -144,7 +148,7 @@ export function AddUsageLimitSourceDialog({
           >
             <T>Cancel</T>
           </Button>
-          <Button onClick={save} disabled={!canSave}>
+          <Button type="submit" form={formId} disabled={!canSave}>
             <T>Add hub</T>
           </Button>
         </DialogFooter>

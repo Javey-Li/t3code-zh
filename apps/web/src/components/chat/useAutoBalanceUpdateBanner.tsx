@@ -115,8 +115,8 @@ export function useAutoBalanceUpdateBanner(
                 ) : (
                   <div className="text-muted-foreground">
                     {machine.connected
-                      ? `Ready to update to ${machine.targetVersion}`
-                      : "Reconnect this machine to update"}
+                      ? gt("Ready to update to {version}", { version: machine.targetVersion })
+                      : gt("Reconnect this machine to update")}
                   </div>
                 )}
               </div>
@@ -126,7 +126,12 @@ export function useAutoBalanceUpdateBanner(
       </Popover>
     ),
     description:
-      manual > 0 ? `${manual} ${manual === 1 ? "needs" : "need"} a manual update` : undefined,
+      manual > 0
+        ? gt(
+            "{count, plural, one {{count} machine needs} other {{count} machines need}} a manual update",
+            { count: manual },
+          )
+        : undefined,
     actions:
       running === 0 && targets.length > 0 ? (
         <ServerUpdatesAction
@@ -134,14 +139,17 @@ export function useAutoBalanceUpdateBanner(
           variant="ghost"
           label={
             failed > 0
-              ? "Retry"
+              ? gt("Retry")
               : targets.length === machines.length
-                ? "Update all"
-                : `Update ${targets.length} ${targets.length === 1 ? "machine" : "machines"}`
+                ? gt("Update all")
+                : gt(
+                    "{count, plural, one {Update {count} machine} other {Update {count} machines}}",
+                    { count: targets.length },
+                  )
           }
         />
       ) : undefined,
-    dismissLabel: "Dismiss update notice",
+    dismissLabel: gt("Dismiss update notice"),
     ...(running
       ? {}
       : {

@@ -1,4 +1,3 @@
-import { T, useGT } from "gt-react";
 import { AuthProvidersManageScope } from "@t3tools/contracts";
 import { readEnvironmentScope, useEnvironmentScope } from "../../state/session";
 import { useAtomValue } from "@effect/atom-react";
@@ -8,6 +7,7 @@ import {
   type EnvironmentId,
   type ServerProvider,
 } from "@t3tools/contracts";
+import { T, useGT } from "gt-react";
 import { useState, type ReactNode } from "react";
 import { usesChatGptSharing } from "@t3tools/shared/usageLimits";
 
@@ -43,7 +43,9 @@ export function AddCodexAccountDialog({
   const settings = useEnvironmentSettings(environmentId);
   const providers = useAtomValue(serverEnvironment.providersValueAtom(environmentId));
   const update = useAtomCommand(serverEnvironment.updateSettings, "Add ChatGPT account");
-  const [name, setName] = useState("Personal");
+  const [name, setName] = useState(() =>
+    gt("Personal", { $context: "default name for a ChatGPT account" }),
+  );
   const displayName = `ChatGPT - ${name.trim()}`;
   const [instanceId, setInstanceId] = useState<ProviderInstanceId | null>(null);
   const [pending, setPending] = useState(false);
@@ -92,13 +94,10 @@ export function AddCodexAccountDialog({
     >
       <WizardPopup size="wide">
         <WizardHeader
-          title={instanceId ? displayName : "Add ChatGPT account"}
-          description={
-            <T>
-              Each account has its own Codex instance and sign-in. Choose the other account on the
-              sign-in page.
-            </T>
-          }
+          title={instanceId ? displayName : gt("Add ChatGPT account")}
+          description={gt(
+            "Each account has its own Codex instance and sign-in. Choose the other account on the sign-in page.",
+          )}
         />
         <WizardPanel>
           {instanceId ? (
@@ -106,8 +105,8 @@ export function AddCodexAccountDialog({
               renderSetup(instanceId, provider)
             ) : (
               <SettingsRow
-                title={<T>Codex runtime</T>}
-                description={<T>Preparing managed setup.</T>}
+                title={gt("Codex runtime")}
+                description={gt("Preparing managed setup.")}
               />
             )
           ) : (
@@ -120,8 +119,8 @@ export function AddCodexAccountDialog({
               }}
             >
               <SettingsRow
-                title={<T>Account name</T>}
-                description={<T>Shown in the provider list and model picker.</T>}
+                title={gt("Account name")}
+                description={gt("Shown in the provider list and model picker.")}
                 control={
                   <Input
                     aria-label={gt("Account name")}
@@ -151,7 +150,7 @@ export function AddCodexAccountDialog({
                 form="add-codex-account"
                 disabled={pending || !name.trim() || !canManageProviders}
               >
-                {pending ? "Adding account…" : "Continue"}
+                {pending ? gt("Adding account…") : gt("Continue")}
               </Button>
             </>
           )}

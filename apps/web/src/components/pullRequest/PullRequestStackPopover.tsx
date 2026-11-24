@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, useGT, Var } from "gt-react";
 import { Tooltip, TooltipTrigger, TooltipPopup } from "../ui/tooltip";
 import type { EnvironmentId, PullRequestRef, PullRequestStackMembership } from "@t3tools/contracts";
 import { useState } from "react";
@@ -20,6 +20,7 @@ function StackBody({
   onSelect: (reference: PullRequestRef) => void;
   stackNumber: number;
 }) {
+  const gt = useGT();
   const query = usePullRequestStack(environmentId, reference);
   if (query.data !== null) {
     return (
@@ -43,7 +44,9 @@ function StackBody({
       <PullRequestStackHeader number={stackNumber} />
       <MenuGroupLabel>
         {query.error ??
-          (query.isPending ? "Loading stack…" : "This pull request is no longer in a stack.")}
+          (query.isPending
+            ? gt("Loading stack…")
+            : gt("This pull request is no longer in a stack."))}
       </MenuGroupLabel>
     </>
   );
@@ -90,7 +93,10 @@ export function PullRequestStackPopover({
           }
         />
         <TooltipPopup>
-          View stack #{membership.number}, layer {membership.position} of {membership.size}
+          <T>
+            View stack #<Var>{membership.number}</Var>, layer <Var>{membership.position}</Var> of{" "}
+            <Var>{membership.size}</Var>
+          </T>
         </TooltipPopup>
       </Tooltip>
       <MenuPopup

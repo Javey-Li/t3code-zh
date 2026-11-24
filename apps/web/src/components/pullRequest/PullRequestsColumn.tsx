@@ -111,6 +111,7 @@ export function PullRequestsColumn({
   listBody: ReactNode;
   scrollRef: RefObject<HTMLDivElement | null>;
 }) {
+  const gt = useGT();
   const contentArea = workspaceAreaProps("pull-requests", 1, "Pull requests");
   const markerRef = useRef<HTMLDivElement | null>(null);
   const [condensed, setCondensed] = useState(false);
@@ -176,7 +177,7 @@ export function PullRequestsColumn({
       >
         {titlebarControls}
         {condensed ? (
-          <WorkspaceBreadcrumb ariaLabel="Pull request scope" className="overflow-hidden">
+          <WorkspaceBreadcrumb ariaLabel={gt("Pull request scope")} className="overflow-hidden">
             <WorkspaceBreadcrumbItem current className={cn(searchExpanded && "sr-only")}>
               <h1 className="truncate">
                 <T>Pull requests</T>
@@ -208,7 +209,7 @@ export function PullRequestsColumn({
             </WorkspaceBreadcrumbItem>
           </WorkspaceBreadcrumb>
         ) : (
-          <WorkspaceBreadcrumb ariaLabel="Pull requests breadcrumb">
+          <WorkspaceBreadcrumb ariaLabel={gt("Pull requests breadcrumb")}>
             <WorkspaceBreadcrumbItem current>
               <h1 className="truncate">
                 <T>Pull requests</T>
@@ -251,7 +252,7 @@ export function PullRequestsColumn({
                 outlined
                 iconOnly={host !== undefined}
                 triggerIcon={<Plug2Icon aria-hidden className="size-4" />}
-                triggerLabel="All"
+                triggerLabel={gt("All")}
                 value={host ?? ""}
                 options={hostMenuOptions}
                 onChange={(next) => onHost(next === "" ? undefined : next)}

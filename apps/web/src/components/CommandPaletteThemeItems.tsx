@@ -1,7 +1,8 @@
-import { T, msg, useGT } from "gt-react";
 import { BUILT_IN_THEMES } from "@t3tools/shared/themePalettes";
+import { msg, T, useGT, useMessages } from "gt-react";
 import { MonitorIcon, MoonIcon, PaletteIcon, SunIcon } from "lucide-react";
 
+import { m } from "../i18n/messages";
 import { useCustomThemes } from "../hooks/useCustomThemes";
 import { useEnvironmentThemeDefinitions } from "../hooks/useEnvironmentTheme";
 import { useTheme } from "../hooks/useTheme";
@@ -30,8 +31,8 @@ export function notifyThemeSaveFailure(): void {
   toastManager.add(
     stackedThreadToast({
       type: "error",
-      title: msg("Couldn't save theme selection"),
-      description: msg("Try again."),
+      title: m(msg("Couldn't save theme selection")),
+      description: m(msg("Try again.")),
     }),
   );
 }
@@ -55,7 +56,6 @@ function useThemeCards() {
 }
 
 export function useCommandPaletteThemeItems() {
-  const gt = useGT();
   const {
     theme,
     themeHalves,
@@ -66,6 +66,8 @@ export function useCommandPaletteThemeItems() {
     setThemeHalf,
   } = useTheme();
   const themeCards = useThemeCards();
+  const gt = useGT();
+  const messages = useMessages();
 
   const changeThemeItem: CommandPaletteSubmenuItem = {
     kind: "submenu",
@@ -78,19 +80,24 @@ export function useCommandPaletteThemeItems() {
     groups: [
       {
         value: "themes",
-        label: msg("Change theme"),
+        label: gt("Change theme"),
         items: themeCards.map(({ id, label, previews }) => ({
           kind: "action",
           value: id === null ? "theme:standard" : `theme:palette:${id}`,
           title: label,
-          description: previews.length === 1 ? `For ${previews[0]!.mode} mode` : undefined,
+          description:
+            previews.length === 1
+              ? previews[0]!.mode === "light"
+                ? gt("For light mode")
+                : gt("For dark mode")
+              : undefined,
           searchTerms: [label, "theme", "appearance"],
           icon: <PaletteIcon className={ITEM_ICON_CLASS} />,
           titleTrailingContent: (
             <span className="flex shrink-0 items-center gap-2">
               {(themeHalves?.[resolvedTheme] ?? getThemeDefinition(theme)?.id ?? null) === id ? (
                 <span className="text-xs text-muted-foreground/70">
-                  <T>Current</T>
+                  <T context="the theme or mode in use now">Current</T>
                 </span>
               ) : null}
               <span className="flex items-center gap-1" aria-hidden>
@@ -128,17 +135,17 @@ export function useCommandPaletteThemeItems() {
     groups: [
       {
         value: "appearance",
-        label: msg("Change appearance"),
+        label: gt("Change appearance"),
         items: APPEARANCE_OPTIONS.map(({ mode, label, icon: Icon }) => ({
           kind: "action",
           value: `appearance:${mode}`,
-          title: label,
-          searchTerms: [label, "appearance", "mode"],
+          title: messages(label),
+          searchTerms: [messages(label), label, "appearance", "mode"],
           icon: <Icon className={ITEM_ICON_CLASS} />,
           titleTrailingContent:
             appearanceMode === mode ? (
               <span className="text-xs text-muted-foreground/70">
-                <T>Current</T>
+                <T context="the theme or mode in use now">Current</T>
               </span>
             ) : undefined,
           run: async () => {

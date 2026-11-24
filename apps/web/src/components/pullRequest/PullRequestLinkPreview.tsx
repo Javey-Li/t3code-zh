@@ -1,6 +1,6 @@
-import { useMessages } from "gt-react";
 import type { PreviewCard as PreviewCardPrimitive } from "@base-ui/react/preview-card";
 import { isAtomCommandInterrupted } from "@t3tools/client-runtime/state/runtime";
+import { useMessages } from "gt-react";
 import { parsePullRequestAnchor, pullRequestLinkCommit } from "@t3tools/shared/pullRequestAnchor";
 import type { EnvironmentId, PullRequestRef } from "@t3tools/contracts";
 import {
@@ -53,7 +53,7 @@ export function PullRequestLinkPreview({
   onOpenFallback?: (url: string) => Promise<void>;
   fallback?: ReactNode;
 }) {
-  const m = useMessages();
+  const messages = useMessages();
   const [open, setOpen] = useState(false);
   const previewActionsRef = useRef<PreviewCardPrimitive.Root.Actions | null>(null);
   const [resolvingClick, setResolvingClick] = useState(false);
@@ -117,7 +117,7 @@ export function PullRequestLinkPreview({
   const state =
     card === null
       ? null
-      : resolvePullRequestState({ state: card.state, isDraft: card.isDraft ?? false });
+      : resolvePullRequestState({ state: card.state, isDraft: card.isDraft ?? false }, messages);
   const authorLabel =
     card?.author === null
       ? "ghost"
@@ -154,7 +154,7 @@ export function PullRequestLinkPreview({
                   {state === null ? null : (
                     <span className="inline-flex shrink-0 items-center gap-1">
                       <state.Icon aria-hidden className={`size-3 ${state.toneClassName}`} />
-                      {m(state.label)}
+                      {state.label}
                     </span>
                   )}
                 </div>

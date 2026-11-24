@@ -1,4 +1,3 @@
-import { T, useGT } from "gt-react";
 import {
   isModifierPairShortcut,
   type DesktopCaptureConfigApplied,
@@ -7,6 +6,7 @@ import {
 } from "@t3tools/contracts";
 import { parseKeybindingShortcut } from "@t3tools/shared/keybindings";
 import { FileDiff } from "@pierre/diffs/react";
+import { T, useGT, Var } from "gt-react";
 import { parseDiffFromFile } from "@pierre/diffs";
 import { settlePromise } from "@t3tools/client-runtime/state/runtime";
 import * as Cause from "effect/Cause";
@@ -107,7 +107,7 @@ export function CaptureShortcutConfig({
     } else {
       const cause = Cause.squash(previewed.cause);
       setError({
-        message: "Couldn't prepare the changes. Check Advanced for help.",
+        message: gt("Couldn't prepare the changes. Check Advanced for help."),
         ...(cause instanceof Error ? { detail: cause.message } : {}),
       });
     }
@@ -123,8 +123,8 @@ export function CaptureShortcutConfig({
       if (!applied.warning && preview.operation === "install" && onComplete) {
         toastManager.add({
           type: "success",
-          title: "Shortcut saved",
-          description: `Use ${preview.shortcut} from another app.`,
+          title: gt("Shortcut saved"),
+          description: gt("Use {shortcut} from another app.", { shortcut: preview.shortcut }),
         });
         await onComplete();
       }
@@ -132,7 +132,7 @@ export function CaptureShortcutConfig({
     if (saved._tag === "Failure") {
       const cause = Cause.squash(saved.cause);
       setError({
-        message: "Couldn't save your shortcut. Review the changes and try again.",
+        message: gt("Couldn't save your shortcut. Review the changes and try again."),
         ...(cause instanceof Error ? { detail: cause.message } : {}),
       });
       setPreview(null);
@@ -158,21 +158,23 @@ export function CaptureShortcutConfig({
       {result ? (
         <p role="status">
           {result.warning
-            ? "Saved, but the shortcut needs attention. Check Advanced for help."
+            ? gt("Saved, but the shortcut needs attention. Check Advanced for help.")
             : preview?.operation === "remove"
-              ? "Shortcut removed."
-              : `Use ${preview?.shortcut} from another app to capture a window.`}
+              ? gt("Shortcut removed.")
+              : gt("Use {shortcut} from another app to capture a window.", {
+                  shortcut: preview?.shortcut,
+                })}
         </p>
       ) : preview ? (
         <>
           <p className="text-muted-foreground">
             {changed
               ? preview.operation === "remove"
-                ? "Review the change below to remove your shortcut."
-                : "Review the change below, then save your shortcut."
+                ? gt("Review the change below to remove your shortcut.")
+                : gt("Review the change below, then save your shortcut.")
               : preview.operation === "remove"
-                ? "There's no capture shortcut to remove."
-                : "This shortcut is already set up."}
+                ? gt("There's no capture shortcut to remove.")
+                : gt("This shortcut is already set up.")}
           </p>
           {diff ? (
             <div
@@ -206,12 +208,12 @@ export function CaptureShortcutConfig({
                 onClick={() => void apply()}
               >
                 {working === "writing"
-                  ? "Saving…"
+                  ? gt("Saving…")
                   : changed
                     ? preview.operation === "install"
-                      ? "Save shortcut"
-                      : "Remove shortcut"
-                    : "Done"}
+                      ? gt("Save shortcut")
+                      : gt("Remove shortcut")
+                    : gt("Done")}
               </Button>
             ) : null}
             <Button variant="ghost" disabled={actionBusy} onClick={() => setPreview(null)}>
@@ -232,7 +234,7 @@ export function CaptureShortcutConfig({
             aria-busy={working === "reading"}
             onClick={() => void read()}
           >
-            {working === "reading" ? "Preparing changes…" : "Review changes"}
+            {working === "reading" ? gt("Preparing changes…") : gt("Review changes")}
           </Button>
         </>
       )}
@@ -244,8 +246,8 @@ export function CaptureShortcutConfig({
       {state.shortcutActionRegistered === false && state.shortcutMessage ? (
         <p role="status" className="text-muted-foreground">
           {state.shortcutPending
-            ? "Connecting to your desktop…"
-            : "Restart T3 Code to finish connecting your shortcut."}
+            ? gt("Connecting to your desktop…")
+            : gt("Restart T3 Code to finish connecting your shortcut.")}
         </p>
       ) : null}
       <details className="text-xs text-muted-foreground">
@@ -276,7 +278,11 @@ export function CaptureShortcutConfig({
               </p>
             ) : null}
             {preview && preview.resolvedPath !== preview.path ? (
-              <p className="break-all">Linked to {preview.resolvedPath}. The link will be kept.</p>
+              <p className="break-all">
+                <T>
+                  Linked to <Var>{preview.resolvedPath}</Var>. The link will be kept.
+                </T>
+              </p>
             ) : null}
           </div>
           <div className="flex flex-wrap gap-2">
@@ -308,20 +314,29 @@ export function CaptureShortcutConfig({
             ) : null}
           </div>
           <p>
-            Use your desktop's shortcut settings file.{" "}
             {niri
-              ? "A custom --config or NIRI_CONFIG can change its location."
-              : "On Omarchy, use your own bindings file, not its defaults."}
+              ? gt(
+                  "Use your desktop's shortcut settings file. A custom --config or NIRI_CONFIG can change its location.",
+                )
+              : gt(
+                  "Use your desktop's shortcut settings file. On Omarchy, use your own bindings file, not its defaults.",
+                )}
           </p>
-          {result?.backupPath ? <p className="break-all">Backup: {result.backupPath}</p> : null}
+          {result?.backupPath ? (
+            <p className="break-all">{gt("Backup: {path}", { path: result.backupPath })}</p>
+          ) : null}
           <p className="font-medium text-foreground">
             <T>Manual setup</T>
           </p>
           <p>
             {niri
-              ? "Paste this inside binds { … } in your Niri config, then save."
-              : "Add this binding to your Hyprland config, then save."}{" "}
-            Change the keys if needed.
+              ? gt(
+                  "Paste this inside {block} in your Niri config, then save. Change the keys if needed.",
+                  { block: "binds { … }" },
+                )
+              : gt(
+                  "Add this binding to your Hyprland config, then save. Change the keys if needed.",
+                )}
           </p>
           <pre className="max-h-40 overflow-auto whitespace-pre-wrap break-all rounded-xl bg-muted/50 p-3">
             {state.shortcutBinding}
@@ -334,11 +349,13 @@ export function CaptureShortcutConfig({
               if (state.shortcutBinding) copyToClipboard(state.shortcutBinding);
             }}
           >
-            {isCopied ? "Copied" : "Copy shortcut"}
+            {isCopied ? gt("Copied") : gt("Copy shortcut")}
           </Button>
           <p>
-            Turn capture off in T3 Code to stop it. Remove the shortcut from {desktop} to free up
-            the keys.
+            <T>
+              Turn capture off in T3 Code to stop it. Remove the shortcut from <Var>{desktop}</Var>{" "}
+              to free up the keys.
+            </T>
           </p>
           {state.shortcutActionRegistered === false ? (
             <p role="status">{state.shortcutMessage}</p>

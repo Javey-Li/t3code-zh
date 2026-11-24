@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { T, useGT, Var } from "gt-react";
 import { useId, useState, type KeyboardEvent } from "react";
 
 import { Button } from "../ui/button";
@@ -99,15 +99,17 @@ export function ThemeCssEditor({
         <div className="flex items-center justify-between border-t border-input px-3 py-1 font-mono text-xs">
           <span>CSS</span>
           <span>
-            Ln {position.line}, Col {position.column}
+            <T>
+              Ln <Var>{position.line}</Var>, Col <Var>{position.column}</Var>
+            </T>
           </span>
         </div>
       </div>
       <div className="flex items-start justify-between gap-2">
         <p id={hintId} className="text-xs text-muted-foreground">
           {tabIndents
-            ? "Tab indents. Shift+Tab unindents. Press Escape, then Tab to leave."
-            : "Tab moves to the next control."}
+            ? gt("Tab indents. Shift+Tab unindents. Press Escape, then Tab to leave.")
+            : gt("Tab moves to the next control.")}
         </p>
         <Button
           size="xs"

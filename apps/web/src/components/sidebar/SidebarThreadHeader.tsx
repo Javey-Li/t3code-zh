@@ -1,4 +1,4 @@
-import { T, msg, useGT, useMessages } from "gt-react";
+import { useGT } from "gt-react";
 import { FolderPlusIcon, SearchIcon, SquarePenIcon, XIcon } from "lucide-react";
 import {
   type ComponentProps,
@@ -55,8 +55,8 @@ export function SidebarThreadHeader({
   // Shrinking results can remove the active option; never leave aria-activedescendant pointing at it.
   const activeResultExists = resultsVisible && activeSearchResultIndex < searchResultCount;
   const newThreadLabel = newThreadShortcutLabel
-    ? `New thread (${newThreadShortcutLabel})`
-    : "New thread";
+    ? gt("New thread ({shortcut})", { shortcut: newThreadShortcutLabel })
+    : gt("New thread");
 
   return (
     <div className="flex items-center gap-1">
@@ -69,7 +69,7 @@ export function SidebarThreadHeader({
           value={searchQuery}
           onChange={(event) => onSearchQueryChange(event.currentTarget.value)}
           onKeyDown={onSearchKeyDown}
-          placeholder={gt("Search")}
+          placeholder={gt("Search", { $context: "search field placeholder" })}
           aria-label={gt("Search threads")}
           role="combobox"
           aria-autocomplete="list"
@@ -102,20 +102,23 @@ export function SidebarThreadHeader({
         {hasProjects ? (
           <>
             {projectScope}
-            <SidebarHeaderIconButton label={msg("Add project")} onClick={onNewProject}>
+            <SidebarHeaderIconButton label={gt("Add project")} onClick={onNewProject}>
               <FolderPlusIcon />
             </SidebarHeaderIconButton>
           </>
         ) : null}
         <SidebarHeaderIconButton
-          label={msg("New thread")}
+          label={gt("New thread")}
           tooltip={
             showNewThreadInProjectHint ? (
               <span className="flex flex-col gap-0.5">
                 <span>{newThreadLabel}</span>
                 <span className="text-muted-foreground">
-                  <T>New thread in current project: Shift+click</T>
-                  {newThreadInProjectShortcutLabel ? ` (${newThreadInProjectShortcutLabel})` : ""}
+                  {newThreadInProjectShortcutLabel
+                    ? gt("New thread in current project: Shift+click ({shortcut})", {
+                        shortcut: newThreadInProjectShortcutLabel,
+                      })
+                    : gt("New thread in current project: Shift+click")}
                 </span>
               </span>
             ) : (
@@ -147,8 +150,6 @@ export function SidebarHeaderIconButton({
   ComponentProps<typeof SidebarMenuButton>,
   "children" | "className" | "tooltip" | "isActive" | "aria-label"
 >) {
-  const m = useMessages();
-  const text = m(label);
   return (
     <Tooltip>
       <TooltipTrigger
@@ -156,7 +157,7 @@ export function SidebarHeaderIconButton({
           <SidebarMenuButton
             size="icon"
             type="button"
-            aria-label={text}
+            aria-label={label}
             {...rest}
             className={cn("relative size-7 shrink-0", className)}
           />
@@ -168,7 +169,7 @@ export function SidebarHeaderIconButton({
           className="pointer-events-none absolute left-1/2 top-1/2 size-[max(100%,3rem)] -translate-1/2 pointer-fine:hidden"
         />
       </TooltipTrigger>
-      <TooltipPopup side="top">{tooltip === label ? text : tooltip}</TooltipPopup>
+      <TooltipPopup side="top">{tooltip}</TooltipPopup>
     </Tooltip>
   );
 }

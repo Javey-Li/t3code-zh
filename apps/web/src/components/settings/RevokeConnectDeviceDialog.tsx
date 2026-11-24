@@ -109,7 +109,7 @@ function RevokeConnectDeviceDialogPopup({
         </AlertDialogClose>
         <Button variant="destructive" disabled={busy} onClick={() => void confirm()}>
           {busy && <Spinner size="sm" />}
-          Revoke
+          <T>Revoke</T>
         </Button>
       </AlertDialogFooter>
     </AlertDialogPopup>

@@ -1,4 +1,4 @@
-import { useGT } from "gt-react";
+import { useGT, T } from "gt-react";
 import { resolveTimelineMinimapPreview, type TimelineMinimapItem } from "./timelineMinimapItems";
 import { useRef, useState, type MouseEvent } from "react";
 import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
@@ -190,7 +190,6 @@ export function TimelineMinimap({
             onMouseDown={(event) => event.preventDefault()}
             type="button"
           >
-            <div className="absolute top-0 left-3 h-full w-px bg-border/15" />
             {items.map((item, index) => {
               const top = `${resolveTimelineMinimapTopPercent(index, items.length)}%`;
               const activeDistance =
@@ -235,7 +234,7 @@ export function TimelineMinimap({
               >
                 <span className="dropdown-glass block rounded-xl p-3 text-left text-popover-foreground shadow-xl shadow-black/25">
                   <span className="block max-w-full overflow-hidden text-ellipsis whitespace-nowrap text-sm font-medium leading-5">
-                    {activeItem.userText ?? "User message"}
+                    {activeItem.userText ?? <T>User message</T>}
                   </span>
                   {activeItem.assistantText ? (
                     <span
@@ -278,8 +277,9 @@ function TimelineMinimapNavigationButton({
   interactive: boolean;
   onClick: () => void;
 }) {
+  const gt = useGT();
   const previous = direction === "previous";
-  const label = previous ? "Previous turn" : "Next turn";
+  const label = previous ? gt("Previous turn") : gt("Next turn");
   const Icon = previous ? ChevronUpIcon : ChevronDownIcon;
 
   return (

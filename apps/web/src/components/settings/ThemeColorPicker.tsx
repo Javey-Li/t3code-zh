@@ -1,5 +1,6 @@
-import { T, useGT } from "gt-react";
+import { msg, T, useGT, useMessages } from "gt-react";
 import { memo, useEffect, useRef, useState } from "react";
+import { m, type MessageResolver } from "../../i18n/messages";
 import { isThemeColor, themeColorToHex, type ThemeColorRole } from "../../themePalette";
 import { cn } from "../../lib/utils";
 import { hexToHsv, hsvToHex, type HsvColor } from "../../lib/color";
@@ -7,25 +8,26 @@ import { ColorHueSlider, ColorSaturationValuePlane } from "../ui/color-picker";
 import { Input } from "../ui/input";
 import { Popover, PopoverPopup, PopoverTrigger } from "../ui/popover";
 import { Tooltip, TooltipPopup, TooltipTrigger } from "../ui/tooltip";
-export function getThemeRoleLabel(role: ThemeColorRole): string {
-  const labels: Partial<Record<ThemeColorRole, string>> = {
-    canvas: "Background",
-    toolbar: "Toolbar background",
-    toolbarForeground: "Toolbar text",
-    toolbarBorder: "Toolbar border",
-    toolbarControl: "Toolbar control",
-    toolbarControlForeground: "Toolbar control text",
-    toolbarControlHover: "Toolbar control hover",
-    accent: "Accent color",
-    errorForeground: "Error text",
-    errorSurface: "Error background",
-    warningForeground: "Warning text",
-    warningSurface: "Warning background",
-    updateForeground: "Update text",
-    updateSurface: "Update background",
-  };
-  const label = labels[role];
-  if (label) return label;
+const THEME_ROLE_LABELS: Partial<Record<ThemeColorRole, string>> = {
+  canvas: msg("Background"),
+  toolbar: msg("Toolbar background"),
+  toolbarForeground: msg("Toolbar text"),
+  toolbarBorder: msg("Toolbar border"),
+  toolbarControl: msg("Toolbar control"),
+  toolbarControlForeground: msg("Toolbar control text"),
+  toolbarControlHover: msg("Toolbar control hover"),
+  accent: msg("Accent color"),
+  errorForeground: msg("Error text"),
+  errorSurface: msg("Error background"),
+  warningForeground: msg("Warning text"),
+  warningSurface: msg("Warning background"),
+  updateForeground: msg("Update text"),
+  updateSurface: msg("Update background"),
+};
+
+export function getThemeRoleLabel(role: ThemeColorRole, resolve: MessageResolver = m): string {
+  const label = THEME_ROLE_LABELS[role];
+  if (label) return resolve(label);
   return role.replace(/([A-Z])/g, " $1").replace(/^./, (character) => character.toUpperCase());
 }
 
@@ -61,6 +63,10 @@ function themeRgbToHex(value: string): string | null {
   }
 
   return `#${channels.map((channel) => channel.toString(16).padStart(2, "0")).join("")}`;
+}
+
+function isShortHexColor(value: string): boolean {
+  return /^#[0-9a-f]{3,4}$/i.test(value.trim());
 }
 
 function themeRgbValue(hex: string) {
@@ -180,7 +186,7 @@ function ThemeColorPickerPanel({
           onInteractionEnd={committer.flush}
         />
         <ColorHueSlider
-          label={`${label} hue`}
+          label={gt("{label} hue", { label })}
           value={hsv.h}
           onChange={(h) => commitHsv({ ...hsv, h })}
           onInteractionEnd={committer.flush}
@@ -296,7 +302,7 @@ function ThemeColorPicker({
             />
           }
         />
-        <TooltipPopup side="top">{`Choose ${label} color`}</TooltipPopup>
+        <TooltipPopup side="top">{gt("Choose {label} color", { label })}</TooltipPopup>
       </Tooltip>
       <PopoverPopup
         align="end"
@@ -340,12 +346,17 @@ export const ThemeColorField = memo(function ThemeColorField({
   label?: string;
 }) {
   const gt = useGT();
-  const label = customLabel ?? getThemeRoleLabel(role);
+  const messages = useMessages();
+  const label = customLabel ?? getThemeRoleLabel(role, messages);
   const isColorValue = isThemeColor(value);
   const swatchValue = isColorValue ? value : "#000000";
   const editorValue = value.trim().toLowerCase().startsWith("oklch(")
     ? (themeColorToHex(value) ?? value)
     : value;
+  // While focused the input shows the typed text, not the committed value: a guided palette
+  // rewrites the committed color, and echoing that mid-edit would replace the user's keystrokes.
+  const [hexDraft, setHexDraft] = useState<string | null>(null);
+  const hexText = hexDraft ?? editorValue;
 
   return (
     <div
@@ -371,7 +382,11 @@ export const ThemeColorField = memo(function ThemeColorField({
             </button>
           }
         />
-        <TooltipPopup side="top">{`${selected ? "Hide" : "Show"} where ${label} is used`}</TooltipPopup>
+        <TooltipPopup side="top">
+          {selected
+            ? gt("Hide where {label} is used", { label })
+            : gt("Show where {label} is used", { label })}
+        </TooltipPopup>
       </Tooltip>
       <div className="ml-auto flex shrink-0 items-center gap-2">
         <ThemeColorPicker
@@ -383,17 +398,29 @@ export const ThemeColorField = memo(function ThemeColorField({
           value={swatchValue}
         />
         <Input
-          aria-invalid={!isColorValue}
+          aria-invalid={!isThemeColor(hexText)}
           aria-label={gt("{label} hex value", { label })}
           className="w-28 shrink-0"
           font="mono"
           id={`${role}-hex`}
           nativeInput
-          onChange={(event) => onChange(role, event.currentTarget.value)}
-          onFocus={() => onSelect?.(role)}
+          onBlur={() => {
+            if (hexDraft !== null && isShortHexColor(hexDraft)) onChange(role, hexDraft);
+            setHexDraft(null);
+          }}
+          onChange={(event) => {
+            const nextValue = event.currentTarget.value;
+            setHexDraft(nextValue);
+            // Shorthand is usually a longer hex mid-deletion, so commit it on blur instead.
+            if (!isShortHexColor(nextValue)) onChange(role, nextValue);
+          }}
+          onFocus={() => {
+            setHexDraft(editorValue);
+            onSelect?.(role);
+          }}
           onPointerDown={() => onSelect?.(role)}
           size="compact"
-          value={editorValue}
+          value={hexText}
         />
       </div>
     </div>

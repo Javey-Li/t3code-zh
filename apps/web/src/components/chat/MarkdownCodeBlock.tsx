@@ -1,4 +1,4 @@
-import { T, useGT } from "gt-react";
+import { useGT } from "gt-react";
 import { PlayIcon, WrapTextIcon, CheckIcon, CopyIcon } from "lucide-react";
 import { toHtml } from "hast-util-to-html";
 import React, { use, useEffect, useState, type ReactNode } from "react";
@@ -18,7 +18,7 @@ import {
   syntheticFileNameForLanguageId,
 } from "../../pierre-icons";
 import { Button } from "../ui/button";
-import { Tooltip, TooltipPopup, TooltipTrigger } from "../ui/tooltip";
+import { SharedTooltipTrigger } from "../ui/shared-tooltip";
 import { HighlightedCodeLines } from "./HighlightedCodeLines";
 import {
   createHighlightCacheKey,
@@ -115,19 +115,17 @@ function MarkdownCodeBlockTitleContent({
     return <span className="truncate">{language}</span>;
   }
   return (
-    <Tooltip>
-      <TooltipTrigger
-        render={
-          <span
-            className="inline-flex shrink-0 rounded-sm"
-            aria-label={gt("Language: {language}", { language })}
-          />
-        }
-      >
-        <PierreEntryIcon pathValue={fileName} kind="file" theme={theme} className="size-3.5" />
-      </TooltipTrigger>
-      <TooltipPopup side="top">{language}</TooltipPopup>
-    </Tooltip>
+    <SharedTooltipTrigger
+      label={language}
+      render={
+        <span
+          className="inline-flex shrink-0 rounded-sm"
+          aria-label={gt("Language: {language}", { language })}
+        />
+      }
+    >
+      <PierreEntryIcon pathValue={fileName} kind="file" theme={theme} className="size-3.5" />
+    </SharedTooltipTrigger>
   );
 }
 
@@ -170,8 +168,8 @@ export function MarkdownCodeBlock({
   const defaultWrapped = useClientSettings((settings) => settings.wordWrap);
   const [wrapOverride, setWrapOverride] = useState<boolean | null>(null);
   const wrapped = wrapOverride ?? defaultWrapped;
-  const wrapLabel = wrapped ? "Disable line wrap" : "Wrap lines";
-  const copyLabel = copied ? "Copied" : "Copy code";
+  const wrapLabel = wrapped ? gt("Disable line wrap") : gt("Wrap lines");
+  const copyLabel = copied ? gt("Copied") : gt("Copy code");
   const command = code.trim();
   const canRun =
     onRunShellCommand !== undefined &&
@@ -184,25 +182,23 @@ export function MarkdownCodeBlock({
     // make the rendered command differ from what the terminal would receive.
     !/[\p{Cc}\p{Cf}]/u.test(code.slice(0, -1));
 
-  const handleCopy = () => copyToClipboard(code);
+  const handleCopy = () => copyToClipboard(code.endsWith("\n") ? code.slice(0, -1) : code);
 
   const copyButton = (
-    <Tooltip>
-      <TooltipTrigger
-        render={
-          <Button
-            type="button"
-            variant="ghost-muted"
-            size="icon-xs"
-            onClick={handleCopy}
-            aria-label={copyLabel}
-          />
-        }
-      >
-        {copied ? <CheckIcon className="size-3" /> : <CopyIcon className="size-3" />}
-      </TooltipTrigger>
-      <TooltipPopup side="top">{copyLabel}</TooltipPopup>
-    </Tooltip>
+    <SharedTooltipTrigger
+      label={copyLabel}
+      render={
+        <Button
+          type="button"
+          variant="ghost-muted"
+          size="icon-xs"
+          onClick={handleCopy}
+          aria-label={copyLabel}
+        />
+      }
+    >
+      {copied ? <CheckIcon className="size-3" /> : <CopyIcon className="size-3" />}
+    </SharedTooltipTrigger>
   );
 
   if (diagram) {
@@ -231,43 +227,37 @@ export function MarkdownCodeBlock({
           aria-label={gt("Code block actions")}
         >
           {canWrap ? (
-            <Tooltip>
-              <TooltipTrigger
-                render={
-                  <Button
-                    type="button"
-                    variant={wrapped ? "secondary" : "ghost-muted"}
-                    size="icon-xs"
-                    aria-pressed={wrapped}
-                    onClick={() => setWrapOverride(!wrapped)}
-                    aria-label={wrapLabel}
-                  />
-                }
-              >
-                <WrapTextIcon className="size-3" />
-              </TooltipTrigger>
-              <TooltipPopup side="top">{wrapLabel}</TooltipPopup>
-            </Tooltip>
+            <SharedTooltipTrigger
+              label={wrapLabel}
+              render={
+                <Button
+                  type="button"
+                  variant={wrapped ? "secondary" : "ghost-muted"}
+                  size="icon-xs"
+                  aria-pressed={wrapped}
+                  onClick={() => setWrapOverride(!wrapped)}
+                  aria-label={wrapLabel}
+                />
+              }
+            >
+              <WrapTextIcon className="size-3" />
+            </SharedTooltipTrigger>
           ) : null}
           {canRun ? (
-            <Tooltip>
-              <TooltipTrigger
-                render={
-                  <Button
-                    type="button"
-                    variant="ghost-muted"
-                    size="icon-xs"
-                    onClick={() => onRunShellCommand(command)}
-                    aria-label={gt("Run in terminal")}
-                  />
-                }
-              >
-                <PlayIcon className="size-3" />
-              </TooltipTrigger>
-              <TooltipPopup side="top">
-                <T>Run in terminal</T>
-              </TooltipPopup>
-            </Tooltip>
+            <SharedTooltipTrigger
+              label={gt("Run in terminal")}
+              render={
+                <Button
+                  type="button"
+                  variant="ghost-muted"
+                  size="icon-xs"
+                  onClick={() => onRunShellCommand(command)}
+                  aria-label={gt("Run in terminal")}
+                />
+              }
+            >
+              <PlayIcon className="size-3" />
+            </SharedTooltipTrigger>
           ) : null}
           {viewToggle}
           {copyButton}

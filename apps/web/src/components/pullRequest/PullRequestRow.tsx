@@ -15,6 +15,7 @@ import { getSourceControlPresentationForKind } from "~/sourceControlPresentation
 
 import { Tooltip, TooltipPopup, TooltipTrigger } from "../ui/tooltip";
 import { PullRequestChecksPopover } from "./PullRequestChecksPopover";
+import { pullRequestPanelReference } from "./usePullRequestDetail";
 import type { EnvironmentPullRequestEntry } from "./pullRequestList.logic";
 import { openOnHostLabel, showPullRequestLinkContextMenu } from "./pullRequestLinkContextMenu";
 import {
@@ -24,6 +25,7 @@ import {
   PullRequestRowGlyph,
   PullRequestRowLines,
 } from "./PullRequestListRow";
+import { PullRequestPrivateMark } from "./PullRequestDetailLayout";
 import { PullRequestLabelChip, PullRequestReviewDecisionGlyph } from "./pullRequestPresentation";
 
 const LABEL_SLOTS = [
@@ -160,14 +162,16 @@ function PullRequestRowImpl({
           title={entry.title}
           signals={
             <>
+              {entry.visibility === "private" ? (
+                <PullRequestPrivateMark className="size-3 text-muted-foreground" />
+              ) : null}
               {entry.checksState === undefined ? null : (
                 <PullRequestChecksPopover
                   checksState={entry.checksState}
                   environmentId={entry.environmentId}
                   reference={{
-                    projectId: entry.projectId,
-                    repository: entry.repository,
-                    number: entry.number,
+                    ...pullRequestPanelReference({ ...entry, host: entry.host.toLowerCase() }),
+                    allowStale: false,
                   }}
                 />
               )}

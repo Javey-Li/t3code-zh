@@ -1,6 +1,6 @@
-import { T, msg, useGT, useMessages } from "gt-react";
 import { ArrowLeftIcon, ArrowRightIcon, ChartNoAxesColumnIcon, SettingsIcon } from "lucide-react";
 import type { ReactNode } from "react";
+import { T, useGT } from "gt-react";
 import { memo } from "react";
 import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 
@@ -14,7 +14,7 @@ import {
 } from "../../navigationHistory";
 import { primaryServerKeybindingsAtom } from "../../state/server";
 import { cn } from "../../lib/utils";
-import { usePullRequestsSupported } from "../../state/environments";
+import { useIssuesSupported, usePullRequestsSupported } from "../../state/environments";
 import { T3Wordmark } from "../T3Wordmark";
 import {
   resolveEnvironmentIdentificationPillLabel,
@@ -34,6 +34,8 @@ import {
 } from "../ui/sidebar";
 import { Tooltip, TooltipPopup, TooltipTrigger } from "../ui/tooltip";
 import { readPullRequestListPreferences } from "../pullRequest/pullRequestListPreferences";
+import { readIssueListPreferences } from "../issue/issueListPreferences";
+import { IssueGlyph } from "../issue/issuePresentation";
 import { isSidebarUtilityPage, useNavigateToMainApp } from "./mainAppLocation";
 import { SidebarThreadUndoNotice } from "./SidebarThreadUndoNotice";
 import { SidebarProviderUpdatePill } from "./SidebarProviderUpdatePill";
@@ -46,9 +48,9 @@ export const SidebarChromeHeader = memo(function SidebarChromeHeader({
 }: {
   isElectron: boolean;
 }) {
-  const gt = useGT();
   const stageLabel = useEnvironmentStageLabel();
   const environmentIdentificationMode = useEnvironmentIdentificationMode();
+  const gt = useGT();
   const backdropVariant = resolveSidebarStageBackdropVariant(
     stageLabel,
     environmentIdentificationMode,
@@ -131,7 +133,8 @@ function HistoryNavigationButton({
 }) {
   const keybindings = useAtomValue(primaryServerKeybindingsAtom);
   const enabled = useCanNavigateHistory(direction);
-  const label = direction === "back" ? "Go back" : "Go forward";
+  const gt = useGT();
+  const label = direction === "back" ? gt("Go back") : gt("Go forward");
   const shortcutLabel = shortcutLabelForCommand(
     keybindings,
     direction === "back" ? "navigation.back" : "navigation.forward",
@@ -190,7 +193,8 @@ function SidebarBrandMark({ onBackdrop }: { onBackdrop: boolean }) {
           onBackdrop ? "text-white/70" : "text-muted-foreground",
         )}
       >
-        <T>Code</T>
+        {/* oxlint-disable-next-line t3code/no-untranslated-copy -- product wordmark */}
+        {"Code"}
       </span>
     </span>
   );
@@ -205,19 +209,17 @@ function SidebarUtilityItem({
   label: string;
   onClick: () => void;
 }) {
-  const m = useMessages();
-  const text = m(label);
   return (
     <SidebarMenuItem className="shrink-0">
       <Tooltip>
         <TooltipTrigger
           render={
-            <SidebarMenuButton aria-label={text} onClick={onClick} size="icon">
+            <SidebarMenuButton aria-label={label} onClick={onClick} size="icon">
               {icon}
             </SidebarMenuButton>
           }
         />
-        <TooltipPopup side="top">{text}</TooltipPopup>
+        <TooltipPopup side="top">{label}</TooltipPopup>
       </Tooltip>
     </SidebarMenuItem>
   );
@@ -226,11 +228,13 @@ function SidebarUtilityItem({
 const SidebarUtilityMenu = memo(function SidebarUtilityMenu() {
   const navigate = useNavigate();
   const navigateToMainApp = useNavigateToMainApp();
+  const gt = useGT();
   const { isMobile, setOpenMobile } = useSidebar();
   const isOnUtilityPage = useLocation({
     select: (location) => isSidebarUtilityPage(location.pathname),
   });
   const pullRequestsSupported = usePullRequestsSupported();
+  const issuesSupported = useIssuesSupported();
   const closeMobileSidebar = () => {
     if (isMobile) {
       setOpenMobile(false);
@@ -242,6 +246,10 @@ const SidebarUtilityMenu = memo(function SidebarUtilityMenu() {
       to: "/pull-requests",
       search: readPullRequestListPreferences(),
     });
+  };
+  const handleIssuesClick = () => {
+    closeMobileSidebar();
+    void navigate({ to: "/issues", search: readIssueListPreferences() });
   };
   const handleSettingsClick = () => {
     closeMobileSidebar();
@@ -275,19 +283,26 @@ const SidebarUtilityMenu = memo(function SidebarUtilityMenu() {
         <>
           <SidebarUtilityItem
             icon={<SettingsIcon />}
-            label={msg("Settings")}
+            label={gt("Settings")}
             onClick={handleSettingsClick}
           />
           {pullRequestsSupported ? (
             <SidebarUtilityItem
               icon={<PullRequestGlyph.pullRequest />}
-              label={msg("Pull requests")}
+              label={gt("Pull requests")}
               onClick={handlePullRequestsClick}
+            />
+          ) : null}
+          {issuesSupported ? (
+            <SidebarUtilityItem
+              icon={<IssueGlyph.issue />}
+              label={gt("Issues", { $context: "sidebar link to the list of issues" })}
+              onClick={handleIssuesClick}
             />
           ) : null}
           <SidebarUtilityItem
             icon={<ChartNoAxesColumnIcon />}
-            label={msg("Usage")}
+            label={gt("Usage")}
             onClick={handleUsageClick}
           />
         </>

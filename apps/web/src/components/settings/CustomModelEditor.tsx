@@ -1,6 +1,6 @@
-import { T, useGT, useMessages } from "gt-react";
 import { PlusIcon, XIcon } from "lucide-react";
-import { useState } from "react";
+import { T, useGT, useMessages } from "gt-react";
+import { useState, type SetStateAction } from "react";
 import type { ProviderDriverKind, ServerProviderModel } from "@t3tools/contracts";
 import type { CustomModelDefinition } from "@t3tools/shared/model";
 
@@ -34,6 +34,7 @@ interface CustomModelEditorProps {
   readonly builtInModels: ReadonlyArray<ServerProviderModel>;
   readonly onSave: (next: CustomModelDefinition) => void;
   readonly onCancel: () => void;
+  readonly onDraftChange: () => void;
 }
 
 export function CustomModelEditor({
@@ -43,12 +44,25 @@ export function CustomModelEditor({
   builtInModels,
   onSave,
   onCancel,
+  onDraftChange,
 }: CustomModelEditorProps) {
-  const m = useMessages();
   const gt = useGT();
+  const m = useMessages();
   const [draft, setDraft] = useState<CustomModelDraft>(() => draftFromDefinition(entry));
   const [error, setError] = useState<string | null>(null);
-  const presets = driverKind ? (DESCRIPTOR_PRESETS_BY_KIND[driverKind] ?? []) : [];
+  const updateDraft = (next: SetStateAction<CustomModelDraft>) => {
+    onDraftChange();
+    setDraft(next);
+  };
+  const presets = (driverKind ? (DESCRIPTOR_PRESETS_BY_KIND[driverKind] ?? []) : []).map(
+    (preset) => ({
+      ...preset,
+      label: m(preset.label),
+      ...(preset.choices
+        ? { choices: preset.choices.map((choice) => ({ ...choice, label: m(choice.label) })) }
+        : {}),
+    }),
+  );
   const startFromCandidates = builtInModels.filter(
     (model) => (model.capabilities?.optionDescriptors?.length ?? 0) > 0,
   );
@@ -56,7 +70,7 @@ export function CustomModelEditor({
 
   const updateDescriptor = (key: string, patch: Partial<EditorDescriptor>) => {
     setError(null);
-    setDraft((current) => ({
+    updateDraft((current) => ({
       ...current,
       descriptors: current.descriptors.map((descriptor) =>
         descriptor.key === key ? { ...descriptor, ...patch } : descriptor,
@@ -66,7 +80,7 @@ export function CustomModelEditor({
 
   const updateChoice = (descriptorKey: string, choiceKey: string, patch: Partial<EditorChoice>) => {
     setError(null);
-    setDraft((current) => ({
+    updateDraft((current) => ({
       ...current,
       descriptors: current.descriptors.map((descriptor) => {
         if (descriptor.key !== descriptorKey) return descriptor;
@@ -83,7 +97,7 @@ export function CustomModelEditor({
 
   const removeDescriptor = (key: string) => {
     setError(null);
-    setDraft((current) => ({
+    updateDraft((current) => ({
       ...current,
       descriptors: current.descriptors.filter((descriptor) => descriptor.key !== key),
     }));
@@ -91,7 +105,7 @@ export function CustomModelEditor({
 
   const addDescriptor = (descriptor: EditorDescriptor) => {
     setError(null);
-    setDraft((current) => ({ ...current, descriptors: [...current.descriptors, descriptor] }));
+    updateDraft((current) => ({ ...current, descriptors: [...current.descriptors, descriptor] }));
   };
 
   const applyPresetId = (descriptor: EditorDescriptor, value: string | null) => {
@@ -117,14 +131,14 @@ export function CustomModelEditor({
     const model = startFromCandidates.find((candidate) => candidate.slug === slug);
     if (!model) return;
     setError(null);
-    setDraft((current) => ({
+    updateDraft((current) => ({
       ...current,
       descriptors: descriptorsFromCapabilities(model.capabilities, driverKind),
     }));
   };
 
   const handleSave = () => {
-    const problem = validateDraft(draft);
+    const problem = validateDraft(draft, m);
     if (problem) {
       setError(problem);
       return;
@@ -141,7 +155,7 @@ export function CustomModelEditor({
         size="compact"
         value={choice.id}
         onChange={(event) => updateChoice(descriptor.key, choice.key, { id: event.target.value })}
-        placeholder={gt("value")}
+        placeholder={gt("value", { $context: "placeholder for a choice's stored value" })}
         font="mono"
         className="w-28"
         spellCheck={false}
@@ -149,11 +163,11 @@ export function CustomModelEditor({
       />
       <Input
         size="compact"
-        value={m(choice.label)}
+        value={choice.label}
         onChange={(event) =>
           updateChoice(descriptor.key, choice.key, { label: event.target.value })
         }
-        placeholder={gt("Label")}
+        placeholder={gt("Label", { $context: "noun, display name" })}
         className="min-w-0 flex-1"
         aria-label={gt("Choice label")}
       />
@@ -166,7 +180,7 @@ export function CustomModelEditor({
           }
           aria-label={gt("Default choice")}
         />
-        Default
+        {gt("Default", { $context: "marks the default choice" })}
       </label>
       <Button
         size="icon-micro"
@@ -189,7 +203,9 @@ export function CustomModelEditor({
       className="flex flex-col gap-2 rounded-md border border-border/60 bg-background/40 p-2.5"
     >
       <div className="flex flex-wrap items-center gap-2">
-        <span className="w-14 shrink-0 text-2xs text-muted-foreground">Option {index + 1}</span>
+        <span className="w-14 shrink-0 text-2xs text-muted-foreground">
+          {gt("Option {number}", { number: index + 1 })}
+        </span>
         {presets.length > 0 ? (
           <Select
             value={idSelectValue(descriptor)}
@@ -197,7 +213,7 @@ export function CustomModelEditor({
           >
             <SelectTrigger size="compact" className="w-40" aria-label={gt("Option id")}>
               <SelectValue>
-                {idSelectValue(descriptor) === CUSTOM_ID_VALUE ? "Custom…" : descriptor.id}
+                {idSelectValue(descriptor) === CUSTOM_ID_VALUE ? gt("Custom…") : descriptor.id}
               </SelectValue>
             </SelectTrigger>
             <SelectPopup align="start" alignItemWithTrigger={false}>
@@ -205,7 +221,7 @@ export function CustomModelEditor({
                 <SelectItem key={preset.id} value={preset.id}>
                   <span className="flex items-baseline gap-2">
                     <code className="font-mono text-xs">{preset.id}</code>
-                    <span className="text-muted-foreground">{m(preset.label)}</span>
+                    <span className="text-muted-foreground">{preset.label}</span>
                   </span>
                 </SelectItem>
               ))}
@@ -229,9 +245,9 @@ export function CustomModelEditor({
         ) : null}
         <Input
           size="compact"
-          value={m(descriptor.label)}
+          value={descriptor.label}
           onChange={(event) => updateDescriptor(descriptor.key, { label: event.target.value })}
-          placeholder={gt("Label")}
+          placeholder={gt("Label", { $context: "noun, display name" })}
           className="min-w-0 flex-1"
           aria-label={gt("Option label")}
         />
@@ -242,21 +258,25 @@ export function CustomModelEditor({
           }
         >
           <SelectTrigger size="compact" className="w-24" aria-label={gt("Option type")}>
-            <SelectValue>{descriptor.type === "boolean" ? "Toggle" : "Choices"}</SelectValue>
+            <SelectValue>
+              {descriptor.type === "boolean"
+                ? gt("Toggle", { $context: "noun, on/off option type" })
+                : gt("Choices")}
+            </SelectValue>
           </SelectTrigger>
           <SelectPopup align="end" alignItemWithTrigger={false}>
             <SelectItem value="select">
               <T>Choices</T>
             </SelectItem>
             <SelectItem value="boolean">
-              <T>Toggle</T>
+              {gt("Toggle", { $context: "noun, on/off option type" })}
             </SelectItem>
           </SelectPopup>
         </Select>
         <Button
           size="icon-micro"
           variant="ghost-muted"
-          aria-label={gt("Remove option {index}", { index: index + 1 })}
+          aria-label={gt("Remove option {number}", { number: index + 1 })}
           onClick={() => removeDescriptor(descriptor.key)}
         >
           <XIcon className="size-3" />
@@ -303,7 +323,7 @@ export function CustomModelEditor({
           size="sm"
           autoFocus
           value={draft.name}
-          onChange={(event) => setDraft((current) => ({ ...current, name: event.target.value }))}
+          onChange={(event) => updateDraft((current) => ({ ...current, name: event.target.value }))}
           placeholder={draft.slug}
           className="sm:w-72"
           spellCheck={false}
@@ -357,7 +377,7 @@ export function CustomModelEditor({
                 onClick={() => addDescriptor(descriptorFromPreset(preset))}
               >
                 <PlusIcon className="size-3" />
-                {m(preset.label)}
+                {preset.label}
               </Button>
             ))}
           <Button
@@ -376,7 +396,7 @@ export function CustomModelEditor({
 
       <div className="flex gap-2">
         <Button size="sm" variant="outline" onClick={handleSave}>
-          <T>Save</T>
+          {gt("Save", { $context: "verb" })}
         </Button>
         <Button size="sm" variant="ghost" onClick={onCancel}>
           <T>Cancel</T>

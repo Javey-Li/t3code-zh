@@ -1,4 +1,4 @@
-import { useGT } from "gt-react";
+import { thrownErrorMessage } from "@t3tools/client-runtime/errors";
 import { scopeProjectRef } from "@t3tools/client-runtime/environment";
 import { requestCustomSnooze } from "../components/CustomSnoozeDialog";
 import { openGuestShareDialog } from "../components/chat/guestShareDialogState";
@@ -15,6 +15,7 @@ import {
   type ThreadId,
 } from "@t3tools/contracts";
 import { useRouter } from "@tanstack/react-router";
+import { msg } from "gt-react";
 
 import { pickSnoozePreset, resolveSnoozePresets } from "../components/Sidebar.snooze";
 import {
@@ -25,6 +26,7 @@ import {
 import { titleRegenerationToast } from "../components/threadTitleRegenerationToast";
 import { stackedThreadToast, toastManager } from "../components/ui/toast";
 import { copyThreadReference } from "../lib/copyThreadReference";
+import { m } from "../i18n/messages";
 import { threadChipCopyTarget } from "@t3tools/client-runtime/thread-reference";
 import { threadEnvironment } from "../state/threads";
 import { useOrchestrationCommand } from "../state/use-orchestration-command";
@@ -50,12 +52,12 @@ import { useNewThreadHandler } from "./useHandleNewThread";
 import { useClientSettings } from "./useSettings";
 import { canTurnThreadIntoProject, useThreadActions } from "./useThreadActions";
 
-function failureToast(title: string, error: unknown, fallback: string) {
+function failureToast(title: string, error: unknown) {
   toastManager.add(
     stackedThreadToast({
       type: "error",
       title,
-      description: error instanceof Error ? error.message : fallback,
+      description: thrownErrorMessage(error, m) ?? m(msg("An error occurred.")),
     }),
   );
 }
@@ -68,7 +70,6 @@ export function useThreadActionMenu(input: {
   readonly canShareWithGuest: boolean;
 }) {
   const { threadRef, projectCwd, onStartRename, onFind, canShareWithGuest } = input;
-  const gt = useGT();
   const router = useRouter();
   const projects = useProjects();
   const primaryEnvironmentId = usePrimaryEnvironmentId();
@@ -99,24 +100,18 @@ export function useThreadActionMenu(input: {
   const confirmThreadArchive = useClientSettings((s) => s.confirmThreadArchive);
   const timestampFormat = useClientSettings((s) => s.timestampFormat);
   const { copyToClipboard: copyPathToClipboard } = useCopyToClipboard<{ path: string }>({
-    onCopy: ({ path }) => {
-      toastManager.add({ type: "success", title: gt("Path copied"), description: path });
-    },
-    onError: (error) => failureToast(gt("Failed to copy path"), error, gt("An error occurred.")),
+    onError: (error) => failureToast(m(msg("Failed to copy path")), error),
   });
   const { copyToClipboard: copyBranchToClipboard } = useCopyToClipboard<{ branch: string }>({
-    target: "branch name",
-    onCopy: ({ branch }) => {
-      toastManager.add({ type: "success", title: gt("Branch copied"), description: branch });
+    target: {
+      target: "branch name",
+      unavailableMessage: msg("Clipboard API is unavailable while copying branch name."),
+      failureMessage: msg("Failed to copy branch name to the clipboard."),
     },
-    onError: (error) => failureToast(gt("Failed to copy branch"), error, gt("An error occurred.")),
+    onError: (error) => failureToast(m(msg("Failed to copy branch")), error),
   });
   const { copyToClipboard: copyThreadIdToClipboard } = useCopyToClipboard<{ threadId: ThreadId }>({
-    onCopy: ({ threadId }) => {
-      toastManager.add({ type: "success", title: gt("Thread ID copied"), description: threadId });
-    },
-    onError: (error) =>
-      failureToast(gt("Failed to copy thread ID"), error, gt("An error occurred.")),
+    onError: (error) => failureToast(m(msg("Failed to copy thread ID")), error),
   });
 
   const openMenu = (position: { x: number; y: number }) => {
@@ -127,9 +122,8 @@ export function useThreadActionMenu(input: {
       const thread = readThreadShell(threadRef);
       if (!thread) {
         failureToast(
-          gt("Thread actions unavailable"),
-          new Error(gt("This thread has not loaded yet.")),
-          gt("An error occurred."),
+          m(msg("Thread actions unavailable")),
+          new Error(m(msg("This thread has not loaded yet."))),
         );
         return;
       }
@@ -145,8 +139,6 @@ export function useThreadActionMenu(input: {
       const isRegeneratingTitle = thread.titleRegeneration != null;
       const snoozePresets = resolveSnoozePresets(now, timestampFormat, threadRef.environmentId);
       const items = buildThreadActionMenuItems({
-        labelNewThreadOnBranch: (branch) => gt("New thread on {branch}", { branch }),
-        labelFilterByProject: (project) => gt("Filter by {project}", { project }),
         canOperate: readEnvironmentScope(threadRef.environmentId, AuthOrchestrationOperateScope),
         canFind: onFind !== undefined,
         branch: thread.branch ?? null,
@@ -171,9 +163,8 @@ export function useThreadActionMenu(input: {
         !readEnvironmentScope(threadRef.environmentId, AuthOrchestrationOperateScope)
       ) {
         failureToast(
-          gt("Thread action unavailable"),
-          new Error(gt("This connection cannot change threads.")),
-          gt("An error occurred."),
+          m(msg("Thread action unavailable")),
+          new Error(m(msg("This connection cannot change threads."))),
         );
         return;
       }
@@ -190,11 +181,7 @@ export function useThreadActionMenu(input: {
         if (!preset) return;
         const result = await snoozeThread(threadRef, preset.snoozedUntil);
         if (result._tag === "Failure" && !isAtomCommandInterrupted(result)) {
-          failureToast(
-            gt("Failed to snooze thread"),
-            squashAtomCommandFailure(result),
-            gt("An error occurred."),
-          );
+          failureToast(m(msg("Failed to snooze thread")), squashAtomCommandFailure(result));
         }
         return;
       }
@@ -204,7 +191,7 @@ export function useThreadActionMenu(input: {
       ) => {
         const result = await run();
         if (result._tag === "Failure" && !isAtomCommandInterrupted(result)) {
-          failureToast(title, squashAtomCommandFailure(result), gt("An error occurred."));
+          failureToast(title, squashAtomCommandFailure(result));
         }
       };
       switch (action) {
@@ -236,33 +223,33 @@ export function useThreadActionMenu(input: {
             }),
           );
           if (result._tag === "Failure") {
-            failureToast(
-              gt("Could not create thread"),
-              squashAtomCommandFailure(result),
-              gt("An error occurred."),
-            );
+            failureToast(m(msg("Could not create thread")), squashAtomCommandFailure(result));
           }
           return;
         }
         case "settle":
-          await reportFailure("Failed to settle thread", () => settleThread(threadRef));
+          await reportFailure(m(msg("Failed to settle thread")), () => settleThread(threadRef));
           return;
         case "unsettle":
-          await reportFailure("Failed to un-settle thread", () => unsettleThread(threadRef));
+          await reportFailure(m(msg("Failed to un-settle thread")), () =>
+            unsettleThread(threadRef),
+          );
           return;
         case "unsnooze":
-          await reportFailure("Failed to wake thread", () => unsnoozeThread(threadRef));
+          await reportFailure(m(msg("Failed to wake thread")), () => unsnoozeThread(threadRef));
           return;
         case "pin":
-          await reportFailure("Failed to pin thread", () => pinThread(threadRef));
+          await reportFailure(m(msg("Failed to pin thread")), () => pinThread(threadRef));
           return;
         case "unpin": {
-          await reportFailure("Failed to unpin thread", () => confirmAndUnpinThread(threadRef));
+          await reportFailure(m(msg("Failed to unpin thread")), () =>
+            confirmAndUnpinThread(threadRef),
+          );
           return;
         }
         case "auto-settle:enabled":
         case "auto-settle:disabled":
-          await reportFailure("Failed to update auto-settle", () =>
+          await reportFailure(m(msg("Failed to update auto-settle")), () =>
             setThreadAutoSettle(threadRef, action === "auto-settle:enabled"),
           );
           return;
@@ -291,14 +278,13 @@ export function useThreadActionMenu(input: {
           if (result._tag === "Success") {
             toastManager.add({
               type: "success",
-              title: gt("Project created"),
+              title: m(msg("Project created")),
               description: thread.title,
             });
           } else if (!isAtomCommandInterrupted(result)) {
             failureToast(
-              gt("Could not turn thread into a project"),
+              m(msg("Could not turn thread into a project")),
               squashAtomCommandFailure(result),
-              gt("An error occurred."),
             );
           }
           return;
@@ -309,8 +295,8 @@ export function useThreadActionMenu(input: {
             toastManager.add(
               stackedThreadToast({
                 type: "error",
-                title: gt("Path unavailable"),
-                description: gt("This thread does not have a workspace path to copy."),
+                title: m(msg("Path unavailable")),
+                description: m(msg("This thread does not have a workspace path to copy.")),
               }),
             );
             return;
@@ -325,7 +311,7 @@ export function useThreadActionMenu(input: {
           return;
         case "copy-thread":
           void copyThreadReference(
-            threadChipCopyTarget(threadRef, thread.title, configuredHostedAppUrl()),
+            threadChipCopyTarget(threadRef, thread.title, configuredHostedAppUrl(), m),
           );
           return;
         case "copy-thread-id":
@@ -334,7 +320,7 @@ export function useThreadActionMenu(input: {
         case "archive": {
           if (confirmThreadArchive) {
             const confirmed = await settlePromise(() =>
-              api.dialogs.confirm(gt('Archive thread "{title}"?', { title: thread.title })),
+              api.dialogs.confirm(m(msg('Archive thread "{title}"?', { title: thread.title }))),
             );
             if (confirmed._tag === "Failure" || !confirmed.value) return;
           }
@@ -347,10 +333,9 @@ export function useThreadActionMenu(input: {
           if (result._tag === "Failure" && !isAtomCommandInterrupted(result)) {
             failureToast(
               didArchive
-                ? gt("Thread archived, but navigation failed")
-                : gt("Failed to archive thread"),
+                ? m(msg("Thread archived, but navigation failed"))
+                : m(msg("Failed to archive thread")),
               squashAtomCommandFailure(result),
-              gt("An error occurred."),
             );
           }
           return;
@@ -360,8 +345,8 @@ export function useThreadActionMenu(input: {
             const confirmed = await settlePromise(() =>
               api.dialogs.confirm(
                 [
-                  gt('Delete thread "{title}"?', { title: thread.title }),
-                  gt("This permanently clears conversation history for this thread."),
+                  m(msg('Delete thread "{title}"?', { title: thread.title })),
+                  m(msg("This permanently clears conversation history for this thread.")),
                 ].join("\n"),
                 { variant: "destructive" },
               ),
@@ -375,11 +360,7 @@ export function useThreadActionMenu(input: {
             // A missing thread means cleanup failed after deletion; deleteThread already toasted that failure.
             readThreadShell(threadRef) !== null
           ) {
-            failureToast(
-              gt("Failed to delete thread"),
-              squashAtomCommandFailure(deleted),
-              gt("An error occurred."),
-            );
+            failureToast(m(msg("Failed to delete thread")), squashAtomCommandFailure(deleted));
           }
           return;
         }

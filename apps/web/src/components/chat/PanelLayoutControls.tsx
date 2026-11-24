@@ -1,4 +1,3 @@
-import { T, useGT } from "gt-react";
 import {
   PanelBottomIcon,
   PanelRightIcon,
@@ -6,7 +5,8 @@ import {
   Maximize2Icon,
   Minimize2Icon,
 } from "lucide-react";
-import { memo, type ReactNode } from "react";
+import { useGT } from "gt-react";
+import { memo, type ReactNode, useLayoutEffect, useRef } from "react";
 
 import { cn } from "~/lib/utils";
 
@@ -15,6 +15,9 @@ import { PopoverCreateHandle, PopoverTrigger } from "../ui/popover";
 import { useMobileSidebarSheetMounted } from "../ui/sidebar";
 import { Toggle } from "../ui/toggle";
 import { Tooltip, TooltipPopup, TooltipTrigger } from "../ui/tooltip";
+
+/** Matches the right inset of `ThreadPanelHeaderControl`. */
+const THREAD_PANEL_HEADER_INSET_PX = 12;
 
 export interface PanelLayoutControlsProps {
   showThreadPanelControl?: boolean;
@@ -50,7 +53,7 @@ export const PanelLayoutControls = memo(function PanelLayoutControls({
   rightPanelAvailable,
   rightPanelOpen,
   rightPanelShortcutLabel,
-  rightPanelUnavailableLabel = "Right panel is unavailable",
+  rightPanelUnavailableLabel,
   onToggleTerminal,
   onToggleThreadPanel,
   onToggleRightPanel,
@@ -70,7 +73,7 @@ export const PanelLayoutControls = memo(function PanelLayoutControls({
   );
   const threadPanelControl = (
     <Tooltip>
-      <TooltipTrigger render={<span className="flex shrink-0" />}>
+      <TooltipTrigger render={<span className="flex shrink-0" data-thread-panel-toggle />}>
         {threadPanelPresentation === "popover" ? (
           <PopoverTrigger handle={threadPanelPopoverHandle} render={threadPanelToggle} />
         ) : (
@@ -78,8 +81,9 @@ export const PanelLayoutControls = memo(function PanelLayoutControls({
         )}
       </TooltipTrigger>
       <TooltipPopup side="bottom">
-        <T>Toggle thread details</T>
-        {threadPanelShortcutLabel ? ` (${threadPanelShortcutLabel})` : ""}
+        {threadPanelShortcutLabel
+          ? gt("Toggle thread details ({shortcut})", { shortcut: threadPanelShortcutLabel })
+          : gt("Toggle thread details")}
       </TooltipPopup>
     </Tooltip>
   );
@@ -107,8 +111,10 @@ export const PanelLayoutControls = memo(function PanelLayoutControls({
           </TooltipTrigger>
           <TooltipPopup side="bottom">
             {terminalAvailable
-              ? `Toggle terminal drawer${terminalShortcutLabel ? ` (${terminalShortcutLabel})` : ""}`
-              : "Terminal drawer is unavailable"}
+              ? terminalShortcutLabel
+                ? gt("Toggle terminal drawer ({shortcut})", { shortcut: terminalShortcutLabel })
+                : gt("Toggle terminal drawer")
+              : gt("Terminal drawer is unavailable")}
           </TooltipPopup>
         </Tooltip>
       ) : null}
@@ -130,8 +136,10 @@ export const PanelLayoutControls = memo(function PanelLayoutControls({
           </TooltipTrigger>
           <TooltipPopup side="bottom">
             {rightPanelAvailable
-              ? `Toggle right panel${rightPanelShortcutLabel ? ` (${rightPanelShortcutLabel})` : ""}`
-              : rightPanelUnavailableLabel}
+              ? rightPanelShortcutLabel
+                ? gt("Toggle right panel ({shortcut})", { shortcut: rightPanelShortcutLabel })
+                : gt("Toggle right panel")
+              : (rightPanelUnavailableLabel ?? gt("Right panel is unavailable"))}
           </TooltipPopup>
         </Tooltip>
       ) : null}
@@ -146,7 +154,8 @@ export const RightPanelMaximizeControl = memo(function RightPanelMaximizeControl
   maximized: boolean;
   onToggle: () => void;
 }) {
-  const label = maximized ? "Restore panel size" : "Maximize panel";
+  const gt = useGT();
+  const label = maximized ? gt("Restore panel size") : gt("Maximize panel");
   return (
     <Tooltip>
       <TooltipTrigger
@@ -197,9 +206,32 @@ export function WorkspaceTitlebarControls(props: {
   readonly onToggleMaximized: () => void;
   readonly children: ReactNode;
 }) {
+  const { rightPanelOpen, maximized } = props;
+  const controlsRef = useRef<HTMLDivElement | null>(null);
+  const previous = useRef({ rightPanelOpen, maximized });
+  // oxlint-disable-next-line t3code/no-unreasoned-state-sync -- starts the toggle's slide before the commit that swapped it in paints; the animation is cancelled on change or unmount.
+  useLayoutEffect(() => {
+    const { rightPanelOpen: wasOpen, maximized: wasMaximized } = previous.current;
+    previous.current = { rightPanelOpen, maximized };
+    if (!wasOpen || rightPanelOpen || wasMaximized) return;
+    const toggle = controlsRef.current?.querySelector("[data-thread-panel-toggle]");
+    const panel = toggle?.ownerDocument.querySelector("[data-preview-panel-mode='inline']");
+    const timing = panel?.getAnimations()[0]?.effect?.getTiming();
+    if (!toggle || !panel || !timing) return;
+    // The header's toggle was just removed, so slide this one in from where it sat.
+    const headerRight = panel.getBoundingClientRect().left - THREAD_PANEL_HEADER_INSET_PX;
+    const offset = headerRight - toggle.getBoundingClientRect().right;
+    const animation = toggle.animate(
+      [{ transform: `translateX(${offset}px)` }, { transform: "none" }],
+      { ...timing, easing: getComputedStyle(panel).transitionTimingFunction },
+    );
+    return () => animation.cancel();
+  }, [rightPanelOpen, maximized]);
+
   const mobileSidebarSheetMounted = useMobileSidebarSheetMounted();
   return (
     <div
+      ref={controlsRef}
       className={cn(
         "pointer-events-none fixed top-[var(--workspace-controls-top)] right-[var(--workspace-controls-right)] z-50 mr-px flex h-[var(--workspace-topbar-height)] items-center gap-1 [-webkit-app-region:no-drag]",
         mobileSidebarSheetMounted && "hidden",

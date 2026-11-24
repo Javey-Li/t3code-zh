@@ -1,10 +1,11 @@
-import { T, msg, useGT } from "gt-react";
+import { msg, T, useGT, useMessages, Var } from "gt-react";
+
 import { AndroidIcon, AppleIcon } from "../Icons";
 import { Button } from "../ui/button";
 import { Popover, PopoverPopup, PopoverTitle, PopoverTrigger } from "../ui/popover";
 import { QRCodeSvg } from "../ui/qr-code";
 import { SettingsRow } from "./settingsLayout";
-import { searchableSetting } from "./settingsSearch";
+import { useSearchableSetting } from "./settingsSearch";
 
 const stores = [
   {
@@ -14,7 +15,7 @@ const stores = [
     Icon: AppleIcon,
   },
   {
-    label: msg("Android"),
+    label: "Android",
     store: "Google Play",
     url: "https://play.google.com/store/apps/details?id=com.t3tools.t3code",
     Icon: AndroidIcon,
@@ -22,18 +23,20 @@ const stores = [
 ];
 
 export function MobileAppSettingsRow() {
+  const searchableSetting = useSearchableSetting();
   const gt = useGT();
+  const m = useMessages();
   return (
     <SettingsRow
       {...searchableSetting("mobile-app")}
-      description={<T>Connect to your server from your phone or tablet.</T>}
+      description={gt("Connect to your server from your phone or tablet.")}
       control={
         <div className="flex items-center gap-2">
           {stores.map(({ label, store, url, Icon }) => (
             <Popover key={store}>
               <PopoverTrigger render={<Button size="sm" variant="outline" />}>
                 <Icon />
-                {label}
+                {m(label)}
               </PopoverTrigger>
               <PopoverPopup align="end">
                 <div className="flex flex-col items-center gap-3">
@@ -55,7 +58,9 @@ export function MobileAppSettingsRow() {
                     variant="outline"
                     render={<a href={url} target="_blank" rel="noreferrer noopener" />}
                   >
-                    Open {store}
+                    <T>
+                      Open <Var>{store}</Var>
+                    </T>
                   </Button>
                 </div>
               </PopoverPopup>

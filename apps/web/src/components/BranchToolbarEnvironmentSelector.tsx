@@ -57,7 +57,7 @@ export const BranchToolbarEnvironmentSelector = memo(function BranchToolbarEnvir
 
   const environmentItems = [
     ...(onAutoEnvironment
-      ? [{ value: AUTO_VALUE, label: autoEnvironmentLabel ?? "Auto balance" }]
+      ? [{ value: AUTO_VALUE, label: autoEnvironmentLabel ?? gt("Auto balance") }]
       : []),
     ...availableEnvironments.map((env) => ({
       value: environmentValue(env.environmentId),
@@ -78,13 +78,13 @@ export const BranchToolbarEnvironmentSelector = memo(function BranchToolbarEnvir
           kind={activeEnvironment?.machine ?? "server"}
           className="size-3 shrink-0"
         />
-        <ComposerContextLabel>{activeEnvironment?.label ?? "Run on"}</ComposerContextLabel>
+        <ComposerContextLabel>{activeEnvironment?.label ?? gt("Run on")}</ComposerContextLabel>
       </span>
     );
     return (
       <Tooltip>
         <TooltipTrigger render={lockedRow} />
-        <TooltipPopup>{activeEnvironment?.label ?? "Run on"}</TooltipPopup>
+        <TooltipPopup>{activeEnvironment?.label ?? gt("Run on")}</TooltipPopup>
       </Tooltip>
     );
   }
@@ -129,7 +129,7 @@ export const BranchToolbarEnvironmentSelector = memo(function BranchToolbarEnvir
           </ComposerContextLabel>
         </TooltipTrigger>
         <TooltipPopup>
-          {autoEnvironmentLabel ?? activeEnvironment?.label ?? "Run on"}
+          {autoEnvironmentLabel ?? activeEnvironment?.label ?? gt("Run on")}
           {shortcutLabel ? ` · ${shortcutLabel}` : null}
         </TooltipPopup>
       </Tooltip>
@@ -147,7 +147,7 @@ export const BranchToolbarEnvironmentSelector = memo(function BranchToolbarEnvir
             >
               <span className="inline-flex items-center gap-1.5">
                 <ScaleIcon className="size-3" aria-hidden="true" />
-                {autoEnvironmentLabel ?? "Auto balance"}
+                {autoEnvironmentLabel ?? gt("Auto balance")}
               </span>
             </SelectItem>
           )}

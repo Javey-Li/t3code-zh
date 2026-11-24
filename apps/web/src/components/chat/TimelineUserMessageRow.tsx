@@ -1,10 +1,8 @@
-import { T, msg, useGT, useMessages } from "gt-react";
+import { copySnapshot as copySnapshotToClipboard } from "./copySnapshot";
 import { InlineAudioPreview } from "../files/InlineAudioPreview";
 import { filePreviewKind } from "@t3tools/shared/filePreview";
-import {
-  CHAT_USER_MARKDOWN_REMARK_PLUGINS,
-  remarkEnableOrderedListNumbers,
-} from "@t3tools/shared/markdownPipeline";
+import type { MarkdownExtensions } from "~/markdown/wordsHast";
+import { T, useGT, useMessages, Var } from "gt-react";
 import { findRevealRef } from "./markdownFindContext";
 import {
   type EnvironmentId,
@@ -103,7 +101,7 @@ const MEDIA_EDGE_CLASS_NAME =
   "relative after:pointer-events-none after:absolute after:inset-0 after:z-10 after:rounded-[inherit] after:ring-1 after:ring-inset after:ring-black/9 dark:after:ring-white/12";
 
 const BUBBLE_CHIP_CLASS_NAME =
-  "[&_[data-slot=context-chip]]:[--context-chip-ink:var(--context-chip-message,var(--context-chip-accent))]";
+  "[&_[data-slot=context-chip]]:[--context-chip-message-ink:var(--context-chip-message)]";
 
 function UserFileCard({
   file,
@@ -112,11 +110,14 @@ function UserFileCard({
   readonly file: ChatFileAttachment;
   readonly copyMarkdown: string | undefined;
 }) {
-  const gt = useGT();
   const ctx = use(TimelineRowCtx);
+  const gt = useGT();
+  const m = useMessages();
   const pastedText = file.source?._tag === "pasted-text";
-  const label = userMessageFileLabel(file);
-  const extension = /\.([a-z0-9]{1,8})$/i.exec(file.name)?.[1]?.toUpperCase() ?? "File";
+  const label = userMessageFileLabel(file, m);
+  const extension =
+    /\.([a-z0-9]{1,8})$/i.exec(file.name)?.[1]?.toUpperCase() ??
+    gt("File", { $context: "file type badge when the name has no extension" });
   const identity = (
     <>
       <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-background/60">
@@ -128,7 +129,7 @@ function UserFileCard({
         </span>
         <span className="block text-xs text-muted-foreground tabular-nums">
           {file.downloadable === false ? (
-            "Sending…"
+            <T>Sending…</T>
           ) : (
             <>
               {!pastedText && `${extension} · `}
@@ -179,7 +180,11 @@ function UserFileCard({
             >
               <DownloadIcon />
             </TooltipTrigger>
-            <TooltipPopup side="top">Download {label}</TooltipPopup>
+            <TooltipPopup side="top">
+              <T>
+                Download <Var>{label}</Var>
+              </T>
+            </TooltipPopup>
           </Tooltip>
         </>
       )}
@@ -280,7 +285,9 @@ function UserMessageContent({ row }: { row: Extract<TimelineRow, { kind: "messag
     <WorkflowOpeningBlock
       opening={ctx.workflowOpening}
       environmentId={ctx.activeThreadEnvironmentId}
-      onOpenThread={(threadId) => ctx.onOpenThread(ThreadId.make(threadId))}
+      onOpenThread={(threadId, intent) =>
+        ctx.onOpenThread(ThreadId.make(threadId), undefined, intent)
+      }
     />
   ) : resolveUserMessagePresentation(row.message).attribution === "automation" ? (
     <AutomationMessageRow row={row} />
@@ -292,6 +299,7 @@ function UserMessageContent({ row }: { row: Extract<TimelineRow, { kind: "messag
 /** Automation prompts are long, repeated runbooks; a folded bubble keeps them out of the way. */
 function AutomationMessageRow({ row }: { row: Extract<TimelineRow, { kind: "message" }> }) {
   const ctx = use(TimelineRowCtx);
+  const gt = useGT();
   const [expanded, setExpanded] = useState(false);
   const revealRef = findRevealRef(() => setExpanded(true));
   const { text, scheduledTaskId } = resolveUserMessagePresentation(row.message);
@@ -322,10 +330,11 @@ function AutomationMessageRow({ row }: { row: Extract<TimelineRow, { kind: "mess
         )}
         data-user-message-bubble=""
       >
-        <MessageAuthorHeading>Automation</MessageAuthorHeading>
+        <MessageAuthorHeading>{gt("Automation")}</MessageAuthorHeading>
         <FoldedMessageHeader
           icon={CalendarClockIcon}
-          label={msg("Automation")}
+          label={gt("Automation")}
+          fitLabel
           summary={summary}
           expanded={expanded}
           onToggle={() => setExpanded((value) => !value)}
@@ -368,7 +377,7 @@ function AutomationMessageRow({ row }: { row: Extract<TimelineRow, { kind: "mess
               {promptLink !== null && (
                 <MessageCopyButton
                   text={promptLink}
-                  label={msg("Copy prompt link")}
+                  label={gt("Copy prompt link")}
                   icon={LinkIcon}
                   variant="ghost"
                 />
@@ -394,11 +403,12 @@ export function useScheduledTaskTitle(
 export function FoldedMessageHeader(props: {
   icon: LucideIcon;
   label: string;
+  /** A generic label (not a thread title) never truncates, whatever its length in the UI language. */
+  fitLabel?: boolean;
   summary: string;
   expanded: boolean;
   onToggle: () => void;
 }) {
-  const m = useMessages();
   const Icon = props.icon;
   return (
     <button
@@ -409,8 +419,16 @@ export function FoldedMessageHeader(props: {
       className="flex w-full min-w-0 items-center gap-1.5 rounded-2xl px-3 py-2 text-left text-sm focus-visible:outline-2 focus-visible:outline-ring"
     >
       <Icon className="size-4 shrink-0 stroke-2 text-muted-foreground" />
-      <span className="max-w-1/2 shrink-0 truncate text-muted-foreground">{m(props.label)}</span>
-      <span className="min-w-0 flex-1 truncate">{props.summary}</span>
+      <span
+        className={cn(
+          "shrink-0 text-muted-foreground",
+          props.fitLabel !== true && "max-w-1/2 truncate",
+        )}
+      >
+        {props.label}
+      </span>
+      {/* Mentioned macOS paths can be NFD; compose them like the chips in the body. */}
+      <span className="min-w-0 flex-1 truncate">{props.summary.normalize("NFC")}</span>
       <ChevronDownIcon
         className={cn(
           "size-3.5 shrink-0 text-muted-foreground transition-transform",
@@ -440,8 +458,9 @@ function UserMessageProjectedStatus({ row }: { row: Extract<TimelineRow, { kind:
 }
 
 function UserTimelineRow({ row }: { row: Extract<TimelineRow, { kind: "message" }> }) {
-  const gt = useGT();
   const ctx = use(TimelineRowCtx);
+  const gt = useGT();
+  const m = useMessages();
   const { onImageExpand, onFileOpen } = ctx;
   const coarsePointer = useMediaQuery({ pointer: "coarse" });
   // A linked environment's agent sent it from a thread there.
@@ -480,8 +499,9 @@ function UserTimelineRow({ row }: { row: Extract<TimelineRow, { kind: "message" 
   const [expanded, setExpanded] = useState(false);
   const revealFoldRef = findRevealRef(() => setExpanded(true));
   const senderShell = useQuietThreadShell(folded ? senderRef : null);
+  const senderTitle = senderShell?.title.trim() || row.message.linkedSender?.title.trim();
   const senderLabel =
-    senderShell?.title.trim() || row.message.linkedSender?.title.trim() || "Agent";
+    senderTitle || gt("Agent", { $context: "sender of a message from another agent" });
   // Only an environment this client is connected to can open the sender's thread there.
   const linkedSenderEnvironment = useEnvironment(row.message.linkedSender?.environmentId ?? null);
   const canOpenSender =
@@ -606,6 +626,25 @@ function UserTimelineRow({ row }: { row: Extract<TimelineRow, { kind: "message" 
         });
   const copyText =
     resolvedContext.text || mediaCopyRecords.map(formatComposerContextReference).join("\n");
+  const copySnapshot = async (id: string) => {
+    const image = userImages.find((candidate) => candidate.id === id);
+    const record = resolvedContext.records
+      .map(asKnownContextRecord)
+      .find((candidate) => candidate?.kind === "image" && candidate.attachmentId === id);
+    if (!image?.previewUrl || record?.kind !== "image")
+      throw new Error(gt("Snapshot is no longer available."));
+    const fragment = encodeComposerContextFragment({
+      version: 1,
+      source: { environmentId: ctx.activeThreadEnvironmentId, messageId: row.message.id },
+      records: [{ ...record, ...(image.source ? { source: image.source } : {}) }],
+    });
+    if (!fragment) throw new Error(gt("The snapshot is too large to copy."));
+    await copySnapshotToClipboard(
+      image.previewUrl,
+      formatComposerContextReference(record),
+      fragment,
+    );
+  };
   const onBodyCopyCapture = (event: React.ClipboardEvent<HTMLDivElement>) => {
     if (resolvedContext.records.length === 0 || !event.clipboardData) return;
     const selection = window.getSelection();
@@ -670,7 +709,7 @@ function UserTimelineRow({ row }: { row: Extract<TimelineRow, { kind: "message" 
           annotationImage={annotationImage}
           attachment={attachment}
           onExpandImage={(image) => {
-            const preview = buildExpandedImagePreview(userImages, image.id);
+            const preview = buildExpandedImagePreview(userImages, image.id, copySnapshot);
             if (preview) onImageExpand(preview);
           }}
           onOpenFile={onFileOpen}
@@ -744,9 +783,9 @@ function UserTimelineRow({ row }: { row: Extract<TimelineRow, { kind: "message" 
               <button
                 type="button"
                 className="block h-full w-full cursor-zoom-in"
-                aria-label={gt("Preview {name}", { name: image.name })}
+                aria-label={gt("Preview {label}", { label: image.name })}
                 onClick={() => {
-                  const preview = buildExpandedImagePreview(regularImages, image.id);
+                  const preview = buildExpandedImagePreview(regularImages, image.id, copySnapshot);
                   if (!preview) return;
                   ctx.onImageExpand(preview);
                 }}
@@ -764,7 +803,7 @@ function UserTimelineRow({ row }: { row: Extract<TimelineRow, { kind: "message" 
                     standaloneMedia && image.source?.kind === "snap-shot"
                       ? "h-auto max-h-48 w-auto min-w-24 max-w-full object-contain"
                       : loneImage
-                        ? "h-48 w-auto min-w-24 max-w-full object-cover"
+                        ? "h-48 w-auto min-w-24 max-w-full object-contain"
                         : "size-full object-cover",
                   )}
                 />
@@ -781,7 +820,10 @@ function UserTimelineRow({ row }: { row: Extract<TimelineRow, { kind: "message" 
               </div>
             )}
             {image.previewUrl && image.source?.kind === "snap-shot" ? (
-              <SnapShotAttachmentDetails source={image.source} />
+              <SnapShotAttachmentDetails
+                source={image.source}
+                onCopySnapshot={() => copySnapshot(image.id)}
+              />
             ) : null}
           </div>
         ))}
@@ -818,10 +860,16 @@ function UserTimelineRow({ row }: { row: Extract<TimelineRow, { kind: "message" 
       ) : null}
       <Tooltip>
         <TooltipTrigger render={<p className="text-muted-foreground text-xs tabular-nums" />}>
-          {formatDayAwareTimestamp(row.message.createdAt, ctx.timestampFormat)}
+          {formatDayAwareTimestamp(
+            row.message.createdAt,
+            ctx.timestampFormat,
+            undefined,
+            undefined,
+            m,
+          )}
         </TooltipTrigger>
         <TooltipPopup>
-          {formatChatTimestampTooltip(row.message.createdAt, ctx.timestampFormat)}
+          {formatChatTimestampTooltip(row.message.createdAt, ctx.timestampFormat, m)}
         </TooltipPopup>
       </Tooltip>
       <div className={cn("flex items-center gap-0.5", floatActions && "flex-wrap justify-end")}>
@@ -844,7 +892,7 @@ function UserTimelineRow({ row }: { row: Extract<TimelineRow, { kind: "message" 
         {promptLink !== null && (
           <MessageCopyButton
             text={promptLink}
-            label={msg("Copy prompt link")}
+            label={gt("Copy prompt link")}
             icon={LinkIcon}
             variant="ghost"
           />
@@ -882,7 +930,9 @@ function UserTimelineRow({ row }: { row: Extract<TimelineRow, { kind: "message" 
       {mediaAboveText ? (
         <div className="flex max-w-[80%] justify-end">
           {/* The heading leads the media so screen readers reach it before the images. */}
-          <MessageAuthorHeading>You</MessageAuthorHeading>
+          <MessageAuthorHeading>
+            {gt("You", { $context: "author of the user's own message" })}
+          </MessageAuthorHeading>
           {mediaBlock}
         </div>
       ) : null}
@@ -906,14 +956,15 @@ function UserTimelineRow({ row }: { row: Extract<TimelineRow, { kind: "message" 
             {folded
               ? senderLabel
               : userMessage.guestName === undefined
-                ? "You"
-                : `${userMessage.guestName} (guest)`}
+                ? gt("You", { $context: "author of the user's own message" })
+                : gt("{name} (guest)", { name: userMessage.guestName })}
           </MessageAuthorHeading>
         )}
         {folded ? (
           <FoldedMessageHeader
             icon={MessagesSquareIcon}
             label={senderLabel}
+            fitLabel={!senderTitle}
             summary={foldSummary}
             expanded={expanded}
             onToggle={() => setExpanded((value) => !value)}
@@ -969,7 +1020,7 @@ function UserTimelineRow({ row }: { row: Extract<TimelineRow, { kind: "message" 
               <div className="mb-2 flex flex-col gap-1">
                 {unchippedFiles.map((file) => {
                   const pastedText = file.source?._tag === "pasted-text";
-                  const label = userMessageFileLabel(file);
+                  const label = userMessageFileLabel(file, m);
                   const fileIdentity = (
                     <>
                       <PierreEntryIcon
@@ -981,7 +1032,11 @@ function UserTimelineRow({ row }: { row: Extract<TimelineRow, { kind: "message" 
                         <span className="block truncate">{label}</span>
                         {file.downloadable === false || pastedText ? (
                           <span className="block text-xs text-muted-foreground tabular-nums">
-                            {file.downloadable === false ? "Sending…" : formatBytes(file.sizeBytes)}
+                            {file.downloadable === false ? (
+                              <T>Sending…</T>
+                            ) : (
+                              formatBytes(file.sizeBytes)
+                            )}
                           </span>
                         ) : null}
                       </span>
@@ -1012,7 +1067,11 @@ function UserTimelineRow({ row }: { row: Extract<TimelineRow, { kind: "message" 
                           >
                             <DownloadIcon />
                           </TooltipTrigger>
-                          <TooltipPopup side="top">Download {label}</TooltipPopup>
+                          <TooltipPopup side="top">
+                            <T>
+                              Download <Var>{label}</Var>
+                            </T>
+                          </TooltipPopup>
                         </Tooltip>
                       </div>
                     );
@@ -1086,6 +1145,7 @@ function UserMessageIntentMarker({
   readonly intent: "steer" | "promoted_queued_to_steer";
   readonly unread: boolean;
 }) {
+  const gt = useGT();
   return (
     <Tooltip>
       <TooltipTrigger
@@ -1097,14 +1157,18 @@ function UserMessageIntentMarker({
         }
       >
         <Redo2Icon aria-hidden="true" className="size-3" />
-        {unread ? "Steer · waiting to be read" : "Steer"}
+        {unread
+          ? gt("Steer · waiting to be read")
+          : gt("Steer", { $context: "noun, a message that steers the running turn" })}
       </TooltipTrigger>
       <TooltipPopup side="top">
         {unread
-          ? "Waiting for the agent to read this. It reads steers between steps, after a running command finishes."
+          ? gt(
+              "Waiting for the agent to read this. It reads steers between steps, after a running command finishes.",
+            )
           : intent === "promoted_queued_to_steer"
-            ? "Originally queued, then promoted to steer the active turn"
-            : "Steered the active turn"}
+            ? gt("Originally queued, then promoted to steer the active turn")
+            : gt("Steered the active turn")}
       </TooltipPopup>
     </Tooltip>
   );
@@ -1117,9 +1181,9 @@ function RevertUserMessageButton({
   turnCount: number;
   messageId: MessageId;
 }) {
-  const gt = useGT();
   const ctx = use(TimelineRowCtx);
   const activity = use(TimelineRowActivityCtx);
+  const gt = useGT();
 
   return (
     <Tooltip>
@@ -1208,7 +1272,7 @@ const CollapsibleUserMessageBody = memo(function CollapsibleUserMessageBody(prop
               onClick={() => setExpanded((value) => !value)}
               className="-ml-1"
             >
-              {expanded ? "Show less" : "Show full message"}
+              {expanded ? <T>Show less</T> : <T>Show full message</T>}
             </Button>
           ) : null}
         </div>
@@ -1217,10 +1281,7 @@ const CollapsibleUserMessageBody = memo(function CollapsibleUserMessageBody(prop
   );
 });
 
-const USER_MESSAGE_REMARK_PLUGINS = [
-  ...CHAT_USER_MARKDOWN_REMARK_PLUGINS,
-  remarkEnableOrderedListNumbers,
-];
+const USER_MESSAGE_MARKDOWN: MarkdownExtensions = { userMessage: true, leadingWhitespace: true };
 
 const UserMessageBody = memo(function UserMessageBody(props: {
   text: string;
@@ -1241,7 +1302,7 @@ const UserMessageBody = memo(function UserMessageBody(props: {
       className="text-message-foreground user-message-markdown"
       lineBreaks
       parseRawHtml={false}
-      extraRemarkPlugins={USER_MESSAGE_REMARK_PLUGINS}
+      extensions={USER_MESSAGE_MARKDOWN}
       renderContextReference={props.renderContextReference}
       headingLevelOffset={MESSAGE_HEADING_LEVEL}
     />

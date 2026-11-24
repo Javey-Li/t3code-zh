@@ -1,4 +1,5 @@
-import { T, useGT } from "gt-react";
+import { T, msg, useGT } from "gt-react";
+import { m } from "~/i18n/messages";
 import { Toolbar } from "@base-ui/react/toolbar";
 import { type ProviderInstanceId } from "@t3tools/contracts";
 import { memo, useLayoutEffect, useRef, useState } from "react";
@@ -16,15 +17,22 @@ function describeUnavailableInstance(entry: ProviderInstanceEntry): string {
   const label = entry.displayName;
   // An unavailable instance (a driver this build lacks or the policy leaves out) says why instead.
   if ((!entry.enabled && entry.isAvailable) || entry.status === "disabled") {
-    return `${label}: Disabled in settings.`;
+    return m(msg("{label}: Disabled in settings."), { label });
   }
   if (entry.status === "ready" && entry.isAvailable) {
     return label;
   }
-  const kind =
-    entry.status === "error" ? "Unavailable" : entry.status === "warning" ? "Limited" : "Not ready";
-  const msg = entry.snapshot.message?.trim();
-  return msg ? `${label}: ${kind}. ${msg}` : `${label}: ${kind}.`;
+  const kind = m(
+    entry.status === "error"
+      ? msg("Unavailable")
+      : entry.status === "warning"
+        ? msg("Limited")
+        : msg("Not ready"),
+  );
+  const serverMessage = entry.snapshot.message?.trim();
+  return serverMessage
+    ? m(msg("{label}: {kind}. {message}"), { label, kind, message: serverMessage })
+    : m(msg("{label}: {kind}."), { label, kind });
 }
 
 const PICKER_TOOLTIP_SIDE = "left" as const;

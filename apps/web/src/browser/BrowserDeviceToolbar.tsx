@@ -1,4 +1,4 @@
-import { useGT } from "gt-react";
+import { useGT, T, msg } from "gt-react";
 import {
   PREVIEW_VIEWPORT_MAX_AREA,
   PREVIEW_VIEWPORT_MAX_DIMENSION,
@@ -29,7 +29,7 @@ import { ScreenRotationIcon } from "./ScreenRotationIcon";
 
 const RESPONSIVE_VALUE = "responsive";
 const SELECT_ITEMS = [
-  { value: RESPONSIVE_VALUE, label: "Responsive" },
+  { value: RESPONSIVE_VALUE, label: msg("Responsive") },
   ...PREVIEW_VIEWPORT_PRESETS.map((preset) => ({ value: preset.id, label: preset.label })),
 ];
 
@@ -192,7 +192,7 @@ export function BrowserDeviceToolbar({
     >
       {width >= 560 ? (
         <span className="mr-0.5 shrink-0 text-2xs font-medium text-muted-foreground">
-          Dimensions
+          <T>Dimensions</T>
         </span>
       ) : null}
       <Select
@@ -211,9 +211,13 @@ export function BrowserDeviceToolbar({
           <SelectValue />
         </SelectTrigger>
         <SelectPopup align="start" alignItemWithTrigger={false}>
-          <SelectItem value={RESPONSIVE_VALUE}>Responsive</SelectItem>
+          <SelectItem value={RESPONSIVE_VALUE}>
+            <T>Responsive</T>
+          </SelectItem>
           <SelectGroup>
-            <SelectGroupLabel>Standard</SelectGroupLabel>
+            <SelectGroupLabel>
+              <T>Standard</T>
+            </SelectGroupLabel>
             {PREVIEW_VIEWPORT_PRESETS.map((preset) => (
               <SelectItem key={preset.id} value={preset.id}>
                 <span className="flex w-full items-center justify-between gap-5">
@@ -295,7 +299,9 @@ export function BrowserDeviceToolbar({
               size="icon-xs"
               type="button"
               aria-label={
-                aspectRatio === null ? "Lock viewport aspect ratio" : "Unlock viewport aspect ratio"
+                aspectRatio === null
+                  ? gt("Lock viewport aspect ratio")
+                  : gt("Unlock viewport aspect ratio")
               }
               aria-pressed={aspectRatio !== null}
               disabled={pending || !customValid}
@@ -311,7 +317,7 @@ export function BrowserDeviceToolbar({
           )}
         </TooltipTrigger>
         <TooltipPopup side="top">
-          {aspectRatio === null ? "Lock aspect ratio" : "Unlock aspect ratio"}
+          {aspectRatio === null ? gt("Lock aspect ratio") : gt("Unlock aspect ratio")}
         </TooltipPopup>
       </Tooltip>
       <Button

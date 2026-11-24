@@ -115,7 +115,6 @@ function ProviderCustomColorPicker(props: {
 }) {
   const gt = useGT();
   const normalized = normalizeProviderAccentColor(props.value);
-
   return (
     <Popover
       onOpenChange={(open) => {
@@ -131,8 +130,8 @@ function ProviderCustomColorPicker(props: {
             style={normalized ? { backgroundColor: normalized } : undefined}
             aria-label={
               normalized
-                ? gt("Change accent color for {name}", { name: props.displayName })
-                : gt("Add accent color for {name}", { name: props.displayName })
+                ? gt("Change accent color for {provider}", { provider: props.displayName })
+                : gt("Add accent color for {provider}", { provider: props.displayName })
             }
           >
             {normalized ? (

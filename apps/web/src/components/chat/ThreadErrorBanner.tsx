@@ -1,11 +1,12 @@
-import { T, msg, useGT } from "gt-react";
 import type { OrchestrationV2ProviderFailureClass } from "@t3tools/contracts";
 import {
   CHATGPT_USAGE_LIMIT_CODE,
   CHATGPT_WORKSPACE_ADMIN_REQUEST,
   CHATGPT_WORKSPACE_USAGE_LIMIT_CODE,
 } from "@t3tools/shared/usageLimits";
+import { msg, T, useGT } from "gt-react";
 import { memo } from "react";
+import { m } from "../../i18n/messages";
 import { writeTextToClipboard } from "../../hooks/useCopyToClipboard";
 import { Alert, AlertAction, AlertDescription } from "../ui/alert";
 import { Button } from "../ui/button";
@@ -16,14 +17,18 @@ import { ChatGptUsageButton } from "../settings/ChatGptUsageButton";
 import { ExpandableText } from "../settings/ExpandableText";
 
 export function copyAdminRequest() {
-  void writeTextToClipboard(CHATGPT_WORKSPACE_ADMIN_REQUEST, "admin request").then(
+  void writeTextToClipboard(CHATGPT_WORKSPACE_ADMIN_REQUEST, {
+    target: "admin request",
+    unavailableMessage: msg("Clipboard API is unavailable while copying admin request."),
+    failureMessage: msg("Failed to copy admin request to the clipboard."),
+  }).then(
     () =>
       toastManager.add({
         type: "success",
-        title: "Request copied",
-        description: msg("Send it to your workspace admin."),
+        title: m(msg("Request copied")),
+        description: m(msg("Send it to your workspace admin.")),
       }),
-    () => toastManager.add({ type: "error", title: "Could not copy the request" }),
+    () => toastManager.add({ type: "error", title: m(msg("Could not copy the request")) }),
   );
 }
 
@@ -46,8 +51,12 @@ export function getThreadErrorBannerMessage(error: string): string {
     : error;
 }
 
-export function getThreadErrorBannerKey(threadKey: string, error: string | null): string | null {
-  return error === null ? null : `${threadKey}\u0000${error}`;
+export function getThreadErrorBannerKey(
+  threadKey: string,
+  error: string | null,
+  source: string | null = null,
+): string | null {
+  return error === null ? null : `${threadKey}\u0000${source ?? ""}\u0000${error}`;
 }
 
 export function shouldShowThreadErrorBanner(
@@ -102,9 +111,9 @@ export const ThreadErrorBanner = memo(function ThreadErrorBanner({
               </p>
               {workspaceLimit ? (
                 <p>
-                  {
-                    "You've reached your workspace's limit for using your ChatGPT plan in other apps. Copy a request to ask your workspace admin for increased usage limits."
-                  }
+                  {gt(
+                    "You've reached your workspace's limit for using your ChatGPT plan in other apps. Copy a request to ask your workspace admin for increased usage limits.",
+                  )}
                 </p>
               ) : null}
             </div>

@@ -15,8 +15,8 @@ import {
 
 /** Menu body that shows and hides thread details items. The card's context menu and Settings share it. */
 export function ThreadDetailsItemsMenuItems() {
-  const m = useMessages();
   const visibility = useClientSettings(resolveThreadDetailsVisibility);
+  const m = useMessages();
   return (
     <>
       <MenuGroup>

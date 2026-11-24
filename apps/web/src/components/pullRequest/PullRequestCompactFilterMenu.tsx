@@ -1,4 +1,4 @@
-import { useMessages } from "gt-react";
+import { useGT } from "gt-react";
 import { ChevronDownIcon } from "lucide-react";
 import type { ReactNode } from "react";
 
@@ -32,17 +32,16 @@ export function PullRequestCompactFilterMenu<Value extends string>({
   onChange: (value: Value) => void;
   className?: string;
 }) {
-  const m = useMessages();
+  const gt = useGT();
   const current = options.find((option) => option.value === value) ?? options[0];
   if (!current) return null;
-  const text = m(label);
-  const currentLabel = m(current.label);
-  const summary = `${text}: ${currentLabel}`;
   return (
     <Menu>
       <MenuTrigger
-        aria-label={triggerLabel || iconOnly ? summary : text}
-        title={iconOnly ? summary : undefined}
+        aria-label={
+          triggerLabel || iconOnly ? gt("{label}: {value}", { label, value: current.label }) : label
+        }
+        title={iconOnly ? gt("{label}: {value}", { label, value: current.label }) : undefined}
         render={
           outlined ? (
             <Button variant="outline" size={iconOnly ? "icon" : "default"} />
@@ -61,7 +60,7 @@ export function PullRequestCompactFilterMenu<Value extends string>({
           </>
         ) : (
           <>
-            <span className="truncate">{m(current.label)}</span>
+            <span className="truncate">{current.label}</span>
             <ChevronDownIcon aria-hidden className="size-3 shrink-0 text-muted-foreground/70" />
           </>
         )}
@@ -78,7 +77,7 @@ export function PullRequestCompactFilterMenu<Value extends string>({
               >
                 <span className="flex min-w-0 items-center gap-2">
                   <PullRequestFilterOptionIcon option={option} />
-                  {m(option.label)}
+                  {option.label}
                 </span>
               </MenuRadioItem>
             );

@@ -1,5 +1,5 @@
-import { T, useGT } from "gt-react";
 import { useEffect, useId, useState } from "react";
+import { T, useGT } from "gt-react";
 import { useNavigate } from "@tanstack/react-router";
 import { create } from "zustand";
 import {
@@ -96,8 +96,8 @@ function CustomSnoozeDialog() {
             if (!snoozedUntil) {
               setError(
                 mode === "date"
-                  ? "Choose a valid date and time in the future."
-                  : "Enter a positive duration.",
+                  ? gt("Choose a valid date and time in the future.")
+                  : gt("Enter a positive duration."),
               );
               return;
             }
@@ -136,7 +136,7 @@ function CustomSnoozeDialog() {
                   <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                     <div className="flex min-w-0 flex-col gap-2">
                       <Label htmlFor={`${id}-date`}>
-                        <T>Date</T>
+                        <T context="calendar date">Date</T>
                       </Label>
                       <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
                         <PopoverTrigger
@@ -173,7 +173,7 @@ function CustomSnoozeDialog() {
                       </Popover>
                     </div>
                     <Label className="flex min-w-0 flex-col items-stretch" htmlFor={`${id}-time`}>
-                      Time
+                      <T context="time of day">Time</T>
                       <Input
                         nativeInput
                         id={`${id}-time`}
@@ -210,10 +210,10 @@ function CustomSnoozeDialog() {
                       </NumberFieldGroup>
                     </NumberField>
                     <Label className="flex min-w-0 flex-col items-stretch" htmlFor={`${id}-unit`}>
-                      Unit
+                      <T context="unit of time">Unit</T>
                       <Select
                         value={unit}
-                        items={{ minutes: "Minutes", hours: "Hours", days: "Days" }}
+                        items={{ minutes: gt("Minutes"), hours: gt("Hours"), days: gt("Days") }}
                         onValueChange={(value) => {
                           if (value === "minutes" || value === "hours" || value === "days")
                             setUnit(value);
@@ -266,7 +266,7 @@ function CustomSnoozeDialog() {
               <T>Cancel</T>
             </Button>
             <Button type="submit">
-              <T>Snooze</T>
+              <T context="verb">Snooze</T>
             </Button>
           </DialogFooter>
         </form>

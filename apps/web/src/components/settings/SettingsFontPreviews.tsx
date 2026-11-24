@@ -29,6 +29,7 @@ const PROMPT_PREVIEW_TEXT =
 function noop() {}
 
 export function PromptFontPreview() {
+  const gt = useGT();
   const editorRef = useRef<ComposerPromptEditorHandle>(null);
   const [prompt, setPrompt] = useState(PROMPT_PREVIEW_TEXT);
   const [cursor, setCursor] = useState(PROMPT_PREVIEW_TEXT.length);
@@ -39,7 +40,7 @@ export function PromptFontPreview() {
   return (
     <div className="mt-1 mb-2 rounded-lg border border-border bg-background px-3 py-2">
       <ComposerPromptEditor
-        ariaLabel="Prompt font preview"
+        ariaLabel={gt("Prompt font preview")}
         editorRef={editorRef}
         value={prompt}
         cursor={cursor}
@@ -216,6 +217,8 @@ export function TerminalFontPreview({ family, size }: { family: string; size: nu
       theme: terminalThemeFromApp(mount),
       font: initialFont,
       onData: echo,
+      onBinary: noop,
+      onReply: noop,
       onResize: noop,
       onSelectionChange: noop,
       beforeKey: (event) => event.key !== "Tab",

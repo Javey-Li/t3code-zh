@@ -1,4 +1,4 @@
-import { T, msg, useGT, useMessages } from "gt-react";
+import { thrownErrorMessage } from "@t3tools/client-runtime/errors";
 import { sourceControlClients } from "@t3tools/client-runtime/source-control-clients";
 import { RefreshIcon } from "~/components/ui/refresh-icon";
 import { ExternalLinkIcon, PackagePlusIcon, PaletteIcon, SearchIcon } from "lucide-react";
@@ -30,6 +30,8 @@ import { Button } from "../ui/button";
 import { InputGroup, InputGroupAddon, InputGroupInput } from "../ui/input-group";
 import { Select, SelectItem, SelectPopup, SelectTrigger, SelectValue } from "../ui/select";
 import { Spinner } from "../ui/spinner";
+import { msg, T, useGT, useMessages, Var } from "gt-react";
+import { m } from "../../i18n/messages";
 
 const DOWNLOAD_FORMAT = new Intl.NumberFormat(undefined, {
   notation: "compact",
@@ -135,7 +137,11 @@ export function createThemeSearch(
           if (controller.signal.aborted) return;
           view.setResults(null);
           shownKey = null;
-          view.setError(cause instanceof Error ? cause.message : "Open VSX search failed.");
+          view.setError(
+            cause instanceof Error
+              ? (thrownErrorMessage(cause, m) ?? cause.message)
+              : m(msg("Open VSX search failed.")),
+          );
         },
       )
       .then(() => {
@@ -235,7 +241,7 @@ export function ThemeSearchSection({
   signal: AbortSignal;
   onInstalled: (themes: ReadonlyArray<ThemeDefinition>, context: { updated: boolean }) => void;
 }) {
-  const m = useMessages();
+  const messages = useMessages();
   const gt = useGT();
   const [query, setQuery] = useState("");
   const [sortBy, setSortBy] = useState<OpenVsxThemeSort>("downloadCount");
@@ -266,7 +272,11 @@ export function ThemeSearchSection({
     try {
       installedCollection = getStoredCustomThemeCollection(extension.collectionId);
     } catch (cause) {
-      setError(cause instanceof Error ? cause.message : "Installed themes could not be read.");
+      setError(
+        cause instanceof Error
+          ? (thrownErrorMessage(cause, m) ?? cause.message)
+          : gt("Installed themes could not be read."),
+      );
       return;
     }
     const updated = installedCollection.length > 0;
@@ -287,7 +297,11 @@ export function ThemeSearchSection({
       }
     } catch (cause) {
       if (!installSignal.aborted) {
-        setError(cause instanceof Error ? cause.message : "That theme could not be added.");
+        setError(
+          cause instanceof Error
+            ? (thrownErrorMessage(cause, m) ?? cause.message)
+            : gt("That theme could not be added."),
+        );
       }
     }
     if (themeSearch.endInstall(installSignal)) setInstallingId(null);
@@ -359,13 +373,13 @@ export function ThemeSearchSection({
               >
                 <SelectTrigger size="sm" className="w-40" aria-label={gt("Sort themes")}>
                   <SelectValue>
-                    {SORT_OPTIONS.find((option) => option.value === sortBy)?.label}
+                    {messages(SORT_OPTIONS.find((option) => option.value === sortBy)?.label ?? "")}
                   </SelectValue>
                 </SelectTrigger>
                 <SelectPopup align="end" alignItemWithTrigger={false}>
                   {SORT_OPTIONS.map((option) => (
                     <SelectItem key={option.value} hideIndicator value={option.value}>
-                      {m(option.label)}
+                      {messages(option.label)}
                     </SelectItem>
                   ))}
                 </SelectPopup>
@@ -377,9 +391,12 @@ export function ThemeSearchSection({
 
       <div className="sr-only" role="status">
         {isSearching
-          ? "Searching themes..."
+          ? gt("Searching themes...")
           : results
-            ? `${results.length} supported ${results.length === 1 ? "theme" : "themes"} found.`
+            ? gt(
+                "{count, plural, one {{count} supported theme found.} other {{count} supported themes found.}}",
+                { count: results.length },
+              )
             : ""}
       </div>
 
@@ -391,7 +408,7 @@ export function ThemeSearchSection({
 
       {isSearching && results === null ? (
         <div className="flex min-h-20 items-center justify-center gap-2 text-muted-foreground text-sm">
-          <Spinner /> Searching themes...
+          <Spinner /> <T>Searching themes...</T>
         </div>
       ) : null}
 
@@ -412,8 +429,7 @@ export function ThemeSearchSection({
               const isInstalled = getCustomThemes().some(
                 (theme) => theme.collection?.id === extension.collectionId,
               );
-              const action = isInstalled ? "Update" : "Install";
-              const progressAction = isInstalled ? "Updating" : "Installing";
+              const action = isInstalled ? gt("Update") : gt("Install");
               return (
                 <article
                   className="group flex min-w-0 flex-col gap-3 rounded-xl border border-border/70 bg-card/60 p-3 transition-colors hover:bg-accent/20"
@@ -430,7 +446,7 @@ export function ThemeSearchSection({
                     </div>
                   </div>
                   <p className="line-clamp-2 min-h-8 text-muted-foreground text-xs leading-4">
-                    {extension.description || "A community color theme for your editor."}
+                    {extension.description || gt("A community color theme for your editor.")}
                   </p>
                   <div className="mt-auto flex items-center justify-between gap-2">
                     <div className="flex min-w-0 items-center gap-2">
@@ -447,12 +463,12 @@ export function ThemeSearchSection({
                     </div>
                     <Button
                       aria-label={
-                        isInstalling
-                          ? isInstalled
+                        isInstalled
+                          ? isInstalling
                             ? gt("Updating {name}", { name: extension.name })
-                            : gt("Installing {name}", { name: extension.name })
-                          : isInstalled
-                            ? gt("Update {name}", { name: extension.name })
+                            : gt("Update {name}", { name: extension.name })
+                          : isInstalling
+                            ? gt("Installing {name}", { name: extension.name })
                             : gt("Install {name}", { name: extension.name })
                       }
                       disabled={installingId !== null}
@@ -467,7 +483,11 @@ export function ThemeSearchSection({
                       ) : (
                         <PackagePlusIcon />
                       )}
-                      {isInstalling ? `${progressAction}...` : action}
+                      {isInstalling
+                        ? isInstalled
+                          ? gt("Updating...")
+                          : gt("Installing...")
+                        : action}
                     </Button>
                   </div>
                 </article>
@@ -485,7 +505,11 @@ export function ThemeSearchSection({
       >
         <AlertDialogPopup>
           <AlertDialogHeader>
-            <AlertDialogTitle>Update “{pendingUpdate?.name}”?</AlertDialogTitle>
+            <AlertDialogTitle>
+              <T>
+                Update “<Var>{pendingUpdate?.name}</Var>”?
+              </T>
+            </AlertDialogTitle>
             <AlertDialogDescription>
               <T>
                 This replaces its installed variants, including any local edits. Variants no longer

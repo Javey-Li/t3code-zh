@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, useGT } from "gt-react";
 import type {
   EnvironmentId,
   OrchestrationV2GetNativeChildWorkResult,
@@ -95,9 +95,11 @@ function NativeChildWorkContent(props: {
 
 function NativeChild(props: { readonly child: OrchestrationV2NativeChildWork }) {
   const { child } = props;
+  const gt = useGT();
+  const role = child.role || gt("Subagent");
   return (
-    <section aria-label={child.role || "Subagent"} className="flex min-w-0 flex-col gap-2">
-      <h3 className="text-sm font-medium text-foreground">{child.role || "Subagent"}</h3>
+    <section aria-label={role} className="flex min-w-0 flex-col gap-2">
+      <h3 className="text-sm font-medium text-foreground">{role}</h3>
       <p className="whitespace-pre-wrap break-words text-sm text-muted-foreground">
         {child.prompt}
       </p>

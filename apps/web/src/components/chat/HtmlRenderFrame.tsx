@@ -1,3 +1,4 @@
+import { m } from "~/i18n/messages";
 import { T, msg, useGT } from "gt-react";
 import type { EnvironmentId, ScopedThreadRef } from "@t3tools/contracts";
 import {
@@ -97,7 +98,7 @@ export function HtmlRenderFrame(props: {
                       else
                         toastManager.add({
                           type: "error",
-                          title: "Page unavailable",
+                          title: m(msg("Page unavailable")),
                           description: msg("Reconnect to the environment and try again."),
                         });
                     }}
@@ -122,7 +123,7 @@ export function HtmlRenderFrame(props: {
         </>
       ) : failed ? (
         <p className="flex size-full items-center justify-center text-muted-foreground text-xs">
-          Unable to load {title}
+          {gt("Unable to load {title}", { title })}
         </p>
       ) : null}
     </div>

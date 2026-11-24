@@ -75,8 +75,8 @@ export function SidebarFolderDrop(props: { children: ReactNode }) {
       toastManager.add(
         stackedThreadToast({
           type: "error",
-          title: `Could not add "${folder.name}"`,
-          description: response?.message ?? "T3 Code could not read the folder's path.",
+          title: gt('Could not add "{name}"', { name: folder.name }),
+          description: response?.message ?? gt("T3 Code could not read the folder's path."),
         }),
       );
     }
@@ -129,8 +129,8 @@ export function SidebarFolderDrop(props: { children: ReactNode }) {
         >
           <FolderPlusIcon className="size-5 text-sidebar-muted-foreground" />
           {bridge === undefined
-            ? "Dropping folders needs the desktop app"
-            : "Drop folders to add projects"}
+            ? gt("Dropping folders needs the desktop app")
+            : gt("Drop folders to add projects")}
         </div>
       ) : null}
     </div>

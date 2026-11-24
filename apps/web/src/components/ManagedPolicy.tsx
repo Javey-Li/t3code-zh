@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, Var } from "gt-react";
 import type { ManagedPolicySummary } from "@t3tools/contracts";
 import { BuildingIcon } from "lucide-react";
 import type { ReactNode } from "react";
@@ -53,7 +53,9 @@ export function ManagedNotice({ children }: { children: ReactNode }) {
 export function ManagedByOrganization({ policy }: { policy: ManagedPolicySummary }) {
   return (
     <ManagedNotice>
-      This environment is managed by {policy.organization}.
+      <T>
+        This environment is managed by <Var>{policy.organization}</Var>.
+      </T>
       {policy.supportUrl ? (
         <>
           {" "}

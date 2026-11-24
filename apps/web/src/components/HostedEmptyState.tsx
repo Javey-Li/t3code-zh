@@ -38,14 +38,16 @@ export function HostedEmptyState() {
         <Empty className="flex-1">
           <EmptyHeader>
             <EmptyTitle>
-              {localEnvironmentOff ? "This computer is off" : "No computer connected"}
+              {localEnvironmentOff ? <T>This computer is off</T> : <T>No computer connected</T>}
             </EmptyTitle>
             <EmptyDescription>
-              {localEnvironmentOff
-                ? "Turn it back on, or connect a different computer."
-                : cloudEnabled
-                  ? "Your agents run on your computer."
-                  : "Your agents run on your computer. Start T3 Code there first."}
+              {localEnvironmentOff ? (
+                <T>Turn it back on, or connect a different computer.</T>
+              ) : cloudEnabled ? (
+                <T>Your agents run on your computer.</T>
+              ) : (
+                <T>Your agents run on your computer. Start T3 Code there first.</T>
+              )}
             </EmptyDescription>
           </EmptyHeader>
           <EmptyContent>

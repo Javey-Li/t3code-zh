@@ -21,7 +21,7 @@ export function FileExplorerPane({
   defaultWidth = 256,
   defaultWidthFraction,
   minWidth = MIN_WIDTH,
-  resizeLabel = "Resize file explorer",
+  resizeLabel,
 }: {
   resizable: boolean;
   children: ReactNode;
@@ -80,7 +80,7 @@ export function FileExplorerPane({
       {resizable ? (
         <RightPanelResizeHandle
           handlers={handlers}
-          label={resizeLabel}
+          label={resizeLabel ?? gt("Resize file explorer")}
           tabIndex={0}
           aria-valuenow={width}
           aria-valuemin={minWidth}

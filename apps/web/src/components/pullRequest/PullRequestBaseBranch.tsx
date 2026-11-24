@@ -32,13 +32,18 @@ function PullRequestBaseFreshnessWarning({
   readonly className?: string;
   readonly children?: ReactNode;
 }) {
-  const behind =
+  const gt = useGT();
+  const summary =
     freshness.behindBy === null
-      ? ""
-      : ` by ${freshness.behindBy.toLocaleString()} ${
-          freshness.behindBy === 1 ? "commit" : "commits"
-        }`;
-  const summary = `This branch is out-of-date with ${baseBranch}${behind}.`;
+      ? gt("This branch is out-of-date with {baseBranch}.", { baseBranch })
+      : gt(
+          "{count, plural, one {This branch is out-of-date with {baseBranch} by {formatted} commit.} other {This branch is out-of-date with {baseBranch} by {formatted} commits.}}",
+          {
+            count: freshness.behindBy,
+            formatted: freshness.behindBy.toLocaleString(),
+            baseBranch,
+          },
+        );
   return (
     <Popover>
       <PopoverTrigger
@@ -75,7 +80,7 @@ function PullRequestBaseFreshnessWarning({
                 onClick={() => onUpdate(method)}
               >
                 <PullRequestGlyph.merged aria-hidden className="size-3" />
-                {method === "rebase" ? "Update with rebase" : "Update branch"}
+                {method === "rebase" ? gt("Update with rebase") : gt("Update branch")}
               </Button>
             ))}
           </span>
@@ -138,7 +143,9 @@ export function PullRequestBaseBranch({
           </span>
         }
       />
-      <TooltipPopup side="top">{stacked ? `Stacked on ${baseBranch}` : baseBranch}</TooltipPopup>
+      <TooltipPopup side="top">
+        {stacked ? gt("Stacked on {baseBranch}", { baseBranch }) : baseBranch}
+      </TooltipPopup>
     </Tooltip>
   );
 }

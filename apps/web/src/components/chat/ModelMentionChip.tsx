@@ -1,4 +1,4 @@
-import { useMessages } from "gt-react";
+import { useGT } from "gt-react";
 import { useAtomValue } from "@effect/atom-react";
 import type { EnvironmentId, ProviderDriverKind } from "@t3tools/contracts";
 import * as Option from "effect/Option";
@@ -91,7 +91,7 @@ export function ModelMentionChip(props: {
   model: string;
   source: string;
 }) {
-  const m = useMessages();
+  const gt = useGT();
   const presentation = useAtomValue(
     modelMentionPresentationAtom(
       `${props.environmentId ?? ""}\u0000${modelMentionKey(props.instanceId, props.model)}`,
@@ -113,12 +113,12 @@ export function ModelMentionChip(props: {
           iconClassName="size-[1em]"
         />
       }
-      label={m(presentation.label)}
-      accessibleLabel={`Model ${presentation.label}`}
+      label={presentation.label}
+      accessibleLabel={gt("Model {label}", { label: presentation.label })}
       copyMarkdown={props.source}
     >
       <div className="space-y-1 p-2 text-sm">
-        <p className="font-medium">{m(presentation.label)}</p>
+        <p className="font-medium">{presentation.label}</p>
         <p className="text-muted-foreground">{presentation.providerLabel}</p>
         <p className="font-mono text-xs text-muted-foreground">{props.source}</p>
       </div>

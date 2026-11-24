@@ -1,4 +1,5 @@
-import { T, useGT, useMessages } from "gt-react";
+import { thrownErrorMessage } from "@t3tools/client-runtime/errors";
+import { m } from "~/i18n/messages";
 import { FILL_PREVIEW_VIEWPORT, type ScopedThreadRef } from "@t3tools/contracts";
 import { previewPdfAssetUrl } from "@t3tools/shared/preview";
 import { useEnvironmentHttpBaseUrl } from "~/state/environments";
@@ -11,6 +12,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { T, useGT } from "gt-react";
 import { create } from "zustand";
 import { useAtomValue } from "@effect/atom-react";
 import { scopedThreadKey } from "@t3tools/client-runtime/environment";
@@ -119,12 +121,13 @@ const streamedSourceKey = (threadRef: ScopedThreadRef, sourceKey: string) =>
   `${scopedThreadKey(threadRef)}\u0000${sourceKey}`;
 
 // The mini player's device stream view, named so the canvas can read the
-// screen size that view reports.
+// screen size that view reports. Not per thread: only the active thread's player
+// mounts, so switching threads that float the same device keeps its stream.
 const miniPlayerDeviceViewId = (
   threadRef: ScopedThreadRef,
   source: Extract<PreviewMiniPlayerSource, { kind: "device" }>,
 ) =>
-  `preview-mini-player\u0000${scopedThreadKey(threadRef)}\u0000${deviceScreenKey(threadRef.environmentId, source.hostId, source.deviceId)}`;
+  `preview-mini-player\u0000${deviceScreenKey(threadRef.environmentId, source.hostId, source.deviceId)}`;
 
 function useBrowserMiniPlayerSource(threadRef: ScopedThreadRef | null, tabId: string | null) {
   const previewState = useThreadPreviewState(threadRef);
@@ -219,7 +222,6 @@ export function ThreadPreviewMiniPlayer({ threadRef, miniPlayer }: Props) {
 
 function BrowserMiniPlayer({ threadRef, tabId, miniPlayer }: Props & { readonly tabId: string }) {
   const gt = useGT();
-  const m = useMessages();
   const httpBaseUrl = useEnvironmentHttpBaseUrl(threadRef.environmentId);
   const { serverEpoch, snapshot, desktopOverlay, serverTab, sourceSize } =
     useBrowserMiniPlayerSource(threadRef, tabId);
@@ -260,8 +262,10 @@ function BrowserMiniPlayer({ threadRef, tabId, miniPlayer }: Props & { readonly 
     } catch (error) {
       toastManager.add({
         type: "error",
-        title: serverTab ? "Unable to pop out preview" : "Unable to update popped-out preview",
-        description: error instanceof Error ? error.message : "An error occurred.",
+        title: serverTab
+          ? gt("Unable to pop out preview")
+          : gt("Unable to update popped-out preview"),
+        description: thrownErrorMessage(error, m) ?? gt("An error occurred."),
       });
     }
   };
@@ -294,7 +298,9 @@ function BrowserMiniPlayer({ threadRef, tabId, miniPlayer }: Props & { readonly 
                   variant={poppedOut ? "secondary" : "ghost"}
                   size="icon-xs"
                   aria-label={
-                    poppedOut ? "Close popped-out preview" : "Pop preview into separate window"
+                    poppedOut
+                      ? gt("Close popped-out preview")
+                      : gt("Pop preview into separate window")
                   }
                   disabled={!serverTab && !desktopOverlay?.hasWebContents}
                   onPointerDown={(event) => event.stopPropagation()}
@@ -305,7 +311,7 @@ function BrowserMiniPlayer({ threadRef, tabId, miniPlayer }: Props & { readonly 
               <PictureInPicture2 />
             </TooltipTrigger>
             <TooltipPopup side="top">
-              {poppedOut ? "Close separate window" : "Pop into separate window"}
+              {poppedOut ? gt("Close separate window") : gt("Pop into separate window")}
             </TooltipPopup>
           </Tooltip>
         ) : null
@@ -357,7 +363,7 @@ function BrowserMiniPlayer({ threadRef, tabId, miniPlayer }: Props & { readonly 
                 <PreviewUnreachable
                   url={loadFailed.url}
                   code={loadFailed.code}
-                  description={m(loadFailed.description)}
+                  description={loadFailed.description}
                   onReload={() => void previewBridge?.refresh(runtimeTabId)}
                 />
               </div>
@@ -387,7 +393,7 @@ function DeviceMiniPlayer({
     (entry) => entry.hostId === source.hostId && entry.id === source.deviceId,
   );
   const host = deviceState.hosts.find((entry) => entry.id === source.hostId);
-  const hostLabel = host?.label ?? "Device host";
+  const hostLabel = host?.label ?? gt("Device host");
   const cornerRadius = (player: PreviewMiniPlayerSize) =>
     resolveDeviceMiniPlayerCornerRadius(source.platform, player);
 
@@ -593,7 +599,7 @@ function MiniPlayerShell({
     <div className="pointer-events-none absolute inset-0">
       {frame ? (
         <section
-          aria-label={gt(label)}
+          aria-label={label}
           data-preview-mini-player={sourceKey}
           className="pointer-events-none absolute select-none"
           style={{
@@ -622,7 +628,7 @@ function MiniPlayerShell({
           >
             <div
               role={recording ? "status" : undefined}
-              aria-label={recording ? "Recording preview" : undefined}
+              aria-label={recording ? gt("Recording preview") : undefined}
               aria-hidden={!recording}
               className="absolute right-0 top-0 size-2 transition-opacity group-hover:opacity-0 group-focus-within:opacity-0 group-data-pill-open:opacity-0 pointer-coarse:right-2.5 pointer-coarse:top-2.5"
             >

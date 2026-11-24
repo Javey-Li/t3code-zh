@@ -1,3 +1,4 @@
+import { m } from "~/i18n/messages";
 import { msg } from "gt-react";
 import type { LegendListRef } from "@legendapp/list/react";
 import type { AssistantCitation, MessageId, ScopedThreadRef } from "@t3tools/contracts";
@@ -195,7 +196,7 @@ function observeAssistantCitationSource({
             request.onComplete();
             toastManager.add({
               type: "warning",
-              title: "Could not open the cited response",
+              title: m(msg("Could not open the cited response")),
               description: msg("Click the citation to try again."),
             });
           },
@@ -208,7 +209,7 @@ function observeAssistantCitationSource({
       if (!range) {
         toastManager.add({
           type: "warning",
-          title: "The quoted text has changed",
+          title: m(msg("The quoted text has changed")),
           description: msg("Showing the source response. The saved quote is unchanged."),
         });
       }

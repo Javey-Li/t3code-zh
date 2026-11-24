@@ -1,8 +1,8 @@
-import { T, msg, useMessages } from "gt-react";
 import {
   FULL_ACCESS_OVERRIDE_QUESTION,
   fullAccessOverrideExplanation,
 } from "@t3tools/client-runtime/state/thread-requests";
+import { msg, T, useMessages } from "gt-react";
 import { ShieldIcon } from "lucide-react";
 import { memo, use } from "react";
 import { type PendingApproval } from "../../session-logic";
@@ -14,22 +14,26 @@ import { TimelineRowCtx } from "./timelineRowContext";
 import { WorkLogRow } from "./WorkLog";
 
 const APPROVAL_PRESENTATION = {
-  command: { icon: "terminal", label: msg("Command approval"), detailLabel: "Command" },
+  command: {
+    icon: "terminal",
+    label: msg("Command approval"),
+    detailLabel: msg("Command", { $context: "noun, shell command awaiting approval" }),
+  },
   "file-change": {
     icon: "square-pen",
     label: msg("File change approval"),
-    detailLabel: "File change",
+    detailLabel: msg("File change"),
   },
-  "file-read": { icon: "eye", label: msg("File read approval"), detailLabel: "File to read" },
+  "file-read": { icon: "eye", label: msg("File read approval"), detailLabel: msg("File to read") },
   permission: {
     icon: "wrench",
     label: msg("App permission approval"),
-    detailLabel: "Permission request",
+    detailLabel: msg("Permission request"),
   },
   "mcp-elicitation": {
     icon: "hammer",
     label: msg("App access approval"),
-    detailLabel: "App access request",
+    detailLabel: msg("App access request"),
   },
 } satisfies Record<
   PendingApproval["requestKind"],
@@ -41,8 +45,8 @@ export const TimelinePendingApprovalRow = memo(function TimelinePendingApprovalR
 }: {
   approval: PendingApproval;
 }) {
-  const m = useMessages();
   const { respondingRequestIds, canOperateThread, onRespondToApproval } = use(TimelineRowCtx);
+  const m = useMessages();
   const presentation = APPROVAL_PRESENTATION[approval.requestKind];
   const canRespond = approval.responseCapability === "live";
   return (
@@ -61,12 +65,12 @@ export const TimelinePendingApprovalRow = memo(function TimelinePendingApprovalR
       }
       label={
         <code
-          aria-label={presentation.detailLabel}
+          aria-label={m(presentation.detailLabel)}
           className="block max-h-40 min-w-0 overflow-auto whitespace-pre-wrap font-mono text-xs leading-5 text-foreground select-text! wrap-anywhere [scrollbar-width:thin] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring/70"
           data-approval-detail="complete"
           tabIndex={0}
         >
-          {approval.detail || presentation.label}
+          {approval.detail || m(presentation.label)}
         </code>
       }
     >
@@ -109,15 +113,15 @@ export const TimelinePendingApprovalRow = memo(function TimelinePendingApprovalR
           {approval.fullAccessOverride ? (
             <Popover>
               <PopoverTrigger openOnHover render={<InlineButton tone="muted" />}>
-                {FULL_ACCESS_OVERRIDE_QUESTION}
+                {m(FULL_ACCESS_OVERRIDE_QUESTION)}
               </PopoverTrigger>
               <PopoverPopup
-                aria-label={FULL_ACCESS_OVERRIDE_QUESTION}
+                aria-label={m(FULL_ACCESS_OVERRIDE_QUESTION)}
                 tooltipStyle
                 side="top"
                 className="max-w-[min(22rem,calc(100vw-2rem))] whitespace-normal"
               >
-                {fullAccessOverrideExplanation(approval.fullAccessOverride)}
+                {fullAccessOverrideExplanation(approval.fullAccessOverride, m)}
               </PopoverPopup>
             </Popover>
           ) : null}

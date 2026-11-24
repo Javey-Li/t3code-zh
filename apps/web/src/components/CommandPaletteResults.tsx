@@ -1,4 +1,4 @@
-import { useMessages } from "gt-react";
+import { useMessages, T } from "gt-react";
 import { startPaletteThreadDrag } from "./CommandPalette.drag";
 import { useLegendListRef } from "~/hooks/useLegendListRef";
 import { type ResolvedKeybindingsConfig } from "@t3tools/contracts";
@@ -41,9 +41,11 @@ function CommandPaletteEmptyState(props: { emptyStateMessage?: string; isActions
   return (
     <div className="py-10 text-center text-sm text-muted-foreground">
       {props.emptyStateMessage ??
-        (props.isActionsOnly
-          ? "No matching actions."
-          : "No matching commands, projects, or threads.")}
+        (props.isActionsOnly ? (
+          <T>No matching actions.</T>
+        ) : (
+          <T>No matching commands, projects, or threads.</T>
+        ))}
     </div>
   );
 }

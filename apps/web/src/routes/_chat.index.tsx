@@ -1,4 +1,4 @@
-import { T } from "gt-react";
+import { T, useGT } from "gt-react";
 import { workspaceAreaProps } from "../lib/workspaceFocus";
 import { RefreshIcon } from "~/components/ui/refresh-icon";
 import { scopeProjectRef } from "@t3tools/client-runtime/environment";
@@ -92,7 +92,8 @@ function IndexDraftLanding() {
 }
 
 function DraftStartError({ onRetry }: { readonly onRetry: () => void }) {
-  const contentArea = workspaceAreaProps("home", 1, "Home");
+  const gt = useGT();
+  const contentArea = workspaceAreaProps("home", 1, gt("Home", { $context: "the home screen" }));
   return (
     <SidebarInset
       {...contentArea}

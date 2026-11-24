@@ -1,9 +1,13 @@
-import { T, msg, useGT } from "gt-react";
 import { useLegendListRef } from "~/hooks/useLegendListRef";
 import { LegendList, type LegendListRef } from "@legendapp/list/react";
+import { T, useGT } from "gt-react";
 import { CheckIcon } from "lucide-react";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
-import { isMonospaceFamily, queryInstalledFontFamilies } from "../../appearanceFonts";
+import {
+  displayFontFamily,
+  isMonospaceFamily,
+  queryInstalledFontFamilies,
+} from "../../appearanceFonts";
 import {
   Combobox,
   ComboboxEmpty,
@@ -142,8 +146,8 @@ export function FontFamilyPicker({
       toastManager.add(
         stackedThreadToast({
           type: "error",
-          title: `"${value}" isn't monospace`,
-          description: msg(
+          title: gt('"{font}" isn\'t monospace', { font: value }),
+          description: gt(
             "Code and terminal need a fixed-width font, so the current font was kept.",
           ),
         }),
@@ -159,11 +163,15 @@ export function FontFamilyPicker({
     return (
       <ComboboxItem hideIndicator index={index} key={item} value={item}>
         <div className="flex w-full min-w-0 items-center justify-between gap-2">
-          <span className="min-w-0 truncate" style={{ fontFamily: family }}>
+          <span className="min-w-0 truncate" style={{ fontFamily: displayFontFamily(family) }}>
             {family}
           </span>
           <span className="flex shrink-0 items-center gap-1.5">
-            {isDefault ? <span className="text-3xs text-muted-foreground/60">default</span> : null}
+            {isDefault ? (
+              <span className="text-3xs text-muted-foreground/60">
+                {gt("default", { $context: "marks the default font" })}
+              </span>
+            ) : null}
             {item === selectedValue ? (
               <CheckIcon className="size-3.5 text-muted-foreground" />
             ) : null}
@@ -205,8 +213,9 @@ export function FontFamilyPicker({
           <ComboboxEmpty>
             <T>No fonts found.</T>
           </ComboboxEmpty>
-          <div className="relative min-h-0 max-h-72 w-full flex-1 overflow-hidden">
-            <ComboboxListVirtualized>
+          {/* Short windows cap the popup; every level down to the list must shrink or rows are clipped unreachably. */}
+          <div className="relative flex min-h-0 max-h-72 w-full flex-1 flex-col overflow-hidden">
+            <ComboboxListVirtualized className="flex min-h-0 flex-col">
               <LegendList<string>
                 ref={scrollRef}
                 data={items}
@@ -222,6 +231,7 @@ export function FontFamilyPicker({
                 onScroll={handleMetricsChange}
                 onLayout={handleMetricsChange}
                 onReady={handleMetricsChange}
+                className="min-h-0"
                 style={{ height: listHeight }}
               />
             </ComboboxListVirtualized>
